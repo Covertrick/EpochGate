@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="840" viewBox="0 0 1100 840" role="img">
+  <title>系统边界</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#243044"/></marker>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#0f5f5c"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#5c3d8a"/></marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#8a5a12"/></marker>
+  </defs>
+  <rect width="1100" height="840" fill="#ffffff"/>
+  <rect x="24" y="96" width="1052" height="512" rx="14" fill="#f4f7fb" stroke="#1d4e89" stroke-width="1.6"/>
+  <text x="44" y="122" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1d4e89">Runtime 核心</text>
+  <text x="156" y="122" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">只使用此刻已收到的观察、事件、任务元数据与后端度量</text>
+  <rect x="400" y="20" width="280" height="48" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="540" y="49" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">任务 / Agent 会话</text>
+  <rect x="400" y="136" width="280" height="56" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="540" y="158" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">Agent Adapter</text>
+  <text x="540" y="176" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">固定提示词与工具 schema</text>
+  <rect x="400" y="216" width="280" height="56" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="540" y="238" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">任务与请求注册表</text>
+  <text x="540" y="256" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">目标修订与观察更新分开编号</text>
+  <rect x="384" y="300" width="312" height="84" rx="8" fill="#e8f1fb" stroke="#1d4e89" stroke-width="2"/>
+  <text x="540" y="332" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="16" font-weight="500" fill="#1d4e89">联合调度器</text>
+  <text x="540" y="354" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#1d4e89">刷新 · 准入 · 取消 · 等待</text>
+  <rect x="48" y="148" width="280" height="68" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="188" y="174" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">观测与依赖存储</text>
+  <text x="188" y="194" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">来源版本 · 采样时刻 · 可靠性</text>
+  <rect x="48" y="248" width="280" height="68" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="188" y="274" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">变化事件处理器</text>
+  <text x="188" y="294" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">dirty 表示待核查，不是自动失效</text>
+  <rect x="48" y="420" width="280" height="72" rx="8" fill="#e6f4f3" stroke="#0f5f5c" stroke-width="1.6"/>
+  <text x="188" y="448" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#0f5f5c">异步刷新池</text>
+  <text x="188" y="468" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#0f5f5c">只读配方 · 超时 · 去重 · 限流</text>
+  <rect x="400" y="420" width="280" height="72" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="540" y="448" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">观察就绪 / 准入队列</text>
+  <text x="540" y="468" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">短期逻辑资格，不锁空闲 GPU</text>
+  <rect x="400" y="512" width="280" height="68" rx="8" fill="#ffffff" stroke="#243044" stroke-width="2"/>
+  <text x="540" y="538" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">版本与动作网关</text>
+  <text x="540" y="558" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">运行时重验证，模型不能自证条件</text>
+  <rect x="48" y="648" width="280" height="88" rx="8" fill="#e6f4f3" stroke="#0f5f5c" stroke-width="1.6"/>
+  <text x="188" y="682" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#0f5f5c">环境适配器</text>
+  <text x="188" y="702" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#0f5f5c">真实状态服务 · 条件提交</text>
+  <rect x="400" y="648" width="280" height="88" rx="8" fill="#f4f0fa" stroke="#5c3d8a" stroke-width="1.6"/>
+  <text x="540" y="682" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#5c3d8a">模型后端适配器</text>
+  <text x="540" y="702" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#5c3d8a">受理 · 开始 · 完成 · 取消 · 回收</text>
+  <rect x="760" y="136" width="292" height="168" rx="8" fill="#fbf6ec" stroke="#8a5a12" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="906" y="168" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#8a5a12">事件日志与指标</text>
+  <text x="906" y="194" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">调度与网关只追加写入</text>
+  <text x="906" y="214" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">trace 不含未来真值</text>
+  <text x="906" y="234" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">修正通过新事件表达</text>
+  <text x="906" y="260" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">终态不可被迟到回调覆盖</text>
+  <rect x="760" y="640" width="292" height="104" rx="8" fill="#fbf6ec" stroke="#8a5a12" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="906" y="678" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#8a5a12">离线评估器</text>
+  <text x="906" y="700" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">隐藏状态与效果历史</text>
+  <text x="906" y="720" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#8a5a12">不向调度器输出答案</text>
+  <line x1="540" y1="68" x2="540" y2="128" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="540" y1="192" x2="540" y2="208" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="540" y1="272" x2="540" y2="292" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M328 182 H356 V342 H376" fill="none" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="360" y="236" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#526072">依赖快照</text>
+  <line x1="188" y1="248" x2="188" y2="224" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M384 348 H356 V456 H336" fill="none" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <text x="360" y="400" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#0f5f5c">刷新</text>
+  <line x1="540" y1="384" x2="540" y2="412" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="548" y="406" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#526072">准入</text>
+  <line x1="188" y1="492" x2="188" y2="640" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <text x="196" y="572" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#0f5f5c">只读观察</text>
+  <path d="M48 692 H36 V282 H40" fill="none" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <text x="44" y="560" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#0f5f5c">变化流</text>
+  <path d="M680 456 H724 V692 H688" fill="none" stroke="#5c3d8a" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <text x="730" y="668" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#5c3d8a">派发</text>
+  <path d="M680 708 H748 V546 H688" fill="none" stroke="#5c3d8a" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <text x="756" y="620" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#5c3d8a">候选动作</text>
+  <path d="M400 546 H348 V692 H336" fill="none" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <text x="248" y="616" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#0f5f5c">条件检查并提交</text>
+  <path d="M696 340 H906 V304" fill="none" stroke="#8a5a12" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-amber)"/>
+  <path d="M906 304 V632" fill="none" stroke="#8a5a12" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-amber)"/>
+  <path d="M188 736 V778 H906 V752" fill="none" stroke="#8a5a12" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-amber)"/>
+  <text x="24" y="822" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">实线是控制与数据。虚线是日志和离线评估，不回传调度器。模型结果必须经过当前版本与动作条件检查。</text>
+</svg>

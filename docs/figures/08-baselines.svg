@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img">
+  <title>基线与联合机制</title>
+  <rect width="1100" height="520" fill="#ffffff"/>
+  <text x="24" y="32" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" fill="#526072">所有主要基线共用动作保护、身份版本、模型、提示词、资源和任务目标。</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif">
+    <rect x="24" y="56" width="72" height="52" rx="8" fill="#f4f7fb" stroke="#243044"/>
+    <text x="60" y="87" text-anchor="middle" font-size="14" font-weight="500" fill="#1c2430">B0</text>
+    <rect x="112" y="56" width="700" height="52" rx="8" fill="#ffffff" stroke="#243044"/>
+    <text x="128" y="78" font-size="14" font-weight="500" fill="#1c2430">FCFS + 入队时观察 + 统一动作验证</text>
+    <text x="128" y="96" font-size="12" fill="#526072">可解释起点</text>
+    <rect x="24" y="120" width="72" height="52" rx="8" fill="#f4f7fb" stroke="#243044"/>
+    <text x="60" y="151" text-anchor="middle" font-size="14" font-weight="500" fill="#1c2430">B1</text>
+    <rect x="112" y="120" width="700" height="52" rx="8" fill="#ffffff" stroke="#243044"/>
+    <text x="128" y="142" font-size="14" font-weight="500" fill="#1c2430">EDF / 程序级进度调度 + 固定观察</text>
+    <text x="128" y="160" font-size="12" fill="#526072">单独看调度收益</text>
+    <rect x="24" y="184" width="72" height="52" rx="8" fill="#f4f7fb" stroke="#243044"/>
+    <text x="60" y="215" text-anchor="middle" font-size="14" font-weight="500" fill="#1c2430">B2</text>
+    <rect x="112" y="184" width="700" height="52" rx="8" fill="#ffffff" stroke="#243044"/>
+    <text x="128" y="206" font-size="14" font-weight="500" fill="#1c2430">FCFS + 独立刷新策略</text>
+    <text x="128" y="224" font-size="12" fill="#526072">单独看刷新收益。开发集调参后冻结最强的 TTL、事件、派发前重查或预算策略</text>
+    <rect x="24" y="248" width="72" height="64" rx="8" fill="#f8ecec" stroke="#8d2f2f"/>
+    <text x="60" y="285" text-anchor="middle" font-size="14" font-weight="500" fill="#8d2f2f">B3</text>
+    <rect x="112" y="248" width="700" height="64" rx="8" fill="#fbf6f6" stroke="#8d2f2f"/>
+    <text x="128" y="274" font-size="14" font-weight="500" fill="#8d2f2f">强调度 + 事件/预算刷新 + 统一验证 + 可用取消</text>
+    <text x="128" y="294" font-size="12" fill="#526072">最重要的强组合反方。J1 要超过的是它，不是一个弱基线</text>
+    <rect x="24" y="328" width="72" height="64" rx="8" fill="#e8f1fb" stroke="#1d4e89"/>
+    <text x="60" y="365" text-anchor="middle" font-size="14" font-weight="500" fill="#1d4e89">J0</text>
+    <rect x="112" y="328" width="700" height="64" rx="8" fill="#f4f7fb" stroke="#1d4e89"/>
+    <text x="128" y="354" font-size="14" font-weight="500" fill="#1d4e89">B3 的调度逻辑 + 临近准入刷新</text>
+    <text x="128" y="374" font-size="12" fill="#526072">风险打分关闭。用来隔离“何时观察”的增益</text>
+    <rect x="24" y="408" width="72" height="64" rx="8" fill="#e6f4f3" stroke="#0f5f5c"/>
+    <text x="60" y="445" text-anchor="middle" font-size="14" font-weight="500" fill="#0f5f5c">J1</text>
+    <rect x="112" y="408" width="700" height="64" rx="8" fill="#f4faf8" stroke="#0f5f5c" stroke-width="1.6"/>
+    <text x="128" y="434" font-size="14" font-weight="500" fill="#0f5f5c">完整联合机制</text>
+    <text x="128" y="454" font-size="12" fill="#526072">与开发集选出的最强 B3 比较。多出来的预算不能算作机制收益</text>
+  </g>
+  <rect x="836" y="56" width="240" height="416" rx="10" fill="#f7f8fa" stroke="#d5deea"/>
+  <text x="856" y="88" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1c2430">比较时锁定</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" fill="#1c2430">
+    <text x="856" y="124">同一到达流</text>
+    <text x="856" y="152">同一模型配置</text>
+    <text x="856" y="180">同一资源上限</text>
+    <text x="856" y="208">同一任务目标</text>
+    <text x="856" y="236">同一动作保护</text>
+    <text x="856" y="280" fill="#526072">请求拆分、拒绝、失败</text>
+    <text x="856" y="302" fill="#526072">刷新和已丢弃生成都</text>
+    <text x="856" y="324" fill="#526072">进入成本或分母。</text>
+    <text x="856" y="368" fill="#526072">自建策略标注“思想</text>
+    <text x="856" y="390" fill="#526072">启发的实现”。接入并</text>
+    <text x="856" y="412" fill="#526072">忠实配置原系统，才</text>
+    <text x="856" y="434" fill="#526072">称为官方复现。</text>
+  </g>
+</svg>
