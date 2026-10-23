@@ -1,47 +1,38 @@
 # EpochGate
 
-面向动态环境的 LLM Agent Runtime：在共享推理资源下，决定**何时重新观察、先算什么、何时停掉失效工作**，以提高正确且按时完成的有效任务吞吐。
+多会话 Agent Runtime 的**版本化准入与取消层**：分离「资源执行状态」与「结果资格」。
 
-> **状态：** 研究立项与工程设计阶段。系统尚未实现，实验尚未运行。文档中的收益均为待验证假设，不是已测性能。
+> 当前：v0.1 可运行骨架（Fake 环境 + Fake 后端）。研究收益仍是待验证假设，不是已测性能。
 
-## 这个项目在做什么
+## Quickstart
 
-当多个 Agent 同时排队推理，而外部世界仍在变化时，常见路径是「先观察、再长时间排队」。等到模型算完，依据可能已经过期，动作要么被拦，要么变成无效计算。
+```powershell
+cd C:\Project\EpochGate
+python -m uv sync --extra dev
+python -m uv run pytest -q
+python -m uv run epochgate demo
+```
 
-EpochGate 把三件事放进同一套 runtime：
+## 文档（按用途）
 
-1. **临近准入的观测刷新** — 先拿短期资格，异步读易变观测，资格仍有效再进模型
-2. **有效性 / 成本 / 公平性的联合调度** — 不只按到达顺序或截止时间排
-3. **失效、取消与动作网关** — 资源生命周期和结果资格分开；模型不能自证条件已满足
-
-主指标是**有效任务吞吐量**：单位时间内正确且在截止前完成的唯一任务数。
-
-英文工作标题：*Freshness-Aware Scheduling for LLM Agents in Dynamic Environments*
-
-## 文档
-
-| 文档 | 说明 |
+| 文档 | 用途 |
 | --- | --- |
-| [docs/项目开发文档.md](docs/项目开发文档.md) | 开发与实验实施规格（含架构图） |
-| [docs/Freshness_Agent_Runtime_项目文档.html](docs/Freshness_Agent_Runtime_项目文档.html) | 项目设计书 HTML 版 |
+| [docs/工程实现说明.md](docs/工程实现说明.md) | **代码结构、架构约束、怎么跑** |
+| [docs/项目开发文档.md](docs/项目开发文档.md) | 研究设计与实验规格 |
+| [docs/Freshness_Agent_Runtime_项目文档.html](docs/Freshness_Agent_Runtime_项目文档.html) | 设计书 HTML |
+| [docs/figures/](docs/figures/) | 架构 / 时序示意图 |
 
-图源在 [`docs/figures/`](docs/figures/)。
+## 包布局
 
-## 规划假设
-
-- 两人协作；先做两周预实验
-- 约八周工程 MVP，约十二周研究原型
-- 第一周核定实际投入与计算资源
-
-## 仓库状态
-
-当前仓库主要是设计文档与示意图。Runtime、动态环境、基线与复现实验包均为待交付产物。
+```text
+EpochGate/                 ← 仓库根
+├── src/epochgate/         ← Python 包（import epochgate）
+├── tests/
+├── examples/
+└── docs/
+```
 
 ## 共同开发者
 
 - [Covertrick](https://github.com/Covertrick)
 - [chenjj2326](https://github.com/chenjj2326)
-
-## 许可证
-
-待立项后确定。在另行声明前，请勿将本仓库内容视为已发表结果或可商用实现。
