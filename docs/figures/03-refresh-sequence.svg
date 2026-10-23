@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="780" viewBox="0 0 1100 780" role="img">
+  <title>刷新与准入时序</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#243044"/></marker>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#0f5f5c"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#1d4e89"/></marker>
+  </defs>
+  <rect width="1100" height="780" fill="#ffffff"/>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500">
+    <rect x="24" y="16" width="92" height="36" rx="8" fill="#ffffff" stroke="#243044"/>
+    <text x="70" y="39" text-anchor="middle" fill="#1c2430">Agent</text>
+    <rect x="176" y="16" width="120" height="36" rx="8" fill="#e8f1fb" stroke="#1d4e89"/>
+    <text x="236" y="39" text-anchor="middle" fill="#1d4e89">联合调度器</text>
+    <rect x="360" y="16" width="92" height="36" rx="8" fill="#e6f4f3" stroke="#0f5f5c"/>
+    <text x="406" y="39" text-anchor="middle" fill="#0f5f5c">观察池</text>
+    <rect x="520" y="16" width="110" height="36" rx="8" fill="#f4f0fa" stroke="#5c3d8a"/>
+    <text x="575" y="39" text-anchor="middle" fill="#5c3d8a">模型服务</text>
+    <rect x="700" y="16" width="110" height="36" rx="8" fill="#ffffff" stroke="#243044"/>
+    <text x="755" y="39" text-anchor="middle" fill="#1c2430">动作网关</text>
+    <rect x="900" y="16" width="92" height="36" rx="8" fill="#e6f4f3" stroke="#0f5f5c"/>
+    <text x="946" y="39" text-anchor="middle" fill="#0f5f5c">环境</text>
+  </g>
+  <g stroke="#d5deea" stroke-width="1.25" stroke-dasharray="4 4">
+    <line x1="70" y1="52" x2="70" y2="750"/>
+    <line x1="236" y1="52" x2="236" y2="750"/>
+    <line x1="406" y1="52" x2="406" y2="750"/>
+    <line x1="575" y1="52" x2="575" y2="750"/>
+    <line x1="755" y1="52" x2="755" y2="750"/>
+    <line x1="946" y1="52" x2="946" y2="750"/>
+  </g>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">
+    <line x1="78" y1="100" x2="228" y2="100" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="153" y="92" text-anchor="middle">上下文、配方、期限</text>
+    <line x1="244" y1="156" x2="398" y2="156" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+    <text x="321" y="148" text-anchor="middle" fill="#0f5f5c">短期资格，异步读取</text>
+    <line x1="414" y1="212" x2="938" y2="212" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+    <text x="676" y="204" text-anchor="middle" fill="#0f5f5c">只读观察</text>
+    <rect x="268" y="236" width="340" height="36" rx="6" fill="#f4f7fb" stroke="#d5deea"/>
+    <text x="438" y="259" text-anchor="middle" fill="#1d4e89">等观察时，可运行其他已就绪请求</text>
+    <line x1="938" y1="304" x2="414" y2="304" stroke="#0f5f5c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-teal)"/>
+    <text x="676" y="296" text-anchor="middle">来源版本 + 采样时间</text>
+    <line x1="398" y1="356" x2="244" y2="356" stroke="#243044" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+    <text x="321" y="348" text-anchor="middle">观察完成</text>
+  </g>
+  <rect x="160" y="388" width="860" height="348" rx="10" fill="none" stroke="#8a5a12" stroke-width="1.25"/>
+  <rect x="160" y="388" width="132" height="24" rx="4" fill="#fbf6ec" stroke="#8a5a12"/>
+  <text x="226" y="405" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#8a5a12">资格仍有效</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">
+    <line x1="244" y1="448" x2="567" y2="448" stroke="#5c3d8a" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="400" y="440" text-anchor="middle" fill="#5c3d8a">带 epoch 与 revision 的请求</text>
+    <line x1="583" y1="504" x2="747" y2="504" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+    <text x="665" y="496" text-anchor="middle">候选动作与生成身份</text>
+    <line x1="763" y1="560" x2="938" y2="560" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+    <text x="850" y="552" text-anchor="middle" fill="#0f5f5c">检查条件并提交</text>
+    <line x1="938" y1="616" x2="763" y2="616" stroke="#0f5f5c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-teal)"/>
+    <text x="850" y="608" text-anchor="middle">已提交或条件冲突</text>
+  </g>
+  <line x1="160" y1="648" x2="1020" y2="648" stroke="#8a5a12" stroke-width="1" stroke-dasharray="4 3"/>
+  <rect x="160" y="648" width="196" height="24" rx="4" fill="#fbf6ec" stroke="#8a5a12"/>
+  <text x="258" y="665" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#8a5a12">否则：资格过期或超时</text>
+  <path d="M236 692 V724 H392 V692 H244" fill="none" stroke="#1d4e89" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="404" y="712" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#1d4e89">释放资格，保留最新观测，重新排队</text>
+</svg>

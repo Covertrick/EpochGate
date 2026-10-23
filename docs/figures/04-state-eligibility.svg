@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520" role="img">
+  <title>资源状态与结果资格分离</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#243044"/></marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#8a5a12"/></marker>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#8d2f2f"/></marker>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#0f5f5c"/></marker>
+  </defs>
+  <rect width="1100" height="520" fill="#ffffff"/>
+  <text x="24" y="28" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#1d4e89">资源生命周期</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" font-weight="500">
+    <rect x="20" y="48" width="112" height="40" rx="8" fill="#ffffff" stroke="#243044"/><text x="76" y="73" text-anchor="middle" fill="#1c2430">QUEUED</text>
+    <rect x="164" y="48" width="128" height="40" rx="8" fill="#e8f1fb" stroke="#1d4e89"/><text x="228" y="73" text-anchor="middle" fill="#1d4e89">OBSERVING</text>
+    <rect x="324" y="48" width="104" height="40" rx="8" fill="#ffffff" stroke="#243044"/><text x="376" y="73" text-anchor="middle" fill="#1c2430">READY</text>
+    <rect x="460" y="48" width="116" height="40" rx="8" fill="#ffffff" stroke="#243044"/><text x="518" y="73" text-anchor="middle" fill="#1c2430">INFLIGHT</text>
+    <rect x="608" y="48" width="150" height="40" rx="8" fill="#ffffff" stroke="#243044"/><text x="683" y="73" text-anchor="middle" fill="#1c2430">RESULT_READY</text>
+    <rect x="790" y="48" width="136" height="40" rx="8" fill="#ffffff" stroke="#243044"/><text x="858" y="73" text-anchor="middle" fill="#1c2430">VALIDATING</text>
+    <rect x="958" y="48" width="122" height="40" rx="8" fill="#e6f4f3" stroke="#0f5f5c"/><text x="1019" y="73" text-anchor="middle" fill="#0f5f5c">COMMITTED</text>
+  </g>
+  <g fill="none" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)">
+    <line x1="132" y1="68" x2="156" y2="68"/>
+    <line x1="292" y1="68" x2="316" y2="68"/>
+    <line x1="428" y1="68" x2="452" y2="68"/>
+    <line x1="576" y1="68" x2="600" y2="68"/>
+    <line x1="758" y1="68" x2="782" y2="68"/>
+  </g>
+  <line x1="926" y1="68" x2="950" y2="68" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <path d="M228 88 V118 H76 V96" fill="none" stroke="#1d4e89" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="152" y="114" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#1d4e89">资格到期后重排</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" font-weight="500">
+    <rect x="430" y="188" width="176" height="40" rx="8" fill="#fbf6ec" stroke="#8a5a12"/><text x="518" y="213" text-anchor="middle" fill="#8a5a12">CANCEL_REQUESTED</text>
+    <rect x="640" y="188" width="200" height="40" rx="8" fill="#fbf6ec" stroke="#8a5a12"/><text x="740" y="213" text-anchor="middle" fill="#8a5a12">CANCEL_ACKNOWLEDGED</text>
+    <rect x="874" y="188" width="196" height="40" rx="8" fill="#fbf6ec" stroke="#8a5a12"/><text x="972" y="213" text-anchor="middle" fill="#8a5a12">资源回收已确认</text>
+  </g>
+  <line x1="518" y1="88" x2="518" y2="180" stroke="#8a5a12" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+  <line x1="606" y1="208" x2="632" y2="208" stroke="#8a5a12" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+  <line x1="840" y1="208" x2="866" y2="208" stroke="#8a5a12" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+  <path d="M606 188 V156 H683 V96" fill="none" stroke="#8a5a12" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arr-amber)"/>
+  <text x="644" y="150" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="11" fill="#8a5a12">迟到输出仍可能到达</text>
+  <rect x="790" y="112" width="200" height="36" rx="8" fill="#f8ecec" stroke="#8d2f2f"/>
+  <text x="890" y="135" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" font-weight="500" fill="#8d2f2f">REJECTED / REPLAN</text>
+  <line x1="858" y1="88" x2="858" y2="104" stroke="#8d2f2f" stroke-width="1.4" marker-end="url(#arr-red)"/>
+  <rect x="20" y="268" width="1060" height="228" rx="12" fill="#fbf6f6" stroke="#eadbdb"/>
+  <text x="40" y="300" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#8d2f2f">结果资格</text>
+  <text x="116" y="300" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">与资源状态独立。收到失效信号时可立即撤销资格，后端计算仍可能继续。</text>
+  <rect x="40" y="332" width="250" height="56" rx="8" fill="#ffffff" stroke="#8d2f2f" stroke-dasharray="5 4"/>
+  <text x="165" y="365" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#8d2f2f">epoch 失效或条件失效</text>
+  <line x1="290" y1="360" x2="352" y2="360" stroke="#8d2f2f" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="360" y="332" width="200" height="56" rx="8" fill="#ffffff" stroke="#8d2f2f"/>
+  <text x="460" y="365" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1c2430">撤销结果资格</text>
+  <line x1="560" y1="360" x2="622" y2="360" stroke="#8d2f2f" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="630" y="332" width="250" height="56" rx="8" fill="#f8ecec" stroke="#8d2f2f"/>
+  <text x="755" y="365" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#8d2f2f">不能提交当前任务动作</text>
+  <text x="40" y="428" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">取消确认只有在后端明确承诺并可观测时才代表停止。ACK、资源释放、计算完成分别记录。</text>
+  <text x="40" y="452" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">旧 plan_epoch 的结果不能提交。版本变化本身不自动取消：动作前提仍成立时可以继续。</text>
+</svg>

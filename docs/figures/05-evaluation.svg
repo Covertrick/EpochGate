@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="540" viewBox="0 0 1100 540" role="img">
+  <title>公平评测与信息隔离</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#243044"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#1d4e89"/></marker>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#0f5f5c"/></marker>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#8a5a12"/></marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#5c3d8a"/></marker>
+  </defs>
+  <rect width="1100" height="540" fill="#ffffff"/>
+  <rect x="16" y="16" width="640" height="392" rx="12" fill="#f4f7fb" stroke="#d5deea"/>
+  <text x="32" y="42" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#1d4e89">在线闭环</text>
+  <text x="100" y="42" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">环境不因策略正在推理而暂停</text>
+  <rect x="676" y="16" width="408" height="392" rx="12" fill="#fbf6ec" stroke="#eadfca"/>
+  <text x="692" y="42" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#8a5a12">离线评分</text>
+  <text x="768" y="42" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">真值不进入策略状态</text>
+  <rect x="36" y="64" width="600" height="48" rx="8" fill="#ffffff" stroke="#243044"/>
+  <text x="336" y="93" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1c2430">固定任务 / 初始状态 / 外生事件种子</text>
+  <rect x="36" y="156" width="250" height="72" rx="8" fill="#e6f4f3" stroke="#0f5f5c" stroke-width="1.5"/>
+  <text x="161" y="184" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#0f5f5c">持续推进的环境</text>
+  <text x="161" y="206" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">外生变化 + 已提交动作</text>
+  <rect x="360" y="156" width="276" height="72" rx="8" fill="#e8f1fb" stroke="#1d4e89" stroke-width="1.6"/>
+  <text x="498" y="184" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1d4e89">被测 Runtime</text>
+  <text x="498" y="206" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">只能看见已到达的信息</text>
+  <rect x="36" y="268" width="250" height="60" rx="8" fill="#ffffff" stroke="#243044"/>
+  <text x="161" y="292" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1c2430">策略可见的观察与事件</text>
+  <text x="161" y="312" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">不含隐藏答案</text>
+  <rect x="360" y="268" width="276" height="60" rx="8" fill="#f4f0fa" stroke="#5c3d8a"/>
+  <text x="498" y="292" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#5c3d8a">相同模型与资源上限</text>
+  <text x="498" y="312" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">各策略共用</text>
+  <rect x="36" y="348" width="600" height="40" rx="8" fill="#ffffff" stroke="#243044" stroke-dasharray="5 4"/>
+  <text x="336" y="373" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" fill="#1c2430">公开事件 Trace</text>
+  <line x1="161" y1="112" x2="161" y2="148" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="286" y1="176" x2="352" y2="176" stroke="#243044" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="352" y1="206" x2="294" y2="206" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <line x1="161" y1="228" x2="161" y2="260" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="286" y1="298" x2="352" y2="298" stroke="#243044" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="488" y1="228" x2="488" y2="260" stroke="#5c3d8a" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <line x1="516" y1="260" x2="516" y2="236" stroke="#5c3d8a" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <rect x="700" y="72" width="360" height="64" rx="8" fill="#ffffff" stroke="#8a5a12" stroke-dasharray="5 4"/>
+  <text x="880" y="98" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#8a5a12">隐藏真实状态与效果历史</text>
+  <text x="880" y="118" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">调度器不可读</text>
+  <rect x="700" y="176" width="360" height="56" rx="8" fill="#ffffff" stroke="#243044"/>
+  <text x="880" y="209" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1c2430">离线评估器</text>
+  <rect x="700" y="260" width="360" height="112" rx="8" fill="#ffffff" stroke="#243044"/>
+  <text x="880" y="296" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1c2430">有效任务吞吐</text>
+  <text x="880" y="320" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" fill="#526072">成本 · 公平性 · 失败归因</text>
+  <text x="880" y="344" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">窗口内唯一任务，拒绝与超时计入</text>
+  <line x1="880" y1="136" x2="880" y2="168" stroke="#8a5a12" stroke-width="1.5" marker-end="url(#arr-amber)"/>
+  <line x1="880" y1="232" x2="880" y2="252" stroke="#243044" stroke-width="1.5" marker-end="url(#arr)"/>
+  <path d="M636 368 H666 V204 H700" fill="none" stroke="#8a5a12" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-amber)"/>
+  <path d="M161 156 V132 H700" fill="none" stroke="#8a5a12" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arr-amber)"/>
+  <text x="16" y="440" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#1c2430">配对的是初始状态、任务到达、后台参与者输入和随机流。</text>
+  <text x="16" y="464" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" fill="#526072">各策略的最终世界不必相同：Agent 自己的动作会改变世界。冲突结果如实记录。</text>
+  <text x="16" y="500" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">统计单位是运行级或种子级差值，不把同一队列里的每个请求当成独立样本。</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="460" viewBox="0 0 1100 460" role="img">
+  <title>两周决策、八周 MVP、十二周研究原型</title>
+  <rect width="1100" height="460" fill="#ffffff"/>
+  <text x="24" y="32" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" fill="#526072">两人协作。第一周核定实际投入与计算资源。论文录用与投稿周期另计。</text>
+  <line x1="70" y1="92" x2="1030" y2="92" stroke="#243044" stroke-width="2"/>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#1c2430">
+    <circle cx="70" cy="92" r="5" fill="#243044"/><text x="70" y="78" text-anchor="middle">第 0 周</text>
+    <circle cx="230" cy="92" r="6" fill="#8a5a12"/><text x="230" y="78" text-anchor="middle" fill="#8a5a12">第 2 周</text>
+    <circle cx="710" cy="92" r="5" fill="#1d4e89"/><text x="710" y="78" text-anchor="middle" fill="#1d4e89">第 8 周</text>
+    <circle cx="1030" cy="92" r="5" fill="#0f5f5c"/><text x="1030" y="78" text-anchor="middle" fill="#0f5f5c">第 12 周</text>
+  </g>
+  <rect x="70" y="108" width="160" height="28" rx="4" fill="#fbf6ec" stroke="#8a5a12"/>
+  <text x="150" y="127" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#8a5a12">预实验</text>
+  <rect x="230" y="108" width="480" height="28" rx="4" fill="#e8f1fb" stroke="#1d4e89"/>
+  <text x="470" y="127" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#1d4e89">工程 MVP</text>
+  <rect x="710" y="108" width="320" height="28" rx="4" fill="#e6f4f3" stroke="#0f5f5c"/>
+  <text x="870" y="127" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#0f5f5c">研究原型</text>
+  <rect x="24" y="164" width="250" height="268" rx="10" fill="#fbf6ec" stroke="#eadfca"/>
+  <text x="40" y="192" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#8a5a12">第 1–2 周 · 决策</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#1c2430">
+    <text x="40" y="222">复核最近工作与环境入口</text>
+    <text x="40" y="244">测低负载下的模型能力</text>
+    <text x="40" y="266">打全时间戳</text>
+    <text x="40" y="288">联合原型对比强组合</text>
+    <text x="40" y="328" fill="#8a5a12">继续 / 收窄 / 转向</text>
+    <text x="40" y="356" fill="#526072">若收益来自隐藏真值、</text>
+    <text x="40" y="376" fill="#526072">刷新成本或题目重合，</text>
+    <text x="40" y="396" fill="#526072">就收窄主张，不加复杂度。</text>
+  </g>
+  <rect x="294" y="164" width="380" height="268" rx="10" fill="#f4f7fb" stroke="#d5deea"/>
+  <text x="310" y="192" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#1d4e89">第 3–8 周 · 可运行系统</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#1c2430">
+    <text x="310" y="222">单机并发 runtime 与三组策略</text>
+    <text x="310" y="244">一个动态环境、一个模型后端</text>
+    <text x="310" y="266">动作网关、事件日志、CLI</text>
+    <text x="310" y="288">B0–B3 与 J0 / J1</text>
+    <text x="310" y="310">关键竞态可重放</text>
+    <text x="310" y="348" fill="#1d4e89">验收：干净环境跑通完整任务</text>
+    <text x="310" y="372" fill="#526072">并有一组同模型、同事件、</text>
+    <text x="310" y="392" fill="#526072">同预算的可信主实验。</text>
+  </g>
+  <rect x="694" y="164" width="382" height="268" rx="10" fill="#f4faf8" stroke="#d3e6e1"/>
+  <text x="710" y="192" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="14" font-weight="500" fill="#0f5f5c">第 9–12 周 · 研究闭环</text>
+  <g font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#1c2430">
+    <text x="710" y="222">第二类动态环境</text>
+    <text x="710" y="244">强基线冻结与全面消融</text>
+    <text x="710" y="266">负收益区间</text>
+    <text x="710" y="288">复现包：种子、trace、统计脚本</text>
+    <text x="710" y="310">两个可解释演示与论文初稿</text>
+    <text x="710" y="348" fill="#0f5f5c">主张跟证据走</text>
+    <text x="710" y="372" fill="#526072">机制若不成立，保留测量与工程，</text>
+    <text x="710" y="392" fill="#526072">不预填性能数字。</text>
+  </g>
+</svg>

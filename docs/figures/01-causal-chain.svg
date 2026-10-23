@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="560" viewBox="0 0 1080 560" role="img">
+  <title>问题因果链与干预位置</title>
+  <defs>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#8d2f2f"/></marker>
+    <marker id="arr-teal" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#0f5f5c"/></marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1.2 L9 5 L0 8.8 Z" fill="#1d4e89"/></marker>
+  </defs>
+  <rect width="1080" height="560" fill="#ffffff"/>
+  <rect x="20" y="16" width="1040" height="248" rx="12" fill="#fbf6f6" stroke="#eadbdb"/>
+  <text x="36" y="42" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#8d2f2f">问题</text>
+  <rect x="36" y="68" width="268" height="60" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="170" y="103" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">外部状态独立变化</text>
+  <rect x="36" y="168" width="268" height="60" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="170" y="203" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">多 Agent 争用推理资源</text>
+  <rect x="400" y="168" width="292" height="60" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="546" y="203" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">等待与推理拉长观测年龄</text>
+  <rect x="760" y="68" width="276" height="60" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="898" y="103" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">动作依据可能失效</text>
+  <rect x="760" y="168" width="276" height="60" rx="8" fill="#f8ecec" stroke="#8d2f2f" stroke-width="1.5"/>
+  <text x="898" y="203" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#8d2f2f">无效计算或任务失败</text>
+  <line x1="304" y1="98" x2="752" y2="98" stroke="#8d2f2f" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="304" y1="198" x2="392" y2="198" stroke="#8d2f2f" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M692 188 V114 H752" fill="none" stroke="#8d2f2f" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="898" y1="128" x2="898" y2="160" stroke="#8d2f2f" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="20" y="284" width="1040" height="256" rx="12" fill="#f4faf8" stroke="#d3e6e1"/>
+  <text x="36" y="312" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" font-weight="500" fill="#0f5f5c">干预位置</text>
+  <text x="112" y="312" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">图中的改善是研究假设，不是已测性能</text>
+  <rect x="36" y="336" width="246" height="60" rx="8" fill="#e6f4f3" stroke="#0f5f5c" stroke-width="1.5"/>
+  <text x="159" y="371" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#0f5f5c">临近准入刷新</text>
+  <rect x="36" y="440" width="246" height="60" rx="8" fill="#e8f1fb" stroke="#1d4e89" stroke-width="1.5"/>
+  <text x="159" y="475" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1d4e89">有效性与期限调度</text>
+  <rect x="352" y="336" width="210" height="60" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="457" y="371" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">改变观察时机</text>
+  <rect x="352" y="440" width="210" height="60" rx="8" fill="#ffffff" stroke="#243044" stroke-width="1.5"/>
+  <text x="457" y="475" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="15" font-weight="500" fill="#1c2430">改变计算次序</text>
+  <rect x="668" y="356" width="368" height="124" rx="8" fill="#f7f4fb" stroke="#5c3d8a" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="852" y="404" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="13" fill="#5c3d8a">待验证</text>
+  <text x="852" y="430" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="16" font-weight="500" fill="#1c2430">更多任务正确且按时完成</text>
+  <text x="852" y="454" text-anchor="middle" font-family="Microsoft YaHei, Segoe UI, sans-serif" font-size="12" fill="#526072">环境验证与模型能力仍会影响结果</text>
+  <line x1="282" y1="366" x2="344" y2="366" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <line x1="282" y1="470" x2="344" y2="470" stroke="#1d4e89" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M562 366 H610 V418 H660" fill="none" stroke="#0f5f5c" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+  <path d="M562 470 H610 V418 H660" fill="none" stroke="#1d4e89" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+</svg>
