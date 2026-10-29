@@ -1,34 +1,48 @@
-"""Task / attempt registry isolating plan_epoch from observation revision."""
+"""任务与尝试的身份登记。计划 epoch 和观测 revision 分开编号。"""
 
 from __future__ import annotations
 
 import time
-import uuid
 
 from epochgate.events import EventLog
+from epochgate.ids import IdFactory
 from epochgate.models import AttemptState, RequestAttempt, Task, TaskStatus
+
+_TERMINAL = {
+    TaskStatus.SUCCEEDED,
+    TaskStatus.FAILED,
+    TaskStatus.TIMED_OUT,
+    TaskStatus.REJECTED,
+}
 
 
 class Registry:
-    """Authoritative identity for tasks and attempts.
+    """任务和尝试的权威身份。
 
-    Plan revisions bump ``plan_epoch`` (invalidate prior result eligibility).
-    Observation updates bump ``obs_revision`` without rewriting history.
+    计划修订增加 ``plan_epoch``，使旧结果失去资格。
+    观测更新增加 ``obs_revision``，不改写历史请求。
     """
 
-    def __init__(self, events: EventLog | None = None, *, run_id: str = "default") -> None:
+    def __init__(
+        self,
+        events: EventLog | None = None,
+        *,
+        run_id: str = "default",
+        ids: IdFactory | None = None,
+    ) -> None:
         self._tasks: dict[str, Task] = {}
         self._attempts: dict[str, RequestAttempt] = {}
         self._events = events
         self._run_id = run_id
+        self._ids = ids or IdFactory(None)
 
     def register_task(self, task: Task) -> Task:
-        """Register an arriving task.
+        """登记到达的任务。
 
-        Inputs: Task with unique ``task_id``.
-        Outputs: stored Task (status forced to pending if not set).
-        Side effects: registry write; optional ``task_registered`` event.
-        Failures: duplicate ``task_id`` → ``KeyError``.
+        输入：``task_id`` 唯一的任务。
+        输出：存入的任务，状态为 pending。
+        副作用：写登记表；可选发出 ``task_registered``，usage 带到达和截止时间。
+        失败：重复 ``task_id`` 抛出 ``KeyError``。
         """
         if task.task_id in self._tasks:
             raise KeyError(f"task already registered: {task.task_id}")
@@ -39,6 +53,11 @@ class Registry:
                 run_id=self._run_id,
                 event_type="task_registered",
                 identity={"task_id": task.task_id},
+                usage={
+                    "arrival_mono": stored.arrival_mono,
+                    "deadline_mono": stored.deadline_mono,
+                    "task_class": stored.task_class,
+                },
             )
         return stored
 
@@ -49,23 +68,18 @@ class Registry:
         plan_epoch: int | None = None,
         obs_revision: int | None = None,
     ) -> RequestAttempt:
-        """Open a new RequestAttempt for a task.
+        """为任务开启一次新尝试。
 
-        Inputs: ``task_id``; optional epoch/revision override (default: current).
-        Outputs: new attempt in ``queued`` with fresh ``attempt_id``.
-        Side effects: registry write; task → running; optional event.
-        Failures: unknown task → ``KeyError``; terminal task → ``ValueError``.
+        输入：任务 id；可选的 epoch / revision，默认取任务当前值。
+        输出：状态为 queued 的新尝试。
+        副作用：写登记表；任务变为 running；可选发事件。
+        失败：未知任务抛出 ``KeyError``；终态任务抛出 ``ValueError``。
         """
         task = self._require_task(task_id)
-        if task.status in {
-            TaskStatus.SUCCEEDED,
-            TaskStatus.FAILED,
-            TaskStatus.TIMED_OUT,
-            TaskStatus.REJECTED,
-        }:
+        if task.status in _TERMINAL:
             raise ValueError(f"cannot begin attempt on terminal task {task_id}")
         attempt = RequestAttempt(
-            attempt_id=f"att-{uuid.uuid4().hex[:12]}",
+            attempt_id=self._ids("att"),
             task_id=task_id,
             plan_epoch=task.plan_epoch if plan_epoch is None else plan_epoch,
             obs_revision=task.obs_revision if obs_revision is None else obs_revision,
@@ -84,10 +98,12 @@ class Registry:
         return attempt
 
     def current_epoch(self, task_id: str) -> tuple[int, int]:
-        """Return ``(plan_epoch, obs_revision)``.
+        """返回 ``(plan_epoch, obs_revision)``。
 
-        Inputs: ``task_id``. Outputs: tuple. Side effects: none.
-        Failures: unknown task → ``KeyError``.
+        输入：任务 id。
+        输出：二元组。
+        副作用：无。
+        失败：未知任务抛出 ``KeyError``。
         """
         task = self._require_task(task_id)
         return task.plan_epoch, task.obs_revision
@@ -100,12 +116,12 @@ class Registry:
         bump_plan_epoch: bool = False,
         bump_obs_revision: bool = False,
     ) -> RequestAttempt:
-        """Revoke result eligibility for an attempt; optionally bump epochs.
+        """撤销一次尝试的结果资格，可选推进 epoch。
 
-        Inputs: ``attempt_id``, reason, bump flags.
-        Outputs: updated attempt with ``eligible=False``.
-        Side effects: may increment task plan_epoch / obs_revision.
-        Failures: unknown attempt → ``KeyError``.
+        输入：尝试 id、原因、是否推进 plan_epoch 或 obs_revision。
+        输出：``eligible=False`` 的尝试。未提交的尝试状态变为 replan。
+        副作用：可能增加任务的 plan_epoch 或 obs_revision。
+        失败：未知尝试抛出 ``KeyError``。
         """
         attempt = self._require_attempt(attempt_id)
         task = self._require_task(attempt.task_id)
@@ -133,30 +149,39 @@ class Registry:
         return superseded
 
     def get_task(self, task_id: str) -> Task:
-        """Lookup task. Side effects: none. Failures: ``KeyError``."""
+        """按 id 取任务。副作用：无。失败：未知 id 抛出 ``KeyError``。"""
         return self._require_task(task_id)
 
     def get_attempt(self, attempt_id: str) -> RequestAttempt:
-        """Lookup attempt. Side effects: none. Failures: ``KeyError``."""
+        """按 id 取尝试。副作用：无。失败：未知 id 抛出 ``KeyError``。"""
         return self._require_attempt(attempt_id)
 
     def update_attempt_state(self, attempt_id: str, state: AttemptState) -> RequestAttempt:
-        """Set resource lifecycle state. Side effects: registry write. Failures: ``KeyError``."""
+        """更新资源生命周期状态。
+
+        输入：尝试 id 和状态。
+        输出：更新后的尝试。
+        副作用：写登记表。
+        失败：未知尝试抛出 ``KeyError``。
+        """
         attempt = self._require_attempt(attempt_id)
         updated = attempt.model_copy(update={"state": state})
         self._attempts[attempt_id] = updated
         return updated
 
     def complete_task(self, task_id: str, status: TaskStatus) -> Task:
-        """Mark task terminal. Side effects: registry write. Failures: ``KeyError`` / ``ValueError``."""
-        if status not in {
-            TaskStatus.SUCCEEDED,
-            TaskStatus.FAILED,
-            TaskStatus.TIMED_OUT,
-            TaskStatus.REJECTED,
-        }:
+        """把任务标成终态。已经是终态时保持原状态。
+
+        输入：任务 id 和终态。
+        输出：任务。
+        副作用：首次进入终态时写登记表并发事件。
+        失败：未知任务抛出 ``KeyError``；非终态抛出 ``ValueError``。
+        """
+        if status not in _TERMINAL:
             raise ValueError(f"not a terminal status: {status}")
         task = self._require_task(task_id)
+        if task.status in _TERMINAL:
+            return task
         updated = task.model_copy(update={"status": status})
         self._tasks[task_id] = updated
         if self._events is not None:
@@ -169,10 +194,12 @@ class Registry:
         return updated
 
     def bump_obs_revision(self, task_id: str) -> Task:
-        """Advance observation revision after a successful refresh.
+        """成功刷新后推进观测 revision。
 
-        Inputs: ``task_id``. Outputs: updated Task.
-        Side effects: ``obs_revision += 1``. Failures: ``KeyError``.
+        输入：任务 id。
+        输出：更新后的任务。
+        副作用：``obs_revision`` 加一。
+        失败：未知任务抛出 ``KeyError``。
         """
         task = self._require_task(task_id)
         updated = task.model_copy(update={"obs_revision": task.obs_revision + 1})
@@ -180,12 +207,12 @@ class Registry:
         return updated
 
     def sync_attempt_epochs(self, attempt_id: str) -> RequestAttempt:
-        """Stamp an attempt with the task's current plan_epoch / obs_revision.
+        """把尝试盖成任务当前的 plan_epoch 和 obs_revision。
 
-        Inputs: ``attempt_id``.
-        Outputs: updated RequestAttempt.
-        Side effects: registry write only; does not change eligibility.
-        Failures: unknown attempt/task → ``KeyError``.
+        输入：尝试 id。
+        输出：更新后的尝试。
+        副作用：只改登记表，不改资格。
+        失败：未知尝试或任务抛出 ``KeyError``。
         """
         attempt = self._require_attempt(attempt_id)
         plan_epoch, obs_revision = self.current_epoch(attempt.task_id)
@@ -194,16 +221,16 @@ class Registry:
         return updated
 
     def all_tasks(self) -> list[Task]:
-        """Snapshot of tasks. Side effects: none."""
+        """返回任务快照。副作用：无。失败：无。"""
         return list(self._tasks.values())
 
     def all_attempts(self) -> list[RequestAttempt]:
-        """Snapshot of attempts. Side effects: none."""
+        """返回尝试快照。副作用：无。失败：无。"""
         return list(self._attempts.values())
 
     def attempts_for_task(self, task_id: str) -> list[RequestAttempt]:
-        """Attempts for one task. Side effects: none."""
-        return [a for a in self._attempts.values() if a.task_id == task_id]
+        """返回一个任务的全部尝试。副作用：无。失败：无。"""
+        return [attempt for attempt in self._attempts.values() if attempt.task_id == task_id]
 
     def _require_task(self, task_id: str) -> Task:
         if task_id not in self._tasks:

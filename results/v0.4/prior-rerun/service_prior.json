@@ -1,0 +1,10 @@
+{
+  "service_prior_s": 1.1003808000488204,
+  "measured_p50": 0.0,
+  "service_max": 0.0,
+  "service_p50": 0.0,
+  "service_p95": 0.0,
+  "service_p99": 0.0,
+  "service_gini": 0.0,
+  "note": "这些数字只说明本次请求的耗时分布，不是性能结论。"
+}

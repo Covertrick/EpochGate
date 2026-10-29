@@ -1,0 +1,2 @@
+{"run_id":"smoke","seq":1,"mono_time":781038.8945482,"event_type":"backend_request","identity":{"task_id":"smoke","attempt_id":"a0"},"reason":null,"usage":{}}
+{"run_id":"smoke","seq":2,"mono_time":781038.8948261,"event_type":"fault_injected","identity":{"task_id":"smoke","attempt_id":"a0"},"reason":"value_fault","usage":{"fault_injected":true,"fault_kind":"value_fault","fault_mode":"empty_tool_calls"}}

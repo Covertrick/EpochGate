@@ -1,0 +1,16 @@
+{"run_id":"smoke","seq":1,"mono_time":780969.8839638,"event_type":"backend_request","identity":{"task_id":"smoke","attempt_id":"a0"},"reason":null,"usage":{}}
+{"run_id":"smoke","seq":2,"mono_time":780969.8843192,"event_type":"fault_injected","identity":{"task_id":"smoke","attempt_id":"a0"},"reason":"value_fault","usage":{"fault_injected":true,"fault_kind":"value_fault","fault_mode":"empty_tool_calls"}}
+{"run_id":"smoke","seq":3,"mono_time":780969.8843386,"event_type":"backend_request","identity":{"task_id":"smoke","attempt_id":"a1"},"reason":null,"usage":{}}
+{"run_id":"smoke","seq":4,"mono_time":780974.1814708,"event_type":"fault_injected","identity":{"task_id":"smoke","attempt_id":"a1"},"reason":"latency_spike","usage":{"fault_injected":true,"fault_kind":"latency_spike","delay_s":3.143}}
+{"run_id":"smoke","seq":5,"mono_time":780974.1815059,"event_type":"service_sample","identity":{"task_id":"smoke","attempt_id":"a1"},"reason":"1.154154","usage":{"service_s":1.1541537000266837}}
+{"run_id":"smoke","seq":6,"mono_time":780974.1815387,"event_type":"backend_request","identity":{"task_id":"smoke","attempt_id":"a2"},"reason":null,"usage":{}}
+{"run_id":"smoke","seq":7,"mono_time":780975.0175775,"event_type":"service_sample","identity":{"task_id":"smoke","attempt_id":"a2"},"reason":"0.836019","usage":{"service_s":0.8360187000362203}}
+{"run_id":"smoke","seq":8,"mono_time":780975.0176214,"event_type":"backend_request","identity":{"task_id":"smoke","attempt_id":"a3"},"reason":null,"usage":{}}
+{"run_id":"smoke","seq":9,"mono_time":780981.6048442,"event_type":"fault_injected","identity":{"task_id":"smoke","attempt_id":"a3"},"reason":"latency_spike","usage":{"fault_injected":true,"fault_kind":"latency_spike","delay_s":5.456}}
+{"run_id":"smoke","seq":10,"mono_time":780981.6048771,"event_type":"service_sample","identity":{"task_id":"smoke","attempt_id":"a3"},"reason":"1.131238","usage":{"service_s":1.1312376000043}}
+{"run_id":"smoke","seq":11,"mono_time":780981.6049098,"event_type":"backend_request","identity":{"task_id":"smoke","attempt_id":"a4"},"reason":null,"usage":{}}
+{"run_id":"smoke","seq":12,"mono_time":780985.3047276,"event_type":"fault_injected","identity":{"task_id":"smoke","attempt_id":"a4"},"reason":"latency_spike","usage":{"fault_injected":true,"fault_kind":"latency_spike","delay_s":2.767}}
+{"run_id":"smoke","seq":13,"mono_time":780985.3047578,"event_type":"service_sample","identity":{"task_id":"smoke","attempt_id":"a4"},"reason":"0.932832","usage":{"service_s":0.93283180006966}}
+{"run_id":"smoke","seq":14,"mono_time":780985.3047905,"event_type":"backend_request","identity":{"task_id":"smoke","attempt_id":"a5"},"reason":null,"usage":{}}
+{"run_id":"smoke","seq":15,"mono_time":780992.5441569,"event_type":"fault_injected","identity":{"task_id":"smoke","attempt_id":"a5"},"reason":"latency_spike","usage":{"fault_injected":true,"fault_kind":"latency_spike","delay_s":6.139}}
+{"run_id":"smoke","seq":16,"mono_time":780992.5441943,"event_type":"service_sample","identity":{"task_id":"smoke","attempt_id":"a5"},"reason":"1.100381","usage":{"service_s":1.1003808000488204}}

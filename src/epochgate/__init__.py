@@ -1,6 +1,6 @@
-"""EpochGate: versioned admission and eligibility for agent runtimes."""
+"""EpochGate：多会话 Agent 运行时的版本化准入与资格层。"""
 
 from epochgate.runtime import Runtime
 
 __all__ = ["Runtime"]
-__version__ = "0.1.0"
+__version__ = "0.4.0"
