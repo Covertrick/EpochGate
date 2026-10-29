@@ -1,8 +1,9 @@
-"""Action Gateway: the only module allowed to call ``environment.commit``."""
+"""动作网关。整个包里只有本模块可以调用 ``environment.commit``。"""
 
 from __future__ import annotations
 
 import time
+from typing import Mapping
 
 from epochgate.environment import EnvironmentAdapter
 from epochgate.events import EventLog
@@ -18,7 +19,7 @@ from epochgate.registry import Registry
 
 
 class ActionGateway:
-    """Re-bind observations, check epoch/lease, then commit via the environment."""
+    """重新绑定观测，核对 epoch 和租约，再经环境提交。"""
 
     def __init__(
         self,
@@ -39,50 +40,59 @@ class ActionGateway:
         self,
         candidate: CandidateAction,
         lease: AdmissionLease,
+        usage: Mapping | None = None,
     ) -> CommitResult:
-        """Validate eligibility and commit.
+        """检查资格并提交。
 
-        Inputs: CandidateAction + AdmissionLease that must still match the attempt.
-        Outputs: CommitResult (accepted / rejected with reasons).
-        Side effects: may call ``environment.check`` and ``environment.commit``;
-        updates attempt state; appends trace events.
-        Failures: environment internal errors propagate; policy rejects return
-        ``CommitResult(accepted=False)`` without raising.
+        输入：候选动作，以及仍须对应该尝试的准入租约。可选 usage 里的 tokens 原样写入追踪。
+        输出：接受或带原因的拒绝。
+        副作用：可能调用 ``environment.check`` 和 ``environment.commit``；
+        更新尝试状态；追加追踪事件。
+        失败：环境内部错误向上抛。策略拒绝返回 ``accepted=False``，不抛异常。
+        列出的观测 id 缺一则拒绝，不再改用该任务的最新观测。
         """
         now = time.monotonic()
         attempt = self._registry.get_attempt(candidate.attempt_id)
+        extra = dict(usage or {})
 
         if lease.attempt_id != candidate.attempt_id:
-            return self._reject(candidate, ["lease attempt_id mismatch"])
+            return self._reject(candidate, ["lease attempt_id mismatch"], extra=extra)
         if lease.expires_at_mono < now:
-            return self._reject(candidate, ["lease expired"])
+            return self._reject(candidate, ["lease expired"], extra=extra)
         if not attempt.eligible:
-            return self._reject(candidate, ["attempt not eligible"])
+            return self._reject(candidate, ["attempt not eligible"], extra=extra)
 
         plan_epoch, obs_revision = self._registry.current_epoch(candidate.task_id)
         if candidate.plan_epoch != plan_epoch:
             return self._reject(
                 candidate,
                 [f"stale plan_epoch candidate={candidate.plan_epoch} current={plan_epoch}"],
+                extra=extra,
             )
         if candidate.obs_revision != obs_revision:
             return self._reject(
                 candidate,
                 [f"stale obs_revision candidate={candidate.obs_revision} current={obs_revision}"],
+                extra=extra,
             )
 
-        # Re-bind real observations; never trust model-only source claims.
-        bound_obs = self._resolve_observations(candidate)
-        if candidate.observation_ids and not bound_obs:
-            return self._reject(candidate, ["observation bindings missing"])
+        bound_obs, missing = self._resolve_observations(candidate)
+        if missing:
+            return self._reject(
+                candidate,
+                [f"observation bindings missing: {','.join(missing)}"],
+                observations=bound_obs,
+                extra=extra,
+            )
 
         self._registry.update_attempt_state(candidate.attempt_id, AttemptState.VALIDATING)
         check = await self._env.check(candidate)
         if not check.ok:
-            return self._reject(candidate, check.reasons)
+            return self._reject(candidate, check.reasons, observations=bound_obs, extra=extra)
 
         conditions = self._build_conditions(bound_obs)
         result = await self._env.commit(candidate, conditions)
+        event_usage = self._usage(bound_obs, extra)
 
         if result.accepted:
             self._registry.update_attempt_state(candidate.attempt_id, AttemptState.COMMITTED)
@@ -95,6 +105,7 @@ class ActionGateway:
                     "action_id": candidate.action_id,
                 },
                 reason=result.commit_id,
+                usage=event_usage,
             )
         else:
             self._registry.update_attempt_state(candidate.attempt_id, AttemptState.REJECTED)
@@ -107,19 +118,21 @@ class ActionGateway:
                     "action_id": candidate.action_id,
                 },
                 reason="; ".join(result.reasons),
+                usage=event_usage,
             )
         return result
 
-    def _resolve_observations(self, candidate: CandidateAction) -> list[Observation]:
+    def _resolve_observations(self, candidate: CandidateAction) -> tuple[list[Observation], list[str]]:
+        if not candidate.observation_ids:
+            return self._observations.latest_for_task(candidate.task_id), []
         found: list[Observation] = []
+        missing: list[str] = []
         for obs_id in candidate.observation_ids:
             try:
                 found.append(self._observations.get(obs_id))
             except KeyError:
-                continue
-        if not found:
-            found = self._observations.latest_for_task(candidate.task_id)
-        return found
+                missing.append(obs_id)
+        return found, missing
 
     @staticmethod
     def _build_conditions(observations: list[Observation]) -> dict:
@@ -128,12 +141,25 @@ class ActionGateway:
             conditions["source_version"] = observations[0].source_version
             conditions["source_id"] = observations[0].source_id
         elif observations:
-            conditions["source_versions"] = {
-                o.source_id: o.source_version for o in observations
-            }
+            conditions["source_versions"] = {obs.source_id: obs.source_version for obs in observations}
         return conditions
 
-    def _reject(self, candidate: CandidateAction, reasons: list[str]) -> CommitResult:
+    def _usage(self, observations: list[Observation], extra: Mapping | None) -> dict:
+        usage: dict = {}
+        if observations:
+            usage["sample_time_mono"] = min(obs.sample_time_mono for obs in observations)
+        if extra and "tokens" in extra:
+            usage["tokens"] = extra["tokens"]
+        return usage
+
+    def _reject(
+        self,
+        candidate: CandidateAction,
+        reasons: list[str],
+        *,
+        observations: list[Observation] | None = None,
+        extra: Mapping | None = None,
+    ) -> CommitResult:
         self._events.emit(
             run_id=self._run_id,
             event_type="action_rejected",
@@ -143,6 +169,7 @@ class ActionGateway:
                 "action_id": candidate.action_id,
             },
             reason="; ".join(reasons),
+            usage=self._usage(observations or [], extra),
         )
         try:
             self._registry.update_attempt_state(candidate.attempt_id, AttemptState.REJECTED)

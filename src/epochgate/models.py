@@ -1,7 +1,7 @@
-"""Core domain entities and scheduler-visible views.
+"""领域实体，以及调度器可见的裁剪视图。
 
-All wall-clock-independent durations and ordering use ``time.monotonic()``
-values carried as ``float`` fields. Display clocks are out of scope for v0.
+与墙钟无关的时长和顺序都用 ``time.monotonic()`` 的 ``float``。
+展示用的日历时间不在当前范围内。
 """
 
 from __future__ import annotations
@@ -13,6 +13,8 @@ from pydantic import BaseModel, Field
 
 
 class TaskStatus(str, Enum):
+    """任务业务状态。成功只计一次。"""
+
     PENDING = "pending"
     RUNNING = "running"
     SUCCEEDED = "succeeded"
@@ -22,7 +24,7 @@ class TaskStatus(str, Enum):
 
 
 class AttemptState(str, Enum):
-    """Resource lifecycle for a request attempt (independent of result eligibility)."""
+    """一次请求尝试的资源生命周期，与结果资格相互独立。"""
 
     QUEUED = "queued"
     OBSERVING = "observing"
@@ -36,6 +38,8 @@ class AttemptState(str, Enum):
 
 
 class Task(BaseModel):
+    """一项业务任务。重算不新建任务分母。"""
+
     task_id: str
     arrival_mono: float
     deadline_mono: float
@@ -47,6 +51,8 @@ class Task(BaseModel):
 
 
 class RequestAttempt(BaseModel):
+    """一次模型请求尝试。计划修订与观测更新分开编号。"""
+
     attempt_id: str
     task_id: str
     plan_epoch: int
@@ -58,6 +64,8 @@ class RequestAttempt(BaseModel):
 
 
 class Observation(BaseModel):
+    """一次只读采样。``source_version`` 允许为空。"""
+
     observation_id: str
     source_id: str
     source_version: str | None = None
@@ -69,6 +77,8 @@ class Observation(BaseModel):
 
 
 class Dependency(BaseModel):
+    """动作对观测的依赖。模型不能自行声明条件已满足。"""
+
     observation_id: str
     predicate_id: str
     scope: str = "exact"
@@ -76,6 +86,8 @@ class Dependency(BaseModel):
 
 
 class RefreshRecipe(BaseModel):
+    """只读刷新配方。相同 merge_key 可以合并，写操作不能放进来。"""
+
     read_tool: str
     args: Mapping[str, Any] = Field(default_factory=dict)
     sources: list[str] = Field(default_factory=list)
@@ -85,6 +97,8 @@ class RefreshRecipe(BaseModel):
 
 
 class AdmissionLease(BaseModel):
+    """短期准入资格。不独占后端硬件，过期后应重新评估。"""
+
     lease_id: str
     attempt_id: str
     earliest_start_mono: float
@@ -93,6 +107,8 @@ class AdmissionLease(BaseModel):
 
 
 class CandidateAction(BaseModel):
+    """待提交动作。运行时重新绑定观测，不信任模型自报的来源。"""
+
     action_id: str
     task_id: str
     attempt_id: str
@@ -105,6 +121,8 @@ class CandidateAction(BaseModel):
 
 
 class TraceEvent(BaseModel):
+    """只追加的追踪事件。修正用新事件表达，不改历史。"""
+
     run_id: str
     seq: int
     mono_time: float
@@ -115,27 +133,54 @@ class TraceEvent(BaseModel):
 
 
 class ObservationBatch(BaseModel):
+    """一次 observe 的返回。"""
+
     observations: list[Observation] = Field(default_factory=list)
 
 
 class ValidationResult(BaseModel):
+    """提交前检查的结果。失败不抛异常。"""
+
     ok: bool
     reasons: list[str] = Field(default_factory=list)
 
 
 class CommitResult(BaseModel):
+    """条件提交的结果。拒绝必须带原因。"""
+
     accepted: bool
     commit_id: str | None = None
     reasons: list[str] = Field(default_factory=list)
 
 
 class BackendCapabilities(BaseModel):
+    """后端自报能力。取消确认不等于计算已经停止。"""
+
     supports_cancel: bool = False
     supports_streaming: bool = False
     max_inflight: int = 1
 
 
+class ToolSpec(BaseModel):
+    """环境公布的工具。运行时只按 role 分发，不按名字分支。"""
+
+    name: str
+    role: Literal["read", "effect"]
+    description: str = ""
+    parameters: Mapping[str, Any] = Field(default_factory=dict)
+
+
+class ToolCall(BaseModel):
+    """模型返回的一次工具调用。"""
+
+    call_id: str
+    name: str
+    arguments: Mapping[str, Any] = Field(default_factory=dict)
+
+
 class InferenceRequest(BaseModel):
+    """发给推理后端的请求。context 里带观测正文，不只是 id。"""
+
     attempt_id: str
     task_id: str
     plan_epoch: int
@@ -143,40 +188,72 @@ class InferenceRequest(BaseModel):
     goal: str
     observation_ids: list[str] = Field(default_factory=list)
     context: Mapping[str, Any] = Field(default_factory=dict)
+    tools: list[ToolSpec] = Field(default_factory=list)
 
 
 class BackendHandle(BaseModel):
+    """一次已受理推理的句柄。"""
+
     handle_id: str
     attempt_id: str
 
 
 class BackendEvent(BaseModel):
+    """推理生命周期事件。completed 上带候选动作或工具调用。"""
+
     handle_id: str
     kind: Literal["accepted", "started", "completed", "failed"]
     mono_time: float
     candidate: CandidateAction | None = None
+    tool_call: ToolCall | None = None
     detail: str | None = None
+    usage: Mapping[str, Any] = Field(default_factory=dict)
 
 
 class CancelReceipt(BaseModel):
+    """取消回执。evidence 照后端原文记录，不能写成 GPU 已回收。"""
+
     handle_id: str
     acknowledged: bool
     evidence: str
 
 
-# --- Scheduler-visible views (trimmed; no evaluator / no live refs) ---
+class ChangeEvent(BaseModel):
+    """环境变化通知。dirty 只表示待核查，不等于决策已经失效。"""
+
+    cursor: str
+    source_id: str
+    source_version: str | None = None
+    mono_time: float
+    kind: str = "updated"
+
+
+class ChangeBatch(BaseModel):
+    """``changes`` 的一页结果。"""
+
+    events: list[ChangeEvent] = Field(default_factory=list)
+    next_cursor: str = "0"
+
+
+# --- 调度器可见视图（裁剪后；无 evaluator、无仓库活引用） ---
 
 
 class TaskView(BaseModel):
+    """调度器看见的任务。不含观测正文。"""
+
     task_id: str
     status: TaskStatus
     goal: str
     plan_epoch: int
     obs_revision: int
+    arrival_mono: float
     deadline_mono: float
+    task_class: str = "default"
 
 
 class AttemptView(BaseModel):
+    """调度器看见的尝试。sources_dirty 只是布尔，没有环境真值。"""
+
     attempt_id: str
     task_id: str
     plan_epoch: int
@@ -186,9 +263,15 @@ class AttemptView(BaseModel):
     has_observations: bool
     lease_id: str | None = None
     lease_expires_at_mono: float | None = None
+    sources_dirty: bool = False
+    refreshes_used: int = 0
+    refresh_inflight: bool = False
+    premise_holds: bool | None = None
 
 
 class ObservationView(BaseModel):
+    """调度器看见的观测元数据。不含 payload。"""
+
     observation_id: str
     source_id: str
     source_version: str | None
@@ -197,12 +280,15 @@ class ObservationView(BaseModel):
 
 
 class BackendCapacityView(BaseModel):
+    """当前可派发的槽位。inflight_task_ids 只用于解释谁占着槽。"""
+
     free_slots: int
     supports_cancel: bool = False
+    inflight_task_ids: list[str] = Field(default_factory=list)
 
 
 class SchedulerSnapshot(BaseModel):
-    """Cropped view assembled by Runtime. Scheduler must not hold live stores."""
+    """Runtime 组装的裁剪快照。调度器不得持有仓库活引用。"""
 
     now_mono: float
     run_id: str
@@ -211,13 +297,16 @@ class SchedulerSnapshot(BaseModel):
     observations: list[ObservationView]
     capacity: BackendCapacityView
     default_refresh: RefreshRecipe | None = None
+    dirty_sources: list[str] = Field(default_factory=list)
+    refresh_budget: int = 8
+    estimated_service_s: float = 0.0
 
 
-DecisionKind = Literal["refresh", "admit", "dispatch", "wait", "finish"]
+DecisionKind = Literal["refresh", "admit", "dispatch", "wait", "finish", "timeout", "cancel", "reject"]
 
 
 class Decision(BaseModel):
-    """Intent only. Runtime executes; scheduler must not apply side effects."""
+    """调度意图。Runtime 执行；调度器不得产生副作用。"""
 
     kind: DecisionKind
     task_id: str

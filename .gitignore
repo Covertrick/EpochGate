@@ -17,6 +17,9 @@ Thumbs.db
 # Local experiment artifacts (when code lands)
 runs/
 artifacts/
+traces/
+*.sqlite-shm
+*.sqlite-wal
 *.parquet
 !docs/**
 

@@ -33,3 +33,10 @@ def test_scheduler_does_not_import_gateway_or_environment() -> None:
     assert "import epochgate.environment" not in text
     assert "from epochgate.backend" not in text
     assert "import epochgate.backend" not in text
+
+
+def test_runtime_and_scheduler_do_not_hardcode_tool_names() -> None:
+    for name in ("runtime.py", "scheduler.py"):
+        text = (ROOT / name).read_text(encoding="utf-8")
+        assert "read_inventory" not in text
+        assert "reserve" not in text

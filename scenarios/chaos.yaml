@@ -1,0 +1,17 @@
+# 故障概率由实验种子驱动。默认测试不要直接睡满这里的 2–8 秒，另写短延迟场景。
+faults:
+  - kind: latency_spike
+    probability: 0.3
+    min_ms: 2000
+    max_ms: 8000
+  - kind: value_fault
+    probability: 0.2
+    modes:
+      - truncated_json
+      - empty_tool_calls
+      - bad_arguments
+  - kind: crash
+    probability: 0.1
+    modes:
+      - http_500
+      - disconnect

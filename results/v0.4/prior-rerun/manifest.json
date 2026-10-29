@@ -1,0 +1,34 @@
+{
+  "git_commit": "1fc88a7013cc1d074b21b215d17692ba9cf3ac84",
+  "lock_sha256": "429613388b51b01213a06e19a81dcb65f9574c37daa192d59b03a0eb83e1c030",
+  "python": "3.15.2",
+  "env": {
+    "EPOCHGATE_BASE_URL": "set",
+    "EPOCHGATE_API_KEY": "set",
+    "EPOCHGATE_MODEL": "set"
+  },
+  "cells": [
+    {
+      "cell_id": "checks-seed-42-none",
+      "kind": "checks",
+      "policy": "checks",
+      "seed": 42,
+      "scenario": null,
+      "backend": "sqlite",
+      "cell_valid": true,
+      "service_prior_s": 1.1003808000488204
+    },
+    {
+      "cell_id": "smoke-seed-42-chaos",
+      "kind": "smoke",
+      "policy": "smoke",
+      "seed": 42,
+      "scenario": "scenarios/chaos.yaml",
+      "backend": "http",
+      "requests": 1,
+      "cell_valid": true,
+      "service_prior_s": 1.1003808000488204,
+      "base_url": "from-env"
+    }
+  ]
+}

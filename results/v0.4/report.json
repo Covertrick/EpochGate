@@ -1,0 +1,76 @@
+{
+  "ok": true,
+  "checks_passed": true,
+  "checks": [
+    {
+      "name": "sqlite_wal_200",
+      "passed": true,
+      "detail": "count=200 distinct=200"
+    },
+    {
+      "name": "close_rejects_write",
+      "passed": true,
+      "detail": "InventoryClosed"
+    },
+    {
+      "name": "no_oversell",
+      "passed": true,
+      "detail": "accepted=1 stock=0"
+    },
+    {
+      "name": "idempotent_action",
+      "passed": true,
+      "detail": "commit_ids=1 stock=3"
+    },
+    {
+      "name": "default_commit_has_no_window",
+      "passed": true,
+      "detail": "sleep is only inside window_s > 0; default is 0"
+    },
+    {
+      "name": "window_opens_conflict",
+      "passed": true,
+      "detail": "accepted=1"
+    },
+    {
+      "name": "lease_ttl",
+      "passed": true,
+      "detail": "{'loose': 30.0, 'strict': 5.0}"
+    },
+    {
+      "name": "prior_zero_admits",
+      "passed": true,
+      "detail": "succeeded"
+    },
+    {
+      "name": "unreachable_rejected",
+      "passed": true,
+      "detail": "prior=5.0 late=rejected ok=succeeded"
+    },
+    {
+      "name": "live_env",
+      "passed": true,
+      "detail": "commit_id=cmt-05e4c9d40c16"
+    },
+    {
+      "name": "unreachable_rejected_with_prior",
+      "passed": true,
+      "detail": "configured_prior=1.1003808000488204 prior=1.1003808000488204 late=rejected ok=succeeded"
+    }
+  ],
+  "cell_valid": true,
+  "cell_reason": "ok",
+  "fault_count": 5,
+  "fault_kinds": [
+    "value_fault",
+    "latency_spike",
+    "latency_spike",
+    "latency_spike",
+    "latency_spike"
+  ],
+  "service_p50": 1.1003808000488204,
+  "service_prior_s": 1.1003808000488204,
+  "checks_cell_id": "checks-seed-42-none",
+  "env_url": "http://127.0.0.1:8080",
+  "api_key_recorded": "set"
+}
