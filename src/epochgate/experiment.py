@@ -13,7 +13,7 @@ from epochgate.events import EventLog
 from epochgate.faults import assert_triggers_match, load_scenario
 from epochgate.http_backend import HttpToolBackend
 from epochgate.ids import IdFactory
-from epochgate.inventory import InventoryEnvironment
+from epochgate.inventory import InventoryEnvironment, plan_exogenous
 from epochgate.manifest import build_manifest, cell_id, find_cell, load_manifest, write_manifest
 from epochgate.metrics import score_trace
 from epochgate.models import InferenceRequest, Task, ToolSpec
@@ -24,6 +24,8 @@ from epochgate.scheduler import (
     FcfsEnqueueScheduler,
     FcfsRecheckScheduler,
     NearAdmissionScheduler,
+    NearComboScheduler,
+    StrongComboScheduler,
 )
 
 
@@ -89,6 +91,64 @@ async def run_once(*, seed: int, policy: str, jsonl_path: str | Path) -> dict[st
     await runtime.run(make_tasks(time.monotonic()))
     runtime.events.export_jsonl(jsonl_path, run_id=runtime.run_id)
     return score_trace(jsonl_path)
+
+
+async def run_freshness_cell(
+    *,
+    seed: int,
+    policy: str,
+    jsonl_path: str | Path,
+    refresh_budget: int = 8,
+    min_refresh_interval_s: float = 0.05,
+) -> dict[str, Any]:
+    """在有外生变化的库存上跑 B0、B3 或 J0。
+
+    输入：种子、``b0`` / ``b3`` / ``j0``、输出路径、刷新预算和最小刷新间隔。
+    输出：``score_trace`` 的结果，并带上 ``observe_calls``。
+    副作用：写 JSONL。``plan_exogenous(seed)`` 的增量按轮询逐步生效，不靠墙钟碰运气。
+    失败：未知策略名抛出 ``ValueError``。运行中断时仍会把已经发生的事件写出去。
+    """
+    schedulers = {
+        "b0": FcfsEnqueueScheduler,
+        "b3": StrongComboScheduler,
+        "j0": NearComboScheduler,
+    }
+    if policy not in schedulers:
+        raise ValueError(f"unknown freshness policy: {policy}")
+    ids = IdFactory(seed)
+    environment = InventoryEnvironment(
+        stock=3,
+        seed=seed,
+        schedule=plan_exogenous(seed),
+        ids=ids,
+        pace="step",
+    )
+    runtime = Runtime(
+        environment=environment,
+        backend=FakeBackend(qty=1, max_inflight=1, supports_cancel=True, ids=ids),
+        scheduler=schedulers[policy](ids=ids),
+        ids=ids,
+        run_id=f"{policy}-seed-{seed}",
+        inline_dispatch=True,
+        refresh_budget=refresh_budget,
+        min_refresh_interval_s=min_refresh_interval_s,
+    )
+    now = time.monotonic()
+    tasks = [
+        Task(
+            task_id="t0",
+            arrival_mono=now,
+            deadline_mono=now + 50.0,
+            goal="reserve one unit",
+        )
+    ]
+    try:
+        await runtime.run(tasks)
+    finally:
+        runtime.events.export_jsonl(jsonl_path, run_id=runtime.run_id)
+    scored = score_trace(jsonl_path)
+    scored["observe_calls"] = environment.observe_calls
+    return scored
 
 
 async def run_chaos_cell(
@@ -161,7 +221,7 @@ async def run_experiment(
     scenario: str | None = None,
     root: str | Path | None = None,
 ) -> dict[str, dict[str, Any]]:
-    """同一种子各跑 B0、B1、B2 和临近准入，并写 manifest。
+    """同一种子跑 B0、B1、B2、临近准入，再跑 B3 和 J0 的新鲜度 cell。
 
     输入：种子、输出目录、可选故障场景和仓库根。
     输出：各 cell 的指标。
@@ -183,6 +243,23 @@ async def run_experiment(
             {
                 "cell_id": identifier,
                 "kind": "policy",
+                "policy": policy,
+                "seed": seed,
+                "scenario": None,
+                "backend": "fake",
+            }
+        )
+    for policy in ("b3", "j0"):
+        identifier = cell_id(policy, seed, None)
+        summaries[policy] = await run_freshness_cell(
+            seed=seed,
+            policy=policy,
+            jsonl_path=destination / f"{policy}-seed-{seed}.jsonl",
+        )
+        cells.append(
+            {
+                "cell_id": identifier,
+                "kind": "freshness",
                 "policy": policy,
                 "seed": seed,
                 "scenario": None,
@@ -268,6 +345,14 @@ async def reproduce_cell(
             "fault_injection_rate": (report["fault_count"] / requests) if requests else 0.0,
             "cell_valid": report["cell_valid"],
         }
+    if chosen.get("kind") == "freshness" or str(chosen.get("policy")) in {"b3", "j0"}:
+        return await run_freshness_cell(
+            seed=int(chosen["seed"]),
+            policy=str(chosen["policy"]),
+            jsonl_path=destination / f"{cell}.jsonl",
+            refresh_budget=int(chosen.get("refresh_budget") or 8),
+            min_refresh_interval_s=float(chosen.get("min_refresh_interval_s") or 0.05),
+        )
     if chosen.get("kind") == "chaos":
         return await run_chaos_cell(
             seed=int(chosen["seed"]),

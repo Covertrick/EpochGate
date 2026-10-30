@@ -539,6 +539,219 @@ class EvdfScheduler:
         return decisions
 
 
+class BudgetedEdScheduler:
+    """按最早截止排序，并用版本、间隔和预算决定要不要刷新。
+
+    ``serial`` 在刷新当拍不发租约。``near`` 可以同一拍发租约。不是把现有类改名。
+    """
+
+    def __init__(
+        self,
+        *,
+        admission: str,
+        lease_ttl_s: float = 30.0,
+        ids: IdFactory | None = None,
+    ) -> None:
+        if admission not in {"serial", "near"}:
+            raise ValueError("admission must be serial or near")
+        self._admission = admission
+        self._label = "b3" if admission == "serial" else "j0"
+        self._lease_ttl_s = lease_ttl_s
+        self._ids = ids or IdFactory(None)
+
+    def decide(self, snapshot: SchedulerSnapshot) -> list[Decision]:
+        """对每个未终态尝试按固定顺序给出超时、取消、刷新、租约或派发。
+
+        输入：快照。排序键是截止时间、到达时间、attempt id。
+        输出：决策列表。
+        副作用：无。
+        失败：时间为非正，或需要刷新但没有配方时抛出 ``ValueError``。
+        """
+        HappyPathScheduler._require_now(snapshot)
+        tasks = {item.task_id: item for item in snapshot.tasks}
+        ordered = sorted(
+            snapshot.attempts,
+            key=lambda attempt: (
+                tasks[attempt.task_id].deadline_mono if attempt.task_id in tasks else 0.0,
+                tasks[attempt.task_id].arrival_mono if attempt.task_id in tasks else 0.0,
+                attempt.attempt_id,
+            ),
+        )
+        decisions: list[Decision] = []
+        timed: set[str] = set()
+        slots = snapshot.capacity.free_slots
+        helper = HappyPathScheduler(lease_ttl_s=self._lease_ttl_s, ids=self._ids)
+        for attempt in ordered:
+            task = tasks.get(attempt.task_id)
+            if task is None or task.status in _TERMINAL or not attempt.eligible:
+                continue
+            if helper._append_timeout(decisions, timed, task, attempt, snapshot):
+                continue
+            if attempt.state == AttemptState.COMMITTED:
+                decisions.append(_finish(attempt, "attempt committed; complete task"))
+                continue
+            if (
+                attempt.state == AttemptState.INFLIGHT
+                and attempt.premise_holds is False
+                and snapshot.capacity.supports_cancel
+            ):
+                decisions.append(
+                    Decision(
+                        kind="cancel",
+                        task_id=attempt.task_id,
+                        attempt_id=attempt.attempt_id,
+                        reason="dirty and premise failed; revoke eligibility",
+                    )
+                )
+                continue
+            if (
+                attempt.state == AttemptState.INFLIGHT
+                and attempt.sources_dirty
+                and attempt.premise_holds is None
+            ):
+                decisions.append(_wait(attempt, "premise unknown"))
+                continue
+            if _unreachable(snapshot, task) and attempt.state not in _IN_FLIGHT:
+                decisions.append(
+                    Decision(
+                        kind="reject",
+                        task_id=attempt.task_id,
+                        attempt_id=attempt.attempt_id,
+                        reason="infeasible before deadline",
+                    )
+                )
+                continue
+            refresh = None
+            if attempt.premise_holds is not True:
+                refresh = _budgeted_refresh(snapshot, attempt, helper, self._label)
+            if refresh is not None and refresh.kind == "wait":
+                decisions.append(refresh)
+                continue
+            issued_refresh = refresh is not None and refresh.kind == "refresh"
+            if issued_refresh:
+                decisions.append(refresh)
+            blocked = issued_refresh or attempt.refresh_inflight
+            if blocked and self._admission == "serial":
+                if not issued_refresh:
+                    decisions.append(_wait(attempt, "refresh in flight"))
+                continue
+            if blocked and self._admission == "near":
+                if attempt.state not in _IN_FLIGHT and (
+                    attempt.lease_id is None or _lease_expired(attempt, snapshot)
+                ):
+                    decisions.append(
+                        _admit_with_slo(
+                            snapshot,
+                            attempt,
+                            task,
+                            "j0 lease while refresh runs",
+                            self._ids,
+                            self._lease_ttl_s,
+                        )
+                    )
+                elif not issued_refresh:
+                    decisions.append(_wait(attempt, "refresh in flight"))
+                continue
+            if attempt.state not in _IN_FLIGHT and (
+                attempt.lease_id is None or _lease_expired(attempt, snapshot)
+            ):
+                decisions.append(
+                    _admit_with_slo(
+                        snapshot,
+                        attempt,
+                        task,
+                        f"{self._label} grant admission",
+                        self._ids,
+                        self._lease_ttl_s,
+                    )
+                )
+                continue
+            if (
+                attempt.state == AttemptState.READY
+                and attempt.has_observations
+                and not attempt.refresh_inflight
+                and not _lease_expired(attempt, snapshot)
+                and not _version_gap(snapshot, attempt)
+            ):
+                if slots <= 0:
+                    decisions.append(_wait_slot(snapshot, attempt))
+                    continue
+                slots -= 1
+                reason = (
+                    "b3 dispatch after refresh"
+                    if self._admission == "serial"
+                    else "j0 observation and lease both ready"
+                )
+                decisions.append(_dispatch(attempt, reason))
+                continue
+            if attempt.state in _IN_FLIGHT or attempt.premise_holds is True:
+                decisions.append(_wait(attempt, f"in progress ({attempt.state.value})"))
+        return decisions
+
+
+class StrongComboScheduler(BudgetedEdScheduler):
+    """B3：事件触发刷新，刷新当拍不发租约。"""
+
+    def __init__(self, *, lease_ttl_s: float = 30.0, ids: IdFactory | None = None) -> None:
+        super().__init__(admission="serial", lease_ttl_s=lease_ttl_s, ids=ids)
+
+
+class NearComboScheduler(BudgetedEdScheduler):
+    """J0：事件触发刷新，同一拍可以发租约。不是 EVDF。"""
+
+    def __init__(self, *, lease_ttl_s: float = 30.0, ids: IdFactory | None = None) -> None:
+        super().__init__(admission="near", lease_ttl_s=lease_ttl_s, ids=ids)
+
+
+def _budgeted_refresh(
+    snapshot: SchedulerSnapshot,
+    attempt: AttemptView,
+    helper: HappyPathScheduler,
+    label: str,
+) -> Decision | None:
+    if attempt.state in _IN_FLIGHT:
+        return None
+    missing = not attempt.has_observations
+    gap = _version_gap(snapshot, attempt)
+    if not missing and not gap and not attempt.sources_dirty:
+        return None
+    if attempt.refreshes_used >= snapshot.refresh_budget:
+        return _wait(attempt, "refresh budget exhausted")
+    if _interval_blocked(snapshot, attempt):
+        return _wait(attempt, "refresh interval")
+    if missing or gap or not _same_version(snapshot, attempt):
+        return helper._refresh(snapshot, attempt, f"{label} event refresh")
+    return _wait(attempt, "same version")
+
+
+def _version_gap(snapshot: SchedulerSnapshot, attempt: AttemptView) -> bool:
+    dirty = set(snapshot.dirty_sources)
+    for source in attempt.depends_on:
+        if source in snapshot.notified_versions:
+            if attempt.bound_versions.get(source) != snapshot.notified_versions[source]:
+                return True
+        elif source in dirty:
+            return True
+    return False
+
+
+def _same_version(snapshot: SchedulerSnapshot, attempt: AttemptView) -> bool:
+    if not attempt.depends_on:
+        return False
+    for source in attempt.depends_on:
+        notified = snapshot.notified_versions.get(source)
+        bound = attempt.bound_versions.get(source)
+        if notified is None or bound is None or bound != notified:
+            return False
+    return True
+
+
+def _interval_blocked(snapshot: SchedulerSnapshot, attempt: AttemptView) -> bool:
+    if attempt.last_refresh_mono is None:
+        return False
+    return snapshot.now_mono - attempt.last_refresh_mono < snapshot.min_refresh_interval_s
+
+
 def _unreachable(snapshot: SchedulerSnapshot, task: TaskView) -> bool:
     if snapshot.estimated_service_s <= 0:
         return False

@@ -30,7 +30,7 @@ from epochgate.models import (
     ToolSpec,
 )
 from epochgate.observation import ObservationStore
-from epochgate.refresh_pool import RefreshPool
+from epochgate.refresh_pool import RefreshNotAllowed, RefreshPool
 from epochgate.registry import Registry
 from epochgate.scheduler import HappyPathScheduler, Scheduler
 
@@ -81,6 +81,7 @@ class Runtime:
         seed: int | None = None,
         refresh_budget: int = 8,
         service_prior_s: float = 0.0,
+        min_refresh_interval_s: float = 0.0,
     ) -> None:
         self.ids = ids or IdFactory(seed)
         self.run_id = run_id or self.ids("run")
@@ -115,6 +116,9 @@ class Runtime:
         self._service_prior_s = service_prior_s
         self._last_service_s: float | None = None
         self._dispatch_started: dict[str, float] = {}
+        self._min_refresh_interval_s = min_refresh_interval_s
+        self._notified: dict[str, str] = {}
+        self._last_refresh_at: dict[str, float] = {}
 
     async def run_task(self, task: Task) -> Task:
         """把单个任务跑到终态。
@@ -135,6 +139,13 @@ class Runtime:
         副作用：轮询环境变化、执行调度决策、必要时取消在途推理。
         失败：没有进展或超出步数上限时抛出 ``RuntimeError``。
         """
+        window_start = time.monotonic()
+        window_end = max((task.deadline_mono for task in tasks), default=window_start)
+        self.events.emit(
+            run_id=self.run_id,
+            event_type="run_started",
+            usage={"window_start_mono": window_start, "window_end_mono": window_end},
+        )
         for task in tasks:
             self.registry.register_task(task)
             attempt = self.registry.begin_attempt(task.task_id)
@@ -161,6 +172,9 @@ class Runtime:
             if self._workers:
                 await self._reap_workers()
             elif not progressed:
+                if any(decision.reason == "refresh interval" for decision in decisions):
+                    await asyncio.sleep(self._min_refresh_interval_s)
+                    continue
                 raise RuntimeError("runtime stalled without inflight work")
         else:
             await self._drain_workers()
@@ -212,6 +226,12 @@ class Runtime:
                     )
                 )
             dirty = any(obs.source_id in self._dirty for obs in latest)
+            bound = {
+                obs.source_id: obs.source_version
+                for obs in latest
+                if obs.source_version is not None
+            }
+            depends = list(self.default_refresh.sources) if self.default_refresh is not None else []
             for attempt in self.registry.attempts_for_task(task.task_id):
                 lease = self._leases.get(attempt.attempt_id)
                 attempt_views.append(
@@ -229,6 +249,9 @@ class Runtime:
                         refreshes_used=self.refresh_pool.used(task.task_id),
                         refresh_inflight=attempt.attempt_id in self._refreshing,
                         premise_holds=self._premise.get(attempt.attempt_id),
+                        bound_versions=bound,
+                        depends_on=depends,
+                        last_refresh_mono=self._last_refresh_at.get(task.task_id),
                     )
                 )
 
@@ -249,6 +272,8 @@ class Runtime:
             dirty_sources=sorted(self._dirty),
             refresh_budget=self.refresh_pool.budget(),
             estimated_service_s=self._estimated_service_s(),
+            notified_versions=dict(self._notified),
+            min_refresh_interval_s=self._min_refresh_interval_s,
         )
 
     async def _apply(self, decision: Decision) -> bool:
@@ -305,11 +330,22 @@ class Runtime:
     async def _finish_refresh(self, decision: Decision, *, was_dirty: bool) -> None:
         if decision.attempt_id is None or decision.refresh_recipe is None:
             return
-        batch = await self.refresh_pool.observe(
-            decision.task_id,
-            decision.refresh_recipe,
-            self.environment,
-        )
+        try:
+            batch = await self.refresh_pool.observe(
+                decision.task_id,
+                decision.refresh_recipe,
+                self.environment,
+            )
+        except RefreshNotAllowed:
+            self._revert_observing(decision.attempt_id)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="refresh_rejected",
+                identity={"task_id": decision.task_id, "attempt_id": decision.attempt_id},
+                reason="read tool not allowed",
+            )
+            return
+        self._last_refresh_at[decision.task_id] = time.monotonic()
         sample_time: float | None = None
         for obs in batch.observations:
             stored = self.observations.record(obs, task_id=decision.task_id)
@@ -319,8 +355,12 @@ class Runtime:
         self.registry.bump_obs_revision(decision.task_id)
         self.registry.sync_attempt_epochs(decision.attempt_id)
         if was_dirty:
+            parts = [
+                f"{obs.source_id} {obs.source_version}"
+                for obs in batch.observations
+            ]
             self._sessions[decision.attempt_id] = [
-                {"role": "user", "content": "rebuilt from current observations"}
+                {"role": "user", "content": " ".join(parts)}
             ]
         attempt = self.registry.get_attempt(decision.attempt_id)
         if attempt.state == AttemptState.OBSERVING and decision.attempt_id not in self._leases:
@@ -518,7 +558,11 @@ class Runtime:
             event_type="admission_rejected",
             identity={"task_id": decision.task_id, "attempt_id": decision.attempt_id or ""},
             reason=decision.reason,
-            usage={"task_class": task.task_class},
+            usage={
+                "task_class": task.task_class,
+                "estimated_service_s": self._estimated_service_s(),
+                "service_source": "last_sample" if self._last_service_s is not None else "prior",
+            },
         )
         self.registry.complete_task(decision.task_id, TaskStatus.REJECTED)
 
@@ -632,12 +676,21 @@ class Runtime:
         self._cursor = batch.next_cursor or self._cursor
         for event in batch.events:
             self._dirty.add(event.source_id)
+            if event.source_version is not None:
+                self._notified[event.source_id] = event.source_version
             self.events.emit(
                 run_id=self.run_id,
                 event_type="source_dirty",
                 identity={"source_id": event.source_id},
                 reason=event.kind,
             )
+
+    def _revert_observing(self, attempt_id: str) -> None:
+        if attempt_id in self._leases:
+            return
+        attempt = self.registry.get_attempt(attempt_id)
+        if attempt.state == AttemptState.OBSERVING:
+            self.registry.update_attempt_state(attempt_id, AttemptState.QUEUED)
 
     def _task_dirty(self, task_id: str) -> bool:
         latest = self.observations.latest_for_task(task_id)

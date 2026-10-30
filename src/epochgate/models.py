@@ -267,6 +267,9 @@ class AttemptView(BaseModel):
     refreshes_used: int = 0
     refresh_inflight: bool = False
     premise_holds: bool | None = None
+    bound_versions: dict[str, str] = Field(default_factory=dict)
+    depends_on: list[str] = Field(default_factory=list)
+    last_refresh_mono: float | None = None
 
 
 class ObservationView(BaseModel):
@@ -300,6 +303,8 @@ class SchedulerSnapshot(BaseModel):
     dirty_sources: list[str] = Field(default_factory=list)
     refresh_budget: int = 8
     estimated_service_s: float = 0.0
+    notified_versions: dict[str, str] = Field(default_factory=dict)
+    min_refresh_interval_s: float = 0.0
 
 
 DecisionKind = Literal["refresh", "admit", "dispatch", "wait", "finish", "timeout", "cancel", "reject"]
