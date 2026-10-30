@@ -30,6 +30,12 @@ def score_trace(path: str | Path) -> dict[str, float | int]:
     faults = 0
     backend_requests = 0
     admission_rejected = 0
+    ages: list[float] = []
+    refresh_count = 0
+    refresh_skipped = 0
+    window_start: float | None = None
+    window_end: float | None = None
+    skip_marks = ("same version", "refresh interval", "refresh budget exhausted")
     for event in _load_events(path):
         event_type = str(event.get("event_type", ""))
         identity = event.get("identity") or {}
@@ -57,6 +63,14 @@ def score_trace(path: str | Path) -> dict[str, float | int]:
                 gateway_rejected += 1
         elif event_type == "decision_wait":
             waits += 1
+            if any(mark in reason for mark in skip_marks):
+                refresh_skipped += 1
+        elif event_type == "observations_refreshed":
+            refresh_count += 1
+        elif event_type == "run_started":
+            if "window_start_mono" in usage and "window_end_mono" in usage:
+                window_start = float(usage["window_start_mono"])
+                window_end = float(usage["window_end_mono"])
         elif event_type == "cancel_requested":
             cancels += 1
         elif event_type == "fault_injected":
@@ -69,11 +83,14 @@ def score_trace(path: str | Path) -> dict[str, float | int]:
             first_service[task_id] = float(event.get("mono_time") or 0)
         if event_type in {"action_committed", "action_rejected"} and "sample_time_mono" in usage:
             age = float(event.get("mono_time") or 0) - float(usage["sample_time_mono"])
+            ages.append(age)
             observation_age_max = max(observation_age_max, age)
         if event_type in {"action_rejected", "cancel_requested", "cancel_acknowledged"} and "tokens" in usage:
             confirmable_waste_tokens += int(usage["tokens"])
     tasks = len(deadlines)
     rate = 0.0 if tasks == 0 else len(on_time) / tasks
+    span = 0.0 if window_start is None or window_end is None else window_end - window_start
+    effective_throughput = 0.0 if span <= 0 else len(on_time) / span
     waits_by_task = [
         max(0.0, first_service[task_id] - arrivals.get(task_id, 0.0))
         for task_id in first_service
@@ -99,6 +116,11 @@ def score_trace(path: str | Path) -> dict[str, float | int]:
         "gateway_rejected": gateway_rejected,
         "waits": waits,
         "observation_age_max": observation_age_max,
+        "observation_age_p50": _percentile(ages, 0.50),
+        "observation_age_p95": _percentile(ages, 0.95),
+        "effective_throughput": effective_throughput,
+        "refresh_count": refresh_count,
+        "refresh_skipped": refresh_skipped,
         "cancels": cancels,
         "confirmable_waste_tokens": confirmable_waste_tokens,
         "fault_injection_rate": 0.0 if backend_requests == 0 else faults / backend_requests,

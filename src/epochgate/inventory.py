@@ -53,6 +53,7 @@ class InventoryEnvironment:
         effect_tool: str = "reserve",
         ids: IdFactory | None = None,
         start_mono: float | None = None,
+        pace: str = "time",
     ) -> None:
         self.source_id = source_id
         self._read_tool = read_tool
@@ -65,6 +66,11 @@ class InventoryEnvironment:
             schedule = plan_exogenous(0 if seed is None else seed)
         self._plan = list(schedule)
         self._schedule = list(schedule)
+        if pace not in {"time", "step"}:
+            raise ValueError("pace must be time or step")
+        self._pace = pace
+        self._step_polls = 0
+        self.observe_calls = 0
         self._queued: list[ChangeEvent] = []
         self._emitted = 0
         self._accepted: dict[str, CommitResult] = {}
@@ -130,6 +136,25 @@ class InventoryEnvironment:
         self._queued.append(event)
         return event
 
+    def notify(self, source_id: str, source_version: str | None = None) -> ChangeEvent:
+        """排队一条不改库存、也不进入默认刷新来源的通知。
+
+        输入：来源 id 和可选版本。版本为空时只把来源标脏。
+        输出：已入队的变化。
+        副作用：下一次 ``changes`` 会交出这条事件。
+        失败：无。
+        """
+        self._emitted_seq = getattr(self, "_emitted_seq", 0) + 1
+        event = ChangeEvent(
+            cursor=str(self._emitted_seq),
+            source_id=source_id,
+            source_version=source_version,
+            mono_time=time.monotonic(),
+            kind="external",
+        )
+        self._queued.append(event)
+        return event
+
     async def observe(self, recipe: RefreshRecipe) -> ObservationBatch:
         """只读当前库存。
 
@@ -140,6 +165,7 @@ class InventoryEnvironment:
         """
         if recipe.read_tool != self._read_tool:
             raise ValueError(f"unknown read_tool: {recipe.read_tool}")
+        self.observe_calls += 1
         now = time.monotonic()
         obs = Observation(
             observation_id=self._ids("obs"),
@@ -160,13 +186,19 @@ class InventoryEnvironment:
         失败：无。
         """
         now = time.monotonic()
-        pending: list[tuple[float, int]] = []
-        for offset, delta in self._schedule:
-            if self._t0 + offset <= now:
+        if self._pace == "step":
+            self._step_polls += 1
+            if self._step_polls > 1 and self._schedule:
+                _offset, delta = self._schedule.pop(0)
                 self._queued.append(self._mutate(delta, kind="scheduled"))
-            else:
-                pending.append((offset, delta))
-        self._schedule = pending
+        else:
+            pending: list[tuple[float, int]] = []
+            for offset, delta in self._schedule:
+                if self._t0 + offset <= now:
+                    self._queued.append(self._mutate(delta, kind="scheduled"))
+                else:
+                    pending.append((offset, delta))
+            self._schedule = pending
         events = list(self._queued)
         self._queued.clear()
         self._emitted += len(events)

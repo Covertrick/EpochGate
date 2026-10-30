@@ -13,9 +13,11 @@ from epochgate.models import (
     CandidateAction,
     Decision,
     Observation,
+    RefreshRecipe,
     Task,
     TaskStatus,
 )
+from epochgate.refresh_pool import RefreshNotAllowed, RefreshPool
 from epochgate.runtime import Runtime
 from epochgate.scheduler import EdfFixedScheduler, NearAdmissionScheduler
 
@@ -186,10 +188,14 @@ async def test_invalidated_refresh_rebuilds_the_session() -> None:
     )
     await runtime._finish_refresh(decision, was_dirty=False)
     runtime._sessions[attempt.attempt_id] = [{"role": "tool", "content": "old tool result"}]
+    env.apply_exogenous(0)
     await runtime._finish_refresh(decision, was_dirty=True)
-    assert runtime._sessions[attempt.attempt_id] == [
-        {"role": "user", "content": "rebuilt from current observations"}
-    ]
+    session = runtime._sessions[attempt.attempt_id]
+    assert len(session) == 1
+    assert session[0]["role"] == "user"
+    assert env.version in session[0]["content"]
+    assert "inventory" in session[0]["content"]
+    assert "old tool result" not in session[0]["content"]
 
 
 @pytest.mark.asyncio
@@ -210,3 +216,38 @@ async def test_near_admits_before_refresh_finishes_and_b1_does_not() -> None:
     b1 = await order_for(EdfFixedScheduler())
     assert near.index("lease_granted") < near.index("observations_refreshed")
     assert b1.index("observations_refreshed") < b1.index("lease_granted")
+
+
+@pytest.mark.asyncio
+async def test_read_tool_outside_catalog_is_rejected() -> None:
+    env = InventoryEnvironment(stock=3, schedule=[], seed=1)
+    pool = RefreshPool()
+    recipe = RefreshRecipe(read_tool="drop_table", sources=["inventory"], merge_key="inventory")
+    with pytest.raises(RefreshNotAllowed):
+        await pool.observe("t-i5", recipe, env)
+    assert pool.used("t-i5") == 0
+    assert env.observe_calls == 0
+
+    runtime = Runtime(environment=env, backend=FakeBackend(), scheduler=NearAdmissionScheduler())
+    now = time.monotonic()
+    task = runtime.registry.register_task(
+        Task(task_id="t-i5", arrival_mono=now, deadline_mono=now + 10, goal="reserve")
+    )
+    attempt = runtime.registry.begin_attempt(task.task_id)
+    await runtime._finish_refresh(
+        Decision(
+            kind="refresh",
+            task_id=task.task_id,
+            attempt_id=attempt.attempt_id,
+            reason="i5",
+            refresh_recipe=recipe,
+        ),
+        was_dirty=False,
+    )
+    rejected = [
+        event
+        for event in runtime.events.iter_events(run_id=runtime.run_id)
+        if event.event_type == "refresh_rejected"
+    ]
+    assert len(rejected) == 1
+    assert rejected[0].reason == "read tool not allowed"

@@ -8,6 +8,10 @@ from epochgate.environment import EnvironmentAdapter
 from epochgate.models import ObservationBatch, RefreshRecipe
 
 
+class RefreshNotAllowed(RuntimeError):
+    """读工具不在环境目录的 ``role=read`` 名单里。不调用 ``observe``。"""
+
+
 class RefreshPool:
     """只调用环境的 observe。不做业务写入。"""
 
@@ -51,16 +55,18 @@ class RefreshPool:
 
         输入：任务 id、配方、环境。
         输出：观测批次。相同 merge_key 的在途刷新会被等待方复用。
-        副作用：增加该任务的刷新计数；调用 ``environment.observe``。
-        失败：超出每任务上限时抛出 ``RuntimeError``。
+        副作用：只有真正调用 ``environment.observe`` 的那次增加计数。
+        失败：读工具不在目录里时抛出 ``RefreshNotAllowed``。超出每任务上限时抛出 ``RuntimeError``。
         """
-        if self.used(task_id) >= self._budget:
-            raise RuntimeError(f"refresh budget exhausted for {task_id}")
-        self._used[task_id] = self.used(task_id) + 1
         key = recipe.merge_key or recipe.read_tool
         existing = self._inflight.get(key)
         if existing is not None:
             return await existing
+        if not _read_allowed(environment, recipe):
+            raise RefreshNotAllowed("read tool not allowed")
+        if self.used(task_id) >= self._budget:
+            raise RuntimeError(f"refresh budget exhausted for {task_id}")
+        self._used[task_id] = self.used(task_id) + 1
 
         async def _run() -> ObservationBatch:
             async with self._sem:
@@ -73,3 +79,9 @@ class RefreshPool:
         finally:
             if self._inflight.get(key) is task:
                 self._inflight.pop(key, None)
+
+
+def _read_allowed(environment: EnvironmentAdapter, recipe: RefreshRecipe) -> bool:
+    return any(
+        spec.role == "read" and spec.name == recipe.read_tool for spec in environment.tool_catalog()
+    )

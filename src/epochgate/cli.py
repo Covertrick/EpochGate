@@ -4,16 +4,11 @@ from __future__ import annotations
 
 import asyncio
 import os
-import time
 from pathlib import Path
 
 import typer
 
-from epochgate.backend import FakeBackend
-from epochgate.environment import FakeEnvironment
-from epochgate.experiment import reproduce_cell, run_experiment
-from epochgate.models import Task, TaskStatus
-from epochgate.runtime import Runtime
+from epochgate.experiment import reproduce_cell, run_experiment, run_freshness_cell
 from epochgate.smoke import run_http_smoke
 
 app = typer.Typer(add_completion=False, no_args_is_help=True, help="EpochGate 研究运行时命令行")
@@ -65,31 +60,25 @@ def _root() -> None:
 
 
 @app.command("demo")
-def demo(qty: int = typer.Option(1, help="假动作的预约数量")) -> None:
-    """用假环境和假后端跑通一次预约。"""
+def demo(seed: int = typer.Option(7, help="外生库存变化的种子")) -> None:
+    """在同一份外生库存上比较 B0、B3 和 J0 的刷新与吞吐。"""
 
     async def _run() -> None:
-        now = time.monotonic()
-        runtime = Runtime(
-            environment=FakeEnvironment(stock=5),
-            backend=FakeBackend(qty=qty),
-        )
-        task = Task(
-            task_id="task-demo-1",
-            arrival_mono=now,
-            deadline_mono=now + 60.0,
-            goal="reserve inventory item",
-        )
-        result = await runtime.run_task(task)
-        typer.echo(f"run_id={runtime.run_id}")
-        typer.echo(f"status={result.status.value}")
-        typer.echo(f"plan_epoch={result.plan_epoch} obs_revision={result.obs_revision}")
-        typer.echo(f"env_stock={runtime.environment.stock}")  # type: ignore[attr-defined]
-        for event in runtime.events.iter_events(run_id=runtime.run_id):
-            typer.echo(f"  [{event.seq}] {event.event_type}: {event.reason or ''}")
-        if result.status != TaskStatus.SUCCEEDED:
-            raise typer.Exit(code=1)
+        for policy in ("b0", "b3", "j0"):
+            metrics = await run_freshness_cell(
+                seed=seed,
+                policy=policy,
+                jsonl_path=Path("traces") / f"demo-{policy}-seed-{seed}.jsonl",
+            )
+            typer.echo(
+                f"{policy} on_time={metrics['on_time_success']} "
+                f"refresh_count={metrics['refresh_count']} "
+                f"refresh_skipped={metrics['refresh_skipped']} "
+                f"throughput={metrics['effective_throughput']:.4f} "
+                f"observe_calls={metrics['observe_calls']}"
+            )
 
+    Path("traces").mkdir(parents=True, exist_ok=True)
     asyncio.run(_run())
 
 
@@ -144,7 +133,7 @@ def experiment(
     out: str = typer.Option("traces", help="JSONL 输出目录"),
     scenario: str | None = typer.Option(None, help="可选故障场景 YAML。默认不注入"),
 ) -> None:
-    """同一种子跑 B0、B1、B2 和临近准入，写出 manifest，并打印 trace 指标。"""
+    """同一种子跑 B0 到临近准入，再跑 B3 和 J0，写出 manifest 并打印 trace 指标。"""
 
     async def _run() -> None:
         summaries = await run_experiment(seed=seed, out_dir=Path(out), scenario=scenario)
@@ -155,7 +144,9 @@ def experiment(
                 f"stale_rejects={metrics['stale_rejects']} waits={metrics['waits']} "
                 f"reject_rate={metrics['reject_rate']:.3f} "
                 f"fault_rate={metrics['fault_injection_rate']:.3f} "
-                f"wait_p99={metrics['wait_p99']:.3f}"
+                f"wait_p99={metrics['wait_p99']:.3f} "
+                f"refresh={metrics['refresh_count']} skipped={metrics['refresh_skipped']} "
+                f"throughput={metrics['effective_throughput']:.4f}"
             )
 
     asyncio.run(_run())
