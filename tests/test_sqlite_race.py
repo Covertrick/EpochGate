@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import multiprocessing
 
 import httpx
 import pytest
@@ -10,7 +11,7 @@ import pytest
 from epochgate.env_app import create_app
 from epochgate.http_environment import HttpInventoryEnvironment
 from epochgate.models import CandidateAction
-from epochgate.sqlite_inventory import InventoryClosed, SqliteInventory
+from epochgate.sqlite_inventory import InventoryClosed, SqliteInventory, write_records_sync
 
 
 def _action(action_id: str, *, qty: int = 1) -> CandidateAction:
@@ -23,6 +24,24 @@ def _action(action_id: str, *, qty: int = 1) -> CandidateAction:
         action_type="reserve",
         parameters={"qty": qty},
     )
+
+
+def test_eight_processes_insert_200_rows(tmp_path) -> None:
+    path = tmp_path / "processes.sqlite"
+    store = SqliteInventory(path)
+    asyncio.run(store.setup())
+    context = multiprocessing.get_context("spawn")
+    processes = [
+        context.Process(target=write_records_sync, args=(str(path), worker)) for worker in range(8)
+    ]
+    for process in processes:
+        process.start()
+    for process in processes:
+        process.join(30)
+        assert process.exitcode == 0
+    count, distinct = asyncio.run(store.record_stats())
+    assert count == 200
+    assert distinct == 200
 
 
 @pytest.mark.asyncio

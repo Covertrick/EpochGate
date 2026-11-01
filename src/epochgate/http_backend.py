@@ -53,6 +53,7 @@ class HttpToolBackend:
         self._caps = BackendCapabilities(
             supports_cancel=True,
             supports_streaming=False,
+            resource_reclaim_observable=False,
             max_inflight=max_inflight,
         )
         self._requests: dict[str, InferenceRequest] = {}
@@ -88,18 +89,22 @@ class HttpToolBackend:
                 handle_id=handle.handle_id,
                 acknowledged=False,
                 evidence="unknown_handle",
+                grade="UNKNOWN",
             )
         if handle.handle_id in self._finished:
             return CancelReceipt(
                 handle_id=handle.handle_id,
                 acknowledged=False,
                 evidence="already_completed",
+                grade="UNKNOWN",
             )
         self._cancelled.add(handle.handle_id)
         return CancelReceipt(
             handle_id=handle.handle_id,
             acknowledged=True,
             evidence="client_cancel_requested",
+            grade="ACCEPTED",
+            reclaimed=False,
         )
 
     async def events(self, handle: BackendHandle) -> AsyncIterator[BackendEvent]:
@@ -185,6 +190,7 @@ class HttpToolBackend:
             body_usage = {}
         if isinstance(body_usage, Mapping) and "tokens" in body_usage:
             usage["tokens"] = body_usage["tokens"]
+            usage["usage_source"] = "backend"
         yield BackendEvent(
             handle_id=handle.handle_id,
             kind="completed",

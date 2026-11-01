@@ -109,6 +109,27 @@ def test_interval_blocks() -> None:
         assert any("refresh interval" in item.reason for item in decisions)
 
 
+def test_expensive_observe_waits_while_the_slot_is_busy() -> None:
+    snapshot = _snapshot(
+        _attempt(bound_versions={"inventory": "v1"}),
+        notified_versions={"inventory": "v2"},
+        observe_cost_s=1.0,
+        estimated_service_s=1.0,
+        capacity=BackendCapacityView(free_slots=0, supports_cancel=True),
+    )
+    decisions = NearComboScheduler().decide(snapshot)
+    assert "refresh" not in _kinds(decisions)
+    assert any("expensive observe" in item.reason for item in decisions)
+    free = _snapshot(
+        _attempt(bound_versions={"inventory": "v1"}),
+        notified_versions={"inventory": "v2"},
+        observe_cost_s=1.0,
+        estimated_service_s=1.0,
+        capacity=BackendCapacityView(free_slots=1, supports_cancel=True),
+    )
+    assert "refresh" in _kinds(NearComboScheduler().decide(free))
+
+
 def test_budget_blocks() -> None:
     snapshot = _snapshot(
         _attempt(bound_versions={"inventory": "v1"}, refreshes_used=8),

@@ -70,18 +70,28 @@ def lock_sha256(path: str | Path) -> str:
     return digest.hexdigest()
 
 
-def build_manifest(cells: list[dict[str, Any]], *, root: str | Path | None = None) -> dict[str, Any]:
+def build_manifest(
+    cells: list[dict[str, Any]],
+    *,
+    root: str | Path | None = None,
+    exogenous_seed: int | None = None,
+) -> dict[str, Any]:
     """组装一次实验的 manifest。
 
-    输入：cell 列表和仓库根。
-    输出：可写成 JSON 的字典。
-    副作用：读 git 和 ``uv.lock``。
+    输入：cell 列表、仓库根、外生计划种子。
+    输出：可写成 JSON 的字典。含场景和冻结配置的哈希，不含密钥。
+    副作用：读 git、``uv.lock`` 和配置文件。
     失败：无。
     """
     base = Path.cwd() if root is None else Path(root)
+    fault_count = sum(int(cell.get("fault_injected_count") or 0) for cell in cells)
     return {
         "git_commit": git_commit(base),
         "lock_sha256": lock_sha256(base / "uv.lock"),
+        "chaos_sha256": lock_sha256(base / "scenarios" / "chaos.yaml"),
+        "frozen_sha256": lock_sha256(base / "configs" / "frozen.yaml"),
+        "exogenous_seed": exogenous_seed,
+        "fault_injected_count": fault_count,
         "python": platform.python_version(),
         "env": env_flags(),
         "cells": cells,

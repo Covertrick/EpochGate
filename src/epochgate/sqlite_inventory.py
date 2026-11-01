@@ -14,6 +14,23 @@ from epochgate.ids import IdFactory
 from epochgate.models import CandidateAction, CommitResult, ValidationResult
 
 
+def write_records_sync(path: str, worker: int, count: int = 25) -> None:
+    """在一个新进程里追加记录。供多进程测试调用。
+
+    输入：数据库路径、写入者编号、条数。
+    输出：无。
+    副作用：向已建好的表插入 ``count`` 行。
+    失败：数据库不可写时向上抛。
+    """
+
+    async def _write() -> None:
+        store = SqliteInventory(path)
+        for index in range(count):
+            await store.append_record(f"p{worker}-{index}", f"p{worker}")
+
+    asyncio.run(_write())
+
+
 class InventoryClosed(RuntimeError):
     """库存已经关闭。再次写入必须失败，不能静默提交。"""
 

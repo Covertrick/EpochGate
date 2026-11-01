@@ -85,6 +85,7 @@ class FakeBackend:
         self._caps = BackendCapabilities(
             supports_cancel=supports_cancel,
             supports_streaming=False,
+            resource_reclaim_observable=False,
             max_inflight=max_inflight,
         )
         self._completed: dict[str, CandidateAction] = {}
@@ -129,18 +130,22 @@ class FakeBackend:
                 handle_id=handle.handle_id,
                 acknowledged=False,
                 evidence="unknown_handle",
+                grade="UNKNOWN",
             )
         if not self._caps.supports_cancel:
             return CancelReceipt(
                 handle_id=handle.handle_id,
                 acknowledged=False,
                 evidence="cancel_not_supported",
+                grade="NOT_SUPPORTED",
             )
         self._cancelled.add(handle.handle_id)
         return CancelReceipt(
             handle_id=handle.handle_id,
             acknowledged=True,
             evidence="cancel_accepted_compute_may_continue",
+            grade="ACKNOWLEDGED",
+            reclaimed=False,
         )
 
     async def events(self, handle: BackendHandle) -> AsyncIterator[BackendEvent]:

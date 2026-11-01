@@ -198,5 +198,10 @@ async def test_premise_failure_cancels_and_late_result_is_rejected() -> None:
     evidence = [event.reason or "" for event in events if event.event_type == "cancel_acknowledged"]
     assert evidence
     assert "gpu" not in evidence[0].lower()
+    acknowledged = next(event for event in events if event.event_type == "cancel_acknowledged")
+    assert acknowledged.usage["grade"] == "ACKNOWLEDGED"
+    assert acknowledged.usage["reclaim_observable"] is False
+    assert "resource_reclaimed" not in types
+    assert backend.capabilities().resource_reclaim_observable is False
     assert result.status == TaskStatus.REJECTED
     assert env.stock == 0

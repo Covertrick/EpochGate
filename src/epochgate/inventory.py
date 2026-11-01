@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import random
 import time
 from typing import Any, Mapping
@@ -54,6 +55,7 @@ class InventoryEnvironment:
         ids: IdFactory | None = None,
         start_mono: float | None = None,
         pace: str = "time",
+        observe_delay_s: float = 0.0,
     ) -> None:
         self.source_id = source_id
         self._read_tool = read_tool
@@ -69,6 +71,7 @@ class InventoryEnvironment:
         if pace not in {"time", "step"}:
             raise ValueError("pace must be time or step")
         self._pace = pace
+        self._observe_delay_s = observe_delay_s
         self._step_polls = 0
         self.observe_calls = 0
         self._queued: list[ChangeEvent] = []
@@ -165,6 +168,8 @@ class InventoryEnvironment:
         """
         if recipe.read_tool != self._read_tool:
             raise ValueError(f"unknown read_tool: {recipe.read_tool}")
+        if self._observe_delay_s > 0:
+            await asyncio.sleep(self._observe_delay_s)
         self.observe_calls += 1
         now = time.monotonic()
         obs = Observation(

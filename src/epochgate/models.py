@@ -151,6 +151,7 @@ class CommitResult(BaseModel):
     accepted: bool
     commit_id: str | None = None
     reasons: list[str] = Field(default_factory=list)
+    effect_stale: bool = False
 
 
 class BackendCapabilities(BaseModel):
@@ -158,6 +159,7 @@ class BackendCapabilities(BaseModel):
 
     supports_cancel: bool = False
     supports_streaming: bool = False
+    resource_reclaim_observable: bool = False
     max_inflight: int = 1
 
 
@@ -211,11 +213,17 @@ class BackendEvent(BaseModel):
 
 
 class CancelReceipt(BaseModel):
-    """取消回执。evidence 照后端原文记录，不能写成 GPU 已回收。"""
+    """取消回执。evidence 照后端原文记录，不能写成 GPU 已回收。
+
+    ``grade`` 是 ACCEPTED、ACKNOWLEDGED、NOT_SUPPORTED 或 UNKNOWN。
+    ``reclaimed`` 仅在后端明确停止了自己的计算时为真。
+    """
 
     handle_id: str
     acknowledged: bool
     evidence: str
+    grade: Literal["ACCEPTED", "ACKNOWLEDGED", "NOT_SUPPORTED", "UNKNOWN"] = "UNKNOWN"
+    reclaimed: bool = False
 
 
 class ChangeEvent(BaseModel):
@@ -229,10 +237,11 @@ class ChangeEvent(BaseModel):
 
 
 class ChangeBatch(BaseModel):
-    """``changes`` 的一页结果。"""
+    """``changes`` 的一页结果。``stream_open`` 为假表示通知断了，不能当成状态稳定。"""
 
     events: list[ChangeEvent] = Field(default_factory=list)
     next_cursor: str = "0"
+    stream_open: bool = True
 
 
 # --- 调度器可见视图（裁剪后；无 evaluator、无仓库活引用） ---
@@ -305,6 +314,17 @@ class SchedulerSnapshot(BaseModel):
     estimated_service_s: float = 0.0
     notified_versions: dict[str, str] = Field(default_factory=dict)
     min_refresh_interval_s: float = 0.0
+    dispatches_since_fair_slot: int = 0
+    fair_every_n: int = 0
+    fair_weight: float = 0.0
+    kappa: float = 1.0
+    epsilon: float = 0.05
+    observe_cost_s: float = 0.0
+    risk_lambda: float = 0.0
+    change_count: int = 0
+    stream_open: bool = True
+    lease_strict_s: float = 5.0
+    lease_loose_s: float = 30.0
 
 
 DecisionKind = Literal["refresh", "admit", "dispatch", "wait", "finish", "timeout", "cancel", "reject"]
@@ -319,3 +339,4 @@ class Decision(BaseModel):
     reason: str
     refresh_recipe: RefreshRecipe | None = None
     lease: AdmissionLease | None = None
+    usage: dict[str, Any] = Field(default_factory=dict)

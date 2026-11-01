@@ -1,0 +1,22 @@
+# 开发集。只在这些种子上选参数。测试种子不得与这里重叠。
+window_s: 60
+stock: 3
+max_inflight: 1
+refresh_budget: 8
+min_refresh_interval_s: 0.05
+service_prior_s: 0
+kappa: 1
+epsilon: 0.05
+fair_weight: 1
+fair_every_n: 4
+lease_ttl_s: 30
+lease_strict_s: 5
+lease_loose_s: 30
+observe_cost_s: 0.05
+risk_lambda: 0.5
+exogenous_n: 3
+dev_seeds: [1, 2, 3]
+test_seeds: [11, 12, 13]
+grid_interval: [0.0, 0.05]
+grid_weight: [0.0, 1.0]
+grid_fair_every_n: [0, 4]

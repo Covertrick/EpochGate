@@ -1,52 +1,46 @@
 # EpochGate
 
-多会话 Agent Runtime 的**版本化准入与取消层**：分离「资源执行状态」与「结果资格」。
+多会话智能体运行时的**版本化准入与取消层**：把资源执行状态和结果资格分开。
 
-> 当前：**v0.5**。B0–B2 和临近准入的重放还在。B3 与 J0 在有外生变化的库存上比较刷新门闩。研究收益仍是待验证假设，不是已测性能。
+> 当前：**1.0**。基线到联合策略共用同一份外生库存、到达流和槽位。研究收益仍是待验证假设，不是已测性能。1.0 之后的目标见 [docs/项目开发文档2.0.md](docs/项目开发文档2.0.md)。
 
-## Quickstart
+## 快速开始
 
-在仓库根目录：
+在仓库根目录，不需要接口密钥：
 
 ```powershell
 python -m uv sync --extra dev
 python -m uv run pytest -q
 python -m uv run epochgate demo
-python -m uv run epochgate experiment --seed 1 --out traces
-python -m uv run epochgate reproduce --cell-id b0-seed-1-none --manifest traces/manifest.json --out traces
+python -m uv run epochgate explain t-explain --trace results/explain/demo.jsonl
 ```
 
-本机没有把 `uv` 加进 PATH 时，用 `python -m uv`。需要 Python 3.12+。
+本机没有把 `uv` 加进路径时，用 `python -m uv`。需要 Python 3.12 及以上。
 
-真实模型冒烟读仓库根的 `.env`，只进入当前进程。变量名是 `EPOCHGATE_BASE_URL`、`EPOCHGATE_API_KEY`、`EPOCHGATE_MODEL`。`--base-url` 覆盖模型地址；`--env-url` 才是库存服务。缺配置时退出码是 2，不会发请求。
+`explain` 读一条不含密钥的轨迹。命令的真实输出是：
 
-```powershell
-python -m uv run epochgate env-serve --host 127.0.0.1 --port 8080 --db traces/inventory.sqlite
-python -m uv run epochgate http-smoke --env-url http://127.0.0.1:8080 --chaos scenarios/chaos.yaml --seed 42 --out results/v0.4
-python -m uv run epochgate reproduce --cell-id checks-seed-42-none --manifest results/v0.4/manifest.json --out results/v0.4/reproduce
+```text
+task=t-explain
+stale_observation source=inventory reason=exogenous
+eligibility_revoked reason=dirty and premise failed; revoke eligibility
+late_output_rejected reason=attempt not eligible
+late_output_rejected reason=insufficient stock
 ```
 
-## 文档（按用途）
+上面四行是程序打印的标签，不是性能数字。
+
+## 文档
 
 | 文档 | 用途 |
 | --- | --- |
-| [docs/工程实现说明.md](docs/工程实现说明.md) | 当前代码结构、架构约束、怎么跑 |
-| [docs/测试记录/v0.4.md](docs/测试记录/v0.4.md) | v0.4 测了什么、结果在 `results/v0.4/` |
-| [docs/问题记录/开发问题.md](docs/问题记录/开发问题.md) | 开发时遇到的问题、原因和处理 |
-| [docs/工程实现说明/](docs/工程实现说明/) | v0.1 到 v0.4 的实现说明原文 |
-| [docs/项目开发文档.md](docs/项目开发文档.md) | 研究设计与实验规格。第 3–11 节仍是待验证规格 |
-| [docs/Freshness_Agent_Runtime_项目文档.html](docs/Freshness_Agent_Runtime_项目文档.html) | 设计书 HTML |
-| [docs/figures/](docs/figures/) | 架构 / 时序示意图 |
-
-## 包布局
-
-```text
-EpochGate/                 ← 仓库根
-├── src/epochgate/         ← Python 包（import epochgate）
-├── tests/
-├── results/v0.4/          ← 这一版的冒烟记录，不含密钥
-└── docs/
-```
+| [docs/工程实现说明.md](docs/工程实现说明.md) | 当前代码怎么跑 |
+| [docs/实验协议.md](docs/实验协议.md) | 指标口径。不在别处再写一遍 |
+| [docs/项目开发文档2.0.md](docs/项目开发文档2.0.md) | 1.0 之后要做的研究和工程 |
+| [docs/项目开发文档.md](docs/项目开发文档.md) | 研究设计原文 |
+| [docs/论文初稿.md](docs/论文初稿.md) | 论文骨架，不填未测数字 |
+| [docs/第二环境.md](docs/第二环境.md) | 第二套公开环境为什么还没接上 |
+| [docs/问题记录/开发问题.md](docs/问题记录/开发问题.md) | 开发时遇到的问题 |
+| [docs/工程实现说明/](docs/工程实现说明/) | 各版实现说明原文 |
 
 ## 共同开发者
 

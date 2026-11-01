@@ -94,6 +94,9 @@ class ActionGateway:
         result = await self._env.commit(candidate, conditions)
         event_usage = self._usage(bound_obs, extra)
 
+        if result.effect_stale:
+            event_usage["effect_stale"] = True
+            event_usage["reject_class"] = "stale_commit"
         if result.accepted:
             self._registry.update_attempt_state(candidate.attempt_id, AttemptState.COMMITTED)
             self._events.emit(
@@ -118,7 +121,7 @@ class ActionGateway:
                     "action_id": candidate.action_id,
                 },
                 reason="; ".join(result.reasons),
-                usage=event_usage,
+                usage={**event_usage, "reject_class": _reject_class(result.reasons)},
             )
         return result
 
@@ -146,10 +149,19 @@ class ActionGateway:
 
     def _usage(self, observations: list[Observation], extra: Mapping | None) -> dict:
         usage: dict = {}
+        now = time.monotonic()
         if observations:
             usage["sample_time_mono"] = min(obs.sample_time_mono for obs in observations)
-        if extra and "tokens" in extra:
+            usage["observation_ages"] = [
+                {
+                    "source_id": obs.source_id,
+                    "age_s": max(0.0, now - obs.sample_time_mono),
+                }
+                for obs in observations
+            ]
+        if extra and extra.get("usage_source") == "backend" and "tokens" in extra:
             usage["tokens"] = extra["tokens"]
+            usage["usage_source"] = "backend"
         return usage
 
     def _reject(
@@ -169,10 +181,26 @@ class ActionGateway:
                 "action_id": candidate.action_id,
             },
             reason="; ".join(reasons),
-            usage=self._usage(observations or [], extra),
+            usage={**self._usage(observations or [], extra), "reject_class": _reject_class(reasons)},
         )
         try:
             self._registry.update_attempt_state(candidate.attempt_id, AttemptState.REJECTED)
         except KeyError:
             pass
         return CommitResult(accepted=False, reasons=reasons)
+
+
+def _reject_class(reasons: list[str]) -> str:
+    blob = " ".join(reasons).lower()
+    if (
+        "stale plan_epoch" in blob
+        or "stale obs_revision" in blob
+        or "observation bindings missing" in blob
+        or blob.startswith("stale")
+    ):
+        return "candidate_stale"
+    if "version conflict" in blob or "insufficient" in blob:
+        return "provider_reject"
+    if "lease" in blob or "not eligible" in blob:
+        return "gateway_intercept"
+    return "gateway_intercept"
