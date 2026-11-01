@@ -7,6 +7,7 @@ import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+import httpx
 import pytest
 
 from epochgate.backend import FakeBackend
@@ -201,3 +202,46 @@ async def test_fake_backend_still_reserves() -> None:
     )
     assert result.status == TaskStatus.SUCCEEDED
     assert env.stock == 2
+
+
+class _UsageTransport(httpx.AsyncBaseTransport):
+    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200,
+            json={
+                "choices": [
+                    {
+                        "message": {
+                            "tool_calls": [
+                                {"id": "ok", "function": {"name": "reserve", "arguments": '{"qty": 1}'}}
+                            ]
+                        }
+                    }
+                ],
+                "usage": {"prompt_tokens": 11, "completion_tokens": 7},
+            },
+        )
+
+
+@pytest.mark.asyncio
+async def test_provider_usage_is_kept_raw_without_a_sum() -> None:
+    backend = HttpToolBackend(
+        base_url="http://usage.local/v1",
+        api_key="local",
+        model="local",
+        trust_env=False,
+        transport=_UsageTransport(),
+    )
+    request = InferenceRequest(
+        attempt_id="a",
+        task_id="t",
+        plan_epoch=0,
+        obs_revision=0,
+        goal="reserve one unit",
+        tools=[ToolSpec(name="reserve", role="effect")],
+    )
+    events = [event async for event in backend.events(await backend.submit(request))]
+    usage = events[-1].usage
+    assert usage["usage_source"] == "backend"
+    assert usage["provider_usage"] == {"prompt_tokens": 11, "completion_tokens": 7}
+    assert "tokens" not in usage

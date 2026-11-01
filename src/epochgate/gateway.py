@@ -97,6 +97,7 @@ class ActionGateway:
         if result.effect_stale:
             event_usage["effect_stale"] = True
             event_usage["reject_class"] = "stale_commit"
+        event_usage["action_parameters"] = dict(candidate.parameters)
         if result.accepted:
             self._registry.update_attempt_state(candidate.attempt_id, AttemptState.COMMITTED)
             self._events.emit(
@@ -159,9 +160,14 @@ class ActionGateway:
                 }
                 for obs in observations
             ]
-        if extra and extra.get("usage_source") == "backend" and "tokens" in extra:
-            usage["tokens"] = extra["tokens"]
-            usage["usage_source"] = "backend"
+        if extra:
+            provider = extra.get("provider_usage")
+            if isinstance(provider, Mapping):
+                usage["provider_usage"] = dict(provider)
+            if extra.get("usage_source") == "backend":
+                usage["usage_source"] = "backend"
+                if "tokens" in extra:
+                    usage["tokens"] = extra["tokens"]
         return usage
 
     def _reject(
@@ -181,7 +187,11 @@ class ActionGateway:
                 "action_id": candidate.action_id,
             },
             reason="; ".join(reasons),
-            usage={**self._usage(observations or [], extra), "reject_class": _reject_class(reasons)},
+            usage={
+                **self._usage(observations or [], extra),
+                "reject_class": _reject_class(reasons),
+                "action_parameters": dict(candidate.parameters),
+            },
         )
         try:
             self._registry.update_attempt_state(candidate.attempt_id, AttemptState.REJECTED)
