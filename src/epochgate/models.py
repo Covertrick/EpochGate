@@ -204,7 +204,7 @@ class BackendEvent(BaseModel):
     """推理生命周期事件。completed 上带候选动作或工具调用。"""
 
     handle_id: str
-    kind: Literal["accepted", "started", "completed", "failed"]
+    kind: Literal["accepted", "started", "completed", "failed", "token_delta", "tool_call_delta"]
     mono_time: float
     candidate: CandidateAction | None = None
     tool_call: ToolCall | None = None

@@ -188,9 +188,7 @@ class HttpToolBackend:
             body_usage = response.json().get("usage") or {}
         except (json.JSONDecodeError, AttributeError):
             body_usage = {}
-        if isinstance(body_usage, Mapping) and "tokens" in body_usage:
-            usage["tokens"] = body_usage["tokens"]
-            usage["usage_source"] = "backend"
+        _record_provider_usage(usage, body_usage)
         yield BackendEvent(
             handle_id=handle.handle_id,
             kind="completed",
@@ -263,6 +261,25 @@ class HttpToolBackend:
             name=str(function["name"]),
             arguments=arguments,
         )
+
+
+def _record_provider_usage(usage: dict[str, Any], body_usage: object) -> None:
+    """把供应商 usage 原样放进事件。
+
+    输入：要写回的 usage，以及响应里的 usage 对象。
+    输出：无。
+    副作用：有 ``tokens``、``prompt_tokens`` 或 ``completion_tokens`` 时标 ``usage_source=backend``。
+    只在响应自己带 ``tokens`` 时抄这个字段，不把各项相加。
+    失败：usage 不是映射时不动。
+    """
+    if not isinstance(body_usage, Mapping) or not body_usage:
+        return
+    raw = {str(key): value for key, value in body_usage.items()}
+    usage["provider_usage"] = raw
+    if any(key in raw for key in ("tokens", "prompt_tokens", "completion_tokens")):
+        usage["usage_source"] = "backend"
+    if "tokens" in raw:
+        usage["tokens"] = raw["tokens"]
 
 
 def _fault_usage(fault: object) -> dict[str, Any]:

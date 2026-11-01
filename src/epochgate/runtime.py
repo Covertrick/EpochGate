@@ -569,6 +569,17 @@ class Runtime:
                         reason=str(event.usage.get("fault_kind") or ""),
                         usage=dict(event.usage),
                     )
+                if event.kind in {"token_delta", "tool_call_delta"}:
+                    usage = dict(event.usage or {})
+                    usage["usage_source"] = "local"
+                    self.events.emit(
+                        run_id=self.run_id,
+                        event_type=event.kind,
+                        identity={"task_id": decision.task_id, "attempt_id": attempt_id},
+                        reason=event.detail,
+                        usage=usage,
+                    )
+                    continue
                 if event.kind == "completed":
                     candidate = event.candidate
                     tool_call = event.tool_call
@@ -586,6 +597,8 @@ class Runtime:
                     continue
                 candidate = self._candidate_from_tool(request, tool_call)
             if candidate is None:
+                if not self.registry.get_attempt(attempt_id).eligible:
+                    return
                 self._fail_if_open(decision.task_id, failed_detail or "backend returned no action")
                 return
             self.registry.update_attempt_state(attempt_id, AttemptState.RESULT_READY)
@@ -730,10 +743,10 @@ class Runtime:
         task = self.registry.get_task(decision.task_id)
         if task.status in _TERMINAL or decision.attempt_id is None:
             return
-        await self._emit_cancel(decision.attempt_id, decision.task_id, decision.reason)
         attempt = self.registry.get_attempt(decision.attempt_id)
         if attempt.eligible:
             self.registry.supersede_attempt(decision.attempt_id, reason="cancelled")
+        await self._emit_cancel(decision.attempt_id, decision.task_id, decision.reason)
         task = self.registry.get_task(decision.task_id)
         if task.status not in _TERMINAL and task.deadline_mono >= time.monotonic():
             if not self._has_open_attempt(decision.task_id):
