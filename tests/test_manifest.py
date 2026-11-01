@@ -7,7 +7,7 @@ import os
 
 import pytest
 
-from epochgate.experiment import reproduce_cell, run_experiment
+from epochgate.experiment import reproduce_cell, run_experiment, trace_signature
 from epochgate.manifest import cell_id
 
 
@@ -27,16 +27,7 @@ async def test_reproduce_one_policy_cell(tmp_path, monkeypatch) -> None:
     original = (out / "b0-seed-4.jsonl").read_text(encoding="utf-8")
     copied = (replay / f"{identifier}.jsonl").read_text(encoding="utf-8")
 
-    def kinds(text: str) -> list[tuple[str, str | None]]:
-        rows = []
-        for line in text.splitlines():
-            if not line.strip():
-                continue
-            event = json.loads(line)
-            rows.append((event["event_type"], (event.get("identity") or {}).get("task_id")))
-        return rows
-
-    assert kinds(original) == kinds(copied)
+    assert trace_signature(out / "b0-seed-4.jsonl") == trace_signature(replay / f"{identifier}.jsonl")
 
 
 @pytest.mark.asyncio

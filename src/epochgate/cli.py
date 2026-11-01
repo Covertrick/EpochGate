@@ -9,6 +9,7 @@ from pathlib import Path
 import typer
 
 from epochgate.experiment import reproduce_cell, run_experiment, run_freshness_cell
+from epochgate.explain import explain_task
 from epochgate.smoke import run_http_smoke
 
 app = typer.Typer(add_completion=False, no_args_is_help=True, help="EpochGate 研究运行时命令行")
@@ -82,6 +83,16 @@ def demo(seed: int = typer.Option(7, help="外生库存变化的种子")) -> Non
     asyncio.run(_run())
 
 
+@app.command("explain")
+def explain(
+    task_id: str = typer.Argument(..., help="要解释的任务 id"),
+    trace: str = typer.Option("results/explain/demo.jsonl", "--trace", help="JSONL trace"),
+) -> None:
+    """从 trace 打印 stale_observation、late_output_rejected、eligibility_revoked。"""
+    for line in explain_task(Path(trace), task_id):
+        typer.echo(line)
+
+
 @app.command("http-smoke")
 def http_smoke(
     base_url: str | None = typer.Option(None, "--base-url", help="覆盖模型地址。默认读 EPOCHGATE_BASE_URL"),
@@ -138,6 +149,8 @@ def experiment(
     async def _run() -> None:
         summaries = await run_experiment(seed=seed, out_dir=Path(out), scenario=scenario)
         for policy, metrics in summaries.items():
+            if policy == "bootstrap" or "tasks" not in metrics:
+                continue
             typer.echo(
                 f"{policy} tasks={metrics['tasks']} on_time={metrics['on_time_success']} "
                 f"cohort={metrics['cohort_success_rate']:.3f} "

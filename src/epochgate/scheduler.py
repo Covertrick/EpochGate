@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from typing import Protocol, runtime_checkable
 
 from epochgate.ids import IdFactory
@@ -551,13 +552,19 @@ class BudgetedEdScheduler:
         admission: str,
         lease_ttl_s: float = 30.0,
         ids: IdFactory | None = None,
+        weight: float = 0.0,
+        fair_every_n: int = 0,
+        scoring: bool = False,
     ) -> None:
         if admission not in {"serial", "near"}:
             raise ValueError("admission must be serial or near")
         self._admission = admission
-        self._label = "b3" if admission == "serial" else "j0"
+        self._label = "j1" if scoring else ("b3" if admission == "serial" else "j0")
         self._lease_ttl_s = lease_ttl_s
         self._ids = ids or IdFactory(None)
+        self._weight = weight
+        self._fair_every_n = fair_every_n
+        self._scoring = scoring
 
     def decide(self, snapshot: SchedulerSnapshot) -> list[Decision]:
         """对每个未终态尝试按固定顺序给出超时、取消、刷新、租约或派发。
@@ -569,14 +576,13 @@ class BudgetedEdScheduler:
         """
         HappyPathScheduler._require_now(snapshot)
         tasks = {item.task_id: item for item in snapshot.tasks}
+        weight = snapshot.fair_weight if snapshot.fair_weight else self._weight
         ordered = sorted(
             snapshot.attempts,
-            key=lambda attempt: (
-                tasks[attempt.task_id].deadline_mono if attempt.task_id in tasks else 0.0,
-                tasks[attempt.task_id].arrival_mono if attempt.task_id in tasks else 0.0,
-                attempt.attempt_id,
-            ),
+            key=lambda attempt: _virtual_key(snapshot, tasks.get(attempt.task_id), attempt, weight),
         )
+        fair_every = snapshot.fair_every_n if snapshot.fair_every_n else self._fair_every_n
+        fair_id = _fair_target(snapshot, ordered, tasks, fair_every)
         decisions: list[Decision] = []
         timed: set[str] = set()
         slots = snapshot.capacity.free_slots
@@ -622,8 +628,25 @@ class BudgetedEdScheduler:
                 )
                 continue
             refresh = None
-            if attempt.premise_holds is not True:
+            if self._scoring and attempt.state not in _IN_FLIGHT:
+                choice = _best_utility(snapshot, attempt, task)
+                if choice == "wait":
+                    decisions.append(_wait(attempt, "j1 wait"))
+                    continue
+                if choice == "refresh":
+                    refresh = _budgeted_refresh(snapshot, attempt, helper, self._label)
+                    if refresh is None:
+                        refresh = helper._refresh(snapshot, attempt, f"{self._label} score refresh")
+            elif attempt.premise_holds is not True:
                 refresh = _budgeted_refresh(snapshot, attempt, helper, self._label)
+            if (
+                refresh is not None
+                and refresh.kind == "refresh"
+                and snapshot.capacity.free_slots <= 0
+                and snapshot.estimated_service_s > 0
+                and snapshot.observe_cost_s >= snapshot.estimated_service_s
+            ):
+                refresh = _wait(attempt, "expensive observe waits for a free slot")
             if refresh is not None and refresh.kind == "wait":
                 decisions.append(refresh)
                 continue
@@ -644,7 +667,7 @@ class BudgetedEdScheduler:
                             snapshot,
                             attempt,
                             task,
-                            "j0 lease while refresh runs",
+                            f"{self._label} lease while refresh runs",
                             self._ids,
                             self._lease_ttl_s,
                         )
@@ -676,13 +699,22 @@ class BudgetedEdScheduler:
                 if slots <= 0:
                     decisions.append(_wait_slot(snapshot, attempt))
                     continue
+                if fair_id is not None and attempt.attempt_id != fair_id:
+                    decisions.append(_wait(attempt, "fair slot held"))
+                    continue
                 slots -= 1
-                reason = (
-                    "b3 dispatch after refresh"
-                    if self._admission == "serial"
-                    else "j0 observation and lease both ready"
-                )
+                if fair_id is not None and attempt.attempt_id == fair_id:
+                    reason = "fair slot; oldest executable"
+                elif self._scoring:
+                    reason = "j1 dispatch"
+                elif self._admission == "serial":
+                    reason = "b3 dispatch after refresh"
+                else:
+                    reason = "j0 observation and lease both ready"
                 decisions.append(_dispatch(attempt, reason))
+                continue
+            if self._scoring and attempt.state not in _IN_FLIGHT and _version_gap(snapshot, attempt):
+                decisions.append(_wait(attempt, "j1 version gap"))
                 continue
             if attempt.state in _IN_FLIGHT or attempt.premise_holds is True:
                 decisions.append(_wait(attempt, f"in progress ({attempt.state.value})"))
@@ -692,15 +724,257 @@ class BudgetedEdScheduler:
 class StrongComboScheduler(BudgetedEdScheduler):
     """B3：事件触发刷新，刷新当拍不发租约。"""
 
-    def __init__(self, *, lease_ttl_s: float = 30.0, ids: IdFactory | None = None) -> None:
-        super().__init__(admission="serial", lease_ttl_s=lease_ttl_s, ids=ids)
+    def __init__(
+        self,
+        *,
+        lease_ttl_s: float = 30.0,
+        ids: IdFactory | None = None,
+        weight: float = 0.0,
+        fair_every_n: int = 0,
+    ) -> None:
+        super().__init__(
+            admission="serial",
+            lease_ttl_s=lease_ttl_s,
+            ids=ids,
+            weight=weight,
+            fair_every_n=fair_every_n,
+        )
 
 
 class NearComboScheduler(BudgetedEdScheduler):
-    """J0：事件触发刷新，同一拍可以发租约。不是 EVDF。"""
+    """J0：事件触发刷新，同一拍可以发租约。风险打分关闭。不是 EVDF。"""
+
+    def __init__(
+        self,
+        *,
+        lease_ttl_s: float = 30.0,
+        ids: IdFactory | None = None,
+        weight: float = 0.0,
+        fair_every_n: int = 0,
+    ) -> None:
+        super().__init__(
+            admission="near",
+            lease_ttl_s=lease_ttl_s,
+            ids=ids,
+            weight=weight,
+            fair_every_n=fair_every_n,
+            scoring=False,
+        )
+
+
+class JointScheduler(BudgetedEdScheduler):
+    """J1：临近准入加上 U(i,a)。关闭打分时退回 J0，不另起一套准入。"""
+
+    def __init__(
+        self,
+        *,
+        lease_ttl_s: float = 30.0,
+        ids: IdFactory | None = None,
+        weight: float = 0.0,
+        fair_every_n: int = 0,
+        scoring: bool = True,
+    ) -> None:
+        super().__init__(
+            admission="near",
+            lease_ttl_s=lease_ttl_s,
+            ids=ids,
+            weight=weight,
+            fair_every_n=fair_every_n,
+            scoring=scoring,
+        )
+
+
+class EventRefreshScheduler:
+    """独立刷新族：只在缺少观测或通知版本变化时刷新。没有临近准入，也不打分。"""
 
     def __init__(self, *, lease_ttl_s: float = 30.0, ids: IdFactory | None = None) -> None:
-        super().__init__(admission="near", lease_ttl_s=lease_ttl_s, ids=ids)
+        self._lease_ttl_s = lease_ttl_s
+        self._ids = ids or IdFactory(None)
+
+    def decide(self, snapshot: SchedulerSnapshot) -> list[Decision]:
+        """按到达顺序派发。版本差才刷新，刷新当拍不发租约。
+
+        输入：快照。
+        输出：决策列表。
+        副作用：无。
+        失败：时间为非正或需要刷新但没有配方时抛出 ``ValueError``。
+        """
+        helper = HappyPathScheduler(lease_ttl_s=self._lease_ttl_s, ids=self._ids)
+        HappyPathScheduler._require_now(snapshot)
+        tasks = {item.task_id: item for item in snapshot.tasks}
+        ordered = sorted(
+            snapshot.attempts,
+            key=lambda attempt: (
+                tasks[attempt.task_id].arrival_mono if attempt.task_id in tasks else 0.0,
+                attempt.attempt_id,
+            ),
+        )
+        decisions: list[Decision] = []
+        timed: set[str] = set()
+        slots = snapshot.capacity.free_slots
+        for attempt in ordered:
+            task = tasks.get(attempt.task_id)
+            if task is None or task.status in _TERMINAL or not attempt.eligible:
+                continue
+            if helper._append_timeout(decisions, timed, task, attempt, snapshot):
+                continue
+            if attempt.state == AttemptState.COMMITTED:
+                decisions.append(_finish(attempt, "attempt committed; complete task"))
+                continue
+            if attempt.state in _IN_FLIGHT:
+                decisions.append(_wait(attempt, f"in progress ({attempt.state.value})"))
+                continue
+            if attempt.refresh_inflight:
+                decisions.append(_wait(attempt, "refresh in flight"))
+                continue
+            refresh = _budgeted_refresh(snapshot, attempt, helper, "event")
+            if refresh is not None and refresh.kind == "refresh":
+                refresh = Decision(
+                    kind="refresh",
+                    task_id=refresh.task_id,
+                    attempt_id=refresh.attempt_id,
+                    reason="event refresh",
+                    refresh_recipe=refresh.refresh_recipe,
+                )
+            if refresh is not None and refresh.kind == "wait":
+                decisions.append(refresh)
+                continue
+            if refresh is not None:
+                decisions.append(refresh)
+                continue
+            if attempt.lease_id is None or _lease_expired(attempt, snapshot):
+                decisions.append(helper._admit(snapshot, attempt, "event grant admission"))
+                continue
+            if (
+                attempt.state == AttemptState.READY
+                and attempt.has_observations
+                and not _version_gap(snapshot, attempt)
+            ):
+                if slots <= 0:
+                    decisions.append(_wait_slot(snapshot, attempt))
+                    continue
+                slots -= 1
+                decisions.append(_dispatch(attempt, "event dispatch"))
+                continue
+            decisions.append(_wait(attempt, f"in progress ({attempt.state.value})"))
+        return decisions
+
+
+def _virtual_key(
+    snapshot: SchedulerSnapshot,
+    task: TaskView | None,
+    attempt: AttemptView,
+    weight: float,
+) -> tuple:
+    arrival = task.arrival_mono if task is not None else 0.0
+    deadline = task.deadline_mono if task is not None else 0.0
+    waited = max(0.0, snapshot.now_mono - arrival)
+    return (deadline - weight * waited, arrival, attempt.attempt_id)
+
+
+def _fair_target(
+    snapshot: SchedulerSnapshot,
+    ordered: list[AttemptView],
+    tasks: dict[str, TaskView],
+    fair_every: int,
+) -> str | None:
+    if fair_every <= 0 or snapshot.dispatches_since_fair_slot + 1 < fair_every:
+        return None
+    best: AttemptView | None = None
+    best_key: tuple | None = None
+    for attempt in ordered:
+        task = tasks.get(attempt.task_id)
+        if task is None or not _dispatchable(snapshot, attempt):
+            continue
+        waited = max(0.0, snapshot.now_mono - task.arrival_mono)
+        loose_first = 0 if task.task_class == "loose" else 1
+        key = (-waited, loose_first, attempt.attempt_id)
+        if best_key is None or key < best_key:
+            best = attempt
+            best_key = key
+    if best is None:
+        return None
+    return best.attempt_id
+
+
+def _dispatchable(snapshot: SchedulerSnapshot, attempt: AttemptView) -> bool:
+    return (
+        attempt.state == AttemptState.READY
+        and attempt.has_observations
+        and not attempt.refresh_inflight
+        and not _lease_expired(attempt, snapshot)
+        and not _version_gap(snapshot, attempt)
+        and attempt.eligible
+    )
+
+
+def _best_utility(snapshot: SchedulerSnapshot, attempt: AttemptView, task: TaskView) -> str:
+    scores = {
+        action: _utility(snapshot, attempt, task, action) for action in ("execute", "refresh", "wait")
+    }
+    best = max(scores, key=lambda action: (scores[action], action == "execute", action == "refresh"))
+    if scores[best] <= 0:
+        return "wait"
+    return best
+
+
+def _utility(
+    snapshot: SchedulerSnapshot,
+    attempt: AttemptView,
+    task: TaskView,
+    action: str,
+) -> float:
+    service = snapshot.estimated_service_s
+    observe = snapshot.observe_cost_s
+    slack = task.deadline_mono - snapshot.now_mono
+    if action == "execute":
+        need = service
+        model_cost = service
+        observe_cost = 0.0
+    elif action == "refresh":
+        need = service + observe
+        model_cost = 0.0
+        observe_cost = observe
+    else:
+        need = service + max(snapshot.min_refresh_interval_s, 0.0)
+        model_cost = 0.0
+        observe_cost = 0.0
+    if action == "wait":
+        return 0.0
+    if service <= 0:
+        finish = 1.0
+    else:
+        finish = 1.0 if slack >= need else 0.0
+    available = _availability(snapshot, attempt, action)
+    if action == "execute" and not attempt.has_observations:
+        available = 0.0
+    return finish * available / (model_cost + snapshot.kappa * observe_cost + snapshot.epsilon)
+
+
+def _availability(snapshot: SchedulerSnapshot, attempt: AttemptView, action: str) -> float:
+    if action == "refresh":
+        if attempt.refreshes_used >= snapshot.refresh_budget:
+            return 0.0
+        gap = _version_gap(snapshot, attempt)
+        useful = gap or not attempt.has_observations or attempt.premise_holds is False
+        return 1.0 if useful else 0.0
+    gap = _version_gap(snapshot, attempt)
+    if action == "wait" and (gap or not attempt.has_observations):
+        return 0.0
+    if attempt.premise_holds is True and not gap:
+        return 1.0
+    if attempt.premise_holds is False and action == "execute":
+        return 0.0
+    if attempt.last_refresh_mono is None:
+        age = 0.0
+    else:
+        age = max(0.0, snapshot.now_mono - attempt.last_refresh_mono)
+    if gap:
+        age = max(age, 1.0)
+    lam = snapshot.risk_lambda
+    if snapshot.change_count > 0:
+        lam = max(lam, snapshot.change_count / max(age, snapshot.epsilon))
+    return math.exp(-lam * max(age, 0.0))
 
 
 def _budgeted_refresh(
@@ -758,11 +1032,11 @@ def _unreachable(snapshot: SchedulerSnapshot, task: TaskView) -> bool:
     return task.deadline_mono < snapshot.now_mono + snapshot.estimated_service_s
 
 
-def _slo_ttl(task_class: str, default_ttl: float) -> tuple[float, str]:
+def _slo_ttl(task_class: str, default_ttl: float, snapshot: SchedulerSnapshot) -> tuple[float, str]:
     if task_class == "strict":
-        return 5.0, "strict"
+        return snapshot.lease_strict_s, "strict"
     if task_class == "loose":
-        return 30.0, "loose"
+        return snapshot.lease_loose_s, "loose"
     return default_ttl, task_class or "default"
 
 
@@ -774,7 +1048,7 @@ def _admit_with_slo(
     ids: IdFactory,
     default_ttl: float,
 ) -> Decision:
-    ttl, quota = _slo_ttl(task.task_class, default_ttl)
+    ttl, quota = _slo_ttl(task.task_class, default_ttl, snapshot)
     lease = AdmissionLease(
         lease_id=ids("lease"),
         attempt_id=attempt.attempt_id,

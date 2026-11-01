@@ -100,11 +100,17 @@ async def test_same_seed_replays_and_policies_differ(tmp_path) -> None:
         await run_once(seed=7, policy=policy, jsonl_path=second)
         assert _signature(first) == _signature(second)
         paths[policy] = first
-    assert _succeeded(paths["b0"]) == ["t0"]
-    assert _succeeded(paths["b1"]) == ["t1"]
-    assert _succeeded(paths["b0"]) != _succeeded(paths["b1"])
-    assert _succeeded(paths["b2"]) == ["t0"]
-    assert _succeeded(paths["near"]) == ["t1"]
+    def _first_backend(path) -> str | None:
+        for event_type, _reason, task_id in _signature(path):
+            if event_type == "backend_request" and task_id:
+                return task_id
+        return None
+
+    assert _first_backend(paths["b0"]) == "t0"
+    assert _first_backend(paths["b1"]) == "t1"
+    assert _first_backend(paths["b0"]) != _first_backend(paths["b1"])
+    assert _first_backend(paths["b2"]) == "t0"
+    assert _first_backend(paths["near"]) == "t1"
     def _task_refreshes(path, task_id: str) -> int:
         return sum(
             1

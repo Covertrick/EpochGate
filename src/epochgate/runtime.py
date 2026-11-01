@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import time
+import tracemalloc
 
 from epochgate.backend import InferenceBackend
 from epochgate.environment import EnvironmentAdapter
@@ -55,6 +56,7 @@ _REPLAN_MARKERS = (
     "attempt not eligible",
     "lease attempt_id mismatch",
 )
+_MAX_REPLANS = 3
 
 
 class Runtime:
@@ -82,6 +84,15 @@ class Runtime:
         refresh_budget: int = 8,
         service_prior_s: float = 0.0,
         min_refresh_interval_s: float = 0.0,
+        window_s: float | None = None,
+        fair_every_n: int = 0,
+        fair_weight: float = 0.0,
+        kappa: float = 1.0,
+        epsilon: float = 0.05,
+        observe_cost_s: float = 0.0,
+        risk_lambda: float = 0.5,
+        lease_strict_s: float = 5.0,
+        lease_loose_s: float = 30.0,
     ) -> None:
         self.ids = ids or IdFactory(seed)
         self.run_id = run_id or self.ids("run")
@@ -119,6 +130,23 @@ class Runtime:
         self._min_refresh_interval_s = min_refresh_interval_s
         self._notified: dict[str, str] = {}
         self._last_refresh_at: dict[str, float] = {}
+        self._window_s = window_s
+        self._fair_every_n = fair_every_n
+        self._fair_weight = fair_weight
+        self._kappa = kappa
+        self._epsilon = epsilon
+        self._observe_cost_s = observe_cost_s
+        self._risk_lambda = risk_lambda
+        self._lease_strict_s = lease_strict_s
+        self._lease_loose_s = lease_loose_s
+        self._dispatches_since_fair = 0
+        self._change_count = 0
+        self._stream_open = True
+        self._scheduler_cpu_s = 0.0
+        self._window_end = 0.0
+        self._clock = 0.0
+        self._replans: dict[str, int] = {}
+        self._refresh_charges: dict[str, int] = {}
 
     async def run_task(self, task: Task) -> Task:
         """把单个任务跑到终态。
@@ -140,12 +168,33 @@ class Runtime:
         失败：没有进展或超出步数上限时抛出 ``RuntimeError``。
         """
         window_start = time.monotonic()
-        window_end = max((task.deadline_mono for task in tasks), default=window_start)
+        if self._window_s is None:
+            window_end = max((task.deadline_mono for task in tasks), default=window_start)
+        else:
+            window_end = window_start + self._window_s
+        self._window_end = window_end
         self.events.emit(
             run_id=self.run_id,
             event_type="run_started",
-            usage={"window_start_mono": window_start, "window_end_mono": window_end},
+            usage={
+                "window_start_mono": window_start,
+                "window_end_mono": window_end,
+                "window_s": 0.0 if self._window_s is None else self._window_s,
+                "performance_claim": False,
+            },
         )
+        tracing = False
+        if not tracemalloc.is_tracing():
+            tracemalloc.start()
+            tracing = True
+        try:
+            return await self._run_registered(tasks)
+        finally:
+            self._emit_run_finished()
+            if tracing:
+                tracemalloc.stop()
+
+    async def _run_registered(self, tasks: list[Task]) -> list[Task]:
         for task in tasks:
             self.registry.register_task(task)
             attempt = self.registry.begin_attempt(task.task_id)
@@ -163,7 +212,9 @@ class Runtime:
             await self._probe_premises()
             if self._all_terminal(tasks):
                 break
+            started = time.perf_counter()
             decisions = self.scheduler.decide(self.build_snapshot())
+            self._scheduler_cpu_s += time.perf_counter() - started
             if not decisions and not self._workers:
                 raise RuntimeError("scheduler returned no decisions before terminal state")
             progressed = False
@@ -173,7 +224,7 @@ class Runtime:
                 await self._reap_workers()
             elif not progressed:
                 if any(decision.reason == "refresh interval" for decision in decisions):
-                    await asyncio.sleep(self._min_refresh_interval_s)
+                    self._clock += max(self._min_refresh_interval_s, 1e-6)
                     continue
                 raise RuntimeError("runtime stalled without inflight work")
         else:
@@ -185,6 +236,22 @@ class Runtime:
         if not self._all_terminal(tasks):
             raise RuntimeError(f"exceeded max_steps={self.max_steps}")
         return [self.registry.get_task(task.task_id) for task in tasks]
+
+    def _emit_run_finished(self) -> None:
+        current, peak = tracemalloc.get_traced_memory() if tracemalloc.is_tracing() else (0, 0)
+        drain = max(0.0, time.monotonic() - self._window_end) if self._window_end else 0.0
+        self.events.emit(
+            run_id=self.run_id,
+            event_type="run_finished",
+            usage={
+                "scheduler_cpu_s": self._scheduler_cpu_s,
+                "metadata_bytes": peak,
+                "drain_duration": drain,
+                "performance_claim": False,
+                "traced_bytes": current,
+                "refresh_budget": self.refresh_pool.budget(),
+            },
+        )
 
     def build_snapshot(self, *, task_id: str | None = None) -> SchedulerSnapshot:
         """组装裁剪后的调度快照。
@@ -246,7 +313,7 @@ class Runtime:
                         lease_id=None if lease is None else lease.lease_id,
                         lease_expires_at_mono=None if lease is None else lease.expires_at_mono,
                         sources_dirty=dirty,
-                        refreshes_used=self.refresh_pool.used(task.task_id),
+                        refreshes_used=self._refresh_charges.get(task.task_id, 0),
                         refresh_inflight=attempt.attempt_id in self._refreshing,
                         premise_holds=self._premise.get(attempt.attempt_id),
                         bound_versions=bound,
@@ -258,7 +325,7 @@ class Runtime:
         caps = self.backend.capabilities()
         free = max(0, caps.max_inflight - self._inflight)
         return SchedulerSnapshot(
-            now_mono=time.monotonic(),
+            now_mono=self._now(),
             run_id=self.run_id,
             tasks=task_views,
             attempts=attempt_views,
@@ -274,6 +341,17 @@ class Runtime:
             estimated_service_s=self._estimated_service_s(),
             notified_versions=dict(self._notified),
             min_refresh_interval_s=self._min_refresh_interval_s,
+            dispatches_since_fair_slot=self._dispatches_since_fair,
+            fair_every_n=self._fair_every_n,
+            fair_weight=self._fair_weight,
+            kappa=self._kappa,
+            epsilon=self._epsilon,
+            observe_cost_s=self._observe_cost_s,
+            risk_lambda=self._risk_lambda,
+            change_count=self._change_count,
+            stream_open=self._stream_open,
+            lease_strict_s=self._lease_strict_s,
+            lease_loose_s=self._lease_loose_s,
         )
 
     async def _apply(self, decision: Decision) -> bool:
@@ -304,6 +382,7 @@ class Runtime:
                 event_type="decision_wait",
                 identity={"task_id": decision.task_id, "attempt_id": decision.attempt_id or ""},
                 reason=decision.reason,
+                usage=dict(decision.usage),
             )
             return False
         raise ValueError(f"unknown decision kind: {decision.kind}")
@@ -314,6 +393,15 @@ class Runtime:
         attempt_id = decision.attempt_id
         if attempt_id in self._refreshing:
             return
+        if self._refresh_charges.get(decision.task_id, 0) >= self.refresh_pool.budget():
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="decision_wait",
+                identity={"task_id": decision.task_id, "attempt_id": attempt_id},
+                reason="refresh budget exhausted",
+            )
+            return
+        self._refresh_charges[decision.task_id] = self._refresh_charges.get(decision.task_id, 0) + 1
         self._refreshing.add(attempt_id)
         if attempt_id not in self._leases:
             self.registry.update_attempt_state(attempt_id, AttemptState.OBSERVING)
@@ -344,6 +432,17 @@ class Runtime:
                 identity={"task_id": decision.task_id, "attempt_id": decision.attempt_id},
                 reason="read tool not allowed",
             )
+            return
+        except RuntimeError as exc:
+            self._revert_observing(decision.attempt_id)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="decision_wait",
+                identity={"task_id": decision.task_id, "attempt_id": decision.attempt_id},
+                reason="refresh budget exhausted",
+            )
+            if "budget" not in str(exc):
+                raise
             return
         self._last_refresh_at[decision.task_id] = time.monotonic()
         sample_time: float | None = None
@@ -402,6 +501,10 @@ class Runtime:
             return
         attempt_id = decision.attempt_id
         self._dispatch_started[attempt_id] = time.monotonic()
+        if decision.reason.startswith("fair slot"):
+            self._dispatches_since_fair = 0
+        else:
+            self._dispatches_since_fair += 1
         self._inflight += 1
         self._inflight_attempts[attempt_id] = decision.task_id
         self.registry.update_attempt_state(attempt_id, AttemptState.INFLIGHT)
@@ -562,6 +665,9 @@ class Runtime:
                 "task_class": task.task_class,
                 "estimated_service_s": self._estimated_service_s(),
                 "service_source": "last_sample" if self._last_service_s is not None else "prior",
+                "prior_or_history": "last_sample" if self._last_service_s is not None else "prior",
+                "estimated_finish_mono": time.monotonic() + self._estimated_service_s(),
+                "deadline_mono": task.deadline_mono,
             },
         )
         self.registry.complete_task(decision.task_id, TaskStatus.REJECTED)
@@ -572,7 +678,10 @@ class Runtime:
             return
         blob = " ".join(reasons).lower()
         replan = any(marker in blob for marker in _REPLAN_MARKERS)
-        if replan and task.deadline_mono >= time.monotonic():
+        if replan and self._replans.get(task_id, 0) >= _MAX_REPLANS:
+            replan = False
+        if replan and task.deadline_mono >= self._now():
+            self._replans[task_id] = self._replans.get(task_id, 0) + 1
             attempt = self.registry.get_attempt(attempt_id)
             if attempt.eligible:
                 self.registry.supersede_attempt(attempt_id, reason="stale result")
@@ -643,16 +752,31 @@ class Runtime:
             receipt = CancelReceipt(handle_id="", acknowledged=False, evidence="no_handle")
         else:
             receipt = await self.backend.cancel(handle)
+        caps = self.backend.capabilities()
         self.events.emit(
             run_id=self.run_id,
             event_type="cancel_acknowledged",
             identity=identity,
             reason=receipt.evidence,
-            usage={"acknowledged": receipt.acknowledged},
+            usage={
+                "acknowledged": receipt.acknowledged,
+                "grade": receipt.grade,
+                "reclaim_observable": caps.resource_reclaim_observable,
+            },
         )
+        if receipt.reclaimed and caps.resource_reclaim_observable:
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="resource_reclaimed",
+                identity=identity,
+                reason=receipt.evidence,
+            )
+
+    def _now(self) -> float:
+        return time.monotonic() + self._clock
 
     def _drop_expired_leases(self) -> None:
-        now = time.monotonic()
+        now = self._now()
         for attempt_id, lease in list(self._leases.items()):
             if lease.expires_at_mono >= now:
                 continue
@@ -674,8 +798,20 @@ class Runtime:
     async def _poll_changes(self) -> None:
         batch = await self.environment.changes(self._cursor)
         self._cursor = batch.next_cursor or self._cursor
+        self._stream_open = batch.stream_open
+        if not batch.stream_open:
+            sources = list(self.default_refresh.sources) if self.default_refresh is not None else []
+            for source in sources:
+                self._dirty.add(source)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="source_dirty",
+                identity={"source_id": sources[0] if sources else ""},
+                reason="stream_closed",
+            )
         for event in batch.events:
             self._dirty.add(event.source_id)
+            self._change_count += 1
             if event.source_version is not None:
                 self._notified[event.source_id] = event.source_version
             self.events.emit(
