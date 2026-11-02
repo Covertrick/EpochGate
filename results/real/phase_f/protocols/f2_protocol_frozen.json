@@ -1,0 +1,70 @@
+{
+  "protocol_id": "F2_frozen_protocol_v1.2",
+  "provenance": {
+    "package_version": "1.2.0",
+    "git_commit": "8579d2b",
+    "git_worktree_clean": true,
+    "uv_lock_hash": "8af76294fdfa4be3",
+    "config_hash": "3c60145f38d76869",
+    "prompt_hash": "c2b8fb996262d140",
+    "tool_schema_hash": "1b95d252925a69f3",
+    "model": "deepseek-chat",
+    "provider": "https://api.deepseek.com/v1"
+  },
+  "observe_delay_scope": "refresh_only",
+  "baseline_initial_observe_latency_s_median": 0.000156,
+  "delay_levels": [
+    [
+      "F2_0_base",
+      0.0
+    ],
+    [
+      "F2_low_0.5s",
+      0.5
+    ],
+    [
+      "F2_high_2.0s",
+      2.0
+    ]
+  ],
+  "primary_net_benefit_metrics": [
+    "delta_batch_wall_clock_s",
+    "delta_recovery_latency_s"
+  ],
+  "mechanism_explanation_formula": "G = P(trigger)*E[delta_slot | trigger] - C_extra (explanatory only, does not replace batch latency)",
+  "confirmatory_seeds_locked": {
+    "long_early:F2_0_base": [
+      6151,
+      6152
+    ],
+    "long_early:F2_low_0.5s": [
+      6161,
+      6162
+    ],
+    "long_early:F2_high_2.0s": [
+      6171,
+      6172
+    ],
+    "mid_mid:F2_0_base": [
+      6251,
+      6252
+    ],
+    "mid_mid:F2_low_0.5s": [
+      6261,
+      6262
+    ],
+    "mid_mid:F2_high_2.0s": [
+      6271,
+      6272
+    ],
+    "short_early:F2_0_base": [
+      6351
+    ],
+    "short_early:F2_low_0.5s": [
+      6361
+    ],
+    "short_early:F2_high_2.0s": [
+      6371
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+cell_id,configured_observe_delay_s,observe_delay_scope,planned_pairs,both_triggered_pairs,delta_batch_wall_s_mean,delta_recovery_latency_s_mean,delta_slot_hold_s_mean,explanatory_G_s,A_recovery_success,B_recovery_success
+F2_long_early_F2_0_base,0.0,refresh_only,2,2,2.6028,2.7314,4.1678,4.1578,2,2
+F2_long_early_F2_high_2.0s,2.0,refresh_only,2,2,0.8734,1.275,3.833,3.823,2,2
+F2_long_early_F2_low_0.5s,0.5,refresh_only,2,2,1.0,2.2597,4.322,4.312,2,1
+F2_mid_mid_F2_0_base,0.0,refresh_only,2,1,-0.78,-0.1372,1.8561,0.9181,1,2
+F2_mid_mid_F2_high_2.0s,2.0,refresh_only,2,2,1.5679,1.5553,2.0597,2.0497,2,2
+F2_mid_mid_F2_low_0.5s,0.5,refresh_only,2,2,0.2374,0.3131,2.4921,2.4821,2,2
+F2_short_early_F2_0_base,0.0,refresh_only,1,1,-0.282,0.4187,0.0706,0.0606,1,1
+F2_short_early_F2_high_2.0s,2.0,refresh_only,1,1,0.0226,-0.0375,0.8785,0.8685,1,1
+F2_short_early_F2_low_0.5s,0.5,refresh_only,1,1,-4.6188,-4.3897,0.6026,0.5926,1,1

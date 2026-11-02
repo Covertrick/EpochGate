@@ -88,8 +88,8 @@ F1_R_DEV_SEEDS: dict[str, tuple[int, ...]] = {
 }
 
 F1_R_CONFIRM_SEEDS: dict[str, tuple[int, ...]] = {
-    "F1R_long_early": (5851, 5852),
-    "F1R_mid_mid": (5861, 5862),
+    "F1R_long_early": (5851, 5852, 5853, 5854),
+    "F1R_mid_mid": (5861, 5862, 5863, 5864),
     "F1R_short_early": (5871, 5872),
 }
 
