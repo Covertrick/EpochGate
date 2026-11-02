@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import time
 from typing import Mapping
 
@@ -35,6 +36,37 @@ class ActionGateway:
         self._observations = observations
         self._events = events
         self._run_id = run_id
+        self._admission_lock = asyncio.Lock()
+        self._commit_rights: set[str] = set()
+
+    async def linearize_revoke(
+        self,
+        attempt_id: str,
+        *,
+        reason: str,
+        bump_plan_epoch: bool = False,
+        bump_obs_revision: bool = False,
+    ) -> bool:
+        """在同一把锁里撤销资格。已经取得提交权时不再撤销。
+
+        输入：尝试 id 和原因。
+        输出：真表示资格已撤销。假表示提交权先被拿走，调用方不能再改资格。
+        副作用：成功时把尝试标成不可用。
+        失败：未知尝试抛出 ``KeyError``。
+        """
+        async with self._admission_lock:
+            if attempt_id in self._commit_rights:
+                return False
+            attempt = self._registry.get_attempt(attempt_id)
+            if attempt.state == AttemptState.COMMITTED:
+                return False
+            self._registry.supersede_attempt(
+                attempt_id,
+                reason=reason,
+                bump_plan_epoch=bump_plan_epoch,
+                bump_obs_revision=bump_obs_revision,
+            )
+            return True
 
     async def submit(
         self,
@@ -91,39 +123,70 @@ class ActionGateway:
             return self._reject(candidate, check.reasons, observations=bound_obs, extra=extra)
 
         conditions = self._build_conditions(bound_obs)
-        result = await self._env.commit(candidate, conditions)
-        event_usage = self._usage(bound_obs, extra)
-
-        if result.effect_stale:
-            event_usage["effect_stale"] = True
-            event_usage["reject_class"] = "stale_commit"
-        event_usage["action_parameters"] = dict(candidate.parameters)
-        if result.accepted:
-            self._registry.update_attempt_state(candidate.attempt_id, AttemptState.COMMITTED)
-            self._events.emit(
-                run_id=self._run_id,
-                event_type="action_committed",
-                identity={
-                    "task_id": candidate.task_id,
-                    "attempt_id": candidate.attempt_id,
-                    "action_id": candidate.action_id,
-                },
-                reason=result.commit_id,
-                usage=event_usage,
-            )
-        else:
-            self._registry.update_attempt_state(candidate.attempt_id, AttemptState.REJECTED)
-            self._events.emit(
-                run_id=self._run_id,
-                event_type="action_rejected",
-                identity={
-                    "task_id": candidate.task_id,
-                    "attempt_id": candidate.attempt_id,
-                    "action_id": candidate.action_id,
-                },
-                reason="; ".join(result.reasons),
-                usage={**event_usage, "reject_class": _reject_class(result.reasons)},
-            )
+        async with self._admission_lock:
+            current = self._registry.get_attempt(candidate.attempt_id)
+            if not current.eligible or candidate.attempt_id in self._commit_rights:
+                return self._reject(candidate, ["attempt not eligible"], observations=bound_obs, extra=extra)
+            self._commit_rights.add(candidate.attempt_id)
+            try:
+                result = await self._env.commit(candidate, conditions)
+            except Exception as exc:
+                self._events.emit(
+                    run_id=self._run_id,
+                    event_type="commit_unknown",
+                    identity={
+                        "task_id": candidate.task_id,
+                        "attempt_id": candidate.attempt_id,
+                        "action_id": candidate.action_id,
+                    },
+                    reason=f"external commit raised: {exc}",
+                )
+                raise
+            event_usage = self._usage(bound_obs, extra)
+            if result.effect_stale:
+                event_usage["effect_stale"] = True
+                event_usage["reject_class"] = "stale_commit"
+            event_usage["action_parameters"] = dict(candidate.parameters)
+            try:
+                if result.accepted:
+                    self._registry.update_attempt_state(candidate.attempt_id, AttemptState.COMMITTED)
+                    self._events.emit(
+                        run_id=self._run_id,
+                        event_type="action_committed",
+                        identity={
+                            "task_id": candidate.task_id,
+                            "attempt_id": candidate.attempt_id,
+                            "action_id": candidate.action_id,
+                        },
+                        reason=result.commit_id,
+                        usage=event_usage,
+                    )
+                else:
+                    self._commit_rights.discard(candidate.attempt_id)
+                    self._registry.update_attempt_state(candidate.attempt_id, AttemptState.REJECTED)
+                    self._events.emit(
+                        run_id=self._run_id,
+                        event_type="action_rejected",
+                        identity={
+                            "task_id": candidate.task_id,
+                            "attempt_id": candidate.attempt_id,
+                            "action_id": candidate.action_id,
+                        },
+                        reason="; ".join(result.reasons),
+                        usage={**event_usage, "reject_class": _reject_class(result.reasons)},
+                    )
+            except Exception as exc:
+                self._events.emit(
+                    run_id=self._run_id,
+                    event_type="commit_unknown",
+                    identity={
+                        "task_id": candidate.task_id,
+                        "attempt_id": candidate.attempt_id,
+                        "action_id": candidate.action_id,
+                    },
+                    reason=f"local confirm failed after external commit: {exc}",
+                )
+                return CommitResult(accepted=False, reasons=["commit confirmation unknown"])
         return result
 
     def _resolve_observations(self, candidate: CandidateAction) -> tuple[list[Observation], list[str]]:

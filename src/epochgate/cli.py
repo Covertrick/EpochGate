@@ -10,6 +10,7 @@ import typer
 
 from epochgate.experiment import reproduce_cell, run_experiment, run_freshness_cell
 from epochgate.explain import explain_task
+from epochgate.real_run import run_static_series, run_stream_pairs
 from epochgate.smoke import run_http_smoke
 
 app = typer.Typer(add_completion=False, no_args_is_help=True, help="EpochGate 研究运行时命令行")
@@ -179,6 +180,75 @@ def reproduce(
             f"{cell_id} tasks={metrics['tasks']} on_time={metrics['on_time_success']} "
             f"fault_rate={metrics['fault_injection_rate']:.3f}"
         )
+
+    asyncio.run(_run())
+
+
+def _require_http() -> tuple[str, str, str]:
+    settings = http_settings()
+    if settings is None:
+        typer.echo("缺少 EPOCHGATE_BASE_URL、EPOCHGATE_API_KEY 或 EPOCHGATE_MODEL")
+        raise typer.Exit(code=2)
+    return settings
+
+
+@app.command("static-reserve")
+def static_reserve(
+    runs: int = typer.Option(1, "--runs", help="连续跑几次。基线用 6"),
+    out: str = typer.Option("results/real", "--out", help="原始行目录"),
+) -> None:
+    """用真实模型做无外生变化的预约。解析失败时同一请求最多再试一次。"""
+    base_url, api_key, model = _require_http()
+
+    async def _run() -> None:
+        rows = await run_static_series(
+            base_url=base_url,
+            api_key=api_key,
+            model=model,
+            runs=runs,
+            out_dir=Path(out),
+        )
+        for row in rows:
+            typer.echo(
+                f"run={row['run_index']} success={row['success']} "
+                f"stock={row['stock_before']}->{row['stock_after']} "
+                f"retry={row['retry_count']} failure={row['failure_class'] or '-'}"
+            )
+        if runs == 6 and all(row["success"] for row in rows):
+            typer.echo(f"baseline={Path(out) / 'baseline.jsonl'}")
+        else:
+            typer.echo(f"rows={Path(out) / 'static_runs.jsonl'}")
+
+    asyncio.run(_run())
+
+
+@app.command("stream-ab")
+def stream_ab(
+    pairs: int = typer.Option(3, "--pairs", help="种子 1 到这个数，每种子跑 A 和 B"),
+    delay: float = typer.Option(0.3, "--delay", help="首个增量后多久把库存改为 0"),
+    out: str = typer.Option("results/real/paired.jsonl", "--out", help="原始行"),
+) -> None:
+    """用真实流式模型跑 A/B。A 不断开，B 关闭响应。"""
+    base_url, api_key, model = _require_http()
+
+    async def _run() -> None:
+        rows = await run_stream_pairs(
+            base_url=base_url,
+            api_key=api_key,
+            model=model,
+            pairs=pairs,
+            out_path=Path(out),
+            first_delta_delay_s=delay,
+        )
+        for row in rows:
+            typer.echo(
+                f"seed={row['seed']} arm={row['arm']} "
+                f"before={row['local_tokens_before_revoke']} "
+                f"extra={row['extra_tokens_until_local_stop']} "
+                f"stopped={row['local_loop_stopped']} "
+                f"old_submitted={row['old_result_submitted']} "
+                f"committed={row['committed']}"
+            )
 
     asyncio.run(_run())
 

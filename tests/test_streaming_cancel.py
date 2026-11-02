@@ -14,8 +14,8 @@ from epochgate.inventory import InventoryEnvironment
 from epochgate.models import Task, TaskStatus
 from epochgate.runtime import Runtime
 from epochgate.scheduler import NearAdmissionScheduler
-from epochgate.streaming_backend import StreamingFakeBackend
-from epochgate.streaming_probe import run_paired_case
+from mocks.paired import run_paired_case
+from mocks.streaming import MockStreamingBackend
 
 
 def _runtime(env, backend, *, run_id: str) -> Runtime:
@@ -34,7 +34,7 @@ def _runtime(env, backend, *, run_id: str) -> Runtime:
 @pytest.mark.asyncio
 async def test_stream_completes_and_commits() -> None:
     env = InventoryEnvironment(stock=3, schedule=[], seed=1, pace="step")
-    backend = StreamingFakeBackend(token_count=4, ids=IdFactory(1))
+    backend = MockStreamingBackend(token_count=4, ids=IdFactory(1))
     runtime = _runtime(env, backend, run_id="stream-a")
     now = time.monotonic()
     result = await runtime.run_task(
@@ -61,7 +61,7 @@ async def test_cancel_after_fifth_token_stops_the_local_loop() -> None:
             fired["done"] = True
             env.apply_exogenous(-3)
 
-    backend = StreamingFakeBackend(
+    backend = MockStreamingBackend(
         token_count=8,
         trigger_at=5,
         on_trigger=drop_stock,
@@ -118,7 +118,7 @@ async def test_partial_tool_arguments_never_reach_the_gateway() -> None:
             fired["done"] = True
             env.apply_exogenous(-3)
 
-    backend = StreamingFakeBackend(
+    backend = MockStreamingBackend(
         token_count=2,
         fragments=[fragment, ',"rest":1}'],
         pause_after_fragments=1,
@@ -150,7 +150,7 @@ async def test_late_result_after_cancel_is_rejected(tmp_path) -> None:
             fired["done"] = True
             env.apply_exogenous(-3)
 
-    backend = StreamingFakeBackend(
+    backend = MockStreamingBackend(
         token_count=8,
         trigger_at=5,
         on_trigger=drop_stock,

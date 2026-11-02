@@ -1,4 +1,4 @@
-"""可中断的假流式后端。不改现有 FakeBackend。
+"""CI 用的可中断假流式后端。不参与真实模型记录。
 
 词元计数只标 ``usage_source=local``。``reclaimed`` 只在本地生成循环
 因取消而停止之后才为真，证据写「本地循环已停」，不写显存或图形处理器。
@@ -22,7 +22,7 @@ from epochgate.models import (
 )
 
 
-class StreamingFakeBackend:
+class MockStreamingBackend:
     """按脚本流出词元和工具参数增量。完整工具调用只在循环走完时交出。"""
 
     def __init__(

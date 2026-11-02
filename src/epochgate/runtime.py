@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import time
 import tracemalloc
 
@@ -147,6 +148,7 @@ class Runtime:
         self._clock = 0.0
         self._replans: dict[str, int] = {}
         self._refresh_charges: dict[str, int] = {}
+        self._block_late: set[str] = set()
 
     async def run_task(self, task: Task) -> Task:
         """把单个任务跑到终态。
@@ -601,6 +603,8 @@ class Runtime:
                     return
                 self._fail_if_open(decision.task_id, failed_detail or "backend returned no action")
                 return
+            if attempt_id in self._block_late:
+                return
             self.registry.update_attempt_state(attempt_id, AttemptState.RESULT_READY)
             result = await self.gateway.submit(candidate, lease, usage=backend_usage)
             self._note_service(attempt_id)
@@ -633,7 +637,27 @@ class Runtime:
         self.registry.bump_obs_revision(task_id)
         self.registry.sync_attempt_epochs(attempt_id)
         self._sessions.setdefault(attempt_id, []).append(
-            {"role": "tool", "name": tool_call.name, "content": payloads}
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "id": tool_call.call_id,
+                        "type": "function",
+                        "function": {
+                            "name": tool_call.name,
+                            "arguments": json.dumps(dict(tool_call.arguments), ensure_ascii=False),
+                        },
+                    }
+                ],
+            }
+        )
+        self._sessions.setdefault(attempt_id, []).append(
+            {
+                "role": "tool",
+                "tool_call_id": tool_call.call_id,
+                "content": json.dumps(payloads, ensure_ascii=False, default=str),
+            }
         )
         self.events.emit(
             run_id=self.run_id,
@@ -736,16 +760,14 @@ class Runtime:
             if attempt.state == AttemptState.INFLIGHT:
                 await self._emit_cancel(attempt.attempt_id, decision.task_id, "deadline")
             if attempt.eligible:
-                self.registry.supersede_attempt(attempt.attempt_id, reason="deadline")
+                await self.gateway.linearize_revoke(attempt.attempt_id, reason="deadline")
         self.registry.complete_task(decision.task_id, TaskStatus.TIMED_OUT)
 
     async def _do_cancel(self, decision: Decision) -> None:
         task = self.registry.get_task(decision.task_id)
         if task.status in _TERMINAL or decision.attempt_id is None:
             return
-        attempt = self.registry.get_attempt(decision.attempt_id)
-        if attempt.eligible:
-            self.registry.supersede_attempt(decision.attempt_id, reason="cancelled")
+        await self.gateway.linearize_revoke(decision.attempt_id, reason="cancelled")
         await self._emit_cancel(decision.attempt_id, decision.task_id, decision.reason)
         task = self.registry.get_task(decision.task_id)
         if task.status not in _TERMINAL and task.deadline_mono >= time.monotonic():
@@ -761,11 +783,37 @@ class Runtime:
             identity=identity,
             reason=reason,
         )
-        if handle is None:
-            receipt = CancelReceipt(handle_id="", acknowledged=False, evidence="no_handle")
-        else:
-            receipt = await self.backend.cancel(handle)
         caps = self.backend.capabilities()
+        if handle is None:
+            self._block_late.add(attempt_id)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="cancel_unknown",
+                identity=identity,
+                reason="no_handle",
+            )
+            return
+        if not caps.supports_cancel:
+            self._block_late.add(attempt_id)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="cancel_unknown",
+                identity=identity,
+                reason="cancel_not_supported",
+                usage={"grade": "NOT_SUPPORTED"},
+            )
+            return
+        try:
+            receipt = await self.backend.cancel(handle)
+        except Exception as exc:
+            self._block_late.add(attempt_id)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="cancel_failed",
+                identity=identity,
+                reason=str(exc)[:200],
+            )
+            return
         self.events.emit(
             run_id=self.run_id,
             event_type="cancel_acknowledged",
@@ -777,10 +825,25 @@ class Runtime:
                 "reclaim_observable": caps.resource_reclaim_observable,
             },
         )
+        if receipt.grade == "NOT_SUPPORTED" or receipt.grade == "UNKNOWN":
+            self._block_late.add(attempt_id)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="cancel_unknown",
+                identity=identity,
+                reason=receipt.evidence,
+                usage={"grade": receipt.grade},
+            )
         if receipt.reclaimed and caps.resource_reclaim_observable:
             self.events.emit(
                 run_id=self.run_id,
                 event_type="resource_reclaimed",
+                identity=identity,
+                reason=receipt.evidence,
+            )
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="local_read_stopped",
                 identity=identity,
                 reason=receipt.evidence,
             )
