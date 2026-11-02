@@ -1,0 +1,117 @@
+{
+  "experiment": "F3_six_dimensional_backend_capability_contract",
+  "important_distinction": "stop_on_cancel=False (Arm A policy toggle on a cancellable streaming backend) is NOT equivalent to a backend that lacks cancellation support.",
+  "capability_matrix_6d": [
+    {
+      "backend_profile": "HttpStreamingBackend (Arm B: stop_on_cancel=True)",
+      "streaming_capability": true,
+      "local_read_abort": true,
+      "provider_cancel_request": true,
+      "provider_cancel_ack_semantics": "ACKNOWLEDGED",
+      "server_generation_observability": false,
+      "server_resource_reclaim_observability": false,
+      "gateway_eligibility_gate_enforced": true
+    },
+    {
+      "backend_profile": "HttpStreamingBackend (Arm A policy control: stop_on_cancel=False)",
+      "streaming_capability": true,
+      "local_read_abort": false,
+      "provider_cancel_request": false,
+      "provider_cancel_ack_semantics": "ACKNOWLEDGED",
+      "server_generation_observability": false,
+      "server_resource_reclaim_observability": false,
+      "gateway_eligibility_gate_enforced": true
+    },
+    {
+      "backend_profile": "HttpToolBackend (Non-streaming HTTP POST)",
+      "streaming_capability": false,
+      "local_read_abort": false,
+      "provider_cancel_request": false,
+      "provider_cancel_ack_semantics": "UNKNOWN",
+      "server_generation_observability": false,
+      "server_resource_reclaim_observability": false,
+      "gateway_eligibility_gate_enforced": true
+    },
+    {
+      "backend_profile": "Non-cancellable Backend (supports_cancel=False)",
+      "streaming_capability": false,
+      "local_read_abort": false,
+      "provider_cancel_request": false,
+      "provider_cancel_ack_semantics": "NOT_SUPPORTED",
+      "server_generation_observability": false,
+      "server_resource_reclaim_observability": false,
+      "gateway_eligibility_gate_enforced": true
+    }
+  ],
+  "real_api_nonstreaming_boundary_probes": [
+    {
+      "experiment_block": "F3_nonstreaming_capability_boundary",
+      "evidence_class": "nonstreaming_boundary_control",
+      "package_version": "1.2.0",
+      "git_commit": "8579d2b",
+      "git_worktree_clean": true,
+      "uv_lock_hash": "8af76294fdfa4be3",
+      "config_hash": "3c60145f38d76869",
+      "prompt_hash": "c2b8fb996262d140",
+      "tool_schema_hash": "1b95d252925a69f3",
+      "model": "deepseek-chat",
+      "provider": "https://api.deepseek.com/v1",
+      "seed": 8101,
+      "seed_split": "confirmatory",
+      "pair_id": "F3-nonstream:seed8101",
+      "batch_id": "F3-nonstream:seed8101",
+      "arm": "NON_STREAM",
+      "arm_order": "SINGLE",
+      "capabilities_6d": {
+        "streaming_capability": false,
+        "local_read_abort": false,
+        "provider_cancel_request": false,
+        "provider_cancel_ack_semantics": "UNKNOWN",
+        "server_generation_observability": false,
+        "server_resource_reclaim_observability": false
+      },
+      "action_commits": 0,
+      "action_rejects": 1,
+      "old_attempt_committed": false,
+      "gateway_eligibility_gate_held": true,
+      "final_stock": 0,
+      "wall_clock_s": 1.8630248000845313,
+      "error": ""
+    },
+    {
+      "experiment_block": "F3_nonstreaming_capability_boundary",
+      "evidence_class": "nonstreaming_boundary_control",
+      "package_version": "1.2.0",
+      "git_commit": "8579d2b",
+      "git_worktree_clean": true,
+      "uv_lock_hash": "8af76294fdfa4be3",
+      "config_hash": "3c60145f38d76869",
+      "prompt_hash": "c2b8fb996262d140",
+      "tool_schema_hash": "1b95d252925a69f3",
+      "model": "deepseek-chat",
+      "provider": "https://api.deepseek.com/v1",
+      "seed": 8102,
+      "seed_split": "confirmatory",
+      "pair_id": "F3-nonstream:seed8102",
+      "batch_id": "F3-nonstream:seed8102",
+      "arm": "NON_STREAM",
+      "arm_order": "SINGLE",
+      "capabilities_6d": {
+        "streaming_capability": false,
+        "local_read_abort": false,
+        "provider_cancel_request": false,
+        "provider_cancel_ack_semantics": "UNKNOWN",
+        "server_generation_observability": false,
+        "server_resource_reclaim_observability": false
+      },
+      "action_commits": 0,
+      "action_rejects": 1,
+      "old_attempt_committed": false,
+      "gateway_eligibility_gate_held": true,
+      "final_stock": 0,
+      "wall_clock_s": 1.883537600049749,
+      "error": ""
+    }
+  ],
+  "all_probes_blocked_stale_commit": true
+}

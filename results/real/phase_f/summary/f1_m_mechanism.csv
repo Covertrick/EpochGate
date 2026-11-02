@@ -1,0 +1,8 @@
+cell_id,length_tier,timing_tier,comparison_role,planned_pairs,both_triggered_pairs,A_only_triggered_pairs,B_only_triggered_pairs,neither_triggered_pairs,request_trigger_probability,request_not_fired_rate,request_late_rate,cond_delta_text_tokens_mean,cond_delta_text_tokens_sd,cond_delta_slot_hold_s_mean,cond_delta_slot_hold_s_sd,overall_policy_delta_wall_s_mean
+F1M_long_early,long,early,primary_confirmatory,2,2,0,0,0,1.0,0.0,0.0,552.0,111.72,4.7012,0.3422,3.3365
+F1M_long_late,long,late,exploratory_boundary,2,2,0,0,0,1.0,0.0,0.0,322.0,9.9,2.2386,0.1739,-47.0629
+F1M_long_mid,long,mid,primary_confirmatory,2,2,0,0,0,1.0,0.0,0.0,498.5,68.59,3.6609,0.3779,2.7534
+F1M_mid_mid,mid,mid,primary_confirmatory,2,1,0,1,0,0.75,0.0,0.25,225.0,,1.7663,,2.8277
+F1M_short_early,short,early,exploratory_boundary,2,1,0,0,1,0.5,0.0,0.0,61.0,,0.8714,,0.1475
+F1M_short_late,short,late,exploratory_boundary,2,0,0,0,2,0.0,0.75,0.25,,,,,-1.2919
+F1M_short_mid,short,mid,exploratory_boundary,2,0,0,1,1,0.25,0.25,0.5,,,,,-2.9149

@@ -1,0 +1,192 @@
+{
+  "protocol_id": "F1_frozen_protocol_v1.2",
+  "provenance": {
+    "package_version": "1.2.0",
+    "git_commit": "8579d2b",
+    "git_worktree_clean": true,
+    "uv_lock_hash": "8af76294fdfa4be3",
+    "config_hash": "3c60145f38d76869",
+    "prompt_hash": "c2b8fb996262d140",
+    "tool_schema_hash": "1b95d252925a69f3",
+    "model": "deepseek-chat",
+    "provider": "https://api.deepseek.com/v1"
+  },
+  "structure": {
+    "F1_M_cells_count": 7,
+    "F1_M_cells": [
+      {
+        "cell_id": "F1M_short_early",
+        "length_tier": "short",
+        "timing_tier": "early",
+        "words": 50,
+        "t_change_s": 0.25
+      },
+      {
+        "cell_id": "F1M_short_mid",
+        "length_tier": "short",
+        "timing_tier": "mid",
+        "words": 50,
+        "t_change_s": 0.8
+      },
+      {
+        "cell_id": "F1M_short_late",
+        "length_tier": "short",
+        "timing_tier": "late",
+        "words": 50,
+        "t_change_s": 1.8
+      },
+      {
+        "cell_id": "F1M_mid_mid",
+        "length_tier": "mid",
+        "timing_tier": "mid",
+        "words": 200,
+        "t_change_s": 0.8
+      },
+      {
+        "cell_id": "F1M_long_early",
+        "length_tier": "long",
+        "timing_tier": "early",
+        "words": 450,
+        "t_change_s": 0.25
+      },
+      {
+        "cell_id": "F1M_long_mid",
+        "length_tier": "long",
+        "timing_tier": "mid",
+        "words": 450,
+        "t_change_s": 0.8
+      },
+      {
+        "cell_id": "F1M_long_late",
+        "length_tier": "long",
+        "timing_tier": "late",
+        "words": 450,
+        "t_change_s": 1.8
+      }
+    ],
+    "F1_R_cells_count": 3,
+    "F1_R_cells": [
+      {
+        "cell_id": "F1R_long_early",
+        "length_tier": "long",
+        "timing_tier": "early",
+        "words": 450,
+        "t_change_s": 0.25,
+        "t_restore_s": 1.25
+      },
+      {
+        "cell_id": "F1R_mid_mid",
+        "length_tier": "mid",
+        "timing_tier": "mid",
+        "words": 200,
+        "t_change_s": 0.8,
+        "t_restore_s": 1.8
+      },
+      {
+        "cell_id": "F1R_short_early",
+        "length_tier": "short",
+        "timing_tier": "early",
+        "words": 50,
+        "t_change_s": 0.25,
+        "t_restore_s": 1.25
+      }
+    ]
+  },
+  "multiple_comparison_plan": {
+    "primary_confirmatory_cells": [
+      "F1M_long_early",
+      "F1M_long_mid",
+      "F1M_mid_mid"
+    ],
+    "correction_method": "Holm-Bonferroni across primary confirmatory cells",
+    "exploratory_boundary_cells": [
+      "F1M_short_early",
+      "F1M_short_mid",
+      "F1M_short_late",
+      "F1M_long_late"
+    ]
+  },
+  "dev_calibration": {
+    "F1M_long_early": {
+      "dev_requests": 2,
+      "dev_triggered_requests": 2,
+      "dev_trigger_prob": 1.0
+    },
+    "F1M_long_late": {
+      "dev_requests": 2,
+      "dev_triggered_requests": 2,
+      "dev_trigger_prob": 1.0
+    },
+    "F1M_long_mid": {
+      "dev_requests": 2,
+      "dev_triggered_requests": 2,
+      "dev_trigger_prob": 1.0
+    },
+    "F1M_mid_mid": {
+      "dev_requests": 2,
+      "dev_triggered_requests": 2,
+      "dev_trigger_prob": 1.0
+    },
+    "F1M_short_early": {
+      "dev_requests": 2,
+      "dev_triggered_requests": 2,
+      "dev_trigger_prob": 1.0
+    },
+    "F1M_short_late": {
+      "dev_requests": 2,
+      "dev_triggered_requests": 0,
+      "dev_trigger_prob": 0.0
+    },
+    "F1M_short_mid": {
+      "dev_requests": 2,
+      "dev_triggered_requests": 1,
+      "dev_trigger_prob": 0.5
+    }
+  },
+  "confirmatory_seeds_locked": {
+    "F1_M": {
+      "F1M_short_early": [
+        5151,
+        5152
+      ],
+      "F1M_short_mid": [
+        5251,
+        5252
+      ],
+      "F1M_short_late": [
+        5351,
+        5352
+      ],
+      "F1M_mid_mid": [
+        5451,
+        5452
+      ],
+      "F1M_long_early": [
+        5551,
+        5552
+      ],
+      "F1M_long_mid": [
+        5651,
+        5652
+      ],
+      "F1M_long_late": [
+        5751,
+        5752
+      ]
+    },
+    "F1_R": {
+      "F1R_long_early": [
+        5851,
+        5852
+      ],
+      "F1R_mid_mid": [
+        5861,
+        5862
+      ],
+      "F1R_short_early": [
+        5871,
+        5872
+      ]
+    }
+  }
+}

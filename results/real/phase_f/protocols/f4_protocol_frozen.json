@@ -1,0 +1,129 @@
+{
+  "protocol_id": "F4_frozen_protocol_v1.2",
+  "provenance": {
+    "package_version": "1.2.0",
+    "git_commit": "8579d2b",
+    "git_worktree_clean": true,
+    "uv_lock_hash": "8af76294fdfa4be3",
+    "config_hash": "3c60145f38d76869",
+    "prompt_hash": "c2b8fb996262d140",
+    "tool_schema_hash": "1b95d252925a69f3",
+    "model": "deepseek-chat",
+    "provider": "https://api.deepseek.com/v1"
+  },
+  "queue_contract": {
+    "scheduler": "FifoAdmissionScheduler",
+    "max_inflight": 1,
+    "initial_enqueue_rule": "Strictly ordered by (task.arrival_mono, attempt_id)",
+    "replan_enqueue_rule": "Cancelled/rejected attempt replan enters tail of ready queue via attempt.created_mono (identical priority for Arm A and Arm B)",
+    "slot_acquisition_rule": "Single serial local slot acquired only after previous attempt emits slot_released",
+    "starvation_wait_threshold_s": 25.0,
+    "starvation_overtaken_limit": 2
+  },
+  "scenarios": [
+    {
+      "scenario_id": "F4a_steady_mixed",
+      "description": "平稳到达长短混合 (t0=long@0.0s, t1=short@0.4s, t2=mid@0.8s)",
+      "t_change_s": 0.25,
+      "t_restore_s": 1.0,
+      "initial_stock": 3,
+      "restore_delta": 3,
+      "tasks": [
+        {
+          "task_id": "t0",
+          "words": 400,
+          "length_tier": "long",
+          "arrival_offset_s": 0.0
+        },
+        {
+          "task_id": "t1",
+          "words": 60,
+          "length_tier": "short",
+          "arrival_offset_s": 0.4
+        },
+        {
+          "task_id": "t2",
+          "words": 180,
+          "length_tier": "mid",
+          "arrival_offset_s": 0.8
+        }
+      ]
+    },
+    {
+      "scenario_id": "F4b_burst_hol",
+      "description": "突发到达 1长+2短 队头阻塞测试 (t0=long@0.0s, t1=short@0.01s, t2=short@0.02s)",
+      "t_change_s": 0.25,
+      "t_restore_s": 1.0,
+      "initial_stock": 3,
+      "restore_delta": 3,
+      "tasks": [
+        {
+          "task_id": "t0",
+          "words": 450,
+          "length_tier": "long",
+          "arrival_offset_s": 0.0
+        },
+        {
+          "task_id": "t1",
+          "words": 60,
+          "length_tier": "short",
+          "arrival_offset_s": 0.01
+        },
+        {
+          "task_id": "t2",
+          "words": 60,
+          "length_tier": "short",
+          "arrival_offset_s": 0.02
+        }
+      ]
+    },
+    {
+      "scenario_id": "F4c_interleaved_4tasks",
+      "description": "长短连续混排 4 任务饥饿检查 (t0=long, t1=short, t2=short, t3=long)",
+      "t_change_s": 0.25,
+      "t_restore_s": 1.0,
+      "initial_stock": 4,
+      "restore_delta": 4,
+      "tasks": [
+        {
+          "task_id": "t0",
+          "words": 400,
+          "length_tier": "long",
+          "arrival_offset_s": 0.0
+        },
+        {
+          "task_id": "t1",
+          "words": 60,
+          "length_tier": "short",
+          "arrival_offset_s": 0.01
+        },
+        {
+          "task_id": "t2",
+          "words": 60,
+          "length_tier": "short",
+          "arrival_offset_s": 0.02
+        },
+        {
+          "task_id": "t3",
+          "words": 350,
+          "length_tier": "long",
+          "arrival_offset_s": 0.03
+        }
+      ]
+    }
+  ],
+  "confirmatory_seeds_locked": {
+    "F4a_steady_mixed": [
+      7151,
+      7152
+    ],
+    "F4b_burst_hol": [
+      7251,
+      7252
+    ],
+    "F4c_interleaved_4tasks": [
+      7351,
+      7352
+    ]
+  }
+}

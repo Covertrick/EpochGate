@@ -1,0 +1,4 @@
+cell_id,planned_pairs,both_triggered_pairs,A_successful_recovery_count,B_successful_recovery_count,any_old_attempt_committed,delta_recovery_latency_s_mean
+F1R_long_early,4,2,2,3,False,-2.8335
+F1R_mid_mid,4,2,2,0,False,
+F1R_short_early,2,1,1,1,False,5.1193
