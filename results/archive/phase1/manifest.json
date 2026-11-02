@@ -1,0 +1,28 @@
+{
+  "archive_id": "phase1-1c795c5",
+  "snapshot_commit": "1c795c5a499fbfe5001859e7b50e416c3bef3542",
+  "baseline_commit_recorded_in_rows": "6de2721",
+  "baseline_commit_full": "6de2721db84ed73c2c855291ee0c554972b40f93",
+  "worktree_note": "阶段一 60 行的 code_version 写成了 6de2721，但生成它们的流式后端与矩阵脚本在快照提交 1c795c5。只检出 6de2721 不能重跑这批行。",
+  "uv_lock_sha256": "ed8748d5983c8bed7a7e0d048bf2516c5eb67eb5e5bff6e4c84c43722ed6d60c",
+  "model": "deepseek-chat",
+  "base_url": "https://api.deepseek.com/v1",
+  "prompt_version": "phase1-words-v1",
+  "deadline_s": 120.0,
+  "timeout_s": 180.0,
+  "branch": "uncertain",
+  "matrix_path": "results/real/matrix.jsonl",
+  "summary_path": "results/real/matrix_summary.json",
+  "preflight_path": "results/real/preflight.jsonl",
+  "aborted_paths": [
+    "results/real/matrix_aborted.jsonl",
+    "results/real/matrix_aborted_422.jsonl"
+  ],
+  "recompute_command": "uv run python scripts/recompute_phase1_summary.py",
+  "generate_command": "uv run python -u scripts/run_experiment_matrix.py --cells A,B,C",
+  "exploratory": true,
+  "formal_probe_dirs": [
+    "results/real/phase_c",
+    "results/real/phase_d"
+  ]
+}

@@ -94,6 +94,7 @@ class Runtime:
         risk_lambda: float = 0.5,
         lease_strict_s: float = 5.0,
         lease_loose_s: float = 30.0,
+        await_recovery_on_depletion: bool = False,
     ) -> None:
         self.ids = ids or IdFactory(seed)
         self.run_id = run_id or self.ids("run")
@@ -115,6 +116,8 @@ class Runtime:
         self.max_steps = max_steps
         self.max_turns = max_turns
         self.inline_dispatch = inline_dispatch
+        self.await_recovery_on_depletion = await_recovery_on_depletion
+        self._awaiting_recovery: set[str] = set()
         self._leases: dict[str, AdmissionLease] = {}
         self._inflight = 0
         self._inflight_attempts: dict[str, str] = {}
@@ -218,6 +221,9 @@ class Runtime:
             decisions = self.scheduler.decide(self.build_snapshot())
             self._scheduler_cpu_s += time.perf_counter() - started
             if not decisions and not self._workers:
+                if self._awaiting_recovery and self._any_within_deadline(tasks):
+                    await asyncio.sleep(0.02)
+                    continue
                 raise RuntimeError("scheduler returned no decisions before terminal state")
             progressed = False
             for decision in decisions:
@@ -227,6 +233,9 @@ class Runtime:
             elif not progressed:
                 if any(decision.reason == "refresh interval" for decision in decisions):
                     self._clock += max(self._min_refresh_interval_s, 1e-6)
+                    continue
+                if self._awaiting_recovery and self._any_within_deadline(tasks):
+                    await asyncio.sleep(0.02)
                     continue
                 raise RuntimeError("runtime stalled without inflight work")
         else:
@@ -321,6 +330,7 @@ class Runtime:
                         bound_versions=bound,
                         depends_on=depends,
                         last_refresh_mono=self._last_refresh_at.get(task.task_id),
+                        created_mono=attempt.created_mono,
                     )
                 )
 
@@ -420,6 +430,9 @@ class Runtime:
     async def _finish_refresh(self, decision: Decision, *, was_dirty: bool) -> None:
         if decision.attempt_id is None or decision.refresh_recipe is None:
             return
+        refresh_started_mono = time.monotonic()
+        had_obs_before = bool(self.observations.latest_for_task(decision.task_id))
+        obs_phase = "refresh" if (was_dirty or had_obs_before) else "initial"
         try:
             batch = await self.refresh_pool.observe(
                 decision.task_id,
@@ -446,7 +459,8 @@ class Runtime:
             if "budget" not in str(exc):
                 raise
             return
-        self._last_refresh_at[decision.task_id] = time.monotonic()
+        refresh_completed_mono = time.monotonic()
+        self._last_refresh_at[decision.task_id] = refresh_completed_mono
         sample_time: float | None = None
         for obs in batch.observations:
             stored = self.observations.record(obs, task_id=decision.task_id)
@@ -466,7 +480,12 @@ class Runtime:
         attempt = self.registry.get_attempt(decision.attempt_id)
         if attempt.state == AttemptState.OBSERVING and decision.attempt_id not in self._leases:
             self.registry.update_attempt_state(decision.attempt_id, AttemptState.QUEUED)
-        usage: dict = {}
+        usage: dict = {
+            "observation_phase": obs_phase,
+            "refresh_started_at": refresh_started_mono,
+            "refresh_completed_at": refresh_completed_mono,
+            "actual_observe_latency_s": max(0.0, refresh_completed_mono - refresh_started_mono),
+        }
         if sample_time is not None:
             usage["sample_time_mono"] = sample_time
         self.events.emit(
@@ -719,11 +738,36 @@ class Runtime:
             replan = False
         if replan and task.deadline_mono >= self._now():
             self._replans[task_id] = self._replans.get(task_id, 0) + 1
+            if "version conflict" in blob and self.await_recovery_on_depletion:
+                for obs in self.observations.latest_for_task(task_id):
+                    self._dirty.add(obs.source_id)
             attempt = self.registry.get_attempt(attempt_id)
             if attempt.eligible:
                 self.registry.supersede_attempt(attempt_id, reason="stale result")
             if not self._has_open_attempt(task_id):
                 self.registry.begin_attempt(task_id)
+            return
+        if (
+            self.await_recovery_on_depletion
+            and "insufficient stock" in blob
+            and task.deadline_mono >= self._now()
+            and self._replans.get(task_id, 0) < _MAX_REPLANS
+        ):
+            self._replans[task_id] = self._replans.get(task_id, 0) + 1
+            attempt = self.registry.get_attempt(attempt_id)
+            if attempt.eligible:
+                self.registry.supersede_attempt(attempt_id, reason="awaiting recovery")
+            if self._task_dirty(task_id):
+                if not self._has_open_attempt(task_id):
+                    self.registry.begin_attempt(task_id)
+                return
+            self._awaiting_recovery.add(task_id)
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="awaiting_recovery",
+                identity={"task_id": task_id, "attempt_id": attempt_id},
+                reason="insufficient stock; waiting for exogenous restore",
+            )
             return
         self.registry.complete_task(task_id, TaskStatus.REJECTED)
 
@@ -834,19 +878,27 @@ class Runtime:
                 reason=receipt.evidence,
                 usage={"grade": receipt.grade},
             )
-        if receipt.reclaimed and caps.resource_reclaim_observable:
+        if getattr(receipt, "connection_closed", False):
             self.events.emit(
                 run_id=self.run_id,
-                event_type="resource_reclaimed",
+                event_type="connection_closed",
                 identity=identity,
                 reason=receipt.evidence,
             )
+        if receipt.reclaimed:
             self.events.emit(
                 run_id=self.run_id,
                 event_type="local_read_stopped",
                 identity=identity,
                 reason=receipt.evidence,
             )
+            if caps.resource_reclaim_observable:
+                self.events.emit(
+                    run_id=self.run_id,
+                    event_type="resource_reclaimed",
+                    identity=identity,
+                    reason=receipt.evidence,
+                )
 
     def _now(self) -> float:
         return time.monotonic() + self._clock
@@ -896,6 +948,18 @@ class Runtime:
                 identity={"source_id": event.source_id},
                 reason=event.kind,
             )
+            for waiting_task_id in list(self._awaiting_recovery):
+                task = self.registry.get_task(waiting_task_id)
+                if task.status in _TERMINAL:
+                    self._awaiting_recovery.discard(waiting_task_id)
+                    continue
+                if task.deadline_mono < self._now():
+                    self._awaiting_recovery.discard(waiting_task_id)
+                    self.registry.complete_task(waiting_task_id, TaskStatus.TIMED_OUT)
+                    continue
+                self._awaiting_recovery.discard(waiting_task_id)
+                if not self._has_open_attempt(waiting_task_id):
+                    self.registry.begin_attempt(waiting_task_id)
 
     def _revert_observing(self, attempt_id: str) -> None:
         if attempt_id in self._leases:
@@ -970,9 +1034,28 @@ class Runtime:
     def _all_terminal(self, tasks: list[Task]) -> bool:
         return all(self.registry.get_task(task.task_id).status in _TERMINAL for task in tasks)
 
+    def _any_within_deadline(self, tasks: list[Task]) -> bool:
+        now = self._now()
+        for task in tasks:
+            current = self.registry.get_task(task.task_id)
+            if current.status in _TERMINAL:
+                continue
+            if current.deadline_mono >= now:
+                return True
+            if current.task_id in self._awaiting_recovery:
+                self._awaiting_recovery.discard(current.task_id)
+                self.registry.complete_task(current.task_id, TaskStatus.TIMED_OUT)
+        return False
+
     def _release_slot(self, attempt_id: str) -> None:
         self._inflight = max(0, self._inflight - 1)
-        self._inflight_attempts.pop(attempt_id, None)
+        task_id = self._inflight_attempts.pop(attempt_id, None) or ""
+        self.events.emit(
+            run_id=self.run_id,
+            event_type="slot_released",
+            identity={"task_id": task_id, "attempt_id": attempt_id},
+            reason="local inference slot released",
+        )
 
     async def _reap_workers(self) -> None:
         if not self._workers:

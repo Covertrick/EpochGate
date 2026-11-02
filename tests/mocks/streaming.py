@@ -55,7 +55,7 @@ class MockStreamingBackend:
         self._caps = BackendCapabilities(
             supports_cancel=True,
             supports_streaming=True,
-            resource_reclaim_observable=True,
+            resource_reclaim_observable=False,
             max_inflight=max_inflight,
         )
         self._requests: dict[str, InferenceRequest] = {}
@@ -135,6 +135,7 @@ class MockStreamingBackend:
             evidence="本地循环已停" if reclaimed else "loop_not_stopped",
             grade="ACKNOWLEDGED",
             reclaimed=reclaimed,
+            connection_closed=True,
         )
 
     def events(self, handle: BackendHandle) -> AsyncIterator[BackendEvent]:
@@ -165,7 +166,7 @@ class MockStreamingBackend:
                     kind="token_delta",
                     mono_time=time.monotonic(),
                     detail=f"t{index}",
-                    usage={"tokens": 1, "usage_source": "local", "index": index},
+                    usage={"event_count": 1, "usage_source": "local", "index": index},
                 )
                 if index == self._trigger_at and not self._trigger_used:
                     self._fire_trigger()

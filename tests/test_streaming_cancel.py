@@ -77,7 +77,10 @@ async def test_cancel_after_fifth_token_stops_the_local_loop() -> None:
     types = [event.event_type for event in events]
     assert types.index("attempt_superseded") < types.index("cancel_requested")
     assert types.index("cancel_requested") < types.index("cancel_acknowledged")
-    assert types.index("cancel_acknowledged") < types.index("resource_reclaimed")
+    assert types.index("cancel_acknowledged") < types.index("local_read_stopped")
+    assert "resource_reclaimed" not in types
+    assert "eligibility_revoked" in types
+    assert types.index("eligibility_revoked") < types.index("cancel_requested")
     assert "stopped_for_cancel" in backend.trace
     assert "stream_closed" in backend.trace
     revoked = next(event for event in events if event.event_type == "cancel_requested")
@@ -89,10 +92,10 @@ async def test_cancel_after_fifth_token_stops_the_local_loop() -> None:
     ]
     assert len(own) == 5
     assert all(float(event.mono_time) < float(revoked.mono_time) for event in own)
-    reclaimed = next(event for event in events if event.event_type == "resource_reclaimed")
-    assert reclaimed.reason == "本地循环已停"
-    assert "gpu" not in (reclaimed.reason or "").lower()
-    assert "显存" not in (reclaimed.reason or "")
+    stopped = next(event for event in events if event.event_type == "local_read_stopped")
+    assert stopped.reason == "本地循环已停"
+    assert "gpu" not in (stopped.reason or "").lower()
+    assert "显存" not in (stopped.reason or "")
     assert "action_committed" not in types
     assert result.status != TaskStatus.SUCCEEDED
     before = len(own)

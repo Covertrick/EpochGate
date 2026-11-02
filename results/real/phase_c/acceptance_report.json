@@ -1,0 +1,148 @@
+{
+  "deterministic": {
+    "static": {
+      "n": 2,
+      "all_predicates_pass": true,
+      "rows": [
+        {
+          "seed": 801,
+          "success": true,
+          "predicates": {
+            "action_commits_eq_1": true,
+            "stock_equals_2": true,
+            "side_effect_once": true,
+            "no_duplicate_commit": true
+          },
+          "action_commits": 1,
+          "final_stock": 2,
+          "old_attempt_committed": false,
+          "side_effect_once": true
+        },
+        {
+          "seed": 802,
+          "success": true,
+          "predicates": {
+            "action_commits_eq_1": true,
+            "stock_equals_2": true,
+            "side_effect_once": true,
+            "no_duplicate_commit": true
+          },
+          "action_commits": 1,
+          "final_stock": 2,
+          "old_attempt_committed": false,
+          "side_effect_once": true
+        }
+      ]
+    },
+    "invalidate": {
+      "n": 2,
+      "all_predicates_pass": true,
+      "rows": [
+        {
+          "seed": 811,
+          "success": true,
+          "predicates": {
+            "old_attempt_not_committed": true,
+            "action_commits_eq_0": true,
+            "stock_not_reduced_by_old_action": true,
+            "stock_change_fired": true
+          },
+          "action_commits": 0,
+          "final_stock": 0,
+          "old_attempt_committed": false,
+          "side_effect_once": false
+        },
+        {
+          "seed": 812,
+          "success": true,
+          "predicates": {
+            "old_attempt_not_committed": true,
+            "action_commits_eq_0": true,
+            "stock_not_reduced_by_old_action": true,
+            "stock_change_fired": true
+          },
+          "action_commits": 0,
+          "final_stock": 0,
+          "old_attempt_committed": false,
+          "side_effect_once": false
+        }
+      ]
+    },
+    "recoverable": {
+      "n": 2,
+      "all_predicates_pass": true,
+      "rows": [
+        {
+          "seed": 821,
+          "success": true,
+          "predicates": {
+            "old_attempt_not_committed": true,
+            "action_commits_eq_1": true,
+            "side_effect_once": true,
+            "final_stock_one_deduction": true,
+            "stock_change_fired": true
+          },
+          "action_commits": 1,
+          "final_stock": 0,
+          "old_attempt_committed": false,
+          "side_effect_once": true
+        },
+        {
+          "seed": 822,
+          "success": true,
+          "predicates": {
+            "old_attempt_not_committed": true,
+            "action_commits_eq_1": true,
+            "side_effect_once": true,
+            "final_stock_one_deduction": true,
+            "stock_change_fired": true
+          },
+          "action_commits": 1,
+          "final_stock": 0,
+          "old_attempt_committed": false,
+          "side_effect_once": true
+        }
+      ]
+    }
+  },
+  "real_model": {
+    "note": "integration sample only; failures must not rewrite deterministic verdict",
+    "static": {
+      "n": 2,
+      "success_count": 2,
+      "seeds": [
+        501,
+        502
+      ]
+    },
+    "invalidate": {
+      "n": 4,
+      "success_count": 4,
+      "seeds": [
+        601,
+        601,
+        602,
+        602
+      ]
+    },
+    "recoverable": {
+      "n": 4,
+      "success_count": 4,
+      "seeds": [
+        701,
+        701,
+        702,
+        702
+      ]
+    }
+  },
+  "deterministic_all_pass": true,
+  "verdict": "pass",
+  "paths": {
+    "deterministic_dir": "results/real/phase_c/deterministic",
+    "acceptance_report": "results/real/phase_c/acceptance_report.json",
+    "real_static": "results/real/phase_c/static.jsonl",
+    "real_invalidate": "results/real/phase_c/invalidate.jsonl",
+    "real_recoverable": "results/real/phase_c/recoverable.jsonl"
+  }
+}

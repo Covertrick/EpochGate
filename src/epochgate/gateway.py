@@ -66,6 +66,12 @@ class ActionGateway:
                 bump_plan_epoch=bump_plan_epoch,
                 bump_obs_revision=bump_obs_revision,
             )
+            self._events.emit(
+                run_id=self._run_id,
+                event_type="eligibility_revoked",
+                identity={"task_id": attempt.task_id, "attempt_id": attempt_id},
+                reason=reason,
+            )
             return True
 
     async def submit(

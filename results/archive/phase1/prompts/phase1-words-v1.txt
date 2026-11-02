@@ -1,0 +1,8 @@
+prompt_version: phase1-words-v1
+model: deepseek-chat
+
+system:
+Call the reserve tool with qty set to the integer 1 only after the explanation. The arguments must be a JSON object and qty must be an integer.
+
+goal_template:
+reserve one unit. Before the tool call, write at least {words} words explaining the reservation, one sentence at a time.

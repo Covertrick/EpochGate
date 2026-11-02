@@ -1,0 +1,205 @@
+{
+  "protocol_version": "Stage-E-P1.4-frozen",
+  "code_commit": "1c795c5",
+  "model": "deepseek-chat",
+  "base_url": "https://api.deepseek.com/v1",
+  "prompt_version": "phase1-words-v1",
+  "system_prompt_sha256_prefix": "c2b8fb996262d140",
+  "tokenizer": {
+    "name": "tiktoken",
+    "encoding": "cl100k_base"
+  },
+  "treatment_variable": "stop_on_cancel (Arm A=False keeps reading stream; Arm B=True closes local stream on eligibility_revoked)",
+  "invariant_both_arms": "Both Arm A and Arm B linearize eligibility_revoked before any cancel action",
+  "exogenous_driver": "ScenarioDriver independent relative timer from first_delta",
+  "meaningful_thresholds": {
+    "delta_min_post_revocation_text_tokens": 25.0,
+    "delta_min_slot_hold_s": 0.4,
+    "required_recoverable_commit_rate": 1.0,
+    "max_allowed_old_attempt_commits": 0
+  },
+  "length_specs_words": {
+    "short": 50,
+    "mid": 200,
+    "long": 450
+  },
+  "timing_specs_delay_s": {
+    "early": 0.25,
+    "mid": 0.8,
+    "late": 1.8
+  },
+  "dev_seeds_isolated": {
+    "short_early": [
+      1011,
+      1012
+    ],
+    "short_mid": [
+      1021,
+      1022
+    ],
+    "short_late": [
+      1031,
+      1032
+    ],
+    "mid_early": [
+      1041,
+      1042
+    ],
+    "mid_mid": [
+      1051,
+      1052
+    ],
+    "mid_late": [
+      1061,
+      1062
+    ],
+    "long_early": [
+      1071,
+      1072
+    ],
+    "long_mid": [
+      1081,
+      1082
+    ],
+    "long_late": [
+      1091,
+      1092
+    ]
+  },
+  "test_seeds": {
+    "E1_by_cell": {
+      "short_early": [
+        2011,
+        2012,
+        2013
+      ],
+      "short_mid": [
+        2021,
+        2022,
+        2023
+      ],
+      "short_late": [
+        2031,
+        2032,
+        2033
+      ],
+      "mid_early": [
+        2041,
+        2042,
+        2043
+      ],
+      "mid_mid": [
+        2051,
+        2052,
+        2053
+      ],
+      "mid_late": [
+        2061,
+        2062,
+        2063
+      ],
+      "long_early": [
+        2071,
+        2072,
+        2073
+      ],
+      "long_mid": [
+        2081,
+        2082,
+        2083
+      ],
+      "long_late": [
+        2091,
+        2092,
+        2093
+      ]
+    },
+    "E2_by_kind": {
+      "static": [
+        3011,
+        3012,
+        3013
+      ],
+      "invalidate": [
+        3021,
+        3022,
+        3023
+      ],
+      "recoverable": [
+        3031,
+        3032,
+        3033
+      ]
+    },
+    "E3_by_load": {
+      "low_single": [
+        4011,
+        4012,
+        4013
+      ],
+      "serial_queue_x3": [
+        4021,
+        4022,
+        4023
+      ]
+    }
+  },
+  "e2_representative_conditions": [
+    {
+      "label": "high_headroom",
+      "length_tier": "long",
+      "timing_tier": "early",
+      "words": 450,
+      "t_change_s": 0.25,
+      "t_restore_s": 1.25
+    },
+    {
+      "label": "low_headroom",
+      "length_tier": "short",
+      "timing_tier": "late",
+      "words": 50,
+      "t_change_s": 1.8,
+      "t_restore_s": 2.6
+    }
+  ],
+  "e3_representative_condition": {
+    "length_tier": "long",
+    "timing_tier": "early",
+    "words": 450,
+    "t_change_s": 0.25,
+    "t_restore_s": 1.25,
+    "task_kind": "recoverable",
+    "loads": [
+      {
+        "label": "low_single",
+        "concurrency": 1,
+        "initial_stock": 1
+      },
+      {
+        "label": "serial_queue_x3",
+        "concurrency": 3,
+        "initial_stock": 3
+      }
+    ]
+  },
+  "calibration_summary": {
+    "delta_min_text_tokens": 25.0,
+    "delta_min_slot_hold_s": 0.4,
+    "recommended_pairs_per_cell_e1": 3,
+    "total_e1_test_pairs": 27,
+    "selected_representative_conditions_for_e2_e3": {
+      "high_headroom": {
+        "length_tier": "long",
+        "timing_tier": "early",
+        "target_words": 450,
+        "t_change_s": 0.25
+      },
+      "low_headroom_boundary": {
+        "length_tier": "short",
+        "timing_tier": "late",
+        "target_words": 50,
+        "t_change_s": 1.8
+      }
+    }
+  }
+}

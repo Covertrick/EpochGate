@@ -56,6 +56,7 @@ class InventoryEnvironment:
         start_mono: float | None = None,
         pace: str = "time",
         observe_delay_s: float = 0.0,
+        observe_delay_scope: str = "all_observations",
     ) -> None:
         self.source_id = source_id
         self._read_tool = read_tool
@@ -70,10 +71,14 @@ class InventoryEnvironment:
         self._schedule = list(schedule)
         if pace not in {"time", "step"}:
             raise ValueError("pace must be time or step")
+        if observe_delay_scope not in {"initial_only", "refresh_only", "all_observations"}:
+            raise ValueError("observe_delay_scope must be initial_only, refresh_only, or all_observations")
         self._pace = pace
         self._observe_delay_s = observe_delay_s
+        self._observe_delay_scope = observe_delay_scope
         self._step_polls = 0
         self.observe_calls = 0
+        self.observe_log: list[dict[str, Any]] = []
         self._queued: list[ChangeEvent] = []
         self._emitted = 0
         self._accepted: dict[str, CommitResult] = {}
@@ -168,10 +173,30 @@ class InventoryEnvironment:
         """
         if recipe.read_tool != self._read_tool:
             raise ValueError(f"unknown read_tool: {recipe.read_tool}")
-        if self._observe_delay_s > 0:
+        started = time.monotonic()
+        phase = "initial" if self.observe_calls == 0 else "refresh"
+        apply_delay = (
+            self._observe_delay_scope == "all_observations"
+            or (self._observe_delay_scope == "initial_only" and phase == "initial")
+            or (self._observe_delay_scope == "refresh_only" and phase == "refresh")
+        )
+        if apply_delay and self._observe_delay_s > 0:
             await asyncio.sleep(self._observe_delay_s)
         self.observe_calls += 1
         now = time.monotonic()
+        self.observe_log.append(
+            {
+                "call_index": self.observe_calls,
+                "observation_phase": phase,
+                "observe_delay_scope": self._observe_delay_scope,
+                "configured_observe_delay_s": self._observe_delay_s if apply_delay else 0.0,
+                "actual_observe_latency_s": max(0.0, now - started),
+                "started_at_mono": started,
+                "completed_at_mono": now,
+                "source_version": self.version,
+                "stock": self._stock,
+            }
+        )
         obs = Observation(
             observation_id=self._ids("obs"),
             source_id=self.source_id,

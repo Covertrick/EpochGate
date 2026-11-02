@@ -63,6 +63,12 @@ class HttpToolBackend:
             supports_streaming=False,
             resource_reclaim_observable=False,
             max_inflight=max_inflight,
+            streaming_capability=False,
+            local_read_abort=False,
+            provider_cancel_request=False,
+            provider_cancel_ack_semantics="UNKNOWN",
+            server_generation_observability=False,
+            server_resource_reclaim_observability=False,
         )
         self._requests: dict[str, InferenceRequest] = {}
         self._cancelled: set[str] = set()

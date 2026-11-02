@@ -1,0 +1,9 @@
+{
+  "code_version": "1c795c5",
+  "singles": 5,
+  "triples": 5,
+  "counts": {
+    "ok": 10
+  },
+  "note": "max_inflight=1；每次请求新建 AsyncClient，不是连接池打满。"
+}

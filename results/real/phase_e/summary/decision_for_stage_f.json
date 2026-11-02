@@ -1,0 +1,51 @@
+{
+  "decision_branch": "Branch_A_enter_F_continue_research",
+  "can_enter_stage_f": true,
+  "criteria_evaluation": {
+    "RQ1_post_revocation_text_tokens_reduced": {
+      "passed": true,
+      "mean_delta_tokens": 355.5714,
+      "median_delta_tokens": 416.0,
+      "ci95": [
+        207.8571,
+        500.8571
+      ],
+      "threshold": 25.0
+    },
+    "RQ2_local_slot_released_earlier": {
+      "passed": true,
+      "mean_delta_slot_hold_s": 2.5266,
+      "ci95_s": [
+        1.2116,
+        3.9636
+      ],
+      "e3_followup_queue_wait_delta_ci_s": {
+        "mean": 4.9643,
+        "median": 6.1975,
+        "stdev": 2.7898,
+        "ci95_low": 1.7704,
+        "ci95_high": 6.9251,
+        "n": 3
+      },
+      "threshold_s": 0.4
+    },
+    "RQ3_correctness_and_recoverability_preserved": {
+      "passed": true,
+      "any_old_attempt_committed": false,
+      "triggered_recoverable_pairs": 2,
+      "arm_a_recoverable_success": 1,
+      "arm_b_recoverable_success": 2
+    }
+  },
+  "recommended_stage_f_scope": [
+    "F1_benefit_boundaries: short tasks & late revocation where trigger_not_fired / trigger_late dominate",
+    "F2_observation_cost: higher observation latency / refresh cost vs cancellation slot savings",
+    "F3_backend_boundaries: non-cancellable / non-streaming capability boundary control",
+    "F4_load_boundaries: bursty arrivals & serial slot queueing fairness",
+    "F5_ablation_1: no early local stream stop but keep Gateway eligibility latch (Arm A vs Arm B)",
+    "F6_ablation_2: dependency-filtered refresh vs blind dirty refresh"
+  ],
+  "explicitly_deferred": [
+    "J1 joint scoring scheduler is NOT entered in F until F boundary & ablation studies finish"
+  ]
+}

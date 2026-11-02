@@ -1,0 +1,20 @@
+{
+  "stage": "P1.6_summary_manifest",
+  "files": [
+    "results/real/phase_e/p1_0_freeze_manifest.json",
+    "results/real/phase_e/protocol_frozen.json",
+    "results/real/phase_e/dev/e1_dev.jsonl",
+    "results/real/phase_e/dev/calibration_report.json",
+    "results/real/phase_e/test/e1_cancellation.jsonl",
+    "results/real/phase_e/test/e2_correctness.jsonl",
+    "results/real/phase_e/test/e3_queueing.jsonl",
+    "results/real/phase_e/summary/e1_cancellation_effect.json",
+    "results/real/phase_e/summary/e2_task_correctness.json",
+    "results/real/phase_e/summary/e3_queueing_impact.json",
+    "results/real/phase_e/summary/paired_differences.json",
+    "results/real/phase_e/summary/failures_and_nontriggers.json",
+    "results/real/phase_e/summary/decision_for_stage_f.json"
+  ],
+  "decision_branch": "Branch_A_enter_F_continue_research",
+  "can_enter_stage_f": true
+}

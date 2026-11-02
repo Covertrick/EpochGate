@@ -87,6 +87,12 @@ class FakeBackend:
             supports_streaming=False,
             resource_reclaim_observable=False,
             max_inflight=max_inflight,
+            streaming_capability=False,
+            local_read_abort=False,
+            provider_cancel_request=False,
+            provider_cancel_ack_semantics="ACKNOWLEDGED" if supports_cancel else "NOT_SUPPORTED",
+            server_generation_observability=False,
+            server_resource_reclaim_observability=False,
         )
         self._completed: dict[str, CandidateAction] = {}
         self._cancelled: set[str] = set()
