@@ -1,0 +1,845 @@
+{
+  "stage": "F0_independent_audit_of_stage_e",
+  "recomputed_matches_published_e1_summary": true,
+  "seed_isolation": {
+    "dev_seeds": [
+      1011,
+      1021,
+      1031,
+      1041,
+      1051,
+      1061,
+      1071,
+      1081,
+      1091
+    ],
+    "test_seeds": [
+      2011,
+      2021,
+      2031,
+      2041,
+      2051,
+      2061,
+      2071,
+      2081,
+      2091,
+      3011,
+      3012,
+      3021,
+      3022,
+      3031,
+      3032,
+      3061,
+      3062,
+      3071,
+      3072,
+      3081,
+      3082,
+      4011,
+      4012,
+      4013,
+      4021,
+      4022,
+      4023
+    ],
+    "overlap": [],
+    "isolated": true
+  },
+  "code_versions_in_test_rows": [
+    "1c795c5"
+  ],
+  "arm_orders_observed": [
+    "AB",
+    "BA"
+  ],
+  "bootstrap_resampling_unit": {
+    "E1": "pair_id (n=7 both_triggered pairs)",
+    "E2": "pair_id (n=12 pairs)",
+    "E3": "batch_id / pair_id (n=6 paired batches; x3followup n=3 batches)"
+  },
+  "e1_all_9_pairs": [
+    {
+      "pair_id": "E1_cancellation-long_early-seed2071",
+      "cell_id": "E1_long_early",
+      "seed": 2071,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 63,
+      "B_pre_tokens": 24,
+      "A_post_tokens": 430,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 430.0,
+      "A_slot_hold_s": 5.4483,
+      "B_slot_hold_s": 2.0278,
+      "delta_slot_hold_s": 3.4205
+    },
+    {
+      "pair_id": "E1_cancellation-long_late-seed2091",
+      "cell_id": "E1_long_late",
+      "seed": 2091,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 254,
+      "B_pre_tokens": 228,
+      "A_post_tokens": 494,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 494.0,
+      "A_slot_hold_s": 8.0016,
+      "B_slot_hold_s": 3.6306,
+      "delta_slot_hold_s": 4.371
+    },
+    {
+      "pair_id": "E1_cancellation-long_mid-seed2081",
+      "cell_id": "E1_long_mid",
+      "seed": 2081,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 47,
+      "B_pre_tokens": 89,
+      "A_post_tokens": 680,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 680.0,
+      "A_slot_hold_s": 8.653,
+      "B_slot_hold_s": 2.8058,
+      "delta_slot_hold_s": 5.8472
+    },
+    {
+      "pair_id": "E1_cancellation-mid_early-seed2041",
+      "cell_id": "E1_mid_early",
+      "seed": 2041,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 33,
+      "B_pre_tokens": 10,
+      "A_post_tokens": 293,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 293.0,
+      "A_slot_hold_s": 4.0058,
+      "B_slot_hold_s": 2.8114,
+      "delta_slot_hold_s": 1.1944
+    },
+    {
+      "pair_id": "E1_cancellation-mid_late-seed2061",
+      "cell_id": "E1_mid_late",
+      "seed": 2061,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 254,
+      "B_pre_tokens": 268,
+      "A_post_tokens": 113,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 113.0,
+      "A_slot_hold_s": 5.1331,
+      "B_slot_hold_s": 4.5085,
+      "delta_slot_hold_s": 0.6247
+    },
+    {
+      "pair_id": "E1_cancellation-mid_mid-seed2051",
+      "cell_id": "E1_mid_mid",
+      "seed": 2051,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 104,
+      "B_pre_tokens": 118,
+      "A_post_tokens": 416,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 416.0,
+      "A_slot_hold_s": 5.7905,
+      "B_slot_hold_s": 4.0686,
+      "delta_slot_hold_s": 1.7218
+    },
+    {
+      "pair_id": "E1_cancellation-short_early-seed2011",
+      "cell_id": "E1_short_early",
+      "seed": 2011,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 21,
+      "B_pre_tokens": 26,
+      "A_post_tokens": 63,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 63.0,
+      "A_slot_hold_s": 2.6632,
+      "B_slot_hold_s": 2.1565,
+      "delta_slot_hold_s": 0.5067
+    },
+    {
+      "pair_id": "E1_cancellation-short_late-seed2031",
+      "cell_id": "E1_short_late",
+      "seed": 2031,
+      "arm_order": "AB",
+      "pair_trigger_status": "neither_triggered",
+      "A_trigger_outcome": "trigger_not_fired",
+      "B_trigger_outcome": "trigger_not_fired",
+      "A_pre_tokens": 98,
+      "B_pre_tokens": 168,
+      "A_post_tokens": 0,
+      "B_post_tokens": 0,
+      "delta_post_tokens": null,
+      "A_slot_hold_s": 2.3224,
+      "B_slot_hold_s": 3.3992,
+      "delta_slot_hold_s": null
+    },
+    {
+      "pair_id": "E1_cancellation-short_mid-seed2021",
+      "cell_id": "E1_short_mid",
+      "seed": 2021,
+      "arm_order": "BA",
+      "pair_trigger_status": "A_only_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "trigger_not_fired",
+      "A_pre_tokens": 90,
+      "B_pre_tokens": 67,
+      "A_post_tokens": 5,
+      "B_post_tokens": 0,
+      "delta_post_tokens": null,
+      "A_slot_hold_s": 4.7597,
+      "B_slot_hold_s": 2.0366,
+      "delta_slot_hold_s": null
+    }
+  ],
+  "e1_triggered_7_pair_differences": [
+    {
+      "pair_id": "E1_cancellation-long_early-seed2071",
+      "cell_id": "E1_long_early",
+      "seed": 2071,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 63,
+      "B_pre_tokens": 24,
+      "A_post_tokens": 430,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 430.0,
+      "A_slot_hold_s": 5.4483,
+      "B_slot_hold_s": 2.0278,
+      "delta_slot_hold_s": 3.4205
+    },
+    {
+      "pair_id": "E1_cancellation-long_late-seed2091",
+      "cell_id": "E1_long_late",
+      "seed": 2091,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 254,
+      "B_pre_tokens": 228,
+      "A_post_tokens": 494,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 494.0,
+      "A_slot_hold_s": 8.0016,
+      "B_slot_hold_s": 3.6306,
+      "delta_slot_hold_s": 4.371
+    },
+    {
+      "pair_id": "E1_cancellation-long_mid-seed2081",
+      "cell_id": "E1_long_mid",
+      "seed": 2081,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 47,
+      "B_pre_tokens": 89,
+      "A_post_tokens": 680,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 680.0,
+      "A_slot_hold_s": 8.653,
+      "B_slot_hold_s": 2.8058,
+      "delta_slot_hold_s": 5.8472
+    },
+    {
+      "pair_id": "E1_cancellation-mid_early-seed2041",
+      "cell_id": "E1_mid_early",
+      "seed": 2041,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 33,
+      "B_pre_tokens": 10,
+      "A_post_tokens": 293,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 293.0,
+      "A_slot_hold_s": 4.0058,
+      "B_slot_hold_s": 2.8114,
+      "delta_slot_hold_s": 1.1944
+    },
+    {
+      "pair_id": "E1_cancellation-mid_late-seed2061",
+      "cell_id": "E1_mid_late",
+      "seed": 2061,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 254,
+      "B_pre_tokens": 268,
+      "A_post_tokens": 113,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 113.0,
+      "A_slot_hold_s": 5.1331,
+      "B_slot_hold_s": 4.5085,
+      "delta_slot_hold_s": 0.6247
+    },
+    {
+      "pair_id": "E1_cancellation-mid_mid-seed2051",
+      "cell_id": "E1_mid_mid",
+      "seed": 2051,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 104,
+      "B_pre_tokens": 118,
+      "A_post_tokens": 416,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 416.0,
+      "A_slot_hold_s": 5.7905,
+      "B_slot_hold_s": 4.0686,
+      "delta_slot_hold_s": 1.7218
+    },
+    {
+      "pair_id": "E1_cancellation-short_early-seed2011",
+      "cell_id": "E1_short_early",
+      "seed": 2011,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_trigger_outcome": "triggered",
+      "B_trigger_outcome": "triggered",
+      "A_pre_tokens": 21,
+      "B_pre_tokens": 26,
+      "A_post_tokens": 63,
+      "B_post_tokens": 0,
+      "delta_post_tokens": 63.0,
+      "A_slot_hold_s": 2.6632,
+      "B_slot_hold_s": 2.1565,
+      "delta_slot_hold_s": 0.5067
+    }
+  ],
+  "e1_recomputed_delta_text_ci": {
+    "mean": 355.5714,
+    "median": 416.0,
+    "stdev": 216.7801,
+    "ci95_low": 207.8571,
+    "ci95_high": 500.8571,
+    "n": 7
+  },
+  "e1_recomputed_delta_slot_ci": {
+    "mean": 2.5266,
+    "median": 1.7218,
+    "stdev": 2.0554,
+    "ci95_low": 1.2116,
+    "ci95_high": 3.9636,
+    "n": 7
+  },
+  "e3_all_6_batches": [
+    {
+      "batch_id": "E3-low_single-seed4011",
+      "concurrency": 1,
+      "seed": 4011,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_task_waits_s": [
+        0.0011
+      ],
+      "B_task_waits_s": [
+        0.0006
+      ],
+      "A_followup_mean_wait_s": null,
+      "B_followup_mean_wait_s": null,
+      "delta_followup_mean_wait_s": null,
+      "A_t0_slot_hold_s": 5.4222,
+      "B_t0_slot_hold_s": 3.0484,
+      "delta_t0_slot_hold_s": 2.3738,
+      "A_batch_wall_s": 11.2529,
+      "B_batch_wall_s": 16.3606,
+      "delta_batch_wall_s": -5.1078,
+      "A_commits": 1,
+      "B_commits": 1
+    },
+    {
+      "batch_id": "E3-low_single-seed4012",
+      "concurrency": 1,
+      "seed": 4012,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_task_waits_s": [
+        0.001
+      ],
+      "B_task_waits_s": [
+        0.0006
+      ],
+      "A_followup_mean_wait_s": null,
+      "B_followup_mean_wait_s": null,
+      "delta_followup_mean_wait_s": null,
+      "A_t0_slot_hold_s": 5.8191,
+      "B_t0_slot_hold_s": 1.8254,
+      "delta_t0_slot_hold_s": 3.9937,
+      "A_batch_wall_s": 15.1298,
+      "B_batch_wall_s": 9.8094,
+      "delta_batch_wall_s": 5.3205,
+      "A_commits": 1,
+      "B_commits": 1
+    },
+    {
+      "batch_id": "E3-low_single-seed4013",
+      "concurrency": 1,
+      "seed": 4013,
+      "arm_order": "BA",
+      "pair_trigger_status": "both_triggered",
+      "A_task_waits_s": [
+        0.0008
+      ],
+      "B_task_waits_s": [
+        0.0006
+      ],
+      "A_followup_mean_wait_s": null,
+      "B_followup_mean_wait_s": null,
+      "delta_followup_mean_wait_s": null,
+      "A_t0_slot_hold_s": 7.0963,
+      "B_t0_slot_hold_s": 1.9263,
+      "delta_t0_slot_hold_s": 5.1701,
+      "A_batch_wall_s": 12.9914,
+      "B_batch_wall_s": 15.9069,
+      "delta_batch_wall_s": -2.9154,
+      "A_commits": 1,
+      "B_commits": 1
+    },
+    {
+      "batch_id": "E3-serial_queue_x3-seed4021",
+      "concurrency": 3,
+      "seed": 4021,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_task_waits_s": [
+        0.0019,
+        14.2179,
+        20.0059
+      ],
+      "B_task_waits_s": [
+        0.0019,
+        1.6763,
+        29.0066
+      ],
+      "A_followup_mean_wait_s": 17.1119,
+      "B_followup_mean_wait_s": 15.3414,
+      "delta_followup_mean_wait_s": 1.7705,
+      "A_t0_slot_hold_s": 5.3218,
+      "B_t0_slot_hold_s": 1.6724,
+      "delta_t0_slot_hold_s": 3.6494,
+      "A_batch_wall_s": 61.3806,
+      "B_batch_wall_s": 43.4373,
+      "delta_batch_wall_s": 17.9433,
+      "A_commits": 2,
+      "B_commits": 3
+    },
+    {
+      "batch_id": "E3-serial_queue_x3-seed4022",
+      "concurrency": 3,
+      "seed": 4022,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_task_waits_s": [
+        0.001,
+        12.2421,
+        20.1308
+      ],
+      "B_task_waits_s": [
+        0.001,
+        1.8527,
+        16.67
+      ],
+      "A_followup_mean_wait_s": 16.1865,
+      "B_followup_mean_wait_s": 9.2614,
+      "delta_followup_mean_wait_s": 6.9251,
+      "A_t0_slot_hold_s": 4.7719,
+      "B_t0_slot_hold_s": 1.8497,
+      "delta_t0_slot_hold_s": 2.9222,
+      "A_batch_wall_s": 44.9972,
+      "B_batch_wall_s": 42.1607,
+      "delta_batch_wall_s": 2.8365,
+      "A_commits": 2,
+      "B_commits": 3
+    },
+    {
+      "batch_id": "E3-serial_queue_x3-seed4023",
+      "concurrency": 3,
+      "seed": 4023,
+      "arm_order": "AB",
+      "pair_trigger_status": "both_triggered",
+      "A_task_waits_s": [
+        0.001,
+        12.7325,
+        18.4536
+      ],
+      "B_task_waits_s": [
+        0.001,
+        1.9904,
+        16.8007
+      ],
+      "A_followup_mean_wait_s": 15.593,
+      "B_followup_mean_wait_s": 9.3955,
+      "delta_followup_mean_wait_s": 6.1975,
+      "A_t0_slot_hold_s": 5.0767,
+      "B_t0_slot_hold_s": 1.9872,
+      "delta_t0_slot_hold_s": 3.0894,
+      "A_batch_wall_s": 54.0527,
+      "B_batch_wall_s": 52.8776,
+      "delta_batch_wall_s": 1.1751,
+      "A_commits": 2,
+      "B_commits": 2
+    }
+  ],
+  "non_triggers_and_failures_by_category": {
+    "trigger_not_fired": [
+      {
+        "experiment_block": "E1_dev",
+        "pair_id": "E1_dev-short_mid-seed1021",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 1021,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E1_dev",
+        "pair_id": "E1_dev-short_late-seed1031",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 1031,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E1_cancellation",
+        "pair_id": "E1_cancellation-short_mid-seed2021",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 2021,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E1_cancellation",
+        "pair_id": "E1_cancellation-short_late-seed2031",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 2031,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E1_cancellation",
+        "pair_id": "E1_cancellation-short_late-seed2031",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 2031,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-invalidate-seed3071",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 3071,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-invalidate-seed3071",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 3071,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-invalidate-seed3072",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 3072,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-invalidate-seed3072",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 3072,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-recoverable-seed3081",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 3081,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-recoverable-seed3082",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 3082,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-recoverable-seed3082",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 3082,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4021",
+        "arm": "A",
+        "task_id": "t1",
+        "seed": 4021,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4021",
+        "arm": "A",
+        "task_id": "t2",
+        "seed": 4021,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4021",
+        "arm": "B",
+        "task_id": "t1",
+        "seed": 4021,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4021",
+        "arm": "B",
+        "task_id": "t2",
+        "seed": 4021,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4022",
+        "arm": "A",
+        "task_id": "t1",
+        "seed": 4022,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4022",
+        "arm": "A",
+        "task_id": "t2",
+        "seed": 4022,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4022",
+        "arm": "B",
+        "task_id": "t1",
+        "seed": 4022,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4022",
+        "arm": "B",
+        "task_id": "t2",
+        "seed": 4022,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4023",
+        "arm": "A",
+        "task_id": "t1",
+        "seed": 4023,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4023",
+        "arm": "A",
+        "task_id": "t2",
+        "seed": 4023,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4023",
+        "arm": "B",
+        "task_id": "t1",
+        "seed": 4023,
+        "trigger_outcome": "trigger_not_fired"
+      },
+      {
+        "experiment_block": "E3_queueing_impact",
+        "pair_id": "E3-serial_queue_x3-seed4023",
+        "arm": "B",
+        "task_id": "t2",
+        "seed": 4023,
+        "trigger_outcome": "trigger_not_fired"
+      }
+    ],
+    "trigger_late": [
+      {
+        "experiment_block": "E1_dev",
+        "pair_id": "E1_dev-short_mid-seed1021",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 1021,
+        "trigger_outcome": "trigger_late"
+      },
+      {
+        "experiment_block": "E1_dev",
+        "pair_id": "E1_dev-short_late-seed1031",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 1031,
+        "trigger_outcome": "trigger_late"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-low_headroom-recoverable-seed3081",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 3081,
+        "trigger_outcome": "trigger_late"
+      }
+    ],
+    "model_no_action": [
+      {
+        "experiment_block": "E1_dev",
+        "pair_id": "E1_dev-mid_early-seed1041",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 1041,
+        "phase": "replan_attempt",
+        "detail": "backend returned no action"
+      },
+      {
+        "experiment_block": "E1_cancellation",
+        "pair_id": "E1_cancellation-short_early-seed2011",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 2011,
+        "phase": "replan_attempt",
+        "detail": "backend returned no action"
+      },
+      {
+        "experiment_block": "E1_cancellation",
+        "pair_id": "E1_cancellation-mid_early-seed2041",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 2041,
+        "phase": "replan_attempt",
+        "detail": "backend returned no action"
+      },
+      {
+        "experiment_block": "E1_cancellation",
+        "pair_id": "E1_cancellation-mid_late-seed2061",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 2061,
+        "phase": "replan_attempt",
+        "detail": "backend returned no action"
+      },
+      {
+        "experiment_block": "E1_cancellation",
+        "pair_id": "E1_cancellation-long_mid-seed2081",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 2081,
+        "phase": "replan_attempt",
+        "detail": "backend returned no action"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-high_headroom-invalidate-seed3021",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 3021,
+        "phase": "replan_attempt",
+        "detail": "backend returned no action"
+      },
+      {
+        "experiment_block": "E2_correctness_recovery",
+        "pair_id": "E2-high_headroom-recoverable-seed3031",
+        "arm": "A",
+        "task_id": "t0",
+        "seed": 3031,
+        "phase": "replan_attempt",
+        "detail": "backend returned no action"
+      }
+    ],
+    "transport_failed": [
+      {
+        "experiment_block": "E1_dev",
+        "pair_id": "E1_dev-long_late-seed1091",
+        "arm": "B",
+        "task_id": "t0",
+        "seed": 1091,
+        "phase": "replan_attempt",
+        "detail": "http_error:exception_type=ConnectError;status_code=None;timeout=false;closed_by_cancel=false;message=;body="
+      }
+    ],
+    "runtime_failed": []
+  },
+  "safety_invariants_table": {
+    "total_test_task_rows": 66,
+    "revoked_old_attempt_commits": 0,
+    "duplicate_side_effects": 0,
+    "illegal_partial_tool_candidate_actions": 0,
+    "gateway_action_rejects_logged": 53,
+    "safety_verdict": "PASS"
+  },
+  "availability_and_completion_table": {
+    "note": "E2 recoverable triggered sample is n=2 pairs (A: 1/2, B: 2/2) — explicitly marked as small sample, NOT a statistical non-inferiority proof.",
+    "E2_static_control": {
+      "A_completion_rate": "4/4 (1.00)",
+      "B_completion_rate": "4/4 (1.00)"
+    },
+    "E2_recoverable_triggered_small_sample": {
+      "n_pairs": 2,
+      "A_new_attempt_success": "1/2",
+      "B_new_attempt_success": "2/2",
+      "A_recovery_latency_s_samples": [
+        18.827
+      ],
+      "B_recovery_latency_s_samples": [
+        9.129,
+        13.536
+      ],
+      "small_sample_caveat": true
+    },
+    "E3_serial_queue_x3_tasks": {
+      "n_batches": 3,
+      "total_tasks_per_arm": 9,
+      "A_task_completion": "6/9",
+      "B_task_completion": "8/9",
+      "timeout_count_A": 0,
+      "timeout_count_B": 0
+    }
+  }
+}

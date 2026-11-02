@@ -1,0 +1,10 @@
+cell_id,length_tier,timing_tier,planned_pairs,both_triggered_pairs,delta_text_tokens_mean,delta_text_tokens_median,delta_slot_hold_s_mean,any_old_attempt_committed
+E1_long_early,long,early,1,1,430.0,430.0,3.421,False
+E1_long_late,long,late,1,1,494.0,494.0,4.371,False
+E1_long_mid,long,mid,1,1,680.0,680.0,5.847,False
+E1_mid_early,mid,early,1,1,293.0,293.0,1.194,False
+E1_mid_late,mid,late,1,1,113.0,113.0,0.625,False
+E1_mid_mid,mid,mid,1,1,416.0,416.0,1.722,False
+E1_short_early,short,early,1,1,63.0,63.0,0.507,False
+E1_short_late,short,late,1,0,,,,False
+E1_short_mid,short,mid,1,0,,,,False

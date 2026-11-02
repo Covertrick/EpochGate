@@ -11,6 +11,7 @@ from epochgate.inventory import InventoryEnvironment
 from epochgate.models import Task, TaskStatus
 from epochgate.runtime import Runtime
 from epochgate.scheduler import NearAdmissionScheduler
+from epochgate.text_tokens import TOKENIZER_ENCODING, TOKENIZER_NAME, count_observed_text_tokens
 
 PROMPT_VERSION = "phase1-words-v1"
 STREAM_SYSTEM = (
@@ -150,23 +151,28 @@ def _arm_row(
     valid_commits: int,
 ) -> dict[str, Any]:
     target = _target_attempt(events)
-    revoked = _first(events, "cancel_requested", target)
+    eligibility = _first(events, "eligibility_revoked", target)
+    requested = _first(events, "cancel_requested", target)
+    revoked = eligibility or requested
     first_delta = _first_delta(events, target)
     tool_at = _first(events, "tool_call_delta", target)
     content_before_tool = _text_before(events, target, tool_at.mono_time if tool_at else None, "token_delta")
     words_before_tool = len(content_before_tool.split())
     words_before_revoke = 0
-    if revoked is not None:
-        words_before_revoke = len(
-            _text_before(events, target, revoked.mono_time, "token_delta").split()
-        )
-    pre = _count_before(events, target, None if revoked is None else revoked.mono_time)
-    post = 0 if revoked is None else _count_from(events, target, revoked.mono_time)
+    revoke_mono = None if revoked is None else float(revoked.mono_time)
+    if revoke_mono is not None:
+        words_before_revoke = len(_text_before(events, target, revoke_mono, "token_delta").split())
+    pre = _count_before(events, target, revoke_mono)
+    post = 0 if revoke_mono is None else _count_from(events, target, revoke_mono)
+    post_text = 0 if revoke_mono is None else _count_kind_from(events, target, revoke_mono, "token_delta")
+    post_tool = 0 if revoke_mono is None else _count_kind_from(events, target, revoke_mono, "tool_call_delta")
+    post_text_body = "" if revoke_mono is None else _text_from(events, target, revoke_mono, "token_delta")
     replan = _count_other(events, target)
     stopped = _first(events, "local_read_stopped", target)
-    requested = _first(events, "cancel_requested", target)
+    closed = _first(events, "connection_closed", target)
     acknowledged = _first(events, "cancel_acknowledged", target)
     terminal = events[-1] if events else None
+    attempt_terminal = _attempt_terminal(events, target)
     enqueued = _first_any(events, "runtime_start")
     request_started = _first(events, "backend_request", target)
     status = _pair_status(
@@ -177,20 +183,25 @@ def _arm_row(
         tool_at=tool_at,
     )
     position = None
-    if tool_at is not None and revoked is not None and words_before_tool > 0:
+    if tool_at is not None and revoke_mono is not None and words_before_tool > 0:
         position = words_before_revoke / words_before_tool
     failures = [event.reason or "" for event in events if event.event_type == "backend_failed"]
     detection = None
-    if revoked is not None and applied_at is not None:
-        detection = float(revoked.mono_time) - applied_at
-    stop_latency = None
+    if eligibility is not None and applied_at is not None:
+        detection = float(eligibility.mono_time) - applied_at
+    cancel_latency = None
     if stopped is not None and requested is not None:
-        stop_latency = float(stopped.mono_time) - float(requested.mono_time)
+        cancel_latency = float(stopped.mono_time) - float(requested.mono_time)
+    provider = _provider_completion_for_attempt(events, target)
     queue_waits = _queue_waits(events, target)
+    pair_id = f"{_cell_id(words, delay_s, concurrency)}:{seed}"
+    request_id = f"{pair_id}:{arm}"
     return {
         "prompt_version": PROMPT_VERSION,
         "code_version": code_version,
         "cell_id": _cell_id(words, delay_s, concurrency),
+        "pair_id": pair_id,
+        "request_id": request_id,
         "seed": seed,
         "arm": arm,
         "target_words": words,
@@ -201,6 +212,12 @@ def _arm_row(
         "actual_words_before_tool": words_before_tool,
         "pre_revoke_local_deltas": pre,
         "post_revoke_local_deltas": post,
+        "post_revocation_delta_events": post_text,
+        "post_revocation_tool_call_delta_events": post_tool,
+        "post_revocation_observed_text_tokens": count_observed_text_tokens(post_text_body),
+        "tokenizer_name": TOKENIZER_NAME,
+        "tokenizer_encoding": TOKENIZER_ENCODING,
+        "provider_completion_tokens": provider,
         "revocation_position_ratio": position,
         "revoked_attempt_local_deltas": pre + post,
         "replan_local_deltas": replan,
@@ -213,16 +230,19 @@ def _arm_row(
         "wall_clock_s": wall_s,
         "final_stock": final_stock,
         "detection_latency_s": detection,
-        "local_stop_latency_s": stop_latency,
+        "cancel_latency_s": cancel_latency,
+        "local_stop_latency_s": cancel_latency,
         "task_enqueued_at": None if enqueued is None else float(enqueued.mono_time),
         "request_started_at": None if request_started is None else float(request_started.mono_time),
         "first_delta_at": None if first_delta is None else float(first_delta.mono_time),
         "stock_change_scheduled_at": scheduled_at,
         "stock_change_applied_at": applied_at,
-        "eligibility_revoked_at": None if revoked is None else float(revoked.mono_time),
+        "eligibility_revoked_at": None if eligibility is None else float(eligibility.mono_time),
         "cancel_requested_at": None if requested is None else float(requested.mono_time),
         "cancel_acknowledged_at": None if acknowledged is None else float(acknowledged.mono_time),
+        "connection_closed_at": None if closed is None else float(closed.mono_time),
         "local_read_stopped_at": None if stopped is None else float(stopped.mono_time),
+        "attempt_terminal_at": None if attempt_terminal is None else float(attempt_terminal.mono_time),
         "task_terminal_at": None if terminal is None else float(terminal.mono_time),
         "queue_wait_s": queue_waits,
         "target_attempt_id": target,
@@ -299,6 +319,58 @@ def _count_from(events: list, attempt_id: str, limit: float) -> int:
     )
 
 
+def _count_kind_from(events: list, attempt_id: str, limit: float, event_type: str) -> int:
+    return sum(
+        1
+        for event in events
+        if event.event_type == event_type
+        and event.identity.get("attempt_id") == attempt_id
+        and float(event.mono_time) >= limit
+    )
+
+
+def _text_from(events: list, attempt_id: str, limit: float, event_type: str) -> str:
+    parts = []
+    for event in events:
+        if event.event_type != event_type or event.identity.get("attempt_id") != attempt_id:
+            continue
+        if float(event.mono_time) < limit:
+            continue
+        parts.append(event.reason or "")
+    return "".join(parts)
+
+
+def _attempt_terminal(events: list, attempt_id: str):
+    last = None
+    for event in events:
+        if event.identity.get("attempt_id") != attempt_id:
+            continue
+        if event.event_type in {
+            "action_committed",
+            "action_rejected",
+            "backend_failed",
+            "local_read_stopped",
+            "cancel_failed",
+            "commit_unknown",
+        }:
+            last = event
+    return last
+
+
+def _provider_completion_for_attempt(events: list, attempt_id: str):
+    """只在 completed 事件带上该 attempt 的供应商 usage 时返回 completion_tokens。"""
+    for event in events:
+        if event.identity.get("attempt_id") != attempt_id:
+            continue
+        usage = event.usage or {}
+        provider = usage.get("provider_usage")
+        if not isinstance(provider, dict):
+            continue
+        if "completion_tokens" in provider:
+            return provider["completion_tokens"]
+    return "UNKNOWN"
+
+
 def _count_other(events: list, attempt_id: str) -> int:
     if not attempt_id:
         return 0
@@ -347,4 +419,8 @@ def _pair_status(events: list, *, error: str, fired: bool, revoked, tool_at) -> 
 
 def _transport_failure(reason: str) -> bool:
     text = reason.lower()
-    return text.startswith(("http_", "http ", "parse_error", "stream_closed")) or "http_error" in text
+    return (
+        text.startswith(("http_", "http ", "parse_error", "stream_closed", "http_error"))
+        or "http_error:" in text
+        or "stream_closed:" in text
+    )

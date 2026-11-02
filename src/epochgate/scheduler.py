@@ -476,6 +476,117 @@ class NearAdmissionScheduler:
         return decisions
 
 
+class FifoAdmissionScheduler:
+    """F4 队列公平性合同专用调度器：严格 FIFO 队列顺序。
+
+    冻结规则：
+    1. 初始任务 attempt（plan_epoch == 0 且为该 task 首 attempt）按 task.arrival_mono 入队；
+    2. 被取消或被拒后的重规划 attempt 按其 attempt.created_mono 进入队尾（A/B 使用完全相同的入队规则，无特权插队）；
+    3. 同一时刻按 attempt_id 稳定打破平局；
+    4. 仅当 free_slots > 0 时按队列顺序派发队首就绪 attempt。
+    """
+
+    def __init__(self, *, lease_ttl_s: float = 30.0, replan_to_tail: bool = True, ids: IdFactory | None = None) -> None:
+        self._lease_ttl_s = lease_ttl_s
+        self._replan_to_tail = replan_to_tail
+        self._ids = ids or IdFactory(None)
+
+    def decide(self, snapshot: SchedulerSnapshot) -> list[Decision]:
+        HappyPathScheduler._require_now(snapshot)
+        tasks = {item.task_id: item for item in snapshot.tasks}
+        first_att_by_task: dict[str, str] = {}
+        for att in snapshot.attempts:
+            if att.task_id not in first_att_by_task:
+                first_att_by_task[att.task_id] = att.attempt_id
+
+        def _fifo_key(attempt: AttemptView) -> tuple[float, str]:
+            task = tasks.get(attempt.task_id)
+            arrival = task.arrival_mono if task is not None else 0.0
+            is_replan = first_att_by_task.get(attempt.task_id) != attempt.attempt_id
+            if self._replan_to_tail and is_replan and attempt.created_mono > 0.0:
+                queue_ts = max(arrival, attempt.created_mono)
+            else:
+                queue_ts = arrival
+            return (queue_ts, attempt.attempt_id)
+
+        ordered = sorted(snapshot.attempts, key=_fifo_key)
+        decisions: list[Decision] = []
+        timed: set[str] = set()
+        slots = snapshot.capacity.free_slots
+        helper = HappyPathScheduler(lease_ttl_s=self._lease_ttl_s, ids=self._ids)
+        for attempt in ordered:
+            task = tasks.get(attempt.task_id)
+            if task is None or task.status in _TERMINAL or not attempt.eligible:
+                continue
+            if helper._append_timeout(decisions, timed, task, attempt, snapshot):
+                continue
+            if attempt.state == AttemptState.COMMITTED:
+                decisions.append(_finish(attempt, "attempt committed; complete task"))
+                continue
+            if (
+                attempt.state == AttemptState.INFLIGHT
+                and attempt.sources_dirty
+                and attempt.premise_holds is False
+                and snapshot.capacity.supports_cancel
+            ):
+                decisions.append(
+                    Decision(
+                        kind="cancel",
+                        task_id=attempt.task_id,
+                        attempt_id=attempt.attempt_id,
+                        reason="dirty and premise failed; revoke eligibility",
+                    )
+                )
+                continue
+            if _unreachable(snapshot, task) and attempt.state not in _IN_FLIGHT:
+                decisions.append(
+                    Decision(
+                        kind="reject",
+                        task_id=attempt.task_id,
+                        attempt_id=attempt.attempt_id,
+                        reason="infeasible before deadline",
+                    )
+                )
+                continue
+            if attempt.refresh_inflight:
+                if attempt.state not in _IN_FLIGHT and (
+                    attempt.lease_id is None or _lease_expired(attempt, snapshot)
+                ):
+                    decisions.append(
+                        _admit_with_slo(snapshot, attempt, task, "fifo; lease while refresh runs", self._ids, self._lease_ttl_s)
+                    )
+                else:
+                    decisions.append(_wait(attempt, "refresh in flight"))
+                continue
+            needs_refresh = (not attempt.has_observations or attempt.sources_dirty) and attempt.state not in _IN_FLIGHT
+            if needs_refresh:
+                if attempt.refreshes_used >= snapshot.refresh_budget:
+                    decisions.append(_wait(attempt, "refresh budget exhausted"))
+                else:
+                    decisions.append(helper._refresh(snapshot, attempt, "fifo; refresh in parallel with lease"))
+            if attempt.state not in _IN_FLIGHT and (
+                attempt.lease_id is None or _lease_expired(attempt, snapshot)
+            ):
+                decisions.append(
+                    _admit_with_slo(snapshot, attempt, task, "fifo; grant short lease", self._ids, self._lease_ttl_s)
+                )
+                continue
+            if (
+                attempt.state == AttemptState.READY
+                and attempt.has_observations
+                and not needs_refresh
+            ):
+                if slots <= 0:
+                    decisions.append(_wait_slot(snapshot, attempt))
+                    continue
+                slots -= 1
+                decisions.append(_dispatch(attempt, "fifo; observation and lease both ready"))
+                continue
+            if not needs_refresh:
+                decisions.append(_wait(attempt, f"in progress ({attempt.state.value})"))
+        return decisions
+
+
 class EvdfScheduler:
     """虚拟截止时间优先。等待越久，虚拟截止越早。不是研究文档里的 J0。"""
 

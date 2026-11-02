@@ -1,0 +1,139 @@
+{
+  "experiment": "E1_cancellation_effect",
+  "total_planned_pairs": 9,
+  "both_triggered_pairs": 7,
+  "trigger_rate_pair_level": 0.7778,
+  "primary_rq1_delta_post_revocation_text_tokens_mean_ci": {
+    "mean": 355.5714,
+    "median": 416.0,
+    "stdev": 216.7801,
+    "ci95_low": 207.8571,
+    "ci95_high": 500.8571,
+    "n": 7
+  },
+  "primary_rq1_delta_post_revocation_text_tokens_median_ci": {
+    "mean": 355.5714,
+    "median": 416.0,
+    "stdev": 216.7801,
+    "ci95_low": 113.0,
+    "ci95_high": 494.0,
+    "n": 7
+  },
+  "auxiliary_delta_post_revocation_events_mean_ci": {
+    "mean": 357.4286,
+    "median": 415.0,
+    "stdev": 218.1451,
+    "ci95_low": 209.2857,
+    "ci95_high": 504.2857,
+    "n": 7
+  },
+  "system_rq2_delta_slot_hold_s_mean_ci": {
+    "mean": 2.5266,
+    "median": 1.7218,
+    "stdev": 2.0554,
+    "ci95_low": 1.2116,
+    "ci95_high": 3.9636,
+    "n": 7
+  },
+  "cells": [
+    {
+      "cell_id": "E1_long_early",
+      "length_tier": "long",
+      "timing_tier": "early",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 1,
+      "delta_text_tokens_mean": 430.0,
+      "delta_text_tokens_median": 430.0,
+      "delta_slot_hold_s_mean": 3.421,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_long_late",
+      "length_tier": "long",
+      "timing_tier": "late",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 1,
+      "delta_text_tokens_mean": 494.0,
+      "delta_text_tokens_median": 494.0,
+      "delta_slot_hold_s_mean": 4.371,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_long_mid",
+      "length_tier": "long",
+      "timing_tier": "mid",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 1,
+      "delta_text_tokens_mean": 680.0,
+      "delta_text_tokens_median": 680.0,
+      "delta_slot_hold_s_mean": 5.847,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_mid_early",
+      "length_tier": "mid",
+      "timing_tier": "early",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 1,
+      "delta_text_tokens_mean": 293.0,
+      "delta_text_tokens_median": 293.0,
+      "delta_slot_hold_s_mean": 1.194,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_mid_late",
+      "length_tier": "mid",
+      "timing_tier": "late",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 1,
+      "delta_text_tokens_mean": 113.0,
+      "delta_text_tokens_median": 113.0,
+      "delta_slot_hold_s_mean": 0.625,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_mid_mid",
+      "length_tier": "mid",
+      "timing_tier": "mid",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 1,
+      "delta_text_tokens_mean": 416.0,
+      "delta_text_tokens_median": 416.0,
+      "delta_slot_hold_s_mean": 1.722,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_short_early",
+      "length_tier": "short",
+      "timing_tier": "early",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 1,
+      "delta_text_tokens_mean": 63.0,
+      "delta_text_tokens_median": 63.0,
+      "delta_slot_hold_s_mean": 0.507,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_short_late",
+      "length_tier": "short",
+      "timing_tier": "late",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 0,
+      "delta_text_tokens_mean": null,
+      "delta_text_tokens_median": null,
+      "delta_slot_hold_s_mean": null,
+      "any_old_attempt_committed": false
+    },
+    {
+      "cell_id": "E1_short_mid",
+      "length_tier": "short",
+      "timing_tier": "mid",
+      "planned_pairs": 1,
+      "both_triggered_pairs": 0,
+      "delta_text_tokens_mean": null,
+      "delta_text_tokens_median": null,
+      "delta_slot_hold_s_mean": null,
+      "any_old_attempt_committed": false
+    }
+  ]
+}

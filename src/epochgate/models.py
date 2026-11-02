@@ -155,12 +155,18 @@ class CommitResult(BaseModel):
 
 
 class BackendCapabilities(BaseModel):
-    """后端自报能力。取消确认不等于计算已经停止。"""
+    """后端自报能力。取消确认不等于计算已经停止。附带 F3 六维正交取消能力合同。"""
 
     supports_cancel: bool = False
     supports_streaming: bool = False
     resource_reclaim_observable: bool = False
     max_inflight: int = 1
+    streaming_capability: bool = False
+    local_read_abort: bool = False
+    provider_cancel_request: bool = False
+    provider_cancel_ack_semantics: Literal["ACKNOWLEDGED", "NOT_SUPPORTED", "UNKNOWN"] = "NOT_SUPPORTED"
+    server_generation_observability: bool = False
+    server_resource_reclaim_observability: bool = False
 
 
 class ToolSpec(BaseModel):
@@ -224,6 +230,7 @@ class CancelReceipt(BaseModel):
     evidence: str
     grade: Literal["ACCEPTED", "ACKNOWLEDGED", "NOT_SUPPORTED", "UNKNOWN"] = "UNKNOWN"
     reclaimed: bool = False
+    connection_closed: bool = False
 
 
 class ChangeEvent(BaseModel):
@@ -279,6 +286,7 @@ class AttemptView(BaseModel):
     bound_versions: dict[str, str] = Field(default_factory=dict)
     depends_on: list[str] = Field(default_factory=list)
     last_refresh_mono: float | None = None
+    created_mono: float = 0.0
 
 
 class ObservationView(BaseModel):

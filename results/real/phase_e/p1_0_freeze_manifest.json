@@ -1,0 +1,21 @@
+{
+  "stage": "P1.0",
+  "package_version": "1.1.0",
+  "head_commit": "1c795c5a499fbfe5001859e7b50e416c3bef3542",
+  "head_short": "1c795c5",
+  "uv_lock_sha256": "e96a4f74d0328313339adf68b535eb1ff44e48f6d5d4db9c8984e4465f6aca53",
+  "phase1_archive": "results/archive/phase1/manifest.json",
+  "phase_c_acceptance_verdict": "pass",
+  "phase_c_deterministic_all_pass": true,
+  "phase_d_summary": {
+    "code_version": "1c795c5",
+    "singles": 5,
+    "triples": 5,
+    "counts": {
+      "ok": 10
+    },
+    "note": "max_inflight=1；每次请求新建 AsyncClient，不是连接池打满。"
+  },
+  "audit_doc": "docs/测试记录/实验就绪审计.md",
+  "protocol_doc": "docs/测试记录/阶段E协议.md"
+}

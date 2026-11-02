@@ -80,7 +80,7 @@ def _summarize(events: list, *, seed: int, arm: str, status: TaskStatus) -> dict
         for event in events
         if event.event_type == "token_delta" and event.identity.get("attempt_id") != attempt_id
     )
-    reclaimed = next((event for event in events if event.event_type == "resource_reclaimed"), None)
+    reclaimed = next((event for event in events if event.event_type == "local_read_stopped"), None)
     latency = None if reclaimed is None else float(reclaimed.mono_time) - revoke_mono
     committed = any(event.event_type == "action_committed" for event in events)
     old_submitted = any(

@@ -64,8 +64,14 @@ class HttpStreamingBackend:
         self._caps = BackendCapabilities(
             supports_cancel=True,
             supports_streaming=True,
-            resource_reclaim_observable=True,
+            resource_reclaim_observable=False,
             max_inflight=max_inflight,
+            streaming_capability=True,
+            local_read_abort=stop_on_cancel,
+            provider_cancel_request=stop_on_cancel,
+            provider_cancel_ack_semantics="ACKNOWLEDGED",
+            server_generation_observability=False,
+            server_resource_reclaim_observability=False,
         )
         self._requests: dict[str, InferenceRequest] = {}
         self._responses: dict[str, httpx.Response] = {}
@@ -78,7 +84,7 @@ class HttpStreamingBackend:
         self.argument_text: dict[str, str] = {}
 
     def capabilities(self) -> BackendCapabilities:
-        """报告可取消、可流式，并且能观察本地读循环是否停止。副作用：无。失败：无。"""
+        """报告可取消、可流式。本地读停止可观察，服务端回收不可观察。副作用：无。失败：无。"""
         return self._caps
 
     async def submit(self, request: InferenceRequest) -> BackendHandle:
@@ -129,8 +135,10 @@ class HttpStreamingBackend:
                 reclaimed=False,
             )
         response = self._responses.get(handle.handle_id)
+        closed = False
         if response is not None:
             await response.aclose()
+            closed = True
         try:
             await asyncio.wait_for(self._stopped[handle.handle_id].wait(), timeout=2.0)
         except TimeoutError:
@@ -140,6 +148,7 @@ class HttpStreamingBackend:
                 evidence="loop_not_stopped",
                 grade="ACKNOWLEDGED",
                 reclaimed=False,
+                connection_closed=closed,
             )
         reclaimed = handle.handle_id in self._stopped_by_cancel
         return CancelReceipt(
@@ -148,6 +157,7 @@ class HttpStreamingBackend:
             evidence="本地循环已停" if reclaimed else "loop_not_stopped",
             grade="ACKNOWLEDGED",
             reclaimed=reclaimed,
+            connection_closed=closed,
         )
 
     def events(self, handle: BackendHandle) -> AsyncIterator[BackendEvent]:
@@ -195,13 +205,19 @@ class HttpStreamingBackend:
                 ) as response:
                     self._responses[handle.handle_id] = response
                     if response.status_code != 200:
-                        body = (await response.aread())[:300]
+                        body = (await response.aread())[:300].decode(errors="replace")
                         self._finished.add(handle.handle_id)
                         yield BackendEvent(
                             handle_id=handle.handle_id,
                             kind="failed",
                             mono_time=time.monotonic(),
-                            detail=f"http_{response.status_code}:{body.decode(errors='replace')}",
+                            detail=(
+                                f"http_{response.status_code}:"
+                                f"exception_type=HTTPStatusError;"
+                                f"status_code={response.status_code};"
+                                f"timeout=false;closed_by_cancel=false;"
+                                f"body={body}"
+                            ),
                         )
                         return
                     async for line in response.aiter_lines():
@@ -236,7 +252,11 @@ class HttpStreamingBackend:
                                 kind=kind,  # type: ignore[arg-type]
                                 mono_time=time.monotonic(),
                                 detail=detail,
-                                usage={"tokens": 1, "usage_source": "local", "index": local_index},
+                                usage={
+                                    "event_count": 1,
+                                    "usage_source": "local",
+                                    "index": local_index,
+                                },
                             )
                             if self._should_stop(handle.handle_id):
                                 self._stopped_by_cancel.add(handle.handle_id)
@@ -260,7 +280,7 @@ class HttpStreamingBackend:
                         tool_call=tool_call,
                         usage=completed_usage,
                     )
-        except _STREAM_CLOSED:
+        except _STREAM_CLOSED as exc:
             if handle.handle_id in self._finished:
                 return
             if self._cancel_flags[handle.handle_id].is_set():
@@ -271,7 +291,7 @@ class HttpStreamingBackend:
                 handle_id=handle.handle_id,
                 kind="failed",
                 mono_time=time.monotonic(),
-                detail="stream_closed",
+                detail=_http_failure_detail(exc, closed_by_cancel=False),
             )
         except (json.JSONDecodeError, KeyError, IndexError, TypeError, ValueError) as exc:
             self._finished.add(handle.handle_id)
@@ -279,7 +299,7 @@ class HttpStreamingBackend:
                 handle_id=handle.handle_id,
                 kind="failed",
                 mono_time=time.monotonic(),
-                detail=f"parse_error:{exc}",
+                detail=f"parse_error:{type(exc).__name__}:{exc}",
             )
         except httpx.HTTPError as exc:
             self._finished.add(handle.handle_id)
@@ -287,7 +307,7 @@ class HttpStreamingBackend:
                 handle_id=handle.handle_id,
                 kind="failed",
                 mono_time=time.monotonic(),
-                detail=f"http_error:{exc}",
+                detail=_http_failure_detail(exc, closed_by_cancel=self._cancel_flags[handle.handle_id].is_set()),
             )
         finally:
             self._responses.pop(handle.handle_id, None)
@@ -327,3 +347,32 @@ class HttpStreamingBackend:
             "Authorization": f"Bearer {self._api_key}",
             "Content-Type": "application/json",
         }
+
+
+def _http_failure_detail(exc: BaseException, *, closed_by_cancel: bool) -> str:
+    """把传输失败写成可分类的短字符串。
+
+    输入：异常，以及是否由本地取消关闭引起。
+    输出：含异常类型、状态码、超时与正文片段的 detail。
+    副作用：无。
+    失败：无。
+    """
+    status = getattr(exc, "response", None)
+    status_code = getattr(status, "status_code", None) if status is not None else None
+    body = ""
+    if status is not None:
+        try:
+            body = (status.text or "")[:300]
+        except Exception:
+            body = ""
+    timeout = isinstance(exc, httpx.TimeoutException)
+    kind = "stream_closed" if isinstance(exc, _STREAM_CLOSED) else "http_error"
+    return (
+        f"{kind}:"
+        f"exception_type={type(exc).__name__};"
+        f"status_code={status_code};"
+        f"timeout={str(timeout).lower()};"
+        f"closed_by_cancel={str(closed_by_cancel).lower()};"
+        f"message={str(exc)[:200]};"
+        f"body={body}"
+    )
