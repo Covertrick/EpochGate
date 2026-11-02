@@ -37,12 +37,20 @@ class HttpToolBackend:
         ids: IdFactory | None = None,
         transport: httpx.AsyncBaseTransport | None = None,
         fault_plan: FaultPlan | None = None,
+        system_prompt: str | None = None,
+        tool_choice: Any = "auto",
+        parse_retries: int = 0,
     ) -> None:
+        if parse_retries < 0:
+            raise ValueError("parse_retries must be >= 0")
         self._base_url = base_url.rstrip("/")
         self._api_key = api_key
         self._model = model
         self._timeout_s = timeout_s
         self._trust_env = trust_env
+        self._system_prompt = system_prompt
+        self._tool_choice = tool_choice
+        self._parse_retries = parse_retries
         self._ids = ids or IdFactory(None)
         self._fault_plan = fault_plan
         if fault_plan is not None:
@@ -130,72 +138,82 @@ class HttpToolBackend:
             return
         yield BackendEvent(handle_id=handle.handle_id, kind="started", mono_time=time.monotonic())
         payload = self._build_payload(request)
-        try:
-            response = await self._post(payload)
-        except FaultInjectedError as exc:
+        retries_used = 0
+        while True:
+            try:
+                response = await self._post(payload)
+            except FaultInjectedError as exc:
+                self._finished.add(handle.handle_id)
+                yield BackendEvent(
+                    handle_id=handle.handle_id,
+                    kind="failed",
+                    mono_time=time.monotonic(),
+                    detail="fault_disconnect",
+                    usage=_with_retry(_fault_usage(exc.fault), retries_used),
+                )
+                return
+            except httpx.HTTPError as exc:
+                self._finished.add(handle.handle_id)
+                yield BackendEvent(
+                    handle_id=handle.handle_id,
+                    kind="failed",
+                    mono_time=time.monotonic(),
+                    detail=f"http_error:{exc}",
+                    usage=_with_retry({}, retries_used),
+                )
+                return
+            fault_usage = _fault_usage(response.extensions.get("epochgate_fault"))
+            if handle.handle_id in self._cancelled:
+                self._finished.add(handle.handle_id)
+                yield BackendEvent(
+                    handle_id=handle.handle_id,
+                    kind="failed",
+                    mono_time=time.monotonic(),
+                    detail="client_cancel_requested",
+                    usage=_with_retry(fault_usage, retries_used),
+                )
+                return
+            if response.status_code != 200:
+                self._finished.add(handle.handle_id)
+                yield BackendEvent(
+                    handle_id=handle.handle_id,
+                    kind="failed",
+                    mono_time=time.monotonic(),
+                    detail=f"http_{response.status_code}:{response.text[:300]}",
+                    usage=_with_retry(fault_usage, retries_used),
+                )
+                return
+            try:
+                tool_call = self._parse_tool_call(response.json(), request)
+            except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as exc:
+                if retries_used < self._parse_retries and handle.handle_id not in self._cancelled:
+                    retries_used += 1
+                    continue
+                self._finished.add(handle.handle_id)
+                yield BackendEvent(
+                    handle_id=handle.handle_id,
+                    kind="failed",
+                    mono_time=time.monotonic(),
+                    detail=f"parse_error:{exc}",
+                    usage=_with_retry(fault_usage, retries_used),
+                )
+                return
             self._finished.add(handle.handle_id)
+            usage = _with_retry(dict(fault_usage), retries_used)
+            body_usage: object = {}
+            try:
+                body_usage = response.json().get("usage") or {}
+            except (json.JSONDecodeError, AttributeError):
+                body_usage = {}
+            _record_provider_usage(usage, body_usage)
             yield BackendEvent(
                 handle_id=handle.handle_id,
-                kind="failed",
+                kind="completed",
                 mono_time=time.monotonic(),
-                detail="fault_disconnect",
-                usage=_fault_usage(exc.fault),
+                tool_call=tool_call,
+                usage=usage,
             )
             return
-        except httpx.HTTPError as exc:
-            self._finished.add(handle.handle_id)
-            yield BackendEvent(
-                handle_id=handle.handle_id,
-                kind="failed",
-                mono_time=time.monotonic(),
-                detail=f"http_error:{exc}",
-            )
-            return
-        self._finished.add(handle.handle_id)
-        fault_usage = _fault_usage(response.extensions.get("epochgate_fault"))
-        if handle.handle_id in self._cancelled:
-            yield BackendEvent(
-                handle_id=handle.handle_id,
-                kind="failed",
-                mono_time=time.monotonic(),
-                detail="client_cancel_requested",
-                usage=fault_usage,
-            )
-            return
-        if response.status_code != 200:
-            yield BackendEvent(
-                handle_id=handle.handle_id,
-                kind="failed",
-                mono_time=time.monotonic(),
-                detail=f"http_{response.status_code}:{response.text[:300]}",
-                usage=fault_usage,
-            )
-            return
-        try:
-            tool_call = self._parse_tool_call(response.json(), request)
-        except (KeyError, IndexError, TypeError, json.JSONDecodeError, ValueError) as exc:
-            yield BackendEvent(
-                handle_id=handle.handle_id,
-                kind="failed",
-                mono_time=time.monotonic(),
-                detail=f"parse_error:{exc}",
-                usage=fault_usage,
-            )
-            return
-        usage = dict(fault_usage)
-        body_usage = {}
-        try:
-            body_usage = response.json().get("usage") or {}
-        except (json.JSONDecodeError, AttributeError):
-            body_usage = {}
-        _record_provider_usage(usage, body_usage)
-        yield BackendEvent(
-            handle_id=handle.handle_id,
-            kind="completed",
-            mono_time=time.monotonic(),
-            tool_call=tool_call,
-            usage=usage,
-        )
 
     def _completions_url(self) -> str:
         if self._base_url.endswith("/v1"):
@@ -209,23 +227,12 @@ class HttpToolBackend:
         }
 
     def _build_payload(self, request: InferenceRequest) -> dict[str, Any]:
-        observations = request.context.get("observations", [])
-        messages = list(request.context.get("messages", []))
-        messages.append(
-            {
-                "role": "user",
-                "content": (
-                    f"goal: {request.goal}\n"
-                    f"observations: {json.dumps(observations, ensure_ascii=False, default=str)}"
-                ),
-            }
+        return build_chat_payload(
+            request,
+            model=self._model,
+            system_prompt=self._system_prompt,
+            tool_choice=self._tool_choice,
         )
-        return {
-            "model": self._model,
-            "messages": messages,
-            "tools": [_openai_tool(spec) for spec in request.tools],
-            "tool_choice": "auto",
-        }
 
     async def _post(self, payload: dict[str, Any]) -> httpx.Response:
         client_kwargs: dict[str, Any] = {"timeout": self._timeout_s, "trust_env": self._trust_env}
@@ -255,12 +262,80 @@ class HttpToolBackend:
             raise ValueError("tool arguments must be a JSON object or string")
         if not isinstance(arguments, dict):
             raise ValueError("tool arguments must be an object")
-        _reject_schema_mismatch(str(function["name"]), arguments, request.tools)
-        return ToolCall(
-            call_id=str(call.get("id") or self._ids("call")),
+        return tool_call_from_parts(
+            call_id=str(call.get("id") or ""),
             name=str(function["name"]),
             arguments=arguments,
+            tools=request.tools,
+            fallback_id=self._ids("call"),
         )
+
+
+def tool_call_from_parts(
+    *,
+    call_id: str,
+    name: str,
+    arguments: Mapping[str, Any],
+    tools: list[ToolSpec],
+    fallback_id: str,
+) -> ToolCall:
+    """把已经拼好的工具名和参数收成一次工具调用。
+
+    输入：调用 id、工具名、参数对象、目录里的工具，以及 id 为空时的备用值。
+    输出：``ToolCall``。
+    副作用：无。
+    失败：参数不是对象，或缺必填字段、类型不符时抛出 ``ValueError``。
+    """
+    if not isinstance(arguments, dict):
+        raise ValueError("tool arguments must be an object")
+    _reject_schema_mismatch(name, arguments, tools)
+    return ToolCall(call_id=call_id or fallback_id, name=name, arguments=dict(arguments))
+
+
+def build_chat_payload(
+    request: InferenceRequest,
+    *,
+    model: str,
+    system_prompt: str | None = None,
+    tool_choice: Any = "auto",
+    stream: bool = False,
+) -> dict[str, Any]:
+    """组装 OpenAI 兼容的 chat completions 请求体。
+
+    输入：推理请求、模型名，以及可选的系统提示、工具选择和是否流式。
+    输出：可直接作为 JSON 发送的字典。
+    副作用：无。
+    失败：无。
+    """
+    observations = request.context.get("observations", [])
+    messages: list[dict[str, Any]] = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.extend(list(request.context.get("messages", [])))
+    messages.append(
+        {
+            "role": "user",
+            "content": (
+                f"goal: {request.goal}\n"
+                f"observations: {json.dumps(observations, ensure_ascii=False, default=str)}"
+            ),
+        }
+    )
+    payload: dict[str, Any] = {
+        "model": model,
+        "messages": messages,
+        "tools": [_openai_tool(spec) for spec in request.tools],
+        "tool_choice": tool_choice,
+    }
+    if stream:
+        payload["stream"] = True
+        payload["stream_options"] = {"include_usage": True}
+    return payload
+
+
+def _with_retry(usage: dict[str, Any], retries_used: int) -> dict[str, Any]:
+    usage["retry_count"] = retries_used
+    return usage
 
 
 def _record_provider_usage(usage: dict[str, Any], body_usage: object) -> None:

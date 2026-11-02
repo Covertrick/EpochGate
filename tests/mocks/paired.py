@@ -1,4 +1,4 @@
-"""假流式后端上的配对：同一触发点，只拒绝或立刻停止。"""
+"""CI 用的假流式配对。不写入真实模型记录。"""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from epochgate.inventory import InventoryEnvironment
 from epochgate.models import Task, TaskStatus
 from epochgate.runtime import Runtime
 from epochgate.scheduler import NearAdmissionScheduler
-from epochgate.streaming_backend import StreamingFakeBackend
+from mocks.streaming import MockStreamingBackend
 
 
 async def run_paired_case(*, seed: int, arm: str) -> dict[str, Any]:
@@ -34,7 +34,7 @@ async def run_paired_case(*, seed: int, arm: str) -> dict[str, Any]:
             fired["done"] = True
             env.apply_exogenous(-3)
 
-    backend = StreamingFakeBackend(
+    backend = MockStreamingBackend(
         token_count=8,
         trigger_at=5,
         on_trigger=drop_stock,
@@ -96,7 +96,7 @@ def _summarize(events: list, *, seed: int, arm: str, status: TaskStatus) -> dict
     return {
         "seed": seed,
         "arm": arm,
-        "backend": "streaming_fake",
+        "backend": "mock_streaming",
         "exploratory": True,
         "length_aligned": before == 5 and (before + extra) == (5 if arm == "B" else 8),
         "task_status": status.value,
