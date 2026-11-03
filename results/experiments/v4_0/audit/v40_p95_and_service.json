@@ -1,0 +1,449 @@
+{
+  "source": "results/experiments/v2_1/confirmatory/traces.jsonl",
+  "n_summary_rows": 2400,
+  "wait_definition": {
+    "unit": "每个 trace 内 36 个旁观者的首次拿到槽时刻减去到达",
+    "percentile": "线性插值，秩 (n-1)*0.95。n=36 时是第 34 与第 35 个顺序统计量的 0.75/0.25 加权",
+    "cell_estimate": "50 个同种子配对差的平均。差是基线 W95 减 G2 W95",
+    "bootstrap": "对这 50 个配对差做有放回重采样，10000 次，种子 20261103。两臂不单独打散",
+    "not_independent_units": "同一 trace 里的 36 个旁观者不是 36 次独立实验",
+    "cap_in_code": "未启动的等待在代码里记为观察窗长度。这是封顶等待，不是右删失下的真实等待"
+  },
+  "confirmatory_censoring": {
+    "censored_wait_count_min": 0,
+    "censored_wait_count_max": 0,
+    "rows_with_censoring": 0,
+    "completion_min": 1.0,
+    "completion_max": 1.0,
+    "rows_completion_below_one": 0,
+    "w95_max_s": 31.763199999999998,
+    "horizon_min_s": 128.1664,
+    "rows_w95_reaches_horizon": 0,
+    "interpretation": "封顶分支没有被确认性主表用到。这里的 W95 是观察窗内的精确首次拿到槽时间。"
+  },
+  "harmful_g0_minus_g2": [
+    {
+      "load": "high",
+      "scheduler": "fcfs",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 2.11016,
+      "release_gap_mean_s": 12.800000000000002,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.16485624999999998,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "high",
+      "scheduler": "runtime-plas",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 2.009136,
+      "release_gap_mean_s": 12.800000000000002,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.15696374999999999,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "high",
+      "scheduler": "srpt",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 2.42112,
+      "release_gap_mean_s": 12.800000000000002,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.18915,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "fcfs",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 1.8151174999999995,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.14180605468749996,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "fcfs",
+      "rho": 1.0,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 2.1772650000000002,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.17009882812500002,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "fcfs",
+      "rho": 2.0,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 2.5810640000000005,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.20164562500000002,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "runtime-plas",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 1.5517389999999989,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.12122960937499991,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "runtime-plas",
+      "rho": 1.0,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 1.7432834999999998,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.13619402343749998,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "runtime-plas",
+      "rho": 2.0,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 2.077855,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.162332421875,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "srpt",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 1.825155000000001,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.14259023437500007,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "srpt",
+      "rho": 1.0,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 2.4472995,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.1911952734375,
+      "sign_matches_saved_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "srpt",
+      "rho": 2.0,
+      "n_traces": 50,
+      "baseline": "G0",
+      "delta_w95_mean": 1.741089,
+      "release_gap_mean_s": 12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 12.8,
+      "baseline_restart_s": 0.0,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "successor"
+      ],
+      "saved_invalid_tail_s": 12.8,
+      "transmission_per_saved_slot_second": 0.136022578125,
+      "sign_matches_saved_work": true
+    }
+  ],
+  "harmless_g1_minus_g2": [
+    {
+      "load": "medium",
+      "scheduler": "fcfs",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": -0.7348004999999991,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 6.4,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": -6.4,
+      "transmission_per_work_advantage_second": 0.11481257812499986,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "fcfs",
+      "rho": 1.0,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": 0.0,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 12.8,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": 0.0,
+      "transmission_per_work_advantage_second": null,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "fcfs",
+      "rho": 2.0,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": 2.1535694999999997,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 25.6,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": 12.8,
+      "transmission_per_work_advantage_second": 0.16824761718749998,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "runtime-plas",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": -0.7348004999999991,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 6.4,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": -6.4,
+      "transmission_per_work_advantage_second": 0.11481257812499986,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "runtime-plas",
+      "rho": 1.0,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": 0.0,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 12.8,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": 0.0,
+      "transmission_per_work_advantage_second": null,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "runtime-plas",
+      "rho": 2.0,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": 2.1535694999999997,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 25.6,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": 12.8,
+      "transmission_per_work_advantage_second": 0.16824761718749998,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "srpt",
+      "rho": 0.5,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": -0.8468130000000004,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 6.4,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": -6.4,
+      "transmission_per_work_advantage_second": 0.13231453125000006,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "srpt",
+      "rho": 1.0,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": 0.0,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 12.8,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": 0.0,
+      "transmission_per_work_advantage_second": null,
+      "sign_matches_work": true
+    },
+    {
+      "load": "medium",
+      "scheduler": "srpt",
+      "rho": 2.0,
+      "n_traces": 50,
+      "baseline": "G1",
+      "delta_w95_mean": 2.6424704999999995,
+      "release_gap_mean_s": -12.8,
+      "max_successor_service_gap_s": 0.0,
+      "arrival_hash_mismatches": 0,
+      "alt_reclaimed_slot_s": 0.0,
+      "baseline_restart_s": 25.6,
+      "alt_restart_s": 0.0,
+      "alt_next_slot": [
+        "bystander"
+      ],
+      "g2_post_event_work_advantage_s": 12.8,
+      "transmission_per_work_advantage_second": 0.20644300781249994,
+      "sign_matches_work": true
+    }
+  ],
+  "sign_matches_post_event_work": true
+}

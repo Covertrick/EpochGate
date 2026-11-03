@@ -12,7 +12,7 @@
 - **G1** 看见相关信号就停，并立刻重做。
 - **G2** 先问前提还在不在，只有前提为假才停并放槽。
 
-在 4 个槽的逻辑时钟回放里，前提已经失效时，G2 相对 G0 的旁观者 P95 等待在 12/12 个主格跨过预先冻结的门槛。前提仍成立时，结果随 restart 成本反转，不是 G2 处处更好。客户端停读不是 GPU 已回收。
+在 4 个槽的逻辑时钟回放里，前提已经失效时，G2 相对 G0 少做 12.8 秒失效占用，下一只槽先交给后继，旁观者 P95 等待仍在 12/12 个主格跨过预先冻结的门槛，大约少 1.6–2.6 秒。前提仍成立时，差的符号跟着 restart 长短走，不是 G2 处处更好。这是这条槽模型上的传导，不是新的队列定律。Retire 已经检查过无关租户，这里的主指标是旁观者等待。客户端停读不是 GPU 已回收。
 
 数字、区间和不能说的话在 [docs/论文4.0.md](docs/论文4.0.md)。v1.2 的真实 API 槽位和安全性在 [docs/论文初稿.md](docs/论文初稿.md)。
 
@@ -44,11 +44,12 @@ late_output_rejected reason=insufficient stock
 | 旁观者确认性主表，2400 行，只读 | `results/experiments/v2_1/confirmatory/traces.jsonl` |
 | 四张表的汇总 | `results/experiments/v2_1/reports/v21_summary.json` |
 | 审计、敏感性、三张图 | `results/experiments/v4_0/` |
-| 重算主表、重画图，不重跑确认性 | 下面两条命令 |
+| 重算主表、重画图、审计 P95，不重跑确认性 | 下面三条命令 |
 
 ```powershell
 python -m uv run python scripts/analyze_v21.py
 python -m uv run python scripts/plot_v21_figures.py
+python scripts/audit_v40_p95.py
 ```
 
 不要为了核对主表执行 `scripts/run_v21_pilot.py --phase confirmatory`，它会重写已封存的 JSONL。
@@ -59,7 +60,7 @@ python -m uv run python scripts/plot_v21_figures.py
 
 | 现行 | 读它得到什么 |
 | --- | --- |
-| [docs/论文4.0.md](docs/论文4.0.md) | 旁观者测量论文：三个发现、主表、机制、限制 |
+| [docs/论文4.0.md](docs/论文4.0.md) | 旁观者测量论文：贡献边界、P95 定义、服务量传导 |
 | [docs/论文初稿.md](docs/论文初稿.md) | v1.2 真实 API：旧提交为 0、本地槽位和后续等待 |
 | [docs/项目开发文档4.0.md](docs/项目开发文档4.0.md) | 收尾合同：数据地图、门槛定义、审计和复现 |
 | [docs/工程实现说明.md](docs/工程实现说明.md) | 模块、依赖方向、命令 |
