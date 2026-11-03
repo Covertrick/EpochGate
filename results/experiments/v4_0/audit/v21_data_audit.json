@@ -1,0 +1,597 @@
+{
+  "cells": [
+    {
+      "cell": [
+        "harmful",
+        "high",
+        "early",
+        "fcfs",
+        0.5,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "high",
+        "early",
+        "fcfs",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "high",
+        "early",
+        "runtime-plas",
+        0.5,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "high",
+        "early",
+        "runtime-plas",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "high",
+        "early",
+        "srpt",
+        0.5,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "high",
+        "early",
+        "srpt",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "fcfs",
+        0.5,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "fcfs",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "fcfs",
+        1.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "fcfs",
+        1.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "fcfs",
+        1.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "fcfs",
+        2.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "fcfs",
+        2.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "runtime-plas",
+        0.5,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "runtime-plas",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "runtime-plas",
+        1.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "runtime-plas",
+        1.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "runtime-plas",
+        1.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "runtime-plas",
+        2.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "runtime-plas",
+        2.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "srpt",
+        0.5,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "srpt",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "srpt",
+        1.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "srpt",
+        1.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "srpt",
+        1.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "srpt",
+        2.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmful",
+        "medium",
+        "early",
+        "srpt",
+        2.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "fcfs",
+        0.5,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "fcfs",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "fcfs",
+        1.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "fcfs",
+        1.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "fcfs",
+        1.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "fcfs",
+        2.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "fcfs",
+        2.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "runtime-plas",
+        0.5,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "runtime-plas",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "runtime-plas",
+        1.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "runtime-plas",
+        1.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "runtime-plas",
+        1.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "runtime-plas",
+        2.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "runtime-plas",
+        2.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "srpt",
+        0.5,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "srpt",
+        0.5,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "srpt",
+        1.0,
+        "G0"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "srpt",
+        1.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "srpt",
+        1.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "srpt",
+        2.0,
+        "G1"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    },
+    {
+      "cell": [
+        "harmless",
+        "medium",
+        "early",
+        "srpt",
+        2.0,
+        "G2"
+      ],
+      "n": 50,
+      "unique_seeds": 50
+    }
+  ],
+  "checks": {
+    "n_rows": 2400,
+    "old_attempt_committed": 0,
+    "duplicate_side_effects": 0,
+    "harmless_g2_false_cancel": 0,
+    "harmless_g2_restart": 0,
+    "harmless_g1_missing_restart": 0,
+    "protocol_hash_values": [
+      "37f9846b2504b61c4e535940f9cc4df741fe9b462d6f99458b55a40ee2138213"
+    ],
+    "code_versions": [
+      "3.0.0"
+    ],
+    "expected_protocol_hash": "37f9846b2504b61c4e535940f9cc4df741fe9b462d6f99458b55a40ee2138213"
+  },
+  "issues": [],
+  "passed": true
+}

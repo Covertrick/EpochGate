@@ -1,0 +1,3377 @@
+[
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.6052019183282267,
+    "ci_low": 1.1046123915643506,
+    "ci_high": 2.112772672723965,
+    "relative": 0.1218779465734819,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.0515689276408553,
+    "ci_low": 1.5494618721344813,
+    "ci_high": 2.5314656484333127,
+    "relative": 0.14350505120609763,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.4953669909932397,
+    "ci_low": 1.8846475311866426,
+    "ci_high": 3.043575860836975,
+    "relative": 0.14665147747522586,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.4753416774872712,
+    "ci_low": 0.9919074868799124,
+    "ci_high": 1.9721332989624256,
+    "relative": 0.11313354912622337,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.0811083518565963,
+    "ci_low": 1.505159984718999,
+    "ci_high": 2.645481944145844,
+    "relative": 0.14527113567521527,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.48598789533865,
+    "ci_low": 1.7627630341406546,
+    "ci_high": 3.124373623003251,
+    "relative": 0.1461808482700649,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.6633397104272734,
+    "ci_low": 1.054885973626335,
+    "ci_high": 2.3058435349858857,
+    "relative": 0.11998398678372796,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.3752138233837345,
+    "ci_low": 1.5749935170352873,
+    "ci_high": 3.1638283858818976,
+    "relative": 0.15454508001727776,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.5553572575791885,
+    "ci_low": 1.7150813730394725,
+    "ci_high": 3.381509105341323,
+    "relative": 0.14105424287048235,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.6792082351995897,
+    "ci_low": -1.111467196457405,
+    "ci_high": -0.3224066462661296,
+    "relative": -0.05872777093406866,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.2756856136909698,
+    "ci_low": 1.823898808477145,
+    "ci_high": 2.688938287006043,
+    "relative": 0.15672484174611753,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.6792082351995897,
+    "ci_low": -1.111467196457405,
+    "ci_high": -0.3224066462661296,
+    "relative": -0.05872777093406866,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.2756856136909698,
+    "ci_low": 1.823898808477145,
+    "ci_high": 2.688938287006043,
+    "relative": 0.15672484174611753,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.794179572345111,
+    "ci_low": -1.235557160016664,
+    "ci_high": -0.4070138919183673,
+    "relative": -0.06509842325535511,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.566920518007718,
+    "ci_low": 1.8002752050469826,
+    "ci_high": 3.313729446423737,
+    "relative": 0.16496097335958684,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.068589314114624,
+    "ci_low": 1.5844940423622378,
+    "ci_high": 2.5274303223350087,
+    "relative": 0.12150890629395232,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.0653872093868606,
+    "ci_low": 1.588901225639344,
+    "ci_high": 2.531993053522851,
+    "relative": 0.12134363842601974,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.10-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.855376496422403,
+    "ci_low": 1.3843912456139627,
+    "ci_high": 2.3457094440351125,
+    "relative": 0.10325781829338765,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.6270515705143678,
+    "ci_low": 1.1174623652300535,
+    "ci_high": 2.14881846450818,
+    "relative": 0.1227255342278614,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.016616351374934,
+    "ci_low": 1.5220968294651471,
+    "ci_high": 2.4826458608163673,
+    "relative": 0.14046858692500452,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.501400463666144,
+    "ci_low": 1.9075177372759724,
+    "ci_high": 3.030635124000846,
+    "relative": 0.14659880669178554,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.5110055866156107,
+    "ci_low": 1.0175755903259291,
+    "ci_high": 2.0210491346853257,
+    "relative": 0.11497882257797873,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.9870827235478534,
+    "ci_low": 1.4541680197854583,
+    "ci_high": 2.514279229758371,
+    "relative": 0.13869672929354643,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.5198701332499973,
+    "ci_low": 1.7989243277349327,
+    "ci_high": 3.1498286562943183,
+    "relative": 0.1475215687624358,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.810743483363867,
+    "ci_low": 1.1669309271393724,
+    "ci_high": 2.500256181259878,
+    "relative": 0.12871421831137853,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.40080598062302,
+    "ci_low": 1.682545397971723,
+    "ci_high": 3.119325834020633,
+    "relative": 0.15569373779162535,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.699759806836835,
+    "ci_low": 1.8309929132487146,
+    "ci_high": 3.541381459201003,
+    "relative": 0.14845423351280324,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.7091412686544026,
+    "ci_low": -1.1576507545239945,
+    "ci_high": -0.33847601631357593,
+    "relative": -0.06097206220195223,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.2217626461608035,
+    "ci_low": 1.7780142874013316,
+    "ci_high": 2.6289424993988444,
+    "relative": 0.15257789683686182,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.7091412686544026,
+    "ci_low": -1.1576507545239945,
+    "ci_high": -0.33847601631357593,
+    "relative": -0.06097206220195223,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.2217626461608035,
+    "ci_low": 1.7780142874013316,
+    "ci_high": 2.6289424993988444,
+    "relative": 0.15257789683686182,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.7620556185499784,
+    "ci_low": -1.2109990256792407,
+    "ci_high": -0.3806807609782112,
+    "relative": -0.06217211406628219,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.466796733766784,
+    "ci_low": 1.6926876937972497,
+    "ci_high": 3.196004395242269,
+    "relative": 0.1592915837143868,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.081588877125013,
+    "ci_low": 1.5916730593881065,
+    "ci_high": 2.5610558807470443,
+    "relative": 0.12215814444703298,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.083778647680901,
+    "ci_low": 1.596472375658283,
+    "ci_high": 2.5618467898213506,
+    "relative": 0.1222709385925421,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "arrival-jitter-0.25-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.75396761954523,
+    "ci_low": 1.186570333403815,
+    "ci_high": 2.332821318266252,
+    "relative": 0.09833580461623447,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.184630833333333,
+    "ci_low": 0.7861850000000004,
+    "ci_high": 1.5778125000000014,
+    "relative": 0.11918057022954356,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.862176666666666,
+    "ci_low": 1.3576083333333306,
+    "ci_high": 2.3502825,
+    "relative": 0.16982267434393367,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.5794816666666662,
+    "ci_low": 2.013788333333333,
+    "ci_high": 3.1078491666666674,
+    "relative": 0.187137638916103,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.0753424999999999,
+    "ci_low": 0.7020824999999996,
+    "ci_high": 1.4475349999999998,
+    "relative": 0.10938827181906127,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.776561666666666,
+    "ci_low": 1.2255516666666677,
+    "ci_high": 2.338414166666666,
+    "relative": 0.16328986951663643,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.2037149999999985,
+    "ci_low": 1.3992408333333317,
+    "ci_high": 2.9294241666666654,
+    "relative": 0.16435690122562033,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.9295966666666668,
+    "ci_low": 0.4581941666666673,
+    "ci_high": 1.4555100000000005,
+    "relative": 0.08660325479166105,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.5577233333333314,
+    "ci_low": 1.7814699999999983,
+    "ci_high": 3.4010199999999977,
+    "relative": 0.2007112365394125,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.4628466666666666,
+    "ci_low": 1.7341808333333324,
+    "ci_high": 3.210309166666666,
+    "relative": 0.16363243660800003,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.3480741666666669,
+    "ci_low": -0.569026666666668,
+    "ci_high": -0.15208250000000134,
+    "relative": -0.039756425752753094,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.101150833333333,
+    "ci_low": 1.571197500000001,
+    "ci_high": 2.6165566666666655,
+    "relative": 0.18752920636556897,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.3480741666666669,
+    "ci_low": -0.569026666666668,
+    "ci_high": -0.15208250000000134,
+    "relative": -0.039756425752753094,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.101150833333333,
+    "ci_low": 1.571197500000001,
+    "ci_high": 2.6165566666666655,
+    "relative": 0.18752920636556897,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.3812033333333337,
+    "ci_low": -0.6415958333333335,
+    "ci_high": -0.1641074999999997,
+    "relative": -0.03888095167062795,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-balanced",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.4026683333333323,
+    "ci_low": 1.7504183333333325,
+    "ci_high": 3.102045833333333,
+    "relative": 0.19086604148460465,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.9129250000000018,
+    "ci_low": 2.5492566666666687,
+    "ci_high": 3.2594975000000015,
+    "relative": 0.09616302511862923,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 3.348854166666666,
+    "ci_low": 3.002208333333333,
+    "ci_high": 3.6740191666666657,
+    "relative": 0.1048913640120089,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.972454166666668,
+    "ci_low": 2.7445891666666684,
+    "ci_high": 3.2074883333333335,
+    "relative": 0.08526047608539435,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.852438333333336,
+    "ci_low": 2.441820833333337,
+    "ci_high": 3.2659391666666666,
+    "relative": 0.09435461618507475,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 3.103725833333335,
+    "ci_low": 2.7795133333333344,
+    "ci_high": 3.4282366666666677,
+    "relative": 0.09796572180453823,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 3.2768550000000007,
+    "ci_low": 3.0194033333333357,
+    "ci_high": 3.521554166666667,
+    "relative": 0.09317820038829762,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.724819166666668,
+    "ci_low": 2.28978,
+    "ci_high": 3.1680266666666697,
+    "relative": 0.09036273816825233,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 3.228629166666666,
+    "ci_low": 2.807865000000001,
+    "ci_high": 3.6638250000000006,
+    "relative": 0.10188163716520358,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 3.172621666666667,
+    "ci_low": 2.673140000000001,
+    "ci_high": 3.6508791666666687,
+    "relative": 0.09056806527387666,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -1.1994241666666683,
+    "ci_low": -1.458822500000001,
+    "ci_high": -0.9306433333333362,
+    "relative": -0.04380881493711458,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 3.312731666666666,
+    "ci_low": 3.045374166666668,
+    "ci_high": 3.564584166666668,
+    "relative": 0.10387747903252328,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -1.1994241666666683,
+    "ci_low": -1.458822500000001,
+    "ci_high": -0.9306433333333362,
+    "relative": -0.04380881493711458,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 3.312731666666666,
+    "ci_low": 3.045374166666668,
+    "ci_high": 3.564584166666668,
+    "relative": 0.10387747903252328,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -1.0319566666666684,
+    "ci_low": -1.4315800000000023,
+    "ci_high": -0.6561533333333335,
+    "relative": -0.037622263058350626,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-long_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 3.396253333333333,
+    "ci_low": 3.015635833333332,
+    "ci_high": 3.771925833333334,
+    "relative": 0.10660723557808635,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.762176666666667,
+    "ci_low": 0.311616666666667,
+    "ci_high": 1.2943275000000007,
+    "relative": 0.3351766708957157,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.372475,
+    "ci_low": 0.7326058333333326,
+    "ci_high": 2.123615833333333,
+    "relative": 0.4340107221311027,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.7396541666666667,
+    "ci_low": 0.26343749999999977,
+    "ci_high": 1.2464675,
+    "relative": 0.1814221109379392,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.5164466666666669,
+    "ci_low": 0.20451583333333373,
+    "ci_high": 0.9103975000000002,
+    "relative": 0.2546298693027978,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.9338983333333332,
+    "ci_low": 0.46331749999999894,
+    "ci_high": 1.4932233333333333,
+    "relative": 0.34287478323230774,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.30177333333333356,
+    "ci_low": -0.4381899999999999,
+    "ci_high": 0.9486600000000001,
+    "relative": 0.08292530338330152,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.35783333333333356,
+    "ci_low": -0.12617500000000006,
+    "ci_high": 0.9348033333333342,
+    "relative": 0.18723660314255774,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.9238983333333337,
+    "ci_low": 0.4252066666666667,
+    "ci_high": 1.4937308333333343,
+    "relative": 0.35793838636869224,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.42755583333333325,
+    "ci_low": -0.13118249999999906,
+    "ci_high": 0.995106666666667,
+    "relative": 0.12876610495501556,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.2780533333333335,
+    "ci_low": -0.6372475000000005,
+    "ci_high": -0.017791666666666886,
+    "relative": -0.18392467149615208,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.547493333333333,
+    "ci_low": 0.8896075000000001,
+    "ci_high": 2.2674199999999995,
+    "relative": 0.46369272795827,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.2780533333333335,
+    "ci_low": -0.6372475000000005,
+    "ci_high": -0.017791666666666886,
+    "relative": -0.18392467149615208,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.547493333333333,
+    "ci_low": 0.8896075000000001,
+    "ci_high": 2.2674199999999995,
+    "relative": 0.46369272795827,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.10397166666666674,
+    "ci_low": -0.5772841666666669,
+    "ci_high": 0.29733666666666686,
+    "relative": -0.06693616530442001,
+    "sign": "zero_or_crosses",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "mix-short_heavy",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.2355833333333337,
+    "ci_low": 0.6614808333333333,
+    "ci_high": 1.8606591666666672,
+    "relative": 0.42711615790766977,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.6896522423520932,
+    "ci_low": 1.1529023247236536,
+    "ci_high": 2.242594270348875,
+    "relative": 0.12757145542113313,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.8880884961260667,
+    "ci_low": 1.4256705086649974,
+    "ci_high": 2.324885198614774,
+    "relative": 0.13250657969786542,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.4432854188198596,
+    "ci_low": 1.8403470138805684,
+    "ci_high": 2.979340403749972,
+    "relative": 0.1443993685953626,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.5699288905970346,
+    "ci_low": 1.0583598944396504,
+    "ci_high": 2.099793989898445,
+    "relative": 0.11961337203299473,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.8979056384748891,
+    "ci_low": 1.393156894589102,
+    "ci_high": 2.3977036690215647,
+    "relative": 0.13310384496910252,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.3698704561544512,
+    "ci_low": 1.6759014228765563,
+    "ci_high": 2.989633054934872,
+    "relative": 0.140670859450376,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.9166647182965888,
+    "ci_low": 1.0903282622223602,
+    "ci_high": 2.8989419407412895,
+    "relative": 0.11672457550765045,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.8371487635203305,
+    "ci_low": 1.728795650741357,
+    "ci_high": 3.997015549601115,
+    "relative": 0.1604223925469336,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.9719616796995476,
+    "ci_low": 0.81150670512996,
+    "ci_high": 3.205405542986965,
+    "relative": 0.09821417891039225,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.8058290344881109,
+    "ci_low": -1.2930934425412166,
+    "ci_high": -0.4069274499957689,
+    "relative": -0.0697379578775756,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.1161192763977374,
+    "ci_low": 1.697725241706023,
+    "ci_high": 2.4970900632660276,
+    "relative": 0.1461706364591303,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.8058290344881109,
+    "ci_low": -1.2930934425412166,
+    "ci_high": -0.4069274499957689,
+    "relative": -0.0697379578775756,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.1161192763977374,
+    "ci_low": 1.697725241706023,
+    "ci_high": 2.4970900632660276,
+    "relative": 0.1461706364591303,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.3446025827647425,
+    "ci_low": -0.9753748302115248,
+    "ci_high": 0.36034501883430486,
+    "relative": -0.02375956776472412,
+    "sign": "zero_or_crosses",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 3.2578733023590773,
+    "ci_low": 2.2019144514299205,
+    "ci_high": 4.357592232340588,
+    "relative": 0.1799312127590434,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.9701682190080254,
+    "ci_low": 1.4423821809172035,
+    "ci_high": 2.4887714649448225,
+    "relative": 0.11581981439516575,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.9316471308837373,
+    "ci_low": 1.4421428074035723,
+    "ci_high": 2.4248361111590726,
+    "relative": 0.11381301727929345,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.10-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 2.0295700095767186,
+    "ci_low": 1.1413922977111706,
+    "ci_high": 2.9278581446634693,
+    "relative": 0.1022164869659945,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.4844827159754987,
+    "ci_low": 0.9768379251419103,
+    "ci_high": 2.0240395956223307,
+    "relative": 0.11223103785043764,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.8467296195507208,
+    "ci_low": 1.3214257051835285,
+    "ci_high": 2.3632688663616586,
+    "relative": 0.12887007687745802,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.3773149087076932,
+    "ci_low": 1.708147236618525,
+    "ci_high": 2.9561228092024034,
+    "relative": 0.14148216832176566,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.4760491790307357,
+    "ci_low": 0.9718409841233699,
+    "ci_high": 2.017157549755544,
+    "relative": 0.11166463616534497,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.6746704641108112,
+    "ci_low": 1.1785271358990508,
+    "ci_high": 2.1700388747232346,
+    "relative": 0.11828350069148713,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.0829254746928596,
+    "ci_low": 1.3687184224716562,
+    "ci_high": 2.716685331400681,
+    "relative": 0.12617260269165978,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.6297349528645177,
+    "ci_low": 0.775759440543165,
+    "ci_high": 2.572898527929033,
+    "relative": 0.10262531245212789,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 2.486610942451436,
+    "ci_low": 1.5856541507915702,
+    "ci_high": 3.485639379338584,
+    "relative": 0.14211555878229384,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.049684479352972,
+    "ci_low": 1.1415889914536703,
+    "ci_high": 3.046365968780027,
+    "relative": 0.10360860872385998,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.7408945385876095,
+    "ci_low": -1.1842680225214646,
+    "ci_high": -0.3843059181147778,
+    "relative": -0.06309490194696706,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.942178076083074,
+    "ci_low": 1.4847790858459717,
+    "ci_high": 2.3832032264441207,
+    "relative": 0.13463399117815017,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.7408945385876095,
+    "ci_low": -1.1842680225214646,
+    "ci_high": -0.3843059181147778,
+    "relative": -0.06309490194696706,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.942178076083074,
+    "ci_low": 1.4847790858459717,
+    "ci_high": 2.3832032264441207,
+    "relative": 0.13463399117815017,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.7597912299369144,
+    "ci_low": -1.3753899659487927,
+    "ci_high": -0.2524170551848428,
+    "relative": -0.053316050864289095,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.7227761829933,
+    "ci_low": 1.8994288375641974,
+    "ci_high": 3.6320384240800836,
+    "relative": 0.1535405512157343,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.832600101798885,
+    "ci_low": 1.335461710494885,
+    "ci_high": 2.3431970023406565,
+    "relative": 0.10839577535645102,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.865825697642717,
+    "ci_low": 1.363922760769549,
+    "ci_high": 2.367793621228293,
+    "relative": 0.1101445622371917,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "service-noise-0.25-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.7724099576486467,
+    "ci_low": 1.0453966256072207,
+    "ci_high": 2.5028301032988907,
+    "relative": 0.09143908111274564,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 7.946704166666668,
+    "ci_low": 2.367770833333334,
+    "ci_high": 15.11207416666667,
+    "relative": 0.06872450422829914,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 12.499625000000002,
+    "ci_low": 4.879220833333334,
+    "ci_high": 21.473190000000002,
+    "relative": 0.10129356711311413,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 6.183632500000001,
+    "ci_low": 0.4399999999999996,
+    "ci_high": 12.897244166666669,
+    "relative": 0.047719375646230244,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 7.241031666666668,
+    "ci_low": 1.8239300000000003,
+    "ci_high": 14.319248333333336,
+    "relative": 0.06300623678674529,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 10.048227500000001,
+    "ci_low": 3.3416591666666666,
+    "ci_high": 18.344565833333338,
+    "relative": 0.0830784999706728,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.3048458333333335,
+    "ci_low": -5.060602500000001,
+    "ci_high": 7.485108333333334,
+    "relative": 0.010463504204279645,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 12.710059166666673,
+    "ci_low": 7.281968333333339,
+    "ci_high": 18.997920000000008,
+    "relative": 0.12299832885306565,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 11.677625833333334,
+    "ci_low": 6.177101666666666,
+    "ci_high": 18.25981416666667,
+    "relative": 0.10692856111365358,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 3.950251666666667,
+    "ci_low": -5.064150833333335,
+    "ci_high": 12.732016666666668,
+    "relative": 0.034453413931548174,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -3.215761666666668,
+    "ci_low": -8.070220833333334,
+    "ci_high": -0.5422291666666678,
+    "relative": -0.02986278090734763,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 12.499269166666668,
+    "ci_low": 4.877441666666669,
+    "ci_high": 21.47176666666667,
+    "relative": 0.10129097561669535,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -3.215761666666668,
+    "ci_low": -8.070220833333334,
+    "ci_high": -0.5422291666666678,
+    "relative": -0.02986278090734763,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 12.499269166666668,
+    "ci_low": 4.877441666666669,
+    "ci_high": 21.47176666666667,
+    "relative": 0.10129097561669535,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -6.906819166666669,
+    "ci_low": -11.498055000000004,
+    "ci_high": -3.30846166666667,
+    "relative": -0.07621304315686216,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 13.17263916666667,
+    "ci_low": 7.07324,
+    "ci_high": 20.183755000000005,
+    "relative": 0.11898906716033474,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-2-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 10.459120000000004,
+    "ci_low": 3.932560000000002,
+    "ci_high": 17.952346666666674,
+    "relative": 0.0862005343674019,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 10.358826666666667,
+    "ci_low": 3.8166133333333345,
+    "ci_high": 17.87816,
+    "relative": 0.08544457769100622,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-2-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 12.408773333333336,
+    "ci_low": 6.692933333333334,
+    "ci_high": 18.754933333333337,
+    "relative": 0.11137609720638862,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.006049166666666661,
+    "ci_low": 0.0,
+    "ci_high": 0.018147499999999983,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.011386666666666656,
+    "ci_low": 0.0,
+    "ci_high": 0.03415999999999997,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.023840833333333134,
+    "ci_low": 0.000355833333333333,
+    "ci_high": 0.05301916666666617,
+    "relative": 0.6767676767676752,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.006049166666666661,
+    "ci_low": 0.0,
+    "ci_high": 0.018147499999999983,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.011386666666666656,
+    "ci_low": 0.0,
+    "ci_high": 0.03415999999999997,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.023840833333333134,
+    "ci_low": 0.000355833333333333,
+    "ci_high": 0.05301916666666617,
+    "relative": 0.6767676767676752,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.006049166666666661,
+    "ci_low": 0.0,
+    "ci_high": 0.018147499999999983,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.011386666666666656,
+    "ci_low": 0.0,
+    "ci_high": 0.03415999999999997,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.023840833333333134,
+    "ci_low": 0.000355833333333333,
+    "ci_high": 0.05301916666666617,
+    "relative": 0.6767676767676752,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.011386666666666656,
+    "ci_low": 0.0,
+    "ci_high": 0.03415999999999997,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.011386666666666656,
+    "ci_low": 0.0,
+    "ci_high": 0.03415999999999997,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 0.0,
+    "ci_low": 0.0,
+    "ci_high": 0.0,
+    "relative": 0.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "zero",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.011386666666666656,
+    "ci_low": 0.0,
+    "ci_high": 0.03415999999999997,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "slots-8-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.03978666666666664,
+    "ci_low": 0.0,
+    "ci_high": 0.11935999999999991,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.03978666666666664,
+    "ci_low": 0.0,
+    "ci_high": 0.11935999999999991,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "slots-8-high",
+    "trigger": "harmful",
+    "load": "high",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 0.03978666666666664,
+    "ci_low": 0.0,
+    "ci_high": 0.11935999999999991,
+    "relative": 1.0,
+    "sign": "zero_or_crosses",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.0826791666666673,
+    "ci_low": 0.7186183333333339,
+    "ci_high": 1.4456725000000004,
+    "relative": 0.08431962532197114,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 25,
+      "bystander": 5
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.2899791666666665,
+    "ci_low": 0.9283516666666666,
+    "ci_high": 1.6607433333333346,
+    "relative": 0.09589298813943165,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 25,
+      "bystander": 5
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.528696666666668,
+    "ci_low": 1.1804183333333342,
+    "ci_high": 1.8721766666666673,
+    "relative": 0.10204941511323078,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 25,
+      "bystander": 5
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.1654733333333351,
+    "ci_low": 0.7303608333333345,
+    "ci_high": 1.6634066666666676,
+    "relative": 0.09154495630470927,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 25,
+      "bystander": 5
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.5298900000000009,
+    "ci_low": 1.0288225000000009,
+    "ci_high": 2.079660000000001,
+    "relative": 0.11436716892996221,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 25,
+      "bystander": 5
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.9491625000000006,
+    "ci_low": 1.487650000000001,
+    "ci_high": 2.4388433333333333,
+    "relative": 0.12994252072807083,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 25,
+      "bystander": 5
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": 1.0715225,
+    "ci_low": 0.5416324999999986,
+    "ci_high": 1.6721766666666655,
+    "relative": 0.07991607310433117,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 27,
+      "bystander": 3
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": 1.6055674999999998,
+    "ci_low": 1.0547874999999998,
+    "ci_high": 2.2100099999999987,
+    "relative": 0.11296508630859269,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 26,
+      "bystander": 4
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmful",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 2.086431666666667,
+    "ci_low": 1.4416541666666673,
+    "ci_high": 2.74729,
+    "relative": 0.13151915907347766,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "successor": 25,
+      "bystander": 5
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.45373083333333447,
+    "ci_low": -0.7221766666666691,
+    "ci_high": -0.21766583333333464,
+    "relative": -0.03859075493722068,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": -0.04893250000000009,
+    "ci_low": -0.102135,
+    "ci_high": 0.00106749999999991,
+    "relative": -0.004023293567231917,
+    "sign": "zero_or_crosses",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "fcfs",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 1.2400366666666665,
+    "ci_low": 0.8726583333333338,
+    "ci_high": 1.605578333333333,
+    "relative": 0.09218734144153197,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.6455466666666679,
+    "ci_low": -1.1542700000000015,
+    "ci_high": -0.26405000000000056,
+    "relative": -0.055815688103788764,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": -0.36411833333333365,
+    "ci_low": -0.8690425000000005,
+    "ci_high": -0.001423333333333332,
+    "relative": -0.03073477252123868,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "runtime-plas",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.8397958333333331,
+    "ci_low": 0.1215799999999992,
+    "ci_high": 1.4374308333333319,
+    "relative": 0.06434710472668402,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 0.5,
+    "n": 30,
+    "delta_mean": -0.572590000000001,
+    "ci_low": -1.0838616666666674,
+    "ci_high": -0.19287250000000083,
+    "relative": -0.046414016856380406,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 1.0,
+    "n": 30,
+    "delta_mean": -0.3017791666666672,
+    "ci_low": -0.7918158333333343,
+    "ci_high": -0.0010675000000002655,
+    "relative": -0.023936696366409074,
+    "sign": "negative",
+    "point_sign": "negative",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  },
+  {
+    "factor": "timing-mid",
+    "trigger": "harmless",
+    "load": "medium",
+    "scheduler": "srpt",
+    "rho": 2.0,
+    "n": 30,
+    "delta_mean": 0.8684924999999986,
+    "ci_low": 0.17122416666666485,
+    "ci_high": 1.4668858333333321,
+    "relative": 0.06303629626444109,
+    "sign": "positive",
+    "point_sign": "positive",
+    "slot_reacquired_by_g_alt": {
+      "bystander": 30
+    }
+  }
+]

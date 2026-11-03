@@ -86,6 +86,7 @@ def replay(
     code_version: str = "3.0.0",
     protocol_hash: str = "",
     phase: str = "pilot",
+    audit_order: bool = False,
 ) -> ReplayResult:
     """回放一条 trace。
 
@@ -118,6 +119,8 @@ def replay(
     false_cancel = 0
     next_serial = 0
     followup_spawned = False
+    dispatch_decisions = 0
+    order_differs_from_fcfs = 0
 
     def make_attempt(
         workflow_id: str,
@@ -208,8 +211,25 @@ def replay(
         enqueue(follow)
 
     def dispatch() -> None:
-        nonlocal slot_reacquired_by
+        nonlocal slot_reacquired_by, dispatch_decisions, order_differs_from_fcfs
         while len(running) < workload.slots and queue:
+            if audit_order and len(queue) >= 2:
+                dispatch_decisions += 1
+                fcfs_ids = [item.attempt_id for item in sorted(queue, key=lambda item: fcfs_sort_key(item.enqueue_time, item.attempt_id))]
+                plas_ids = [
+                    item.attempt_id
+                    for item in sorted(
+                        queue,
+                        key=lambda item: plas_sort_key(
+                            attained.get(item.workflow_id, 0.0),
+                            now - item.enqueue_time,
+                            item.enqueue_time,
+                            item.attempt_id,
+                        ),
+                    )
+                ]
+                if fcfs_ids != plas_ids:
+                    order_differs_from_fcfs += 1
             _sort_queue(queue, scheduler, now, attained)
             nxt = queue.pop(0)
             nxt.started_at = now
@@ -305,6 +325,9 @@ def replay(
         duplicate_side_effects=duplicate_side_effects,
         false_cancel=false_cancel,
         focal_release_at=focal_release_at,
+        audit_order=audit_order,
+        dispatch_decisions=dispatch_decisions,
+        order_differs_from_fcfs=order_differs_from_fcfs,
     )
 
 
@@ -366,6 +389,9 @@ def _summarize(
     duplicate_side_effects: int,
     false_cancel: int,
     focal_release_at: float | None,
+    audit_order: bool = False,
+    dispatch_decisions: int = 0,
+    order_differs_from_fcfs: int = 0,
 ) -> ReplayResult:
     bystanders = [item for item in attempts.values() if item.role == BYSTANDER]
     waits: list[float] = []
@@ -429,7 +455,9 @@ def _summarize(
         "arrival_hash": workload.arrival_hash,
         "n_bystanders": len(bystanders),
         "W50": percentile(waits, 50),
+        "W90": percentile(waits, 90),
         "W95": percentile(waits, 95),
+        "W99": percentile(waits, 99),
         "F95": percentile(flows, 95),
         "bystander_completion_rate": completed / n,
         "censored_wait_count": censored,
@@ -450,6 +478,9 @@ def _summarize(
         "protocol_hash": protocol_hash,
         "phase": phase,
     }
+    if audit_order:
+        summary["dispatch_decisions"] = dispatch_decisions
+        summary["order_differs_from_fcfs"] = order_differs_from_fcfs
     summary["timing"] = workload.timing
     return ReplayResult(summary=summary, rows=rows)
 

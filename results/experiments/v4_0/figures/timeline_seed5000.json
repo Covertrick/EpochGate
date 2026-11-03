@@ -1,0 +1,195 @@
+{
+  "seed": 5000,
+  "scheduler": "fcfs",
+  "rho": 0.5,
+  "load": "medium",
+  "timing": "early",
+  "trigger_class": "harmful",
+  "arms": {
+    "G0": {
+      "summary": {
+        "W95": 2.2348499999999945,
+        "focal_release_at": 16.0,
+        "slot_reacquired_by": "successor",
+        "successor_service_s": 6.4,
+        "reclaimed_slot_s": 0.0
+      },
+      "attempts": [
+        {
+          "role": "target",
+          "workflow_id": "wf-focal",
+          "arrival_time": 0.0,
+          "service_demand": 16.0,
+          "service_started_at": 0.0,
+          "slot_released_at": 16.0,
+          "service_completed_at": 16.0,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b00",
+          "arrival_time": 1.9573,
+          "service_demand": 16.0,
+          "service_started_at": 1.9573,
+          "slot_released_at": 17.9573,
+          "service_completed_at": 17.9573,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b01",
+          "arrival_time": 3.9146,
+          "service_demand": 2.0,
+          "service_started_at": 3.9146,
+          "slot_released_at": 5.9146,
+          "service_completed_at": 5.9146,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b02",
+          "arrival_time": 5.8719,
+          "service_demand": 2.0,
+          "service_started_at": 5.8719,
+          "slot_released_at": 7.8719,
+          "service_completed_at": 7.8719,
+          "revocation_time": null
+        },
+        {
+          "role": "successor",
+          "workflow_id": "wf-focal",
+          "arrival_time": 3.2,
+          "service_demand": 6.4,
+          "service_started_at": 16.0,
+          "slot_released_at": 22.4,
+          "service_completed_at": 22.4,
+          "revocation_time": null
+        }
+      ]
+    },
+    "G2": {
+      "summary": {
+        "W95": 2.2348499999999945,
+        "focal_release_at": 3.2,
+        "slot_reacquired_by": "successor",
+        "successor_service_s": 6.4,
+        "reclaimed_slot_s": 12.8
+      },
+      "attempts": [
+        {
+          "role": "target",
+          "workflow_id": "wf-focal",
+          "arrival_time": 0.0,
+          "service_demand": 16.0,
+          "service_started_at": 0.0,
+          "slot_released_at": 3.2,
+          "service_completed_at": null,
+          "revocation_time": 3.2
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b00",
+          "arrival_time": 1.9573,
+          "service_demand": 16.0,
+          "service_started_at": 1.9573,
+          "slot_released_at": 17.9573,
+          "service_completed_at": 17.9573,
+          "revocation_time": null
+        },
+        {
+          "role": "successor",
+          "workflow_id": "wf-focal",
+          "arrival_time": 3.2,
+          "service_demand": 6.4,
+          "service_started_at": 3.2,
+          "slot_released_at": 9.600000000000001,
+          "service_completed_at": 9.600000000000001,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b01",
+          "arrival_time": 3.9146,
+          "service_demand": 2.0,
+          "service_started_at": 3.9146,
+          "slot_released_at": 5.9146,
+          "service_completed_at": 5.9146,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b02",
+          "arrival_time": 5.8719,
+          "service_demand": 2.0,
+          "service_started_at": 5.8719,
+          "slot_released_at": 7.8719,
+          "service_completed_at": 7.8719,
+          "revocation_time": null
+        }
+      ]
+    },
+    "G2-delayed-release": {
+      "summary": {
+        "W95": 2.2348499999999945,
+        "focal_release_at": 16.0,
+        "slot_reacquired_by": "successor",
+        "successor_service_s": 6.4,
+        "reclaimed_slot_s": 0.0
+      },
+      "attempts": [
+        {
+          "role": "target",
+          "workflow_id": "wf-focal",
+          "arrival_time": 0.0,
+          "service_demand": 16.0,
+          "service_started_at": 0.0,
+          "slot_released_at": 16.0,
+          "service_completed_at": 16.0,
+          "revocation_time": 3.2
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b00",
+          "arrival_time": 1.9573,
+          "service_demand": 16.0,
+          "service_started_at": 1.9573,
+          "slot_released_at": 17.9573,
+          "service_completed_at": 17.9573,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b01",
+          "arrival_time": 3.9146,
+          "service_demand": 2.0,
+          "service_started_at": 3.9146,
+          "slot_released_at": 5.9146,
+          "service_completed_at": 5.9146,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b02",
+          "arrival_time": 5.8719,
+          "service_demand": 2.0,
+          "service_started_at": 5.8719,
+          "slot_released_at": 7.8719,
+          "service_completed_at": 7.8719,
+          "revocation_time": null
+        },
+        {
+          "role": "successor",
+          "workflow_id": "wf-focal",
+          "arrival_time": 3.2,
+          "service_demand": 6.4,
+          "service_started_at": 16.0,
+          "slot_released_at": 22.4,
+          "service_completed_at": 22.4,
+          "revocation_time": null
+        }
+      ]
+    }
+  },
+  "event_time": 3.2,
+  "note": "机制图数据。种子 5000、FCFS、有害、rho_h=0.5、中负载、早时机。旁观者只保留最先到达的三个，避免图面过密。"
+}

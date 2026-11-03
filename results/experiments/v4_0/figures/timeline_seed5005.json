@@ -1,0 +1,198 @@
+{
+  "seed": 5005,
+  "scheduler": "fcfs",
+  "rho": 0.5,
+  "load": "medium",
+  "timing": "early",
+  "trigger_class": "harmful",
+  "arms": {
+    "G0": {
+      "summary": {
+        "W50": 7.481000000000002,
+        "W95": 11.16295,
+        "focal_release_at": 16.0,
+        "slot_reacquired_by": "bystander",
+        "successor_service_s": 6.4,
+        "reclaimed_slot_s": 0.0
+      },
+      "attempts": [
+        {
+          "role": "target",
+          "workflow_id": "wf-focal",
+          "arrival_time": 0.0,
+          "service_demand": 16.0,
+          "service_started_at": 0.0,
+          "slot_released_at": 16.0,
+          "service_completed_at": 16.0,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b00",
+          "arrival_time": 1.9573,
+          "service_demand": 16.0,
+          "service_started_at": 1.9573,
+          "slot_released_at": 17.9573,
+          "service_completed_at": 17.9573,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b01",
+          "arrival_time": 3.9146,
+          "service_demand": 16.0,
+          "service_started_at": 3.9146,
+          "slot_released_at": 19.9146,
+          "service_completed_at": 19.9146,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b02",
+          "arrival_time": 5.8719,
+          "service_demand": 2.0,
+          "service_started_at": 5.8719,
+          "slot_released_at": 7.8719,
+          "service_completed_at": 7.8719,
+          "revocation_time": null
+        },
+        {
+          "role": "successor",
+          "workflow_id": "wf-focal",
+          "arrival_time": 3.2,
+          "service_demand": 6.4,
+          "service_started_at": 23.8719,
+          "slot_released_at": 30.271900000000002,
+          "service_completed_at": 30.271900000000002,
+          "revocation_time": null
+        }
+      ]
+    },
+    "G2": {
+      "summary": {
+        "W50": 4.725900000000003,
+        "W95": 6.373624999999999,
+        "focal_release_at": 3.2,
+        "slot_reacquired_by": "successor",
+        "successor_service_s": 6.4,
+        "reclaimed_slot_s": 12.8
+      },
+      "attempts": [
+        {
+          "role": "target",
+          "workflow_id": "wf-focal",
+          "arrival_time": 0.0,
+          "service_demand": 16.0,
+          "service_started_at": 0.0,
+          "slot_released_at": 3.2,
+          "service_completed_at": null,
+          "revocation_time": 3.2
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b00",
+          "arrival_time": 1.9573,
+          "service_demand": 16.0,
+          "service_started_at": 1.9573,
+          "slot_released_at": 17.9573,
+          "service_completed_at": 17.9573,
+          "revocation_time": null
+        },
+        {
+          "role": "successor",
+          "workflow_id": "wf-focal",
+          "arrival_time": 3.2,
+          "service_demand": 6.4,
+          "service_started_at": 3.2,
+          "slot_released_at": 9.600000000000001,
+          "service_completed_at": 9.600000000000001,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b01",
+          "arrival_time": 3.9146,
+          "service_demand": 16.0,
+          "service_started_at": 3.9146,
+          "slot_released_at": 19.9146,
+          "service_completed_at": 19.9146,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b02",
+          "arrival_time": 5.8719,
+          "service_demand": 2.0,
+          "service_started_at": 5.8719,
+          "slot_released_at": 7.8719,
+          "service_completed_at": 7.8719,
+          "revocation_time": null
+        }
+      ]
+    },
+    "G2-delayed-release": {
+      "summary": {
+        "W50": 7.481000000000002,
+        "W95": 11.16295,
+        "focal_release_at": 16.0,
+        "slot_reacquired_by": "bystander",
+        "successor_service_s": 6.4,
+        "reclaimed_slot_s": 0.0
+      },
+      "attempts": [
+        {
+          "role": "target",
+          "workflow_id": "wf-focal",
+          "arrival_time": 0.0,
+          "service_demand": 16.0,
+          "service_started_at": 0.0,
+          "slot_released_at": 16.0,
+          "service_completed_at": 16.0,
+          "revocation_time": 3.2
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b00",
+          "arrival_time": 1.9573,
+          "service_demand": 16.0,
+          "service_started_at": 1.9573,
+          "slot_released_at": 17.9573,
+          "service_completed_at": 17.9573,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b01",
+          "arrival_time": 3.9146,
+          "service_demand": 16.0,
+          "service_started_at": 3.9146,
+          "slot_released_at": 19.9146,
+          "service_completed_at": 19.9146,
+          "revocation_time": null
+        },
+        {
+          "role": "bystander",
+          "workflow_id": "wf-b02",
+          "arrival_time": 5.8719,
+          "service_demand": 2.0,
+          "service_started_at": 5.8719,
+          "slot_released_at": 7.8719,
+          "service_completed_at": 7.8719,
+          "revocation_time": null
+        },
+        {
+          "role": "successor",
+          "workflow_id": "wf-focal",
+          "arrival_time": 3.2,
+          "service_demand": 6.4,
+          "service_started_at": 23.8719,
+          "slot_released_at": 30.271900000000002,
+          "service_completed_at": 30.271900000000002,
+          "revocation_time": null
+        }
+      ]
+    }
+  },
+  "event_time": 3.2,
+  "note": "机制图示例。种子 5005 的 P95 有差距。种子 5000 在同一格上差距为 0。"
+}
