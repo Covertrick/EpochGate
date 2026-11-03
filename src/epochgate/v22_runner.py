@@ -46,6 +46,7 @@ async def run_v22_case(
     goal_text: str | None = None,
     system_prompt: str | None = None,
     workflow_class: str = "",
+    max_inflight: int = 1,
 ) -> list[dict[str, Any]]:
     """跑一臂。同一种子的 A/B/C 使用各自的环境副本和同一套时间表。
 
@@ -77,6 +78,7 @@ async def run_v22_case(
         first_delta_delay_s=0.0,
         ids=ids,
         timeout_s=TIMEOUT_S,
+        max_inflight=max_inflight,
     )
     scheduler = FifoAdmissionScheduler(replan_to_tail=True, ids=ids, order=scheduler_order)
     run_id = f"{experiment_block}-{cell_id}-s{seed}-{arm}-{scheduler_order}"
