@@ -1,0 +1,22 @@
+{
+  "source": "results/experiments/v1_3/queue/batches.jsonl",
+  "n_rows": 980,
+  "arms": {
+    "C": 350,
+    "B": 280,
+    "A": 350
+  },
+  "scheduler_order": {
+    "fifo": 490,
+    "sjf": 490
+  },
+  "queue_pressure_label": {
+    "serial_queue_x3": 420,
+    "serial_queue_x4": 560
+  },
+  "has_workflow_role": false,
+  "has_slot_reacquired_by": false,
+  "has_first_queue_wait_s": true,
+  "rename_to_bystander_p95": false,
+  "reason": "行里有后续任务的 first_queue_wait_s，没有 workflow_role，也没有 slot_reacquired_by。不能把 v1.8 的后续等待改名为旁观者 P95。"
+}

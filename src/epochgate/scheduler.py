@@ -1284,6 +1284,116 @@ def _wait(attempt: AttemptView, reason: str) -> Decision:
     )
 
 
+AGING_S = 25.0
+
+
+def fcfs_sort_key(enqueue_time: float, attempt_id: str) -> tuple[float, str]:
+    """FCFS 排序键。successor 的入队时刻已经是队尾时间。
+
+    输入：入队时刻和 attempt id。
+    输出：先入队者在前的元组。
+    副作用：无。
+    失败：无。
+    """
+    return (enqueue_time, attempt_id)
+
+
+def srpt_sort_key(
+    remaining_s: float,
+    waited_s: float,
+    enqueue_time: float,
+    attempt_id: str,
+    *,
+    aging_s: float = AGING_S,
+) -> tuple[int, float, float, str]:
+    """SRPT 排序键。剩余时间来自 trace，不回填真实生成长度。
+
+    输入：剩余服务、已等待、入队时刻、attempt id。
+    输出：老化任务在前，其余按剩余服务升序。
+    副作用：无。
+    失败：无。
+    """
+    aged = 0 if waited_s >= aging_s else 1
+    return (aged, remaining_s, enqueue_time, attempt_id)
+
+
+def plas_sort_key(
+    attained_s: float,
+    waited_s: float,
+    enqueue_time: float,
+    attempt_id: str,
+    *,
+    aging_s: float = AGING_S,
+) -> tuple[int, float, float, str]:
+    """Runtime-PLAS 排序键。已完成服务越多，优先级越低。
+
+    输入：该工作流已完成服务秒数、已等待、入队时刻、attempt id。
+    输出：老化任务在前，其余按已完成服务升序。
+    副作用：无。
+    失败：无。
+    """
+    aged = 0 if waited_s >= aging_s else 1
+    return (aged, attained_s, enqueue_time, attempt_id)
+
+
+class RuntimePlasScheduler:
+    """Runtime 槽位上的 PLAS 启发基线。不是 Agentix 复现。"""
+
+    def __init__(self, *, aging_s: float = AGING_S) -> None:
+        self.aging_s = aging_s
+
+    def sort_key(
+        self,
+        attained_s: float,
+        waited_s: float,
+        enqueue_time: float,
+        attempt_id: str,
+    ) -> tuple[int, float, float, str]:
+        """返回 PLAS 排序键。
+
+        输入：已完成服务、已等待、入队时刻、attempt id。
+        输出：排序元组。
+        副作用：无。
+        失败：无。
+        """
+        return plas_sort_key(
+            attained_s,
+            waited_s,
+            enqueue_time,
+            attempt_id,
+            aging_s=self.aging_s,
+        )
+
+
+class SrptAdmissionScheduler:
+    """已知剩余服务时间的 SRPT。论文中标为 oracle。"""
+
+    def __init__(self, *, aging_s: float = AGING_S) -> None:
+        self.aging_s = aging_s
+
+    def sort_key(
+        self,
+        remaining_s: float,
+        waited_s: float,
+        enqueue_time: float,
+        attempt_id: str,
+    ) -> tuple[int, float, float, str]:
+        """返回 SRPT 排序键。
+
+        输入：剩余服务、已等待、入队时刻、attempt id。
+        输出：排序元组。
+        副作用：无。
+        失败：无。
+        """
+        return srpt_sort_key(
+            remaining_s,
+            waited_s,
+            enqueue_time,
+            attempt_id,
+            aging_s=self.aging_s,
+        )
+
+
 def _wait_slot(snapshot: SchedulerSnapshot, attempt: AttemptView) -> Decision:
     holders = ",".join(snapshot.capacity.inflight_task_ids) or "unknown"
     return _wait(
