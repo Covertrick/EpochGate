@@ -68,10 +68,16 @@ class HttpStreamingBackend:
             max_inflight=max_inflight,
             streaming_capability=True,
             local_read_abort=stop_on_cancel,
-            provider_cancel_request=stop_on_cancel,
-            provider_cancel_ack_semantics="ACKNOWLEDGED",
+            client_stream_close_issued=stop_on_cancel,
+            transport_disconnect_observed=False,
+            provider_cancel_api_invoked=False,
+            provider_cancel_ack_received=False,
+            provider_cancel_request=False,
+            provider_cancel_ack_semantics="UNKNOWN",
             server_generation_observability=False,
+            server_generation_stopped_observed=False,
             server_resource_reclaim_observability=False,
+            server_resource_reclaim_observed=False,
         )
         self._requests: dict[str, InferenceRequest] = {}
         self._responses: dict[str, httpx.Response] = {}
@@ -106,7 +112,8 @@ class HttpStreamingBackend:
 
         输入：句柄。
         输出：取消回执。只有读循环因取消退出时 ``reclaimed`` 才为真。
-        副作用：``stop_on_cancel`` 为真时调用 ``response.aclose()``。
+        副作用：``stop_on_cancel`` 为真时调用 ``response.aclose()``，只关闭本地正在读的响应。
+        这不是供应商取消 API，回执里的确认也不是服务端 ACK。
         失败：未知句柄返回未确认回执，不抛异常。断开时的读错误由 events 接住。
         """
         if handle.handle_id not in self._requests:

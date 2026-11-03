@@ -155,7 +155,7 @@ class CommitResult(BaseModel):
 
 
 class BackendCapabilities(BaseModel):
-    """后端自报能力。取消确认不等于计算已经停止。附带 F3 六维正交取消能力合同。"""
+    """后端自报能力。客户端断流不是供应商取消确认，也不是服务端已停止生成。"""
 
     supports_cancel: bool = False
     supports_streaming: bool = False
@@ -163,10 +163,16 @@ class BackendCapabilities(BaseModel):
     max_inflight: int = 1
     streaming_capability: bool = False
     local_read_abort: bool = False
+    client_stream_close_issued: bool = False
+    transport_disconnect_observed: bool = False
+    provider_cancel_api_invoked: bool = False
+    provider_cancel_ack_received: bool = False
     provider_cancel_request: bool = False
     provider_cancel_ack_semantics: Literal["ACKNOWLEDGED", "NOT_SUPPORTED", "UNKNOWN"] = "NOT_SUPPORTED"
     server_generation_observability: bool = False
+    server_generation_stopped_observed: bool = False
     server_resource_reclaim_observability: bool = False
+    server_resource_reclaim_observed: bool = False
 
 
 class ToolSpec(BaseModel):

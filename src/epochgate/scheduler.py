@@ -486,10 +486,24 @@ class FifoAdmissionScheduler:
     4. 仅当 free_slots > 0 时按队列顺序派发队首就绪 attempt。
     """
 
-    def __init__(self, *, lease_ttl_s: float = 30.0, replan_to_tail: bool = True, ids: IdFactory | None = None) -> None:
+    def __init__(
+        self,
+        *,
+        lease_ttl_s: float = 30.0,
+        replan_to_tail: bool = True,
+        ids: IdFactory | None = None,
+        order: str = "fifo",
+        class_length: dict[str, int] | None = None,
+        aging_s: float = 25.0,
+    ) -> None:
+        if order not in {"fifo", "sjf"}:
+            raise ValueError("order must be fifo or sjf")
         self._lease_ttl_s = lease_ttl_s
         self._replan_to_tail = replan_to_tail
         self._ids = ids or IdFactory(None)
+        self._order = order
+        self._class_length = class_length or {"short": 1, "mid": 2, "long": 3}
+        self._aging_s = aging_s
 
     def decide(self, snapshot: SchedulerSnapshot) -> list[Decision]:
         HappyPathScheduler._require_now(snapshot)
@@ -499,7 +513,7 @@ class FifoAdmissionScheduler:
             if att.task_id not in first_att_by_task:
                 first_att_by_task[att.task_id] = att.attempt_id
 
-        def _fifo_key(attempt: AttemptView) -> tuple[float, str]:
+        def _fifo_key(attempt: AttemptView) -> tuple[float, float, str]:
             task = tasks.get(attempt.task_id)
             arrival = task.arrival_mono if task is not None else 0.0
             is_replan = first_att_by_task.get(attempt.task_id) != attempt.attempt_id
@@ -507,7 +521,13 @@ class FifoAdmissionScheduler:
                 queue_ts = max(arrival, attempt.created_mono)
             else:
                 queue_ts = arrival
-            return (queue_ts, attempt.attempt_id)
+            length = 0.0
+            if self._order == "sjf":
+                label = task.task_class if task is not None else "default"
+                length = float(self._class_length.get(label, 2))
+                if snapshot.now_mono - arrival >= self._aging_s:
+                    length = -1.0
+            return (length, queue_ts, attempt.attempt_id)
 
         ordered = sorted(snapshot.attempts, key=_fifo_key)
         decisions: list[Decision] = []

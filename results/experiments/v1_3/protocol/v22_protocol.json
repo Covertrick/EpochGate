@@ -1,0 +1,24 @@
+{
+  "name": "epochgate-v22",
+  "model": "deepseek-chat",
+  "primary_metrics": [
+    "harmful C minus A revoke-to-slot is not the claim; slot hold C vs A",
+    "C vs B false_cancel and old result acceptance",
+    "queue follow-up first wait, unit is batch",
+    "recovery rate C is non-inferior to A within 10 percentage points"
+  ],
+  "minimum_effects": {
+    "queue_followup_wait_s": 1.0,
+    "recovery_noninferiority_pp": 10
+  },
+  "seed_rule": "phase base + length index * stride + timing index * stride + repetition; confirmatory seeds do not overlap pilot",
+  "pilot_harmful_reps": 4,
+  "confirm_harmful_reps": 12,
+  "pilot_harmless_reps": 4,
+  "confirm_harmless_reps": 20,
+  "queue_primary_batches": 20,
+  "queue_low_batches": 10,
+  "recovery_reps": 20,
+  "workflow_reps": 20,
+  "slot_sd_rule": "if pilot slot-delta sd > 1.5s, raise that cell until se < 0.5s; do not change the metric"
+}

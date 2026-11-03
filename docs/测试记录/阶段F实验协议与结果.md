@@ -2,6 +2,8 @@
 
 日期：2026-11-02。包版本：**`1.2.0`**。代码基线快照：`8579d2b`。
 
+v1.3 证据订正见 [v1.3-证据闭环.md](./v1.3-证据闭环.md)。下面的 F1 表和 F3 合同已按该订正改过。历史确认性 JSONL 仍是 `8579d2b` 的原始行。
+
 ---
 
 ## 一、主研究假设与四个子假设验证总览
@@ -10,8 +12,8 @@
 
 | 子假设 | 核心度量指标 | 阶段 F 确认性实验实测结论（仅计 `confirmatory` 测试子段，与 `dev` 严格隔离） | 结论状态 |
 | --- | --- | --- | --- |
-| **H1：输出假设** | 撤销后客户端可观察文本词元差 \(\Delta_{\text{text}} = T_{A,\text{post}} - T_{B,\text{post}}\) | 在 F1-M 预先指定的主要确认性单元（`long_early`、`long_mid`、`mid_mid`）上，\(\Delta_{\text{text}}\) 均值 **465.20** 词元、中位数 **473.0** 词元，95% CI **[334.40, 567.80]**（经 Holm-Bonferroni 多重比较控制后显著）；B 臂撤销后客户端可观察词元与事件恒为 **0** | **确认成立** |
-| **H2：槽位假设** | 旧 attempt 本地推理槽位占用缩减 \(\Delta_{\text{slot}} = T_{A,\text{slot}} - T_{B,\text{slot}}\) | F1-M 主要确认性单元 \(\Delta_{\text{slot}}\) 均值 **3.70 s**（中位数 **3.93 s**，95% CI **[2.63, 4.55] s**）；其中 `long_early` 均值 **4.70 s**（SD `0.34s`），`long_mid` 均值 **3.66 s**（SD `0.38s`） | **确认成立** |
+| **H1：输出假设** | 撤销后客户端可观察文本词元差 \(\Delta_{\text{text}} = T_{A,\text{post}} - T_{B,\text{post}}\) | 三个主单元里双臂都触发的 **5** 个配对，按配对等权，均值 **465.2** 词元、中位数 **473.0**。先前写出的区间 **[334.40, 567.80]** 是这 5 个配对差的重采样，不是 Holm 检验。`mid_mid` 的 seed 5451 因 A 臂 `trigger_late` 没有进入均值。这 5 对的 B 臂撤销后词元为 **0**。脚本没有计算 Holm p 值 | **均值可复核；未做显著性检验** |
+| **H2：槽位假设** | Runtime 本地活跃 attempt 槽位占用缩减 \(\Delta_{\text{slot}} = T_{A,\text{slot}} - T_{B,\text{slot}}\) | 同一 5 个配对的均值 **3.6981 s**（写作 **3.70 s**），中位数 **3.9282 s**。单元均值是 `long_early` **4.7012 s**、`long_mid` **3.6609 s**、`mid_mid` **1.7663 s**（后者 n=1）。三个单元等权是 **3.3761 s**。测的是 Runtime 本地槽位，不是 GPU 槽位 | **均值可复核；未做显著性检验** |
 | **H3：系统假设** | 后续排队有效任务等待时间缩减、恢复时间 \(\Delta T_{\text{recovery}}\) 与批次耗时 \(\Delta T_{\text{batch}}\) | **串行队列效应明确**：F4（6 个确认性多任务批次，共 40 个任务行）中，B 臂使后续排队任务首次等待时间平均缩短 **2.49 s**（中位数缩短 **2.37 s**，batch 聚类 95% CI **[1.26, 3.72] s**；后续任务等待中位数从 A 的 **6.92 s** 降至 B 的 **4.49 s**，P95 从 **12.11 s** 降至 **10.23 s**）。**单任务净恢复效应受重规划生成方差主导**：F2（`refresh_only`）中 `long_early` 净恢复快 **1.28–2.73 s**，但跨全条件总体 \(\Delta T_{\text{batch}}\) 均值 **+0.39 s**（95% CI **[-1.05, +1.94] s**） | **队列等待改善显著成立；单任务净恢复仅在长任务早撤销下为正** |
 | **H4：正确性假设** | 安全不变量（被撤销旧 attempt 提交数、重复副作用数）vs 任务可用性 | **安全不变量 100% 保持**：阶段 F 全部 118 条确认性流式任务行 + 2 条非流式边界行中，`old_attempt_committed = 0`、`duplicate_side_effects = 0`、网关拦截记录 **85 次**。**可用性边界**：F4 串行队列完成率 B 为 `20/20 (100%)` vs A 为 `19/20 (95%)`；单任务可恢复（F1-R + F2）触发样本中 A 完成 `18/19 (94.7%)`、B 完成 `18/22 (81.8%)`（差异来自 DeepSeek 重规划轮偶发只输出解释未调工具 `model_no_action`） | **安全不变量零违规；重规划完成率受模型工具调用遵从度限制** |
 
@@ -49,19 +51,21 @@
 
 `t_change` 统一以 `first_delta` 为相对锚点，同时记录 `request_started_to_stock_change_s`。未触发的请求绝不标为成功取消。
 
-| 单元 (`cell_id`) | 角色（多重比较划分） | 计划配对 | 配对触发四状态 (`both / A_only / B_only / neither`) | 单请求触发概率 \(P(\text{trigger})\) | 未触发率 (`not_fired`) | 晚触发率 (`late`) | 条件 \(\Delta_{\text{text}}\) 均值 (SD) | 条件 \(\Delta_{\text{slot}}\) 均值 (SD) | 策略整体 \(\Delta T_{\text{wall}}\) (s) |
+| 单元 (`cell_id`) | 角色 | 计划配对 | 配对触发四状态 (`both / A_only / B_only / neither`) | 单请求触发概率 \(P(\text{trigger})\) | 未触发率 (`not_fired`) | 晚触发率 (`late`) | 条件 \(\Delta_{\text{text}}\) 均值 (SD) | 条件 \(\Delta_{\text{slot}}\) 均值 (SD) | 策略整体 \(\Delta T_{\text{wall}}\) (s) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `F1M_long_early` (450w, 0.25s) | **Primary Confirmatory** | 2 | `2 / 0 / 0 / 0` | **1.00** | 0.00 | 0.00 | **+552.0** (111.7) | **+4.701 s** (0.342s) | **+3.337 s** |
-| `F1M_long_mid` (450w, 0.80s) | **Primary Confirmatory** | 2 | `2 / 0 / 0 / 0` | **1.00** | 0.00 | 0.00 | **+498.5** (68.6) | **+3.661 s** (0.378s) | **+2.753 s** |
-| `F1M_mid_mid` (200w, 0.80s) | **Primary Confirmatory** | 2 | `2 / 0 / 0 / 0` | **1.00** | 0.00 | 0.00 | **+198.0** (38.2) | **+1.478 s** (0.408s) | **+2.828 s** |
-| `F1M_long_late` (450w, 1.80s) | Exploratory Boundary | 2 | `1 / 1 / 0 / 0` | **0.75** | 0.00 | 0.00 | **+469.0** (—) | **+3.520 s** (—) | +1.760 s |
-| `F1M_short_early` (50w, 0.25s) | Exploratory Boundary | 2 | `1 / 0 / 0 / 1` | **0.50** | 0.00 | 0.00 | **+61.0** (—) | **+0.871 s** (—) | +0.148 s |
-| `F1M_short_mid` (50w, 0.80s) | Exploratory Boundary | 2 | `0 / 0 / 1 / 1` | **0.25** | 0.50 | 0.25 | —（无 `both_triggered`） | — | -0.270 s |
-| `F1M_short_late` (50w, 1.80s) | Exploratory Boundary | 2 | `0 / 0 / 0 / 2` | **0.00** | **0.75** | 0.00 | —（全部在 1.8s 前结束） | — | -0.040 s |
+| `F1M_long_early` (450w, 0.25s) | **Primary Confirmatory** | 2 | `2 / 0 / 0 / 0` | **1.00** | 0.00 | 0.00 | **+552.0** (111.72) | **+4.7012 s** (0.3422s) | **+3.3365 s** |
+| `F1M_long_mid` (450w, 0.80s) | **Primary Confirmatory** | 2 | `2 / 0 / 0 / 0` | **1.00** | 0.00 | 0.00 | **+498.5** (68.59) | **+3.6609 s** (0.3779s) | **+2.7534 s** |
+| `F1M_mid_mid` (200w, 0.80s) | **Primary Confirmatory** | 2 | `1 / 0 / 1 / 0` | **0.75** | 0.00 | 0.25 | **+225.0**（n=1，无 SD） | **+1.7663 s**（n=1） | **+2.8277 s** |
+| `F1M_long_late` (450w, 1.80s) | Exploratory Boundary | 2 | `2 / 0 / 0 / 0` | **1.00** | 0.00 | 0.00 | **+322.0** (9.90) | **+2.2386 s** (0.1739s) | -47.0629 s |
+| `F1M_short_early` (50w, 0.25s) | Exploratory Boundary | 2 | `1 / 0 / 0 / 1` | **0.50** | 0.00 | 0.00 | **+61.0**（n=1） | **+0.8714 s**（n=1） | +0.1475 s |
+| `F1M_short_mid` (50w, 0.80s) | Exploratory Boundary | 2 | `0 / 0 / 1 / 1` | **0.25** | 0.25 | 0.50 | —（无 `both_triggered`） | — | -2.9149 s |
+| `F1M_short_late` (50w, 1.80s) | Exploratory Boundary | 2 | `0 / 0 / 0 / 2` | **0.00** | **0.75** | 0.25 | —（无 `both_triggered`） | — | -1.2919 s |
 
-**F1-M 收益边界核心发现**：
-1. **触发概率随 `任务长度 / 变化时间` 单调变化**：在 450 词长任务（生成耗时约 6–8 秒）中，早/中撤销的触发概率为 **100%**；而在 50 词短任务（生成耗时约 1.8–2.5 秒）中，触发概率从 `early (0.25s)` 的 **50%** 骤降至 `mid (0.80s)` 的 **25%** 和 `late (1.80s)` 的 **0%**。
-2. **盈亏平衡边界**：当任务剩余生成时间小于约 **1.0 秒**（如 `short_mid` 与 `short_late`）时，请求大概率在外生变化到达前已自然完成或已进入工具调用，此时提前取消无净收益（策略整体 \(\Delta T_{\text{wall}} \approx -0.27\text{s} \sim -0.04\text{s}\)）。
+条件均值只含 `both_triggered` 配对。主结果 465.2 / 3.6981 s 是三个主单元里 5 个这种配对的等权均值。三个单元均值再等权是 425.1667 词元 / 3.3761 s。`long_late` 的墙钟均值被 seed 5752 的 **-97.6831 s** 拉开，不能单独当成稳定的单元效应。
+
+**F1-M 收益边界**：
+1. 450 词任务的早、中、晚三格，单请求触发率都是 **1.00**。50 词任务从 `early` 的 **0.50** 降到 `mid` 的 **0.25** 和 `late` 的 **0.00**。
+2. `short_mid` 与 `short_late` 没有双臂都触发的配对，条件词元差和槽位差为空。它们的策略整体墙钟差是 **-2.9149 s** 和 **-1.2919 s**。
 
 ---
 
@@ -125,20 +129,22 @@ F2 主实验固定 `observe_delay_scope = "refresh_only"`：
 
 ---
 
-## 六、F3 六维后端取消能力合同与 F5/F6 审查
+## 六、F3 后端取消能力合同与 F5/F6 审查
 
 汇总文件：[`results/real/phase_f/summary/f3_capability_contract.json`](../../results/real/phase_f/summary/f3_capability_contract.json)。
 
-### 6.1 六维后端取消能力合同表（严格区分策略开关与后端能力）
+### 6.1 取消能力合同（客户端断流与供应商取消分开）
 
 `stop_on_cancel=False` 是流式可取消后端上的**策略对照开关（Arm A）**，绝不等同于后端不支持取消：
 
-| 后端配置 / 剖面 | `streaming_capability` | `local_read_abort` | `provider_cancel_request` | `provider_cancel_ack_semantics` | `server_generation_observability` | `server_resource_reclaim_observability` | Gateway 资格门闩保护 |
+`response.aclose()` 只记入 `client_stream_close_issued` 和 `local_read_abort`。它不调用供应商取消 API，也收不到服务端 ACK。`provider_cancel_request` 与 `provider_cancel_ack_semantics` 因此不再把 B 臂写成已确认的供应商取消。历史 JSONL 里的旧六字段没有改写。
+
+| 后端配置 / 剖面 | `local_read_abort` | `client_stream_close_issued` | `provider_cancel_api_invoked` | `provider_cancel_ack_received` | `provider_cancel_ack_semantics` | 服务端生成 / 资源回收可观察 | Gateway 资格门闩 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `HttpStreamingBackend` (Arm B: `stop_on_cancel=True`) | `True` | `True` | `True` (`aclose`) | `ACKNOWLEDGED` | `False` | `False` | **100% 强制生效** |
-| `HttpStreamingBackend` (Arm A 策略对照: `stop_on_cancel=False`) | `True` | `False`（策略保持读取） | `False` | `ACKNOWLEDGED` | `False` | `False` | **100% 强制生效** |
-| `HttpToolBackend`（非流式 HTTP POST 真实 API 边界对照） | `False` | `False` | `False` | `UNKNOWN` | `False` | `False` | **100% 强制生效**（实测 `seed=8101, 8102` 旧提交 = 0） |
-| `FakeBackend(supports_cancel=False)`（不支持取消后端合同） | `False` | `False` | `False` | `NOT_SUPPORTED` | `False` | `False` | **100% 强制生效**（`_block_late` + 门闩双重拦截） |
+| `HttpStreamingBackend`（B 臂，`stop_on_cancel=True`） | `True` | `True` | `False` | `False` | `UNKNOWN` | `False` / `False` | 代码路径强制走门闩 |
+| `HttpStreamingBackend`（A 臂，`stop_on_cancel=False`） | `False` | `False` | `False` | `False` | `UNKNOWN` | `False` / `False` | 代码路径强制走门闩 |
+| `HttpToolBackend`（非流式 HTTP POST） | `False` | `False` | `False` | `False` | `UNKNOWN` | `False` / `False` | 实测 seed 8101、8102 旧提交 = 0 |
+| `FakeBackend(supports_cancel=False)` | `False` | `False` | `False` | `False` | `NOT_SUPPORTED` | `False` / `False` | 不支持取消时仍走门闩 |
 
 ### 6.2 F5 归因审查与 F6 条件判定
 
@@ -165,9 +171,9 @@ F2 主实验固定 `observe_delay_scope = "refresh_only"`：
 ### 创新性边界声明（什么不能写，什么可以写）
 
 1. **绝不作为独立创新主张的内容**：
-   - 普通 HTTP 客户端 `response.aclose()` 断流操作本身；
+   - 普通 HTTP 客户端 `response.aclose()` 断流操作本身。它只证明本地停止读取，不证明供应商收到取消请求或确认停止生成；
    - 通用 Agent Early Exit（如 AgentStop / Runaway 的内生停止）；
    - 单纯的提交前版本乐观锁（CAS）或上下文刷新。
 2. **本文经实证支持的候选研究贡献**：
    - **机制耦合与分层取证**：在商业黑盒流式 LLM API（服务端停止与计费不可观测）约束下，将「外部状态变化前提探测 → 网关锁内线性化资格撤销 → 在途 attempt 本地流式中止与槽位释放 → 队尾重观察重规划」闭环结合，并严格分离客户端可观察词元、本地槽位占用与服务端 `UNKNOWN` 用量。
-   - **系统队列效应实证与边界刻画**：通过受控配对实验证明，在途 attempt 级取消的系统价值不仅在于减少客户端接收的無效输出（H1），更在于**缩短失效长任务对本地执行槽位的占用（H2，平均缩短 3.5–4.7 秒），从而在串行队列压力下显著消除对后续短任务的队头阻塞（H3，后续任务等待时间在 E3 与 F4 共 9 个多任务批次中全部缩短），同时定量给出了短任务/晚撤销下的自然未触发边界（F1）与重观察延迟下的净收益边界（F2）**。
+   - **系统队列效应实证与边界刻画**：通过受控配对实验证明，在途 attempt 级取消的系统价值不仅在于减少客户端接收的無效输出（H1），更在于**缩短失效 attempt 对 Runtime 本地执行槽位的占用（H2：5 个双臂都触发的主单元配对，均值 3.6981 s），并在指定的 FIFO 单槽位合同下缩短后续任务等待（H3）**。短任务上双臂常常不能同时触发（F1），重观察延迟下的净收益见 F2。这些数字没有经过 Holm 检验。

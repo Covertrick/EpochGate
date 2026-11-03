@@ -4,10 +4,10 @@
 1. 仅从 results/real/phase_f/confirmatory/*.jsonl 计算正式确认性结论（dev 数据单独列出作校准对照，绝不混入确认性样本量）；
 2. 配对触发状态四分类：both_triggered / A_only_triggered / B_only_triggered / neither_triggered；
 3. 单臂未触发与失败五分类独立呈报：trigger_not_fired / trigger_late / model_no_action / transport_failed / runtime_failed；
-4. F1-M（7 格失效机制）区分主要确认性比较（Holm-Bonferroni 多重比较控制）与探索性边界比较；
+4. F1-M（7 格失效机制）区分预先指定的主要确认性单元与探索性边界。脚本只列出这些单元，不计算 Holm p 值；
 5. F1-R（3 格可恢复集成）、F2（refresh_only 观察成本隔离与 ΔT_batch、ΔT_recovery、解释性 G）、
    F4（FIFO 串行队列以 batch_id 为重采样单位，报告位置等待分布、中位数、P90、P95、最大等待、违约率、客观饥饿计数）；
-6. F3 六维后端取消能力合同表与非流式边界对照；
+6. F3 后端取消能力合同：客户端断流与供应商取消 API / ACK 分开记录；
 7. 正式拆分「安全不变量表」与「可用性/任务完成表」。
 """
 
@@ -21,6 +21,10 @@ import statistics
 from pathlib import Path
 from typing import Any
 
+from epochgate.backend import FakeBackend
+from epochgate.http_backend import HttpToolBackend
+from epochgate.http_streaming import HttpStreamingBackend
+from epochgate.models import BackendCapabilities
 from epochgate.stage_f_runner import classify_pair_trigger_status
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -452,52 +456,58 @@ def analyze_f4(rows: list[dict[str, Any]]) -> tuple[dict[str, Any], list[dict[st
     return summary, batch_table
 
 
-def build_f3_contract_summary(f3_rows: list[dict[str, Any]]) -> dict[str, Any]:
+def _capability_row(profile: str, caps: BackendCapabilities) -> dict[str, Any]:
     return {
-        "experiment": "F3_six_dimensional_backend_capability_contract",
-        "important_distinction": "stop_on_cancel=False (Arm A policy toggle on a cancellable streaming backend) is NOT equivalent to a backend that lacks cancellation support.",
-        "capability_matrix_6d": [
-            {
-                "backend_profile": "HttpStreamingBackend (Arm B: stop_on_cancel=True)",
-                "streaming_capability": True,
-                "local_read_abort": True,
-                "provider_cancel_request": True,
-                "provider_cancel_ack_semantics": "ACKNOWLEDGED",
-                "server_generation_observability": False,
-                "server_resource_reclaim_observability": False,
-                "gateway_eligibility_gate_enforced": True,
-            },
-            {
-                "backend_profile": "HttpStreamingBackend (Arm A policy control: stop_on_cancel=False)",
-                "streaming_capability": True,
-                "local_read_abort": False,
-                "provider_cancel_request": False,
-                "provider_cancel_ack_semantics": "ACKNOWLEDGED",
-                "server_generation_observability": False,
-                "server_resource_reclaim_observability": False,
-                "gateway_eligibility_gate_enforced": True,
-            },
-            {
-                "backend_profile": "HttpToolBackend (Non-streaming HTTP POST)",
-                "streaming_capability": False,
-                "local_read_abort": False,
-                "provider_cancel_request": False,
-                "provider_cancel_ack_semantics": "UNKNOWN",
-                "server_generation_observability": False,
-                "server_resource_reclaim_observability": False,
-                "gateway_eligibility_gate_enforced": True,
-            },
-            {
-                "backend_profile": "Non-cancellable Backend (supports_cancel=False)",
-                "streaming_capability": False,
-                "local_read_abort": False,
-                "provider_cancel_request": False,
-                "provider_cancel_ack_semantics": "NOT_SUPPORTED",
-                "server_generation_observability": False,
-                "server_resource_reclaim_observability": False,
-                "gateway_eligibility_gate_enforced": True,
-            },
-        ],
+        "backend_profile": profile,
+        "streaming_capability": caps.streaming_capability,
+        "local_read_abort": caps.local_read_abort,
+        "client_stream_close_issued": caps.client_stream_close_issued,
+        "transport_disconnect_observed": caps.transport_disconnect_observed,
+        "provider_cancel_api_invoked": caps.provider_cancel_api_invoked,
+        "provider_cancel_ack_received": caps.provider_cancel_ack_received,
+        "provider_cancel_request": caps.provider_cancel_request,
+        "provider_cancel_ack_semantics": caps.provider_cancel_ack_semantics,
+        "server_generation_observability": caps.server_generation_observability,
+        "server_generation_stopped_observed": caps.server_generation_stopped_observed,
+        "server_resource_reclaim_observability": caps.server_resource_reclaim_observability,
+        "server_resource_reclaim_observed": caps.server_resource_reclaim_observed,
+        "gateway_eligibility_gate_enforced": True,
+    }
+
+
+def build_f3_contract_summary(f3_rows: list[dict[str, Any]]) -> dict[str, Any]:
+    matrix = [
+        _capability_row(
+            "HttpStreamingBackend (Arm B: stop_on_cancel=True)",
+            HttpStreamingBackend(
+                base_url="https://example.invalid", api_key="k", model="m", stop_on_cancel=True
+            ).capabilities(),
+        ),
+        _capability_row(
+            "HttpStreamingBackend (Arm A policy control: stop_on_cancel=False)",
+            HttpStreamingBackend(
+                base_url="https://example.invalid", api_key="k", model="m", stop_on_cancel=False
+            ).capabilities(),
+        ),
+        _capability_row(
+            "HttpToolBackend (Non-streaming HTTP POST)",
+            HttpToolBackend(base_url="https://example.invalid", api_key="k", model="m").capabilities(),
+        ),
+        _capability_row(
+            "Non-cancellable Backend (supports_cancel=False)",
+            FakeBackend(supports_cancel=False).capabilities(),
+        ),
+    ]
+    return {
+        "experiment": "F3_backend_capability_contract",
+        "semantics_revision": (
+            "v1.3 P0: response.aclose() is client_stream_close_issued. "
+            "It is not provider_cancel_api_invoked and not provider_cancel_ack_received. "
+            "Historical confirmatory JSONL from package 1.2.0 / git 8579d2b still stores the old six-field contract."
+        ),
+        "historical_confirmatory_rows_unchanged": True,
+        "important_distinction": "stop_on_cancel=False (Arm A policy toggle on a cancellable streaming backend) is NOT equivalent to a backend that lacks cancellation support. Closing the client read is not a provider cancel API or a server ACK.",
+        "capability_matrix": matrix,
         "real_api_nonstreaming_boundary_probes": f3_rows,
         "all_probes_blocked_stale_commit": all(r.get("gateway_eligibility_gate_held", False) for r in f3_rows),
     }

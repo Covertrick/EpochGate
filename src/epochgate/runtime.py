@@ -95,6 +95,7 @@ class Runtime:
         lease_strict_s: float = 5.0,
         lease_loose_s: float = 30.0,
         await_recovery_on_depletion: bool = False,
+        signal_policy: str = "premise",
     ) -> None:
         self.ids = ids or IdFactory(seed)
         self.run_id = run_id or self.ids("run")
@@ -116,6 +117,9 @@ class Runtime:
         self.max_steps = max_steps
         self.max_turns = max_turns
         self.inline_dispatch = inline_dispatch
+        if signal_policy not in {"premise", "any_signal"}:
+            raise ValueError("signal_policy must be premise or any_signal")
+        self.signal_policy = signal_policy
         self.await_recovery_on_depletion = await_recovery_on_depletion
         self._awaiting_recovery: set[str] = set()
         self._leases: dict[str, AdmissionLease] = {}
@@ -145,6 +149,7 @@ class Runtime:
         self._lease_loose_s = lease_loose_s
         self._dispatches_since_fair = 0
         self._change_count = 0
+        self._change_at_dispatch: dict[str, int] = {}
         self._stream_open = True
         self._scheduler_cpu_s = 0.0
         self._window_end = 0.0
@@ -312,6 +317,17 @@ class Runtime:
             depends = list(self.default_refresh.sources) if self.default_refresh is not None else []
             for attempt in self.registry.attempts_for_task(task.task_id):
                 lease = self._leases.get(attempt.attempt_id)
+                premise = self._premise.get(attempt.attempt_id)
+                sources_dirty = dirty
+                seen = self._change_at_dispatch.get(attempt.attempt_id)
+                if (
+                    self.signal_policy == "any_signal"
+                    and attempt.state == AttemptState.INFLIGHT
+                    and seen is not None
+                    and self._change_count > seen
+                ):
+                    sources_dirty = True
+                    premise = False
                 attempt_views.append(
                     AttemptView(
                         attempt_id=attempt.attempt_id,
@@ -323,10 +339,10 @@ class Runtime:
                         has_observations=bool(latest),
                         lease_id=None if lease is None else lease.lease_id,
                         lease_expires_at_mono=None if lease is None else lease.expires_at_mono,
-                        sources_dirty=dirty,
+                        sources_dirty=sources_dirty,
                         refreshes_used=self._refresh_charges.get(task.task_id, 0),
                         refresh_inflight=attempt.attempt_id in self._refreshing,
-                        premise_holds=self._premise.get(attempt.attempt_id),
+                        premise_holds=premise,
                         bound_versions=bound,
                         depends_on=depends,
                         last_refresh_mono=self._last_refresh_at.get(task.task_id),
@@ -528,6 +544,14 @@ class Runtime:
             self._dispatches_since_fair += 1
         self._inflight += 1
         self._inflight_attempts[attempt_id] = decision.task_id
+        self._change_at_dispatch[attempt_id] = self._change_count
+        self.events.emit(
+            run_id=self.run_id,
+            event_type="slot_acquired",
+            identity={"task_id": decision.task_id, "attempt_id": attempt_id},
+            reason="runtime local active-attempt slot",
+            usage={"wall_time": time.time()},
+        )
         self.registry.update_attempt_state(attempt_id, AttemptState.INFLIGHT)
         if self.inline_dispatch:
             try:
@@ -826,8 +850,24 @@ class Runtime:
             event_type="cancel_requested",
             identity=identity,
             reason=reason,
+            usage={"wall_time": time.time()},
         )
         caps = self.backend.capabilities()
+        self.events.emit(
+            run_id=self.run_id,
+            event_type="provider_abort_not_issued",
+            identity=identity,
+            reason="no provider cancel API was called",
+            usage={"provider_cancel_api_invoked": False, "wall_time": time.time()},
+        )
+        if caps.supports_cancel:
+            self.events.emit(
+                run_id=self.run_id,
+                event_type="local_read_stop_requested",
+                identity=identity,
+                reason="local read stop requested; server generation remains unknown",
+                usage={"local_read_abort": caps.local_read_abort, "wall_time": time.time()},
+            )
         if handle is None:
             self._block_late.add(attempt_id)
             self.events.emit(
@@ -1054,7 +1094,8 @@ class Runtime:
             run_id=self.run_id,
             event_type="slot_released",
             identity={"task_id": task_id, "attempt_id": attempt_id},
-            reason="local inference slot released",
+            reason="runtime local active-attempt slot released",
+            usage={"wall_time": time.time()},
         )
 
     async def _reap_workers(self) -> None:
