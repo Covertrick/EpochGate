@@ -130,12 +130,21 @@ async def test_f3_six_dimensional_backend_capability_contract_and_gateway_protec
     ct = http_tool.capabilities()
     cf = non_cancel_fake.capabilities()
 
-    # Both stream_a and stream_b support cancellation at the backend capability level;
-    # stop_on_cancel only toggles local_read_abort & provider_cancel_request
+    # stop_on_cancel 只决定是否关闭本地读。aclose 不是供应商取消 API，也不是服务端 ACK。
     assert cb.supports_cancel is True and ca.supports_cancel is True
     assert cb.streaming_capability is True and ca.streaming_capability is True
     assert cb.local_read_abort is True and ca.local_read_abort is False
+    assert cb.client_stream_close_issued is True and ca.client_stream_close_issued is False
+    assert cb.provider_cancel_request is False and ca.provider_cancel_request is False
+    assert cb.provider_cancel_api_invoked is False and ca.provider_cancel_api_invoked is False
+    assert cb.provider_cancel_ack_received is False and ca.provider_cancel_ack_received is False
+    assert cb.provider_cancel_ack_semantics == "UNKNOWN"
+    assert ca.provider_cancel_ack_semantics == "UNKNOWN"
+    assert cb.transport_disconnect_observed is False
     assert cb.server_generation_observability is False and cb.server_resource_reclaim_observability is False
+    assert cb.server_generation_stopped_observed is False and cb.server_resource_reclaim_observed is False
+    assert cf.provider_cancel_api_invoked is False
+    assert cf.provider_cancel_ack_received is False
 
     # Non-streaming HttpToolBackend
     assert ct.streaming_capability is False

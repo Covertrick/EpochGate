@@ -241,3 +241,22 @@ class Registry:
         if attempt_id not in self._attempts:
             raise KeyError(f"unknown attempt: {attempt_id}")
         return self._attempts[attempt_id]
+
+
+def replay_eligibility(events: list[tuple[str, str]]) -> dict[str, bool]:
+    """按事件重放资格。已撤销的尝试不会因进程重启或再次出现 ``attempt_begun`` 而恢复。
+
+    输入：``(event_type, attempt_id)`` 序列。``process_restart`` 不改变资格。
+    输出：每个出现过的尝试当前是否仍有资格。
+    副作用：无。
+    失败：无。
+    """
+    eligible: dict[str, bool] = {}
+    for kind, attempt_id in events:
+        if not attempt_id:
+            continue
+        if kind == "attempt_begun":
+            eligible.setdefault(attempt_id, True)
+        elif kind == "eligibility_revoked":
+            eligible[attempt_id] = False
+    return eligible

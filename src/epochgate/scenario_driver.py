@@ -74,7 +74,10 @@ class ScenarioDriver:
         now = time.monotonic()
         if target > now:
             await asyncio.sleep(target - now)
-        event = self.env.apply_exogenous(cue.delta)
+        if cue.label == "harmless":
+            event = self.env.notify("annotation")
+        else:
+            event = self.env.apply_exogenous(cue.delta)
         self.history.append(
             CueRecord(
                 label=cue.label,
@@ -82,7 +85,7 @@ class ScenarioDriver:
                 delta=cue.delta,
                 scheduled_at_mono=anchor,
                 applied_at_mono=event.mono_time,
-                source_version=event.source_version,
+                source_version=event.source_version or "",
                 stock_after=self.env.stock,
             )
         )
@@ -101,7 +104,7 @@ class ScenarioDriver:
 
     def first_change_applied_at(self) -> float | None:
         for rec in self.history:
-            if rec.delta < 0 or rec.label in {"invalidate", "t_change"}:
+            if rec.delta < 0 or rec.label in {"invalidate", "t_change", "harmless"}:
                 return rec.applied_at_mono
         return self.history[0].applied_at_mono if self.history else None
 
@@ -143,6 +146,13 @@ def make_scenario_spec(
             task_kind="static",
             initial_stock=initial_stock,
             cues=(),
+        )
+    if task_kind == "harmless":
+        return ScenarioSpec(
+            scenario_id=scenario_id,
+            task_kind="harmless",
+            initial_stock=initial_stock,
+            cues=(ExogenousCue(offset_s=t_change_s, delta=0, label="harmless"),),
         )
     if task_kind == "invalidate":
         return ScenarioSpec(
