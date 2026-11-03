@@ -1,0 +1,180 @@
+{
+  "cells": [
+    {
+      "trigger": "harmful",
+      "load": "high",
+      "rho": 0.5,
+      "policy": "G0",
+      "decisions": 1321,
+      "diffs": 393,
+      "traces_with_diff": 38,
+      "n": 50,
+      "diff_rate": 0.2975018925056775
+    },
+    {
+      "trigger": "harmful",
+      "load": "high",
+      "rho": 0.5,
+      "policy": "G2",
+      "decisions": 1086,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmful",
+      "load": "medium",
+      "rho": 0.5,
+      "policy": "G0",
+      "decisions": 1190,
+      "diffs": 336,
+      "traces_with_diff": 38,
+      "n": 50,
+      "diff_rate": 0.2823529411764706
+    },
+    {
+      "trigger": "harmful",
+      "load": "medium",
+      "rho": 0.5,
+      "policy": "G2",
+      "decisions": 924,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmful",
+      "load": "medium",
+      "rho": 1.0,
+      "policy": "G0",
+      "decisions": 1249,
+      "diffs": 336,
+      "traces_with_diff": 38,
+      "n": 50,
+      "diff_rate": 0.2690152121697358
+    },
+    {
+      "trigger": "harmful",
+      "load": "medium",
+      "rho": 1.0,
+      "policy": "G1",
+      "decisions": 1051,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmful",
+      "load": "medium",
+      "rho": 1.0,
+      "policy": "G2",
+      "decisions": 1051,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmful",
+      "load": "medium",
+      "rho": 2.0,
+      "policy": "G0",
+      "decisions": 1348,
+      "diffs": 336,
+      "traces_with_diff": 38,
+      "n": 50,
+      "diff_rate": 0.24925816023738873
+    },
+    {
+      "trigger": "harmful",
+      "load": "medium",
+      "rho": 2.0,
+      "policy": "G2",
+      "decisions": 1220,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmless",
+      "load": "medium",
+      "rho": 0.5,
+      "policy": "G1",
+      "decisions": 924,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmless",
+      "load": "medium",
+      "rho": 0.5,
+      "policy": "G2",
+      "decisions": 1051,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmless",
+      "load": "medium",
+      "rho": 1.0,
+      "policy": "G0",
+      "decisions": 1051,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmless",
+      "load": "medium",
+      "rho": 1.0,
+      "policy": "G1",
+      "decisions": 1051,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmless",
+      "load": "medium",
+      "rho": 1.0,
+      "policy": "G2",
+      "decisions": 1051,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmless",
+      "load": "medium",
+      "rho": 2.0,
+      "policy": "G1",
+      "decisions": 1220,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    },
+    {
+      "trigger": "harmless",
+      "load": "medium",
+      "rho": 2.0,
+      "policy": "G2",
+      "decisions": 1051,
+      "diffs": 0,
+      "traces_with_diff": 0,
+      "n": 50,
+      "diff_rate": 0.0
+    }
+  ]
+}

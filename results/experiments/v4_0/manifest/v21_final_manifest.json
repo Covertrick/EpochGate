@@ -1,0 +1,72 @@
+{
+  "dataset": "v2.1 confirmatory",
+  "package_version": "3.0.0",
+  "source_commit": "cb80009276ff32fe8fb4a627bed31a6de6ff5909",
+  "protocol_hash": "37f9846b2504b61c4e535940f9cc4df741fe9b462d6f99458b55a40ee2138213",
+  "python": "3.12.2",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "bootstrap_seed": 20261103,
+  "bootstrap_replicates": 10000,
+  "threshold_definition": {
+    "relative_10pct": "点估计 delta_mean / baseline_mean >= 0.10",
+    "ci_low_positive": "绝对差值 W(base)-W(G2) 的 bootstrap 2.5% 分位 > 0",
+    "not_claimed": "区间下界本身达到 10%"
+  },
+  "commands": [
+    "python -m uv run python scripts/analyze_v21.py",
+    "python -m uv run python scripts/close_v21.py"
+  ],
+  "file_sha256": {
+    "protocol": "80201c881df7b2eded83797cb6ae62bd5d83da9f1a33bbb0c77fd797f9e97343",
+    "confirmatory": "cca01690a850cc35d56cf4ab18faafe67b9653eba5ce160506475b8154392f43",
+    "boundary": "c183c2b561578c63f88a274af1e63cafa97d9a717ed3f9df759b4316f6cb33d4",
+    "pilot": "3ee9876f4ad1a53d839f13e66efb1bb0b1a157767cbeda961d6cca1b4806ecd9",
+    "api": "c222423e2d2c2fabf78b7028fd21805a8b23bd58e9d1df67e186d8c6bf36d954",
+    "analyze": "4ca6c83cb682771cd88ac30492ef61e5e82fc7b9bf2874b2812b8688fa79bba1",
+    "replay": "61d25bd90c2f8b596c50aebb3dd4a96cca6c0c17caaaf119f6f83acbdf710bd4",
+    "workload": "a17caff490fbbb9941550cf84713944217f47e4e15078b46ae7959fb6ab8a60c",
+    "close": "f5c005634a3767dd76d335d040e2a4f99245a450313ec0595913389425c7ccb5"
+  },
+  "sensitivity_seeds": [
+    12000,
+    12001,
+    12002,
+    12003,
+    12004,
+    12005,
+    12006,
+    12007,
+    12008,
+    12009,
+    12010,
+    12011,
+    12012,
+    12013,
+    12014,
+    12015,
+    12016,
+    12017,
+    12018,
+    12019,
+    12020,
+    12021,
+    12022,
+    12023,
+    12024,
+    12025,
+    12026,
+    12027,
+    12028,
+    12029
+  ],
+  "sensitivity_n": 30,
+  "exclusions": [],
+  "replay_mismatch_count": 0,
+  "data_audit_passed": true,
+  "confirmatory_rows": 2400,
+  "note": "确认性 JSONL 在包版本 3.0.0 的回放器上生成，本脚本只重算核对。敏感性种子从 12000 起，不进入主表。",
+  "timeline_files": [
+    "results/experiments/v4_0/figures/timeline_seed5000.json",
+    "results/experiments/v4_0/figures/timeline_seed5005.json"
+  ]
+}

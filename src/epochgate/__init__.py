@@ -3,4 +3,4 @@
 from epochgate.runtime import Runtime
 
 __all__ = ["Runtime"]
-__version__ = "3.0.0"
+__version__ = "4.0.0"

@@ -71,6 +71,43 @@ def test_open_loop_arrival_does_not_move_when_g2_finishes_early():
     assert g0_arrivals == g2_arrivals
 
 
+def test_default_workload_is_unchanged_by_sensitivity_defaults():
+    plain = _load()
+    explicit = build_workload(
+        seed=7,
+        trigger_class="harmful",
+        timing="early",
+        rho=0.5,
+        load="medium",
+        interarrival_s=1.0,
+        slots=4,
+        service_noise=0.0,
+        arrival_jitter=0.0,
+    )
+    assert plain.arrival_hash == explicit.arrival_hash
+    noisy = build_workload(
+        seed=7,
+        trigger_class="harmful",
+        timing="early",
+        rho=0.5,
+        load="medium",
+        interarrival_s=1.0,
+        service_noise=0.25,
+    )
+    same = build_workload(
+        seed=7,
+        trigger_class="harmful",
+        timing="early",
+        rho=0.5,
+        load="medium",
+        interarrival_s=1.0,
+        service_noise=0.25,
+    )
+    assert noisy.arrival_hash != plain.arrival_hash
+    assert noisy.arrival_hash == same.arrival_hash
+    assert noisy.event_time == 0.20 * noisy.focal_service_s
+
+
 def test_successor_service_matches_rho_times_remaining():
     workload = _load(rho=2.0)
     summary = replay(workload, policy="G2", scheduler="fcfs").summary
