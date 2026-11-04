@@ -1,0 +1,37 @@
+{
+  "model": "deepseek-flash",
+  "model_product": "DeepSeek-V4.1-Flash",
+  "thinking": "disabled",
+  "confirm_seeds": "7000-7049",
+  "bootstrap": {"n": 10000, "seed": 20261104},
+  "medium": {
+    "arrival_span_s": 12.0,
+    "n_pairs": 50,
+    "dW_slot_mean_s": 0.891,
+    "dW_slot_p2_5": 0.697,
+    "dW_slot_p97_5": 1.074,
+    "dW_slot_relative": 0.214,
+    "dT_e2e_mean_s": 0.873,
+    "dT_e2e_p2_5": 0.669,
+    "dT_e2e_p97_5": 1.07,
+    "dT_e2e_relative": 0.123
+  },
+  "high": {
+    "arrival_span_s": 6.4,
+    "n_pairs": 50,
+    "dW_slot_mean_s": 0.863,
+    "dW_slot_p2_5": 0.664,
+    "dW_slot_p97_5": 1.066,
+    "dW_slot_relative": 0.112,
+    "dT_e2e_mean_s": 0.922,
+    "dT_e2e_p2_5": 0.698,
+    "dT_e2e_p97_5": 1.153,
+    "dT_e2e_relative": 0.086
+  },
+  "go_nogo": {
+    "ds_go": "yes_client_observable_slot_wait",
+    "d2_separation": "no",
+    "vllm_go": "not_run",
+    "total_go": "no"
+  }
+}

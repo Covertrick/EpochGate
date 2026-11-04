@@ -1,6 +1,6 @@
 [project]
 name = "epochgate"
-version = "4.0.0"
+version = "5.0.0"
 description = "Versioned admission and cancellation layer for multi-session agent runtimes."
 readme = "README.md"
 requires-python = ">=3.12"

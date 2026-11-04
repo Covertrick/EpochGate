@@ -1,0 +1,40 @@
+{
+  "protocol_id": "v5.0-direction-a",
+  "layers": {
+    "l0": {
+      "layer": "l0",
+      "n_rows": 90,
+      "n_pairs": 30,
+      "n_separated": 0,
+      "bootstrap_dW": {
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "bootstrap_dT": {
+        "mean": 0.0005901310065140302,
+        "p2_5": -9.081384283490442e-05,
+        "p97_5": 0.0018874228485704664
+      },
+      "M0": {
+        "alpha": 0.21093932490455714,
+        "beta": 0.00039413039373361686,
+        "n": 30
+      },
+      "tau_s": 0.05,
+      "delta_s": 0.2,
+      "ds_go_draft": false,
+      "note": "Draft only; confirmatory go/no-go frozen after confirm cells complete"
+    }
+  },
+  "go_nogo": {
+    "ds_go": "pending",
+    "vllm_go": "not_run",
+    "total_go": "no_requires_vllm_go",
+    "rules": {
+      "ds_go": "D1 or D2 crosses engineering threshold on frozen DS confirm cells; D3 never labels residual=0 from aclose",
+      "vllm_go": "stable local/e2e separation or significant M0 residual; at least L2-a or L2-b observation consistent; holdout direction correct",
+      "total_go": "requires vllm_go; ds_go alone is measurement contribution only"
+    }
+  }
+}

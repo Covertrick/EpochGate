@@ -38,6 +38,7 @@ class HttpStreamingBackend:
         model: str,
         timeout_s: float = 60.0,
         max_inflight: int = 1,
+        extra_payload: dict[str, Any] | None = None,
         trust_env: bool = True,
         ids: IdFactory | None = None,
         transport: httpx.AsyncBaseTransport | None = None,
@@ -61,6 +62,7 @@ class HttpStreamingBackend:
         self._stop_on_cancel = stop_on_cancel
         self._on_first_delta = on_first_delta
         self._first_delta_delay_s = first_delta_delay_s
+        self._extra_payload = dict(extra_payload or {})
         self._caps = BackendCapabilities(
             supports_cancel=True,
             supports_streaming=True,
@@ -195,6 +197,8 @@ class HttpStreamingBackend:
             tool_choice=self._tool_choice,
             stream=True,
         )
+        if self._extra_payload:
+            payload.update(self._extra_payload)
         assembler = ToolCallAssembler()
         provider: dict[str, Any] = {}
         local_index = 0
