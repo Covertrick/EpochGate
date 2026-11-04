@@ -1,0 +1,114 @@
+{
+  "protocol_id": "v5.1-replication",
+  "frozen_at": "2026-11-04",
+  "parent_protocol": "v5.0-direction-a",
+  "sealed_confirm_sha256": "f5277e8f61945f50db68267f0ff78fbd648cb553833ec51ca86d6d0a89c9bc39",
+  "analysis_sha256": "953127e76727c5c2a6f0bfb212c7109902e4f52198bc4a3ca586dd57f2183e46",
+  "do_not_write": [
+    "results/experiments/v5_0/ds/confirm/traces.jsonl"
+  ],
+  "seeds": [
+    8100,
+    8101,
+    8102,
+    8103,
+    8104,
+    8105,
+    8106,
+    8107,
+    8108,
+    8109,
+    8110,
+    8111,
+    8112,
+    8113,
+    8114,
+    8115,
+    8116,
+    8117,
+    8118,
+    8119,
+    8120,
+    8121,
+    8122,
+    8123,
+    8124,
+    8125,
+    8126,
+    8127,
+    8128,
+    8129,
+    8130,
+    8131,
+    8132
+  ],
+  "excluded_ranges": [
+    "6000-6014",
+    "7000-7049"
+  ],
+  "loads": [
+    "medium",
+    "high"
+  ],
+  "arms": [
+    "G0",
+    "G2-local"
+  ],
+  "model": "deepseek-flash",
+  "thinking": "disabled",
+  "temperature": 0,
+  "max_tokens": 512,
+  "slots_S": 2,
+  "bystanders_B": 8,
+  "t_change_s": 2.0,
+  "concurrency": 1,
+  "sample_size": {
+    "metric": "paired mean dW_slot",
+    "half_width_target_s": 0.25,
+    "cap": 50,
+    "floor": 8,
+    "n": 33,
+    "per_load": {
+      "medium": {
+        "n_planning": 50,
+        "mean": 0.891049181425944,
+        "sd": 0.6700268092031152,
+        "n_for_half_width": 28
+      },
+      "high": {
+        "n_planning": 50,
+        "mean": 0.8629120167482178,
+        "sd": 0.7304997990404022,
+        "n_for_half_width": 33
+      }
+    },
+    "rule": "n = min(50, max over loads of the normal approximation n whose 95% half-width is at most 0.25s). Planning SD comes from sealed 7000-7049 and is not mixed into the replication estimate. Do not add seeds after seeing replication outcomes."
+  },
+  "bootstrap": {
+    "n": 10000,
+    "seed": 20261105,
+    "unit": "trace pair"
+  },
+  "models": {
+    "M0": {
+      "formula": "dT_hat = alpha * dU_client + beta",
+      "fit_on_ds": true,
+      "dU_client": "focal local slot occupancy (slot_released_mono - slot_acquired_mono), G0 minus G2-local",
+      "dT": "paired difference of within-trace bystander P95; not a single-request difference",
+      "alpha_beta": "alpha and beta estimated on medium only and transferred to high; not re-fit per load",
+      "backend_residual_covariate": false
+    },
+    "M1": {
+      "formula": "dT_hat = alpha * dU_client + gamma * residual_service + beta",
+      "fit_on_ds": false,
+      "reason": "backend residual service is unobserved on DeepSeek; do not substitute 0"
+    },
+    "M2": {
+      "formula": "M1 + successor/bystander scheduling interaction",
+      "fit_on_ds": false,
+      "reason": "requires an observed backend residual term; a better in-sample fit would not be a new mechanism"
+    }
+  },
+  "output": "results/experiments/v5_1/ds/replicate/traces.jsonl",
+  "mix_with_7000_7049": false
+}

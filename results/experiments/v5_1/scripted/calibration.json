@@ -1,0 +1,1386 @@
+[
+  {
+    "arm": "G0",
+    "seed": 9100,
+    "source": "scripted-calibration",
+    "not_vllm": true,
+    "kv_gpu": "unavailable",
+    "observation_levels_claimed": [],
+    "events": [
+      {
+        "t_s": 7.349997758865356e-05,
+        "event": "enqueued",
+        "role": "target"
+      },
+      {
+        "t_s": 7.529999129474163e-05,
+        "event": "arrival",
+        "role": "target"
+      },
+      {
+        "t_s": 7.880013436079025e-05,
+        "event": "slot_acquired",
+        "role": "target"
+      },
+      {
+        "t_s": 7.940013892948627e-05,
+        "event": "engine_enter",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 7.990002632141113e-05,
+        "event": "execution_start",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 8.140015415847301e-05,
+        "event": "left_running",
+        "role": "target",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 8.190004155039787e-05,
+        "event": "left_scheduler_queue",
+        "role": "target",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 8.210004307329655e-05,
+        "event": "slot_released",
+        "role": "target"
+      },
+      {
+        "t_s": 8.450006134808064e-05,
+        "event": "completed",
+        "role": "target",
+        "produced_tokens": 6
+      },
+      {
+        "t_s": 8.719996549189091e-05,
+        "event": "enqueued",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 8.770008571445942e-05,
+        "event": "arrival",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 8.970010094344616e-05,
+        "event": "slot_acquired",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 8.999998681247234e-05,
+        "event": "engine_enter",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 9.030010551214218e-05,
+        "event": "execution_start",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 9.119999594986439e-05,
+        "event": "left_running",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 9.220000356435776e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 9.25001222640276e-05,
+        "event": "slot_released",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 9.330012835562229e-05,
+        "event": "completed",
+        "role": "bystander-0",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 9.490014053881168e-05,
+        "event": "enqueued",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 9.510014206171036e-05,
+        "event": "arrival",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 9.620003402233124e-05,
+        "event": "slot_acquired",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 9.650015272200108e-05,
+        "event": "engine_enter",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 9.680003859102726e-05,
+        "event": "execution_start",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 9.750016033649445e-05,
+        "event": "left_running",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 9.780004620552063e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 9.850016795098782e-05,
+        "event": "slot_released",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 9.910017251968384e-05,
+        "event": "completed",
+        "role": "bystander-1",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 0.00010020006448030472,
+        "event": "enqueued",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 0.00010040006600320339,
+        "event": "arrival",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 0.00010120007209479809,
+        "event": "slot_acquired",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 0.00010140007361769676,
+        "event": "engine_enter",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.00010169995948672295,
+        "event": "execution_start",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.00010289996862411499,
+        "event": "left_running",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.0001034000888466835,
+        "event": "left_scheduler_queue",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.00010360009036958218,
+        "event": "slot_released",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 0.00010400009341537952,
+        "event": "completed",
+        "role": "bystander-2",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 0.00010520010255277157,
+        "event": "enqueued",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 0.00010540010407567024,
+        "event": "arrival",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 0.00010609999299049377,
+        "event": "slot_acquired",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 0.00010629999451339245,
+        "event": "engine_enter",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.00010660011321306229,
+        "event": "execution_start",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.00010720011778175831,
+        "event": "left_running",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.00010750000365078449,
+        "event": "left_scheduler_queue",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.00010780012235045433,
+        "event": "slot_released",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 0.00010810000821948051,
+        "event": "completed",
+        "role": "bystander-3",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 0.00010930001735687256,
+        "event": "successor_waiting_for_slot_release",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.0001105000264942646,
+        "event": "enqueued",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.00011070002801716328,
+        "event": "arrival",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.00011150003410875797,
+        "event": "slot_acquired",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.00011270004324615002,
+        "event": "engine_enter",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.00011300016194581985,
+        "event": "execution_start",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.00011350004933774471,
+        "event": "left_running",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.00011390005238354206,
+        "event": "left_scheduler_queue",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.0001142001710832119,
+        "event": "slot_released",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.00011460017412900925,
+        "event": "completed",
+        "role": "successor",
+        "produced_tokens": 3
+      }
+    ]
+  },
+  {
+    "arm": "G2-local",
+    "seed": 9100,
+    "source": "scripted-calibration",
+    "not_vllm": true,
+    "kv_gpu": "unavailable",
+    "observation_levels_claimed": [],
+    "events": [
+      {
+        "t_s": 2.700020559132099e-05,
+        "event": "enqueued",
+        "role": "target"
+      },
+      {
+        "t_s": 2.7600210160017014e-05,
+        "event": "arrival",
+        "role": "target"
+      },
+      {
+        "t_s": 2.8900103643536568e-05,
+        "event": "slot_acquired",
+        "role": "target"
+      },
+      {
+        "t_s": 2.9199989512562752e-05,
+        "event": "engine_enter",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 2.950010821223259e-05,
+        "event": "execution_start",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 3.0100112780928612e-05,
+        "event": "eligibility_revoked",
+        "role": "target"
+      },
+      {
+        "t_s": 3.0800001695752144e-05,
+        "event": "abort_issued",
+        "role": "target",
+        "level": "scripted-local"
+      },
+      {
+        "t_s": 3.120000474154949e-05,
+        "event": "local_read_stopped",
+        "role": "target",
+        "level": "scripted-local"
+      },
+      {
+        "t_s": 3.200001083314419e-05,
+        "event": "abort_confirmed",
+        "role": "target",
+        "level": "scripted-local",
+        "provider_abort_ack": false
+      },
+      {
+        "t_s": 3.2400013878941536e-05,
+        "event": "left_running",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 3.300001844763756e-05,
+        "event": "left_scheduler_queue",
+        "role": "target",
+        "level": "scripted",
+        "residual_source": "none"
+      },
+      {
+        "t_s": 3.320001997053623e-05,
+        "event": "slot_released",
+        "role": "target"
+      },
+      {
+        "t_s": 3.42000275850296e-05,
+        "event": "completed",
+        "role": "target",
+        "produced_tokens": 0
+      },
+      {
+        "t_s": 3.5700155422091484e-05,
+        "event": "enqueued",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 3.600004129111767e-05,
+        "event": "arrival",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 3.6700163036584854e-05,
+        "event": "slot_acquired",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 3.700004890561104e-05,
+        "event": "engine_enter",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 3.7400051951408386e-05,
+        "event": "execution_start",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 3.800005652010441e-05,
+        "event": "left_running",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 3.8400059565901756e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 3.860006108880043e-05,
+        "event": "slot_released",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 3.900006413459778e-05,
+        "event": "completed",
+        "role": "bystander-0",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 4.020007327198982e-05,
+        "event": "enqueued",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.0400074794888496e-05,
+        "event": "arrival",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.110019654035568e-05,
+        "event": "slot_acquired",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.2800093069672585e-05,
+        "event": "engine_enter",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.310021176934242e-05,
+        "event": "execution_start",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.3700216338038445e-05,
+        "event": "left_running",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.400010220706463e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.42001037299633e-05,
+        "event": "slot_released",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.460010677576065e-05,
+        "event": "completed",
+        "role": "bystander-1",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 4.630000330507755e-05,
+        "event": "enqueued",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 4.660012200474739e-05,
+        "event": "arrival",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 4.730001091957092e-05,
+        "event": "slot_acquired",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 4.760012961924076e-05,
+        "event": "engine_enter",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.7800131142139435e-05,
+        "event": "execution_start",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.830001853406429e-05,
+        "event": "left_running",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.870002157986164e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.8900023102760315e-05,
+        "event": "slot_released",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 4.920014180243015e-05,
+        "event": "completed",
+        "role": "bystander-2",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 5.030003376305103e-05,
+        "event": "enqueued",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.060015246272087e-05,
+        "event": "arrival",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.120015703141689e-05,
+        "event": "slot_acquired",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.150004290044308e-05,
+        "event": "engine_enter",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.170004442334175e-05,
+        "event": "execution_start",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.220016464591026e-05,
+        "event": "left_running",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.250005051493645e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.270005203783512e-05,
+        "event": "slot_released",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.300017073750496e-05,
+        "event": "completed",
+        "role": "bystander-3",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 5.410006269812584e-05,
+        "event": "successor_waiting_for_slot_release",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.4900068789720535e-05,
+        "event": "enqueued",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.510007031261921e-05,
+        "event": "arrival",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.570007488131523e-05,
+        "event": "slot_acquired",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.610007792711258e-05,
+        "event": "engine_enter",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.640019662678242e-05,
+        "event": "execution_start",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.6900084018707275e-05,
+        "event": "left_running",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.8300094678997993e-05,
+        "event": "left_scheduler_queue",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.860021337866783e-05,
+        "event": "slot_released",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.8900099247694016e-05,
+        "event": "completed",
+        "role": "successor",
+        "produced_tokens": 3
+      }
+    ]
+  },
+  {
+    "arm": "G2-residual",
+    "seed": 9100,
+    "source": "scripted-calibration",
+    "not_vllm": true,
+    "kv_gpu": "unavailable",
+    "observation_levels_claimed": [],
+    "events": [
+      {
+        "t_s": 1.9700033590197563e-05,
+        "event": "enqueued",
+        "role": "target"
+      },
+      {
+        "t_s": 1.9999919459223747e-05,
+        "event": "arrival",
+        "role": "target"
+      },
+      {
+        "t_s": 2.0799925550818443e-05,
+        "event": "slot_acquired",
+        "role": "target"
+      },
+      {
+        "t_s": 2.110004425048828e-05,
+        "event": "engine_enter",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 2.1399930119514465e-05,
+        "event": "execution_start",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 2.1900050342082977e-05,
+        "event": "eligibility_revoked",
+        "role": "target"
+      },
+      {
+        "t_s": 2.219993621110916e-05,
+        "event": "abort_issued",
+        "role": "target",
+        "level": "scripted-local"
+      },
+      {
+        "t_s": 2.2500054910779e-05,
+        "event": "local_read_stopped",
+        "role": "target",
+        "level": "scripted-local"
+      },
+      {
+        "t_s": 2.2799940779805183e-05,
+        "event": "abort_confirmed",
+        "role": "target",
+        "level": "scripted-local",
+        "provider_abort_ack": false
+      },
+      {
+        "t_s": 2.319994382560253e-05,
+        "event": "left_running",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 2.359994687139988e-05,
+        "event": "slot_released",
+        "role": "target"
+      },
+      {
+        "t_s": 2.4700071662664413e-05,
+        "event": "backend_residual_start",
+        "role": "target",
+        "residual_source": "injected-script",
+        "residual_s": 0.05
+      },
+      {
+        "t_s": 3.869994543492794e-05,
+        "event": "enqueued",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 3.909994848072529e-05,
+        "event": "arrival",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 3.9800070226192474e-05,
+        "event": "slot_acquired",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 4.009995609521866e-05,
+        "event": "engine_enter",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.0400074794888496e-05,
+        "event": "execution_start",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.109996370971203e-05,
+        "event": "left_running",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.1400082409381866e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.169996827840805e-05,
+        "event": "slot_released",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 4.200008697807789e-05,
+        "event": "completed",
+        "role": "bystander-0",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 4.3400097638368607e-05,
+        "event": "enqueued",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.360009916126728e-05,
+        "event": "arrival",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.42001037299633e-05,
+        "event": "slot_acquired",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.449998959898949e-05,
+        "event": "engine_enter",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.4800108298659325e-05,
+        "event": "execution_start",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 4.529999569058418e-05,
+        "event": "left_running",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.560011439025402e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 4.650000482797623e-05,
+        "event": "slot_released",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 4.6900007873773575e-05,
+        "event": "completed",
+        "role": "bystander-1",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 4.810001701116562e-05,
+        "event": "enqueued",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 4.900014027953148e-05,
+        "event": "arrival",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 4.970002919435501e-05,
+        "event": "slot_acquired",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 4.9999915063381195e-05,
+        "event": "engine_enter",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.019991658627987e-05,
+        "event": "execution_start",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.079992115497589e-05,
+        "event": "left_running",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.110003985464573e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.13000413775444e-05,
+        "event": "slot_released",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 5.159992724657059e-05,
+        "event": "completed",
+        "role": "bystander-2",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 5.270005203783512e-05,
+        "event": "enqueued",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.2999937906861305e-05,
+        "event": "arrival",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.370005965232849e-05,
+        "event": "slot_acquired",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.3900061175227165e-05,
+        "event": "engine_enter",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.419994704425335e-05,
+        "event": "execution_start",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.470006726682186e-05,
+        "event": "left_running",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.4999953135848045e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 5.519995465874672e-05,
+        "event": "slot_released",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 5.550007335841656e-05,
+        "event": "completed",
+        "role": "bystander-3",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 5.659996531903744e-05,
+        "event": "successor_waiting_for_slot_release",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.710008554160595e-05,
+        "event": "enqueued",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.7399971410632133e-05,
+        "event": "arrival",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.810009315609932e-05,
+        "event": "slot_acquired",
+        "role": "successor"
+      },
+      {
+        "t_s": 5.8300094678997993e-05,
+        "event": "engine_enter",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.9300102293491364e-05,
+        "event": "execution_start",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.9900106862187386e-05,
+        "event": "left_running",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 6.019999273121357e-05,
+        "event": "left_scheduler_queue",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 6.0399994254112244e-05,
+        "event": "slot_released",
+        "role": "successor"
+      },
+      {
+        "t_s": 6.079999729990959e-05,
+        "event": "completed",
+        "role": "successor",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 0.06572770001366735,
+        "event": "left_scheduler_queue",
+        "role": "target",
+        "level": "scripted",
+        "residual_source": "injected-script"
+      },
+      {
+        "t_s": 0.06573030003346503,
+        "event": "completed",
+        "role": "target",
+        "produced_tokens": 0
+      }
+    ]
+  },
+  {
+    "arm": "G2-hold-slot",
+    "seed": 9100,
+    "source": "scripted-calibration",
+    "not_vllm": true,
+    "kv_gpu": "unavailable",
+    "observation_levels_claimed": [],
+    "events": [
+      {
+        "t_s": 4.910002462565899e-05,
+        "event": "enqueued",
+        "role": "target"
+      },
+      {
+        "t_s": 5.019991658627987e-05,
+        "event": "arrival",
+        "role": "target"
+      },
+      {
+        "t_s": 5.2999937906861305e-05,
+        "event": "slot_acquired",
+        "role": "target"
+      },
+      {
+        "t_s": 5.369982682168484e-05,
+        "event": "engine_enter",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.419994704425335e-05,
+        "event": "execution_start",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.489983595907688e-05,
+        "event": "eligibility_revoked",
+        "role": "target"
+      },
+      {
+        "t_s": 5.569984205067158e-05,
+        "event": "abort_issued",
+        "role": "target",
+        "level": "scripted-local"
+      },
+      {
+        "t_s": 5.6099845096468925e-05,
+        "event": "local_read_stopped",
+        "role": "target",
+        "level": "scripted-local"
+      },
+      {
+        "t_s": 5.659996531903744e-05,
+        "event": "abort_confirmed",
+        "role": "target",
+        "level": "scripted-local",
+        "provider_abort_ack": false
+      },
+      {
+        "t_s": 5.689985118806362e-05,
+        "event": "left_running",
+        "role": "target",
+        "level": "scripted"
+      },
+      {
+        "t_s": 5.759997293353081e-05,
+        "event": "left_scheduler_queue",
+        "role": "target",
+        "level": "scripted",
+        "residual_source": "none"
+      },
+      {
+        "t_s": 7.349997758865356e-05,
+        "event": "enqueued",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 7.399986498057842e-05,
+        "event": "arrival",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 7.489998824894428e-05,
+        "event": "slot_acquired",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 7.519987411797047e-05,
+        "event": "engine_enter",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 7.54999928176403e-05,
+        "event": "execution_start",
+        "role": "bystander-0",
+        "level": "scripted"
+      },
+      {
+        "t_s": 7.650000043213367e-05,
+        "event": "left_running",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 7.71000050008297e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-0",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 7.739989086985588e-05,
+        "event": "slot_released",
+        "role": "bystander-0"
+      },
+      {
+        "t_s": 7.819989696145058e-05,
+        "event": "completed",
+        "role": "bystander-0",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 8.019991219043732e-05,
+        "event": "enqueued",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 8.04997980594635e-05,
+        "event": "arrival",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 8.119991980493069e-05,
+        "event": "slot_acquired",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 8.149980567395687e-05,
+        "event": "engine_enter",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 8.169980719685555e-05,
+        "event": "execution_start",
+        "role": "bystander-1",
+        "level": "scripted"
+      },
+      {
+        "t_s": 8.229981176555157e-05,
+        "event": "left_running",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 8.25999304652214e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-1",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 8.289981633424759e-05,
+        "event": "slot_released",
+        "role": "bystander-1"
+      },
+      {
+        "t_s": 8.319993503391743e-05,
+        "event": "completed",
+        "role": "bystander-1",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 8.5099833086133e-05,
+        "event": "enqueued",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 8.599995635449886e-05,
+        "event": "arrival",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 8.66998452693224e-05,
+        "event": "slot_acquired",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 8.749985136091709e-05,
+        "event": "engine_enter",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 8.789985440671444e-05,
+        "event": "execution_start",
+        "role": "bystander-2",
+        "level": "scripted"
+      },
+      {
+        "t_s": 8.839997462928295e-05,
+        "event": "left_running",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 8.869986049830914e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-2",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 8.889986202120781e-05,
+        "event": "slot_released",
+        "role": "bystander-2"
+      },
+      {
+        "t_s": 8.929986506700516e-05,
+        "event": "completed",
+        "role": "bystander-2",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 9.039998985826969e-05,
+        "event": "enqueued",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 9.059999138116837e-05,
+        "event": "arrival",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 9.119999594986439e-05,
+        "event": "slot_acquired",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 9.200000204145908e-05,
+        "event": "engine_enter",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 9.229988791048527e-05,
+        "event": "execution_start",
+        "role": "bystander-3",
+        "level": "scripted"
+      },
+      {
+        "t_s": 9.280000813305378e-05,
+        "event": "left_running",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 9.309989400207996e-05,
+        "event": "left_scheduler_queue",
+        "role": "bystander-3",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 9.329989552497864e-05,
+        "event": "slot_released",
+        "role": "bystander-3"
+      },
+      {
+        "t_s": 9.369989857077599e-05,
+        "event": "completed",
+        "role": "bystander-3",
+        "produced_tokens": 3
+      },
+      {
+        "t_s": 9.480002336204052e-05,
+        "event": "successor_waiting_for_slot_release",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.06304839998483658,
+        "event": "slot_released",
+        "role": "target"
+      },
+      {
+        "t_s": 0.06306289997883141,
+        "event": "completed",
+        "role": "target",
+        "produced_tokens": 0
+      },
+      {
+        "t_s": 0.06308220000937581,
+        "event": "enqueued",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.06308429990895092,
+        "event": "arrival",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.06309129996225238,
+        "event": "slot_acquired",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.06309389998205006,
+        "event": "engine_enter",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.06309469998814166,
+        "event": "execution_start",
+        "role": "successor",
+        "level": "scripted"
+      },
+      {
+        "t_s": 0.06309710000641644,
+        "event": "left_running",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.06309779989533126,
+        "event": "left_scheduler_queue",
+        "role": "successor",
+        "level": "scripted",
+        "reason": "natural_end"
+      },
+      {
+        "t_s": 0.06309830001555383,
+        "event": "slot_released",
+        "role": "successor"
+      },
+      {
+        "t_s": 0.06309919990599155,
+        "event": "completed",
+        "role": "successor",
+        "produced_tokens": 3
+      }
+    ]
+  }
+]

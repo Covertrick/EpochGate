@@ -1,0 +1,150 @@
+{
+  "protocol_id": "v5.1-replication",
+  "n_traces": 132,
+  "loads": {
+    "medium": {
+      "load": "medium",
+      "n": 27,
+      "dW_slot": {
+        "n": 27.0,
+        "mean": 1.6268358025419598,
+        "p2_5": 0.5692241605660128,
+        "p97_5": 2.951925089376703,
+        "replicates": 10000.0,
+        "seed": 20261105.0
+      },
+      "dT_e2e": {
+        "n": 27.0,
+        "mean": 1.7050010604921868,
+        "p2_5": 0.5447174007047179,
+        "p97_5": 3.144583591401871,
+        "replicates": 10000.0,
+        "seed": 20261105.0
+      },
+      "g0_W_mean": 11.20203606497574,
+      "g0_E_mean": 16.181079584167822,
+      "gate_W": {
+        "relative": 0.1452267956562308,
+        "relative_ok": true,
+        "ci_lower_positive": true,
+        "passed": true
+      },
+      "gate_E": {
+        "relative": 0.1053700435513848,
+        "relative_ok": true,
+        "ci_lower_positive": true,
+        "passed": true
+      },
+      "same_direction": 19,
+      "separated": 1,
+      "sensitivity": {
+        "dT_vs_d_output_tokens": {
+          "n": 0,
+          "r": null
+        },
+        "dT_vs_d_focal_e2e": {
+          "n": 27,
+          "r": 0.6056274313402624
+        },
+        "dW_vs_dU_client": {
+          "n": 27,
+          "r": 0.6449488694346305
+        }
+      }
+    },
+    "high": {
+      "load": "high",
+      "n": 33,
+      "dW_slot": {
+        "n": 33.0,
+        "mean": -0.11917603603550136,
+        "p2_5": -0.8362336195705491,
+        "p97_5": 0.6222902817944427,
+        "replicates": 10000.0,
+        "seed": 20261105.0
+      },
+      "dT_e2e": {
+        "n": 33.0,
+        "mean": 0.03430816229065933,
+        "p2_5": -0.7806762165083044,
+        "p97_5": 0.8686832257564124,
+        "replicates": 10000.0,
+        "seed": 20261105.0
+      },
+      "g0_W_mean": 13.185519880395043,
+      "g0_E_mean": 18.016161418502982,
+      "gate_W": {
+        "relative": -0.009038402514010757,
+        "relative_ok": false,
+        "ci_lower_positive": false,
+        "passed": false
+      },
+      "gate_E": {
+        "relative": 0.0019042992285484364,
+        "relative_ok": false,
+        "ci_lower_positive": false,
+        "passed": false
+      },
+      "same_direction": 14,
+      "separated": 3,
+      "sensitivity": {
+        "dT_vs_d_output_tokens": {
+          "n": 0,
+          "r": null
+        },
+        "dT_vs_d_focal_e2e": {
+          "n": 33,
+          "r": 0.28596606466764896
+        },
+        "dW_vs_dU_client": {
+          "n": 33,
+          "r": 0.27298408762462645
+        }
+      }
+    }
+  },
+  "M0": {
+    "alpha": 2.5837079627042474,
+    "beta": -7.803309694488936,
+    "n": 27,
+    "train_mae": 2.0480587905088448,
+    "name": "M0",
+    "train_load": "medium",
+    "dU_client": "focal local slot occupancy (slot_released_mono - slot_acquired_mono), G0 minus G2-local",
+    "dT": "paired difference of within-trace bystander P95; not a single-request difference",
+    "parameters_shared_across_loads": false,
+    "transfer": "alpha and beta estimated on medium only and transferred to high; not re-fit per load",
+    "backend_residual": "not a covariate"
+  },
+  "M0_holdout_high": {
+    "status": "predicted",
+    "n": 33,
+    "mean_residual": -1.9800931523636576,
+    "p2_5": -2.9113649031325335,
+    "p97_5": -1.053335596738264,
+    "mae": 2.5944413811360967,
+    "m0_leaves_unexplained_effect": true,
+    "rule": "unexplained only if the holdout residual CI excludes 0 and |mean| >= 0.20s"
+  },
+  "models_not_fit": {
+    "M0": {
+      "formula": "dT_hat = alpha * dU_client + beta",
+      "fit_on_ds": true,
+      "dU_client": "focal local slot occupancy (slot_released_mono - slot_acquired_mono), G0 minus G2-local",
+      "dT": "paired difference of within-trace bystander P95; not a single-request difference",
+      "alpha_beta": "alpha and beta estimated on medium only and transferred to high; not re-fit per load",
+      "backend_residual_covariate": false
+    },
+    "M1": {
+      "formula": "dT_hat = alpha * dU_client + gamma * residual_service + beta",
+      "fit_on_ds": false,
+      "reason": "backend residual service is unobserved on DeepSeek; do not substitute 0"
+    },
+    "M2": {
+      "formula": "M1 + successor/bystander scheduling interaction",
+      "fit_on_ds": false,
+      "reason": "requires an observed backend residual term; a better in-sample fit would not be a new mechanism"
+    }
+  },
+  "mixed_with_7000_7049": false
+}
