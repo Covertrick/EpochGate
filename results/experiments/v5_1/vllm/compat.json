@@ -1,0 +1,11 @@
+{
+  "source": "vllm-compat",
+  "base_url": "http://127.0.0.1:8000/v1",
+  "reachable": false,
+  "http_status": 502,
+  "L2-a": "unavailable",
+  "L2-b": "unavailable",
+  "L2-c": "unavailable",
+  "entered_mechanism_matrix": false,
+  "reason": "no local vLLM answered; client disconnect is not treated as abort"
+}

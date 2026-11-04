@@ -21,6 +21,8 @@
 
 两档都是同向变短，没有稳定的 local/e2e 反转。服务端停止状态全部是 `unknown`，不能写成 GPU 或 KV 已回收。配对差定义为 \(G0-G2_{\mathrm{local}}\)，正数表示 G2-local 更短。
 
+5.1 按合同做了独立复现和本机 vLLM 四组。高负载的正差没有在新窗口再现（槽等待相对 −0.9%，端到端相对 0.2%，区间都含 0）。RTX 4060 上的 vLLM 0.32.0 只说明：本地多握 1.5 秒槽，下一条请求就晚约 1.5 秒，而这 1.5 秒里 `num_requests_running` 已经是 0；`finished_reason=abort` 没有增加。这不能证明新机制或新算法。**不以当前主张发表。** 判决在 [docs/测试记录/v5.1-结果与定位.md](docs/测试记录/v5.1-结果与定位.md)。
+
 4.0 回放数字在 [docs/论文/论文4.0.md](docs/论文/论文4.0.md)。5.0 黑盒结论在 [docs/论文/论文5.0.md](docs/论文/论文5.0.md)。下一阶段合同在 [docs/开发文档/项目开发文档5.1.md](docs/开发文档/项目开发文档5.1.md)。v1.2 真实 API 槽位在 [docs/论文/论文初稿.md](docs/论文/论文初稿.md)。
 
 ## 本地运行
@@ -52,6 +54,7 @@ late_output_rejected reason=insufficient stock
 | 四张表的汇总 | `results/experiments/v2_1/reports/v21_summary.json` |
 | 审计、敏感性、三张图 | `results/experiments/v4_0/` |
 | 5.0 DeepSeek 确认性与汇总 | `results/experiments/v5_0/` |
+| 5.1 审计、复现、本机 vLLM 四组 | `results/experiments/v5_1/` |
 | 重算主表、重画图、审计 P95，不重跑确认性 | 下面三条命令 |
 
 ```powershell
@@ -73,7 +76,7 @@ python scripts/audit_v40_p95.py
 | [docs/工程实现说明/](docs/工程实现说明/) | [工程实现说明.md](docs/工程实现说明/工程实现说明.md) 是当前模块和命令。`v0.1.md`–`v1.0.md` 是各版原文 |
 | [docs/面试/](docs/面试/) | [面试讲解.md](docs/面试/面试讲解.md) 是口述；[结果与复现.md](docs/面试/结果与复现.md) 是结果索引 |
 | [docs/问题记录/](docs/问题记录/) | [开发问题.md](docs/问题记录/开发问题.md) 从 v0.2 到 4.0 实际撞上的问题 |
-| [docs/测试记录/](docs/测试记录/) | 阶段一到 v2.1 的测试与证据 |
+| [docs/测试记录/](docs/测试记录/) | 阶段一到 v2.1，以及 [v5.1-结果与定位.md](docs/测试记录/v5.1-结果与定位.md) |
 | [docs/早期/](docs/早期/) | [实验协议.md](docs/早期/实验协议.md)、[第二环境.md](docs/早期/第二环境.md)、最初的 HTML 设计书 |
 | [docs/figures/](docs/figures/) | 初始设计书里的八张示意图 |
 

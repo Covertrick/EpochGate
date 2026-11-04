@@ -1,0 +1,263 @@
+{
+  "n_traces": 200,
+  "checks": [
+    {
+      "name": "no_duplicate_keys",
+      "passed": true,
+      "detail": "duplicate keys=0"
+    },
+    {
+      "name": "complete_7000_7049",
+      "passed": true,
+      "detail": "missing=0 extra=0"
+    },
+    {
+      "name": "bystander_workflows",
+      "passed": true,
+      "detail": "bad_role_traces=0 bad_id_traces=0 count_hist={8: 200}"
+    },
+    {
+      "name": "p95_recompute",
+      "passed": true,
+      "detail": "mismatched_traces=0; linear interpolation at rank (n-1)*0.95"
+    },
+    {
+      "name": "backend_unknown",
+      "passed": true,
+      "detail": "non_unknown=0 residual_filled=0"
+    },
+    {
+      "name": "model_and_thinking",
+      "passed": true,
+      "detail": "model_bad=0 thinking_bad=0"
+    },
+    {
+      "name": "event_order",
+      "passed": true,
+      "detail": "G0_closed_early=0 G2_not_closed=0 G2_order_bad=0 G0_stop_marked=0"
+    },
+    {
+      "name": "arm_order_balanced",
+      "passed": true,
+      "detail": "G0_first_pairs=56 G2_first_pairs=44 orders={'G2-localG0': 88, 'G0G2-local': 112}"
+    },
+    {
+      "name": "failures_recorded",
+      "passed": true,
+      "detail": "failed_traces=0/200 rate_limit_markers=0 errors={}"
+    },
+    {
+      "name": "config_frozen_in_records",
+      "passed": false,
+      "detail": "model and thinking are on every trace; max_tokens and temperature are not. Protocol says max_tokens=512 temperature=0.0. Runner prompt uses 'about {words}'; protocol template is 'Write a detailed inventory restocking plan in exactly {words} English words. Do not use tools.'. No wall-clock timestamp, so time-of-day confounding cannot be tested from the JSONL. The runner does not record retries."
+    },
+    {
+      "name": "fifty_independent_pairs_per_load",
+      "passed": true,
+      "detail": "usable={'medium': 50, 'high': 50}. Same seed integer is reused across loads and must not be pooled as 100 iid pairs. Bootstrap resamples these pairs, not the 8 bystanders."
+    },
+    {
+      "name": "published_numbers",
+      "passed": true,
+      "detail": "match"
+    }
+  ],
+  "hard_passed": true,
+  "failures": 0,
+  "rate_limited": 0,
+  "arm_order": {
+    "G0_first": 56,
+    "G2_first": 44
+  },
+  "token_rows": 2000,
+  "token_with_output": 1900,
+  "bystander_count_hist": {
+    "8": 200
+  },
+  "loads": {
+    "medium": {
+      "load": "medium",
+      "n": 50,
+      "dW_slot": {
+        "n": 50.0,
+        "mean": 0.891049181425944,
+        "p2_5": 0.6974283835070674,
+        "p97_5": 1.0737003322823437,
+        "replicates": 10000.0,
+        "seed": 20261104.0
+      },
+      "dT_e2e": {
+        "n": 50.0,
+        "mean": 0.8734693256395402,
+        "p2_5": 0.669026699965121,
+        "p97_5": 1.0698786417092194,
+        "replicates": 10000.0,
+        "seed": 20261104.0
+      },
+      "g0_W_mean": 4.1696842152937315,
+      "g0_E_mean": 7.096472175138303,
+      "gate_W": {
+        "relative": 0.21369704165071274,
+        "relative_ok": true,
+        "ci_lower_positive": true,
+        "passed": true
+      },
+      "gate_E": {
+        "relative": 0.12308500675865992,
+        "relative_ok": true,
+        "ci_lower_positive": true,
+        "passed": true
+      },
+      "same_direction": 43,
+      "separated": 2,
+      "sensitivity": {
+        "dT_vs_d_output_tokens": {
+          "n": 0,
+          "r": null
+        },
+        "dT_vs_d_focal_e2e": {
+          "n": 50,
+          "r": 0.289296360830141
+        },
+        "dW_vs_dU_client": {
+          "n": 50,
+          "r": 0.24673745767179503
+        }
+      }
+    },
+    "high": {
+      "load": "high",
+      "n": 50,
+      "dW_slot": {
+        "n": 50.0,
+        "mean": 0.8629120167482178,
+        "p2_5": 0.6638194653682876,
+        "p97_5": 1.0663405993338673,
+        "replicates": 10000.0,
+        "seed": 20261104.0
+      },
+      "dT_e2e": {
+        "n": 50.0,
+        "mean": 0.9220235565840268,
+        "p2_5": 0.6975362975117754,
+        "p97_5": 1.1529190055599903,
+        "replicates": 10000.0,
+        "seed": 20261104.0
+      },
+      "g0_W_mean": 7.687359833444468,
+      "g0_E_mean": 10.754552301988472,
+      "gate_W": {
+        "relative": 0.1122507642993438,
+        "relative_ok": true,
+        "ci_lower_positive": true,
+        "passed": true
+      },
+      "gate_E": {
+        "relative": 0.08573332768241301,
+        "relative_ok": false,
+        "ci_lower_positive": true,
+        "passed": false
+      },
+      "same_direction": 40,
+      "separated": 2,
+      "sensitivity": {
+        "dT_vs_d_output_tokens": {
+          "n": 0,
+          "r": null
+        },
+        "dT_vs_d_focal_e2e": {
+          "n": 50,
+          "r": -0.20659971741446992
+        },
+        "dW_vs_dU_client": {
+          "n": 50,
+          "r": -0.14518178437145862
+        }
+      }
+    }
+  },
+  "sample_size_plan": {
+    "metric": "paired mean dW_slot",
+    "half_width_target_s": 0.25,
+    "cap": 50,
+    "floor": 8,
+    "n": 33,
+    "per_load": {
+      "medium": {
+        "n_planning": 50,
+        "mean": 0.891049181425944,
+        "sd": 0.6700268092031152,
+        "n_for_half_width": 28
+      },
+      "high": {
+        "n_planning": 50,
+        "mean": 0.8629120167482178,
+        "sd": 0.7304997990404022,
+        "n_for_half_width": 33
+      }
+    },
+    "rule": "n = min(50, max over loads of the normal approximation n whose 95% half-width is at most 0.25s). Planning SD comes from sealed 7000-7049 and is not mixed into the replication estimate. Do not add seeds after seeing replication outcomes."
+  },
+  "replication_seeds": [
+    8100,
+    8101,
+    8102,
+    8103,
+    8104,
+    8105,
+    8106,
+    8107,
+    8108,
+    8109,
+    8110,
+    8111,
+    8112,
+    8113,
+    8114,
+    8115,
+    8116,
+    8117,
+    8118,
+    8119,
+    8120,
+    8121,
+    8122,
+    8123,
+    8124,
+    8125,
+    8126,
+    8127,
+    8128,
+    8129,
+    8130,
+    8131,
+    8132
+  ],
+  "models": {
+    "M0": {
+      "formula": "dT_hat = alpha * dU_client + beta",
+      "fit_on_ds": true,
+      "dU_client": "focal local slot occupancy (slot_released_mono - slot_acquired_mono), G0 minus G2-local",
+      "dT": "paired difference of within-trace bystander P95; not a single-request difference",
+      "alpha_beta": "alpha and beta estimated on medium only and transferred to high; not re-fit per load",
+      "backend_residual_covariate": false
+    },
+    "M1": {
+      "formula": "dT_hat = alpha * dU_client + gamma * residual_service + beta",
+      "fit_on_ds": false,
+      "reason": "backend residual service is unobserved on DeepSeek; do not substitute 0"
+    },
+    "M2": {
+      "formula": "M1 + successor/bystander scheduling interaction",
+      "fit_on_ds": false,
+      "reason": "requires an observed backend residual term; a better in-sample fit would not be a new mechanism"
+    }
+  },
+  "bootstrap": {
+    "n": 10000,
+    "seed": 20261104,
+    "unit": "trace pair"
+  },
+  "analysis_sha256": "953127e76727c5c2a6f0bfb212c7109902e4f52198bc4a3ca586dd57f2183e46",
+  "sealed_sha256": "f5277e8f61945f50db68267f0ff78fbd648cb553833ec51ca86d6d0a89c9bc39"
+}

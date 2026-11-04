@@ -104,6 +104,11 @@ async def main() -> None:
     if args.phase == "dev":
         seeds = list(PROTOCOL["ds"]["dev_seeds"])
     else:
+        sealed = OUT_DIR / "confirm" / "traces.jsonl"
+        if sealed.exists() and sealed.stat().st_size > 0:
+            raise SystemExit(
+                "refusing to append to sealed results/experiments/v5_0/ds/confirm/traces.jsonl"
+            )
         start = int(PROTOCOL["ds"]["confirm_seeds"]["start"])
         n = int(PROTOCOL["ds"]["confirm_seeds"]["n"])
         seeds = list(range(start, start + n))
