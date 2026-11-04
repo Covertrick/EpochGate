@@ -1,0 +1,120 @@
+{
+  "protocol_id": "v5.0-direction-a",
+  "frozen_at": "2026-11-04",
+  "package_target": "5.0.0",
+  "research_goal": "Measure client-observable bystander latency under state-triggered revocation when client and backend release semantics may diverge; identify mechanism boundaries on observable serving.",
+  "resources": {
+    "runtime_slot": "EpochGate local max_inflight slot",
+    "api_stream": "HTTP request / streaming connection",
+    "backend_generation": "Server-side generation / queue / KV; unknown on black-box API"
+  },
+  "arms": {
+    "G0": {
+      "runtime_slot": "hold until natural stream end after revoke; then release; then successor may dispatch",
+      "api_stream": "keep reading until natural end; discard outputs",
+      "backend_generation": "unknown on DS; not claimed",
+      "backends": ["ds", "scripted", "vllm", "replay"]
+    },
+    "G2-local": {
+      "runtime_slot": "release immediately after local stop-read",
+      "api_stream": "aclose + stop read",
+      "backend_generation": "forced unknown on DS; never fill residual=0 from aclose",
+      "backends": ["ds", "scripted", "vllm", "replay"]
+    },
+    "G2-residual": {
+      "runtime_slot": "release immediately (same as G2-local)",
+      "api_stream": "may stop read",
+      "backend_generation": "injected or observed residual hold D seconds",
+      "backends": ["scripted", "vllm"],
+      "forbidden_on": ["ds"]
+    },
+    "G2-hold-slot": {
+      "runtime_slot": "revoke eligibility but delay slot release to scheduled time",
+      "api_stream": "may stop read",
+      "backend_generation": "not claimed as GPU",
+      "backends": ["replay", "scripted"]
+    }
+  },
+  "ds": {
+    "experiments": ["D1", "D2", "D3"],
+    "model": "deepseek-flash",
+    "model_product": "DeepSeek-V4.1-Flash",
+    "thinking": "disabled",
+    "temperature": 0.0,
+    "max_tokens": 512,
+    "prompt_template": "Write a detailed inventory restocking plan in exactly {words} English words. Do not use tools.",
+    "target_words": 400,
+    "bystander_words": 200,
+    "successor_words": 200,
+    "slots_S": 2,
+    "bystanders_B": 8,
+    "horizon_H_s": 300.0,
+    "compare_arms": ["G0", "G2-local"],
+    "arrival_offsets_s_recipe": "hash(seed, role, index) mapped into [0, 12] with target at 0; same seed shares offsets across arms",
+    "pairing": "interleaved same-seed G0/G2-local; random arm order recorded",
+    "retry": {"max_attempts": 2, "backoff_s": [1.0, 3.0]},
+    "transport_failure": "mark trace failed; primary P95 uses only paired traces where both arms succeed",
+    "dev_seeds": [6000, 6001, 6002, 6003, 6004, 6005, 6006, 6007, 6008, 6009, 6010, 6011, 6012, 6013, 6014],
+    "confirm_seeds": {"start": 7000, "n": 50},
+    "confirm_cells": [
+      {"load": "medium", "trigger": "harmful", "timing": "early"},
+      {"load": "high", "trigger": "harmful", "timing": "early"}
+    ],
+    "medium_interarrival_s": 1.5,
+    "high_interarrival_s": 0.8,
+    "t_change_s": 2.0,
+    "claim_ceiling": "client-observable queue externality only; never infer server stop from aclose"
+  },
+  "timestamps": {
+    "W_slot": "t_slot_acquired - t_arrival",
+    "W_ttft": "t_ttft - t_arrival (secondary; never mix with W_slot)",
+    "T_e2e": "t_completed - t_arrival"
+  },
+  "statistics": {
+    "unit": "trace",
+    "p95": "linear interpolation on B=8 bystander samples within trace; rank (n-1)*0.95",
+    "pairing": "same seed G0 vs G2-local difference",
+    "bootstrap": {"n": 10000, "seed": 20261104, "resample": "trace-level paired differences"},
+    "forbid_pooling_bystanders_as_iid": true,
+    "report_per_trace": ["bystander_count", "incomplete_count", "failed", "censored_count"]
+  },
+  "thresholds": {
+    "engineering": {
+      "relative_min": 0.10,
+      "bootstrap_percentile": 2.5,
+      "bootstrap_must_exclude_zero": true
+    },
+    "zero_band_tau_rule": "max(0.05, 0.02 * baseline_p95_s); freeze after dev; provisional_tau_s=0.05",
+    "provisional_tau_s": 0.05,
+    "provisional_delta_s": 0.20,
+    "sign_separation": "sign_tau(dW_slot) != sign_tau(dT_e2e) and at least one side outside zero band",
+    "M0": {
+      "formula": "dT_e2e_hat = alpha * dU_client + beta",
+      "dU_client": "observed focal client slot occupancy difference G0 - G2-local",
+      "fit_on": {"load": "medium", "note": "dev seeds only"},
+      "holdout": {"load": "high", "note": "not used to fit alpha/beta"},
+      "significant_residual": "holdout mean residual bootstrap 95% CI excludes 0 AND abs(mean residual) >= delta"
+    }
+  },
+  "go_nogo": {
+    "ds_go": "D1 or D2 crosses engineering threshold on frozen DS confirm cells; D3 never labels residual=0 from aclose",
+    "vllm_go": "stable local/e2e separation or significant M0 residual; at least L2-a or L2-b observation consistent; holdout direction correct",
+    "total_go": "requires vllm_go; ds_go alone is measurement contribution only"
+  },
+  "vllm_observation_levels": {
+    "L2-a": "request status aborted/finished",
+    "L2-b": "removed from scheduler queue",
+    "L2-c": "GPU/KV/scheduler resource metric change",
+    "rule": "never upgrade a/b claims to c"
+  },
+  "l0": {
+    "stop_delay_grid_s": [0.0, 0.5, 1.0, 2.0, 4.0, 8.0],
+    "slots": 2,
+    "bystanders": 8
+  },
+  "seed_isolation": {
+    "v21_confirm": "5000-5049",
+    "v50_dev": "6000-6014",
+    "v50_confirm": "7000-7049"
+  }
+}

@@ -202,7 +202,7 @@ wheels = [
 
 [[package]]
 name = "epochgate"
-version = "4.0.0"
+version = "5.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiosqlite" },

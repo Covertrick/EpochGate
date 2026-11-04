@@ -1,0 +1,191 @@
+{
+  "n_rows": 90,
+  "M0_draft": {
+    "alpha": 0.004343758776066868,
+    "beta": -9.637655205051232e-05,
+    "n_pairs": 5
+  },
+  "separation_scan": [
+    {
+      "seed": 6000,
+      "delay_s": 0.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0007272701594047137
+    },
+    {
+      "seed": 6001,
+      "delay_s": 0.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6002,
+      "delay_s": 0.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6003,
+      "delay_s": 0.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6004,
+      "delay_s": 0.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6000,
+      "delay_s": 0.5,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0031547751394100376
+    },
+    {
+      "seed": 6001,
+      "delay_s": 0.5,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6002,
+      "delay_s": 0.5,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6003,
+      "delay_s": 0.5,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6004,
+      "delay_s": 0.5,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6000,
+      "delay_s": 1.0,
+      "dW_slot": 0.0,
+      "dT_e2e": -0.013972779957111936
+    },
+    {
+      "seed": 6001,
+      "delay_s": 1.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6002,
+      "delay_s": 1.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6003,
+      "delay_s": 1.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6004,
+      "delay_s": 1.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6000,
+      "delay_s": 2.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.011722355068195606
+    },
+    {
+      "seed": 6001,
+      "delay_s": 2.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6002,
+      "delay_s": 2.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6003,
+      "delay_s": 2.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6004,
+      "delay_s": 2.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6000,
+      "delay_s": 4.0,
+      "dW_slot": 0.0,
+      "dT_e2e": -0.0042027950519696045
+    },
+    {
+      "seed": 6001,
+      "delay_s": 4.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6002,
+      "delay_s": 4.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6003,
+      "delay_s": 4.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6004,
+      "delay_s": 4.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6000,
+      "delay_s": 8.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0014799751224927604
+    },
+    {
+      "seed": 6001,
+      "delay_s": 8.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6002,
+      "delay_s": 8.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6003,
+      "delay_s": 8.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    },
+    {
+      "seed": 6004,
+      "delay_s": 8.0,
+      "dW_slot": 0.0,
+      "dT_e2e": 0.0
+    }
+  ],
+  "note": "L0 scripted only; not confirmatory; DS residual arm forbidden"
+}
