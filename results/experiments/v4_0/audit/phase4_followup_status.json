@@ -19,14 +19,16 @@
     "gateway_is_final_authority": true
   },
   "verification": {
-    "targeted_test_functions": 5,
-    "audit_note": "Outside the uncertainty band, action labels match the synthetic oracle. Defer is replayed as G2, so bystander wait does not separate the three-way decision.",
-    "audit_command": "uv run python scripts/audit_v40_p95.py"
+    "full_tests": 170,
+    "protocol": "followup-0-6",
+    "replay_rows": 607500,
+    "runtime_attempts": 240,
+    "audit_note": "Medium and high loads beat the worse fixed policy by 1.6 to 5.8 percent. Inside the band, bystander wait matches continue. Provider cancel ack was not observed."
   },
   "go_no_go": {
     "gate_1_definition": "PASS",
-    "gate_2_replay": "FAIL: AlwaysContinue is replayed as G2; defer has no distinct queue arm; no bootstrap comparison",
-    "gate_3_runtime": "FAIL: the 240-attempt runtime loop was not run",
+    "gate_2_replay": "LITERAL PASS on medium and high versus the worse fixed policy; relative gain is below 10 percent; low load is null",
+    "gate_3_runtime": "SAFE LOOP PASS: 240 attempts, stale accepted commit 0, client-close receipts stored. Provider ack FAIL: 59/60 abort samples still showed num_requests_running 1",
     "gate_4_paper": "FAIL: not ready for arXiv"
   }
 }

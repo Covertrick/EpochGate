@@ -1,0 +1,24 @@
+{
+  "engine": "vllm",
+  "attempts": 240,
+  "actions": [
+    "abort-and-replan",
+    "accept-if-valid",
+    "continue",
+    "continue/defer"
+  ],
+  "scenarios": [
+    "candidate-formed",
+    "predicate-invalid",
+    "predicate-valid",
+    "version-race"
+  ],
+  "stale_accepted_commit": 0,
+  "old_attempt_accepted": 0,
+  "abort_attempts": 60,
+  "cancel_receipts_closed": 60,
+  "provider_reclaim_observed": false,
+  "predicate": "inventory stock >= 1",
+  "batches": 3,
+  "tasks_per_batch": 20
+}

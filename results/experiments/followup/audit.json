@@ -1,24 +1,81 @@
 {
-  "protocol": "followup-0-5",
-  "matrix_rows": 607500,
-  "cells": 12150,
-  "traces_per_cell": 50,
-  "timings": ["early", "mid", "late"],
-  "slots": [2, 4, 8],
-  "rho": [0.5, 0.75, 1.0, 1.25, 2.0],
-  "estimate_error": [0.0, 0.1, 0.25],
-  "strategies": ["AlwaysContinue", "AlwaysAbort", "PredicateOnly", "Oracle", "UncertaintyAwarePolicy"],
-  "safety": {
-    "old_attempt_committed": 0,
-    "duplicate_side_effects": 0,
-    "completion_rate_min": 1.0
+  "protocol": "followup-0-6",
+  "rows": 607500,
+  "traces": 121500,
+  "complete": true,
+  "sha256_jsonl": "89324c877c6c877681462f445ecbfc81a687657308bcba3abe28cad7a77866f1",
+  "old_attempt_committed": 0,
+  "duplicate_side_effects": 0,
+  "completion_rate_min": 0.4722222222222222,
+  "oracle_agreement_outside_band": 1.0,
+  "outside_band_traces": 97200,
+  "inside_band_traces": 24300,
+  "defer_replayed_as_abort": 0,
+  "action_counts": {
+    "AlwaysContinue:continue": 121500,
+    "AlwaysAbort:abort-and-replan": 121500,
+    "PredicateOnly:abort-and-replan": 60750,
+    "Oracle:abort-and-replan": 85050,
+    "UncertaintyAwarePolicy:abort-and-replan": 85050,
+    "PredicateOnly:continue": 60750,
+    "Oracle:continue": 36450,
+    "UncertaintyAwarePolicy:continue/defer": 24300,
+    "UncertaintyAwarePolicy:continue": 12150
   },
-  "uncertainty_policy": {
-    "oracle_action_agreement": 1.0,
-    "abort_and_replan": 85050,
-    "continue": 12150,
-    "continue_defer": 24300
+  "probe_harmful_mid_high_slots4_rho1_error025_fcfs_seed5000": {
+    "AlwaysContinue": {
+      "W95": 3.196800000000005,
+      "focal_release_at": 16.000000000000004,
+      "restart_service_s": 0.0
+    },
+    "AlwaysAbort": {
+      "W95": 3.196800000000005,
+      "focal_release_at": 8.0,
+      "restart_service_s": 0.0
+    },
+    "PredicateOnly": {
+      "W95": 3.196800000000005,
+      "focal_release_at": 8.0,
+      "restart_service_s": 0.0
+    },
+    "Oracle": {
+      "W95": 3.196800000000005,
+      "focal_release_at": 8.0,
+      "restart_service_s": 0.0
+    },
+    "UncertaintyAwarePolicy": {
+      "W95": 3.196800000000005,
+      "focal_release_at": 8.0,
+      "restart_service_s": 0.0
+    }
   },
-  "jsonl_sha256": "8a073fef0a53b455d63db1a7750ec576ee018ba2746ddd8141930c2b56095ffb",
-  "interpretation": "Synthetic predicate truth is controlled by the workload; this establishes policy mechanics and safety, not semantic predicate detection accuracy."
+  "gate_2_replay": "PASS",
+  "gate_2_two_load_hits": {
+    "harmful|AlwaysContinue": [
+      "high|rho=0.5",
+      "high|rho=0.75",
+      "high|rho=1.0",
+      "high|rho=1.25",
+      "high|rho=2.0",
+      "medium|rho=0.5",
+      "medium|rho=0.75",
+      "medium|rho=1.0",
+      "medium|rho=1.25",
+      "medium|rho=2.0"
+    ],
+    "harmless|AlwaysContinue": [
+      "high|rho=0.5",
+      "high|rho=0.75",
+      "medium|rho=0.5",
+      "medium|rho=0.75"
+    ],
+    "harmless|AlwaysAbort": [
+      "high|rho=1.25",
+      "high|rho=2.0",
+      "medium|rho=1.25",
+      "medium|rho=2.0"
+    ]
+  },
+  "predicate_truth": "synthetic harmful/harmless workload label",
+  "publication": "FAIL: relative gains are 1.6 to 5.8 percent, the uncertainty band matches continue, and provider cancel ack was not observed"
 }

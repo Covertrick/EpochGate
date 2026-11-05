@@ -148,6 +148,26 @@ class Registry:
             )
         return superseded
 
+    def advance_plan_epoch(self, task_id: str, *, reason: str) -> Task:
+        """只推进计划版本，不撤销当前尝试的资格。
+
+        输入：任务 id 和原因。
+        输出：plan_epoch 加一后的任务。
+        副作用：写登记表并追加事件。已经发出的候选若仍携带旧版本，网关会拒绝。
+        失败：未知任务抛出 ``KeyError``。
+        """
+        task = self._require_task(task_id)
+        updated = task.model_copy(update={"plan_epoch": task.plan_epoch + 1})
+        self._tasks[task_id] = updated
+        if self._events is not None:
+            self._events.emit(
+                run_id=self._run_id,
+                event_type="plan_epoch_advanced",
+                identity={"task_id": task_id},
+                reason=reason,
+            )
+        return updated
+
     def get_task(self, task_id: str) -> Task:
         """按 id 取任务。副作用：无。失败：未知 id 抛出 ``KeyError``。"""
         return self._require_task(task_id)

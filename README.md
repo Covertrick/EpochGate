@@ -4,7 +4,7 @@
 
 从论文 4.0 的槽回放继续做在途三态决策。方案在 [`docs/论文/论文4.0后续实验方案.md`](docs/论文/论文4.0后续实验方案.md)，审计结论在 [`docs/论文/论文5.0.md`](docs/论文/论文5.0.md)。
 
-决策函数已经落地，607,500 行回放也已经生成。这还不能投稿：继续持槽被回放成了 4.0 的 G2，defer 没有独立的队列行为，240 个 attempt 的运行时闭环没有做。DeepSeek 和旧 vLLM 四组是失败支线，原文在 [`docs/舍弃分支/`](docs/舍弃分支/README.md)。
+决策函数、修正臂映射后的 607,500 行回放，以及 240 个 vLLM attempt 已经跑完。中、高负载上，这条规则比「当时更差的固定策略」少大约 0.6–2.5 秒旁观者 P95，相对不到 6%；误差带内的占用和继续相同。供应商取消确认没有出现。**现在不投 ArXiv。** 数字和限制在 [`docs/论文/论文5.0.md`](docs/论文/论文5.0.md)。DeepSeek 和旧的四组探测在 [`docs/舍弃分支/`](docs/舍弃分支/README.md)。
 
 把 Agent 的**执行资格**和 **Runtime 槽位**分开：过期动作不能提交；槽位让不让出来，是另一件可以测量的事。
 
@@ -50,7 +50,7 @@ late_output_rejected reason=insufficient stock
 | 旁观者确认性主表，2400 行，只读 | `results/experiments/v2_1/confirmatory/traces.jsonl` |
 | 四张表的汇总 | `results/experiments/v2_1/reports/v21_summary.json` |
 | 审计、敏感性、三张图 | `results/experiments/v4_0/` |
-| 5.0 回放汇总（原始 JSONL 留在本机） | `results/experiments/followup/summary.json` |
+| 5.0 回放区间和 240 个 attempt | `results/experiments/followup/comparisons.json`、`runtime_summary.json` |
 | 舍弃的 DeepSeek / vLLM 数据 | `results/experiments/v5_0/`、`results/experiments/v5_1/` |
 | 重算主表、重画图、审计 P95，不重跑确认性 | 下面三条命令 |
 

@@ -8,7 +8,7 @@ from epochgate.roles import BYSTANDER, FALSE_TARGET, RESTART, SUCCESSOR, TARGET,
 from epochgate.scheduler import fcfs_sort_key, plas_sort_key, srpt_sort_key
 from epochgate.workload import Workload
 
-POLICIES = ("G0", "G1", "G2", "G2-delayed-release")
+POLICIES = ("G0", "G1", "G2", "G2-delayed-release", "defer")
 SCHEDULERS = ("fcfs", "srpt", "runtime-plas")
 
 
@@ -28,6 +28,7 @@ class Attempt:
     eligible: bool = True
     revoked: bool = False
     release_at_natural_end: bool = False
+    defer_hold: bool = False
     started_at: float | None = None
     released_at: float | None = None
     completed_at: float | None = None
@@ -185,6 +186,7 @@ def replay(
             and attempt.role == focal_role
             and workload.trigger_class == "harmful"
             and not followup_spawned
+            and not attempt.defer_hold
         ):
             _spawn_followup()
 
@@ -349,6 +351,12 @@ def _apply_event(
             focal.eligible = False
             focal.termination_reason = "running-ineligible"
         return
+    if policy == "defer":
+        # 误差带内不切换：槽一直占到自然结束，但不提交，也不启动重做。
+        focal.eligible = False
+        focal.defer_hold = True
+        focal.termination_reason = "defer-holding"
+        return
     if policy == "G2" and not harmful:
         return
     if policy == "G2-delayed-release":
@@ -472,6 +480,7 @@ def _summarize(
         "target_recovery_success": focal_committed and old_attempt_committed == 0,
         "starvation_count": starvation,
         "focal_release_at": focal_release_at,
+        "defer_hold": policy == "defer",
         "horizon_s": horizon,
         "effective_workflow_throughput": completed / horizon if horizon else 0.0,
         "code_version": code_version,
