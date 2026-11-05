@@ -14,6 +14,9 @@ Thumbs.db
 .vscode/
 *.swp
 
+# Follow-up replay is larger than GitHub's file limit. Commit the summary, not the JSONL.
+results/experiments/followup/matrix.jsonl
+
 # Local experiment artifacts (when code lands)
 runs/
 artifacts/

@@ -85,14 +85,14 @@ def build_workload(
     """
     if trigger_class not in {"harmful", "harmless"}:
         raise ValueError("trigger_class must be harmful or harmless")
-    if timing not in {"early", "mid"}:
-        raise ValueError("timing must be early or mid")
+    if timing not in {"early", "mid", "late"}:
+        raise ValueError("timing must be early, mid, or late")
     if not 0.0 <= service_noise < 1.0:
         raise ValueError("service_noise must be in [0, 1)")
     if not 0.0 <= arrival_jitter < 1.0:
         raise ValueError("arrival_jitter must be in [0, 1)")
     mix_used = mix or MIX
-    fraction = 0.20 if timing == "early" else 0.50
+    fraction = {"early": 0.20, "mid": 0.50, "late": 0.80}[timing]
     rng = random.Random(seed)
     noise_rng = random.Random(seed + 10007)
     jitter_rng = random.Random(seed + 20011)
