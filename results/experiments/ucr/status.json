@@ -1,0 +1,23 @@
+{
+  "protocol": "results/experiments/ucr/protocol.json",
+  "gate_A": "FAIL",
+  "gate_B": "FAIL",
+  "gate_C": "PASS as a safety record only",
+  "gate_D": "FAIL",
+  "publication": "FAIL: calibrated non-oracle policy did not beat the point estimate, and the probe rate on F5-F8 was 0",
+  "held_out": {
+    "F5_s_coverage": 0.0,
+    "F5_c_coverage": 0.79,
+    "F6_c_coverage": 0.8,
+    "full_minus_point": 0.0,
+    "probe_rate": 0.0
+  },
+  "runtime": {
+    "attempts": 240,
+    "stale_accepted_commit": 0,
+    "invalid_accepted": 0,
+    "probes": 30,
+    "cancel_grade": "UNKNOWN",
+    "used_for_regret": false
+  }
+}

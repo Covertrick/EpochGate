@@ -1,0 +1,16 @@
+{
+  "engine": "vllm",
+  "attempts": 240,
+  "actions": [
+    "abort-and-replan",
+    "accept-if-valid",
+    "continue"
+  ],
+  "probes": 30,
+  "probe_then_abort": 30,
+  "stale_accepted_commit": 0,
+  "invalid_accepted": 0,
+  "cancel_unknown": 60,
+  "provider_reclaim_observed": false,
+  "used_for_regret": false
+}

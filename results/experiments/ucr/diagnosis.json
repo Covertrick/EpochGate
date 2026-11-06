@@ -1,0 +1,1953 @@
+{
+  "train_support": {
+    "generated_tokens": {
+      "min": 4.0,
+      "max": 48.0
+    },
+    "prefix_length": {
+      "min": 4.0,
+      "max": 59.0
+    },
+    "tool_type": {
+      "min": 0.0,
+      "max": 0.0
+    },
+    "tool_param_fields": {
+      "min": 1.0,
+      "max": 5.0
+    },
+    "recent_same_tool_service": {
+      "min": 0.4280175581025481,
+      "max": 2.5358914463036744
+    },
+    "token_rate": {
+      "min": 0.6976071521501723,
+      "max": 1.3672190020045274
+    },
+    "epoch_changed_since_start": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "epoch_age": {
+      "min": 0.010545731939589076,
+      "max": 4.997093629674475
+    },
+    "has_recent_revision": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "predicate_valid": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "predicate_change_type": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "queue_length": {
+      "min": 0.0,
+      "max": 8.0
+    },
+    "slot_occupancy": {
+      "min": 0.0,
+      "max": 1.0
+    },
+    "recent_restart_service": {
+      "min": 0.48965407980896875,
+      "max": 2.1981513675529945
+    },
+    "plan_depth": {
+      "min": 1.0,
+      "max": 4.0
+    },
+    "recent_replan_count": {
+      "min": 0.0,
+      "max": 3.0
+    },
+    "arrival_rate": {
+      "min": 1.0,
+      "max": 1.0
+    }
+  },
+  "expansion": {
+    "S": 13.154799706445484,
+    "C": 39.35752876890596
+  },
+  "s_features_include_generated_tokens": true,
+  "c_features_include_replan_scale": false,
+  "families": {
+    "F1": {
+      "split": "dev",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 27.0,
+          "max": 48.0,
+          "mean": 26.9375
+        },
+        "prefix_length": {
+          "min": 4.0,
+          "p50": 34.0,
+          "max": 59.0,
+          "mean": 33.0
+        },
+        "tool_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "tool_param_fields": {
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 2.0,
+          "mean": 1.445
+        },
+        "recent_same_tool_service": {
+          "min": 0.4280175581025481,
+          "p50": 0.913295234714609,
+          "max": 1.5096531022132278,
+          "mean": 0.9062248847426777
+        },
+        "token_rate": {
+          "min": 0.7265296569890234,
+          "p50": 0.9942831893276713,
+          "max": 1.344654988705948,
+          "mean": 1.0026644773104747
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.535
+        },
+        "epoch_age": {
+          "min": 0.014385332540821638,
+          "p50": 2.304570619684066,
+          "max": 4.997093629674475,
+          "mean": 2.3883770827764117
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.545
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.665
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.335
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.0,
+          "max": 8.0,
+          "mean": 3.9325
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 0.75,
+          "max": 1.0,
+          "mean": 0.675625
+        },
+        "recent_restart_service": {
+          "min": 0.48965407980896875,
+          "p50": 0.9155137236562279,
+          "max": 1.3185417816129867,
+          "mean": 0.8988942580750033
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 3.0,
+          "max": 4.0,
+          "mean": 2.56
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 3.0,
+          "mean": 1.4575
+        },
+        "arrival_rate": {
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "token_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "epoch_age": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "arrival_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        }
+      },
+      "S": {
+        "min": 10.550061482753817,
+        "p50": 11.626328327823348,
+        "max": 14.998080135952174,
+        "mean": 12.70082106796168
+      },
+      "C": {
+        "min": 2.99299722935937,
+        "p50": 7.3308891724560805,
+        "max": 19.755765876837657,
+        "mean": 8.367878807947731
+      },
+      "cqr_S": {
+        "min": -0.9982188902433151,
+        "p50": -0.48767823781360153,
+        "max": 0.20692929087167933,
+        "mean": -0.4560324519590613,
+        "p90": -0.050729238175650504
+      },
+      "cqr_C": {
+        "min": -7.341916074455892,
+        "p50": -2.2442051554648397,
+        "max": 0.6659789729828418,
+        "mean": -2.6317484097420483,
+        "p90": -0.029385248338507072
+      },
+      "s_coverage": 1.0,
+      "miss_count": 0,
+      "miss_by_tool": {},
+      "miss_by_predicate": {},
+      "miss_fields": null,
+      "corr_generated_tokens_S": 0.006319410251774596,
+      "corr_generated_tokens_width": 0.003689787515456816,
+      "mean_width_low_tokens": 31.188863241445315,
+      "mean_width_high_tokens": 31.2304376457262
+    },
+    "F2": {
+      "split": "dev",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 25.0,
+          "max": 48.0,
+          "mean": 25.175
+        },
+        "prefix_length": {
+          "min": 4.0,
+          "p50": 31.0,
+          "max": 59.0,
+          "mean": 31.0375
+        },
+        "tool_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "tool_param_fields": {
+          "min": 3.0,
+          "p50": 4.0,
+          "max": 5.0,
+          "mean": 3.985
+        },
+        "recent_same_tool_service": {
+          "min": 0.6511442536462617,
+          "p50": 1.4449609849114002,
+          "max": 2.5358914463036744,
+          "mean": 1.484743631601379
+        },
+        "token_rate": {
+          "min": 0.6976071521501723,
+          "p50": 0.9917902896791244,
+          "max": 1.3672190020045274,
+          "mean": 0.9936435457110729
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.5075
+        },
+        "epoch_age": {
+          "min": 0.010545731939589076,
+          "p50": 2.370006881779455,
+          "max": 4.992473827816692,
+          "mean": 2.4423776052756465
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.51
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.665
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.335
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.0,
+          "max": 8.0,
+          "mean": 3.8825
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 0.75,
+          "max": 1.0,
+          "mean": 0.664375
+        },
+        "recent_restart_service": {
+          "min": 0.8029323280281689,
+          "p50": 1.4853428824589923,
+          "max": 2.1981513675529945,
+          "mean": 1.4856675872675598
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 2.0,
+          "max": 4.0,
+          "mean": 2.46
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 2.0,
+          "max": 3.0,
+          "mean": 1.495
+        },
+        "arrival_rate": {
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "token_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "epoch_age": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        },
+        "arrival_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 400
+        }
+      },
+      "S": {
+        "min": 17.217481077207,
+        "p50": 21.06185185085826,
+        "max": 24.895242429250956,
+        "mean": 21.02883135536821
+      },
+      "C": {
+        "min": 7.936837531126751,
+        "p50": 20.25288597882375,
+        "max": 53.90543337582084,
+        "mean": 23.25125673441601
+      },
+      "cqr_S": {
+        "min": -1.0340850226756046,
+        "p50": -0.49646117892099184,
+        "max": 0.1268992940422855,
+        "mean": -0.4627342938258707,
+        "p90": -0.07876786672698725
+      },
+      "cqr_C": {
+        "min": -19.73702026248517,
+        "p50": -6.3012001896269085,
+        "max": 4.1167927924091074,
+        "mean": -7.188587257848286,
+        "p90": -0.14802468817368522
+      },
+      "s_coverage": 1.0,
+      "miss_count": 0,
+      "miss_by_tool": {},
+      "miss_by_predicate": {},
+      "miss_fields": null,
+      "corr_generated_tokens_S": -0.024991854528606916,
+      "corr_generated_tokens_width": -0.014576213019272189,
+      "mean_width_low_tokens": 31.104730298288437,
+      "mean_width_high_tokens": 30.858493819853173
+    },
+    "F3": {
+      "split": "cal",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 31.0,
+          "max": 48.0,
+          "mean": 28.265
+        },
+        "prefix_length": {
+          "min": 6.0,
+          "p50": 35.5,
+          "max": 59.0,
+          "mean": 34.355
+        },
+        "tool_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "tool_param_fields": {
+          "min": 6.0,
+          "p50": 8.0,
+          "max": 10.0,
+          "mean": 7.795
+        },
+        "recent_same_tool_service": {
+          "min": 1.1014604388013316,
+          "p50": 2.428777367550288,
+          "max": 4.025371758104599,
+          "mean": 2.4454328085790507
+        },
+        "token_rate": {
+          "min": 0.6931742640460633,
+          "p50": 1.0011890007337465,
+          "max": 1.3432794827667571,
+          "mean": 1.0125558626727225
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.48
+        },
+        "epoch_age": {
+          "min": 0.0475589722442038,
+          "p50": 2.2871610151188246,
+          "max": 4.995689600551372,
+          "mean": 2.423614058404333
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.42
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.67
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.33
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.0,
+          "max": 8.0,
+          "mean": 3.91
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 0.875,
+          "max": 1.0,
+          "mean": 0.675
+        },
+        "recent_restart_service": {
+          "min": 1.2824784735161903,
+          "p50": 2.4363453544241223,
+          "max": 3.5054413213922757,
+          "mean": 2.417456822178897
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 2.5,
+          "max": 4.0,
+          "mean": 2.44
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 2.0,
+          "max": 3.0,
+          "mean": 1.58
+        },
+        "arrival_rate": {
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 200,
+          "n": 200
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 92,
+          "n": 200
+        },
+        "token_rate": {
+          "below": 1,
+          "above": 0,
+          "n": 200
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "epoch_age": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 121,
+          "n": 200
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "arrival_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        }
+      },
+      "S": {
+        "min": 27.029767646525872,
+        "p50": 33.862620415237174,
+        "max": 41.39136631343997,
+        "mean": 33.616987845866376
+      },
+      "C": {
+        "min": 20.205745455706147,
+        "p50": 50.92788554324379,
+        "max": 142.43708340587224,
+        "mean": 59.93601111359898
+      },
+      "cqr_S": {
+        "min": 2.261424511317202,
+        "p50": 9.094277280028507,
+        "max": 16.623023178231296,
+        "mean": 8.84131579461776,
+        "p90": 15.957397779682186
+      },
+      "cqr_C": {
+        "min": -19.911596671090493,
+        "p50": 0.9402525191119828,
+        "max": 92.44945038174043,
+        "mean": 11.469117930002493,
+        "p90": 64.36837543165889
+      },
+      "s_coverage": 0.805,
+      "miss_count": 67,
+      "miss_by_tool": {
+        "0.0": 67
+      },
+      "miss_by_predicate": {
+        "valid": 24,
+        "changed": 24,
+        "invalid": 19
+      },
+      "miss_fields": {
+        "min": 6.0,
+        "p50": 9.0,
+        "max": 10.0,
+        "mean": 8.91044776119403
+      },
+      "corr_generated_tokens_S": -0.01963186067036188,
+      "corr_generated_tokens_width": 0.08314471456870687,
+      "mean_width_low_tokens": 34.178498631100744,
+      "mean_width_high_tokens": 34.20913179141976
+    },
+    "F4": {
+      "split": "cal",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 25.0,
+          "max": 48.0,
+          "mean": 24.475
+        },
+        "prefix_length": {
+          "min": 6.0,
+          "p50": 31.5,
+          "max": 57.0,
+          "mean": 30.745
+        },
+        "tool_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "tool_param_fields": {
+          "min": 3.0,
+          "p50": 4.0,
+          "max": 5.0,
+          "mean": 3.93
+        },
+        "recent_same_tool_service": {
+          "min": 0.6845296149104649,
+          "p50": 1.5275542659214079,
+          "max": 2.6011075076876486,
+          "mean": 1.5394917055470985
+        },
+        "token_rate": {
+          "min": 0.7094152098587911,
+          "p50": 0.9978136843464054,
+          "max": 1.369167922152723,
+          "mean": 1.0065443762547854
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.51
+        },
+        "epoch_age": {
+          "min": 0.008286943030808569,
+          "p50": 2.2510141818041998,
+          "max": 4.960631779835861,
+          "mean": 2.361238696479098
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.52
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.67
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.33
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.0,
+          "max": 8.0,
+          "mean": 4.2
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 0.875,
+          "max": 1.0,
+          "mean": 0.701875
+        },
+        "recent_restart_service": {
+          "min": 0.8027785226621682,
+          "p50": 1.5143697379007537,
+          "max": 2.196688357190413,
+          "mean": 1.5292129102585195
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 2.0,
+          "max": 4.0,
+          "mean": 2.455
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 2.0,
+          "max": 3.0,
+          "mean": 1.65
+        },
+        "arrival_rate": {
+          "min": 2.5,
+          "p50": 2.5,
+          "max": 2.5,
+          "mean": 2.5
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 1,
+          "n": 200
+        },
+        "token_rate": {
+          "below": 0,
+          "above": 2,
+          "n": 200
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "epoch_age": {
+          "below": 1,
+          "above": 0,
+          "n": 200
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 200
+        },
+        "arrival_rate": {
+          "below": 0,
+          "above": 200,
+          "n": 200
+        }
+      },
+      "S": {
+        "min": 17.17804017233525,
+        "p50": 21.023749891923785,
+        "max": 24.860237283994636,
+        "mean": 20.840433034889895
+      },
+      "C": {
+        "min": 8.106677967398147,
+        "p50": 19.65233797189053,
+        "max": 51.95141398704673,
+        "mean": 22.769437815759094
+      },
+      "cqr_S": {
+        "min": -1.0152568533941277,
+        "p50": -0.4719638643632518,
+        "max": 0.03135780705781599,
+        "mean": -0.46397839350092623,
+        "p90": -0.11270338457001508
+      },
+      "cqr_C": {
+        "min": -19.304586728623217,
+        "p50": -6.201652065426409,
+        "max": 2.1627734036349935,
+        "mean": -7.097967968142895,
+        "p90": -0.3157068270110143
+      },
+      "s_coverage": 1.0,
+      "miss_count": 0,
+      "miss_by_tool": {},
+      "miss_by_predicate": {},
+      "miss_fields": null,
+      "corr_generated_tokens_S": -0.12462289675527316,
+      "corr_generated_tokens_width": -0.12401246525966879,
+      "mean_width_low_tokens": 31.181877114693854,
+      "mean_width_high_tokens": 30.565821937619194
+    },
+    "F5": {
+      "split": "test",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 23.5,
+          "max": 48.0,
+          "mean": 25.23
+        },
+        "prefix_length": {
+          "min": 5.0,
+          "p50": 30.0,
+          "max": 59.0,
+          "mean": 31.79
+        },
+        "tool_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "tool_param_fields": {
+          "min": 12.0,
+          "p50": 16.0,
+          "max": 20.0,
+          "mean": 16.08
+        },
+        "recent_same_tool_service": {
+          "min": 0.7146528867343316,
+          "p50": 1.5286400963732492,
+          "max": 2.5848575011532158,
+          "mean": 1.4883882855269144
+        },
+        "token_rate": {
+          "min": 0.784213673146851,
+          "p50": 0.9918752373908232,
+          "max": 1.3538200680405355,
+          "mean": 1.0133806615819498
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.48
+        },
+        "epoch_age": {
+          "min": 0.02238652187742607,
+          "p50": 2.261934328101818,
+          "max": 4.81566269553975,
+          "mean": 2.311185909094883
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.48
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.67
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.33
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.0,
+          "max": 8.0,
+          "mean": 3.99
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 0.875,
+          "max": 1.0,
+          "mean": 0.66375
+        },
+        "recent_restart_service": {
+          "min": 0.802095334300598,
+          "p50": 1.4433681373936045,
+          "max": 2.1857397872251356,
+          "mean": 1.4800061929256052
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 2.0,
+          "max": 4.0,
+          "mean": 2.5
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 3.0,
+          "mean": 1.38
+        },
+        "arrival_rate": {
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 100,
+          "n": 100
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 1,
+          "n": 100
+        },
+        "token_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_age": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "arrival_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        }
+      },
+      "S": {
+        "min": 46.94523738688496,
+        "p50": 60.552703722052996,
+        "max": 74.36860278412875,
+        "mean": 60.942746042726355
+      },
+      "C": {
+        "min": 22.141682178610875,
+        "p50": 62.21621808481595,
+        "max": 150.4707726968957,
+        "mean": 66.51495302796826
+      },
+      "cqr_S": {
+        "min": 22.17179106374829,
+        "p50": 35.77620210901541,
+        "max": 49.59515646099209,
+        "mean": 36.158790552053674,
+        "p90": 48.60255027414822
+      },
+      "cqr_C": {
+        "min": -18.983794702721042,
+        "p50": 12.1681198236702,
+        "max": 100.68213211348396,
+        "mean": 17.63466031491439,
+        "p90": 64.26208294041632
+      },
+      "s_coverage": 0.0,
+      "miss_count": 100,
+      "miss_by_tool": {
+        "0.0": 100
+      },
+      "miss_by_predicate": {
+        "valid": 34,
+        "invalid": 33,
+        "changed": 33
+      },
+      "miss_fields": {
+        "min": 12.0,
+        "p50": 16.0,
+        "max": 20.0,
+        "mean": 16.08
+      },
+      "corr_generated_tokens_S": -0.018438695456329465,
+      "corr_generated_tokens_width": -0.06868124720471228,
+      "mean_width_low_tokens": 34.22047770182703,
+      "mean_width_high_tokens": 34.215332144830064
+    },
+    "F6": {
+      "split": "test",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 28.5,
+          "max": 48.0,
+          "mean": 26.97
+        },
+        "prefix_length": {
+          "min": 9.0,
+          "p50": 34.0,
+          "max": 59.0,
+          "mean": 32.61
+        },
+        "tool_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 0.0,
+          "mean": 0.0
+        },
+        "tool_param_fields": {
+          "min": 3.0,
+          "p50": 4.0,
+          "max": 5.0,
+          "mean": 4.03
+        },
+        "recent_same_tool_service": {
+          "min": 1.8305671334489204,
+          "p50": 3.5914224525000975,
+          "max": 6.012459805654433,
+          "mean": 3.7798710355491676
+        },
+        "token_rate": {
+          "min": 0.7069016542839529,
+          "p50": 0.9667603990495821,
+          "max": 1.2921316069639834,
+          "mean": 0.9740637270587392
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 0.5,
+          "max": 1.0,
+          "mean": 0.5
+        },
+        "epoch_age": {
+          "min": 0.016524874043803428,
+          "p50": 2.4685581719779166,
+          "max": 4.97914484799859,
+          "mean": 2.5036615707042658
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.46
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.67
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.33
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.5,
+          "max": 8.0,
+          "mean": 4.17
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.66
+        },
+        "recent_restart_service": {
+          "min": 2.027238013478473,
+          "p50": 3.7370761913411377,
+          "max": 5.491427293305897,
+          "mean": 3.7473523449471497
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 3.0,
+          "max": 4.0,
+          "mean": 2.49
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 2.0,
+          "max": 3.0,
+          "mean": 1.48
+        },
+        "arrival_rate": {
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 88,
+          "n": 100
+        },
+        "token_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_age": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 95,
+          "n": 100
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "arrival_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        }
+      },
+      "S": {
+        "min": 17.31001067209788,
+        "p50": 21.04065799665046,
+        "max": 24.89434420662517,
+        "mean": 21.197305423472066
+      },
+      "C": {
+        "min": 20.045876468172608,
+        "p50": 50.6084158413349,
+        "max": 133.22816989955507,
+        "mean": 58.03291578418487
+      },
+      "cqr_S": {
+        "min": -1.1191973049074875,
+        "p50": -0.5061182831833957,
+        "max": 0.12600107141649985,
+        "mean": -0.4743520008558109,
+        "p90": -0.04933714326473399
+      },
+      "cqr_C": {
+        "min": -20.213588563182686,
+        "p50": 7.974320598569339,
+        "max": 83.24053687542326,
+        "mean": 13.923084031669655,
+        "p90": 56.09955541580375
+      },
+      "s_coverage": 1.0,
+      "miss_count": 20,
+      "miss_by_tool": {
+        "0.0": 20
+      },
+      "miss_by_predicate": {
+        "invalid": 7,
+        "valid": 7,
+        "changed": 6
+      },
+      "miss_fields": {
+        "min": 3.0,
+        "p50": 4.0,
+        "max": 5.0,
+        "mean": 3.95
+      },
+      "corr_generated_tokens_S": -0.11259377632824653,
+      "corr_generated_tokens_width": -0.12614827030590606,
+      "mean_width_low_tokens": 31.540416750945337,
+      "mean_width_high_tokens": 30.902426050175126
+    },
+    "F7": {
+      "split": "test",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 23.0,
+          "max": 48.0,
+          "mean": 24.11
+        },
+        "prefix_length": {
+          "min": 6.0,
+          "p50": 28.0,
+          "max": 56.0,
+          "mean": 29.84
+        },
+        "tool_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.45
+        },
+        "tool_param_fields": {
+          "min": 3.0,
+          "p50": 4.0,
+          "max": 5.0,
+          "mean": 3.96
+        },
+        "recent_same_tool_service": {
+          "min": 0.729632336786092,
+          "p50": 1.5552795081686974,
+          "max": 2.4872518683007825,
+          "mean": 1.5269755796048765
+        },
+        "token_rate": {
+          "min": 0.4271684217428463,
+          "p50": 0.5954018767648673,
+          "max": 0.8121461860740495,
+          "mean": 0.5981095610357693
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.45
+        },
+        "epoch_age": {
+          "min": 0.00845794655699561,
+          "p50": 2.2133688493517996,
+          "max": 4.9872033000675495,
+          "mean": 2.3285670649925785
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.54
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.67
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.33
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.0,
+          "max": 8.0,
+          "mean": 4.13
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.70875
+        },
+        "recent_restart_service": {
+          "min": 0.807012072201532,
+          "p50": 1.532245093241992,
+          "max": 2.1888589891571133,
+          "mean": 1.5411846571265104
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 3.0,
+          "max": 4.0,
+          "mean": 2.64
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 3.0,
+          "mean": 1.17
+        },
+        "arrival_rate": {
+          "min": 0.6,
+          "p50": 0.6,
+          "max": 0.6,
+          "mean": 0.6
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 45,
+          "n": 100
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "token_rate": {
+          "below": 83,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_age": {
+          "below": 1,
+          "above": 0,
+          "n": 100
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "arrival_rate": {
+          "below": 100,
+          "above": 0,
+          "n": 100
+        }
+      },
+      "S": {
+        "min": 16.476173563037623,
+        "p50": 20.742625900158533,
+        "max": 24.85828680670274,
+        "mean": 20.649159184500842
+      },
+      "C": {
+        "min": 7.632167759210904,
+        "p50": 18.690215868139276,
+        "max": 51.50227977624197,
+        "mean": 22.79826795479989
+      },
+      "cqr_S": {
+        "min": -1.3240530847638574,
+        "p50": -0.30964451268670246,
+        "max": 1.974002913829235,
+        "mean": -0.1598948823181944,
+        "p90": 1.1776891033473085
+      },
+      "cqr_C": {
+        "min": -17.33993190067816,
+        "p50": -5.087876388686734,
+        "max": 13.552209105026861,
+        "mean": -4.360392849471665,
+        "p90": 4.665816240802924
+      },
+      "s_coverage": 1.0,
+      "miss_count": 0,
+      "miss_by_tool": {},
+      "miss_by_predicate": {},
+      "miss_fields": null,
+      "corr_generated_tokens_S": -0.11879530229702104,
+      "corr_generated_tokens_width": -0.13031732520459907,
+      "mean_width_low_tokens": 30.058504271853923,
+      "mean_width_high_tokens": 29.020595489697588
+    },
+    "F8": {
+      "split": "test",
+      "declared_timing_used_by_generator": false,
+      "features": {
+        "generated_tokens": {
+          "min": 4.0,
+          "p50": 26.0,
+          "max": 48.0,
+          "mean": 25.36
+        },
+        "prefix_length": {
+          "min": 4.0,
+          "p50": 31.0,
+          "max": 58.0,
+          "mean": 30.74
+        },
+        "tool_type": {
+          "min": 2.0,
+          "p50": 2.0,
+          "max": 2.0,
+          "mean": 2.0
+        },
+        "tool_param_fields": {
+          "min": 3.0,
+          "p50": 4.0,
+          "max": 5.0,
+          "mean": 3.93
+        },
+        "recent_same_tool_service": {
+          "min": 0.6612726527243112,
+          "p50": 1.387065323659752,
+          "max": 2.3961901791428057,
+          "mean": 1.429320173663835
+        },
+        "token_rate": {
+          "min": 0.7176873182391885,
+          "p50": 0.9931972710610368,
+          "max": 1.3327664132124082,
+          "mean": 1.000795862246766
+        },
+        "epoch_changed_since_start": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.53
+        },
+        "epoch_age": {
+          "min": 0.05798939465624986,
+          "p50": 1.9867099496104563,
+          "max": 4.990106557248246,
+          "mean": 2.170190659933182
+        },
+        "has_recent_revision": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.44
+        },
+        "predicate_valid": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.67
+        },
+        "predicate_change_type": {
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.33
+        },
+        "queue_length": {
+          "min": 0.0,
+          "p50": 4.0,
+          "max": 8.0,
+          "mean": 4.06
+        },
+        "slot_occupancy": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.695
+        },
+        "recent_restart_service": {
+          "min": 0.8045157213549474,
+          "p50": 1.4191296429001112,
+          "max": 2.1523215790395085,
+          "mean": 1.458196301384642
+        },
+        "plan_depth": {
+          "min": 1.0,
+          "p50": 3.0,
+          "max": 4.0,
+          "mean": 2.62
+        },
+        "recent_replan_count": {
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 3.0,
+          "mean": 1.44
+        },
+        "arrival_rate": {
+          "min": 1.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 1.0
+        }
+      },
+      "outside_train_support": {
+        "generated_tokens": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "prefix_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "tool_type": {
+          "below": 0,
+          "above": 100,
+          "n": 100
+        },
+        "tool_param_fields": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_same_tool_service": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "token_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_changed_since_start": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "epoch_age": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "has_recent_revision": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_valid": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "predicate_change_type": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "queue_length": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "slot_occupancy": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_restart_service": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "plan_depth": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "recent_replan_count": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        },
+        "arrival_rate": {
+          "below": 0,
+          "above": 0,
+          "n": 100
+        }
+      },
+      "S": {
+        "min": 17.28528128203216,
+        "p50": 21.189108051003707,
+        "max": 24.891866885316077,
+        "mean": 20.936347589245916
+      },
+      "C": {
+        "min": 7.877420320950808,
+        "p50": 19.5703285667058,
+        "max": 52.69375105683776,
+        "mean": 22.689392183469526
+      },
+      "cqr_S": {
+        "min": -1.0706502280246077,
+        "p50": -0.3769404451168654,
+        "max": 0.11118426290377315,
+        "mean": -0.3880269982742577,
+        "p90": -0.03750993515665564
+      },
+      "cqr_C": {
+        "min": -18.812341371462956,
+        "p50": -6.39527810859407,
+        "max": 2.706118032705959,
+        "mean": -6.998406443764054,
+        "p90": -0.6106063673623278
+      },
+      "s_coverage": 1.0,
+      "miss_count": 0,
+      "miss_by_tool": {},
+      "miss_by_predicate": {},
+      "miss_fields": null,
+      "corr_generated_tokens_S": -0.10184181509095414,
+      "corr_generated_tokens_width": -0.1051696835161357,
+      "mean_width_low_tokens": 31.179533129142776,
+      "mean_width_high_tokens": 30.562767916067106
+    }
+  }
+}

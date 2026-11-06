@@ -1,0 +1,28 @@
+{
+  "name": "UCR-Agent",
+  "frozen": "2026-11-06",
+  "alpha": 0.1,
+  "margin": 0.0,
+  "eta": 0.0,
+  "lambda_s": 1.0,
+  "lambda_b": 1.0,
+  "failure_slack": 0.02,
+  "probe_tokens": 8,
+  "probe_seconds": 0.2,
+  "primary_width_scale": 1.0,
+  "width_scales": [0.5, 1.0, 2.0],
+  "bootstrap_replicates": 10000,
+  "cost_oracle": "knows current C and S and current predicate; does not read post-probe predicate; does not probe",
+  "primary_J": "lambda_s * occupied_service + lambda_b * bystander_wait",
+  "failure_constraint": "rate(pi) <= rate(AlwaysContinue) + 0.02",
+  "families": {
+    "F1": "dev",
+    "F2": "dev",
+    "F3": "cal",
+    "F4": "cal",
+    "F5": "test",
+    "F6": "test",
+    "F7": "test",
+    "F8": "test"
+  }
+}

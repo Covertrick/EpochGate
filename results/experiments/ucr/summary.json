@@ -1,0 +1,201 @@
+{
+  "families": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8"
+  ],
+  "dev_coverage_s": 1.0,
+  "cal_coverage_s": 0.9025,
+  "by_family": {
+    "F5": {
+      "n": 100,
+      "s_coverage": 0.0,
+      "c_coverage": 0.79,
+      "full_regret": {
+        "n": 100,
+        "mean": 14.64559584431414,
+        "p2_5": 9.38500342723683,
+        "p97_5": 20.845320408952002
+      },
+      "point_regret": {
+        "n": 100,
+        "mean": 14.64559584431414,
+        "p2_5": 9.38500342723683,
+        "p97_5": 20.845320408952002
+      },
+      "full_minus_point": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "point_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "interval_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "probe_rate": 0.0,
+      "probe_action_change_rate": 0.0,
+      "mean_probe_cost": 0.0,
+      "always_continue_failure": 1.0,
+      "full_failure": 0.92,
+      "failure_constraint": true,
+      "overlap_forced_abort": 33,
+      "guarantee_violations": 0
+    },
+    "F6": {
+      "n": 100,
+      "s_coverage": 1.0,
+      "c_coverage": 0.8,
+      "full_regret": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "point_regret": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "full_minus_point": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "point_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "interval_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "probe_rate": 0.0,
+      "probe_action_change_rate": 0.0,
+      "mean_probe_cost": 0.0,
+      "always_continue_failure": 0.33,
+      "full_failure": 0.25,
+      "failure_constraint": true,
+      "overlap_forced_abort": 33,
+      "guarantee_violations": 0
+    },
+    "F7": {
+      "n": 100,
+      "s_coverage": 1.0,
+      "c_coverage": 1.0,
+      "full_regret": {
+        "n": 100,
+        "mean": 4.239242684683851,
+        "p2_5": 2.824227057699294,
+        "p97_5": 5.777960384400959
+      },
+      "point_regret": {
+        "n": 100,
+        "mean": 4.239242684683851,
+        "p2_5": 2.824227057699294,
+        "p97_5": 5.777960384400959
+      },
+      "full_minus_point": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "point_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "interval_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "probe_rate": 0.0,
+      "probe_action_change_rate": 0.0,
+      "mean_probe_cost": 0.0,
+      "always_continue_failure": 0.33,
+      "full_failure": 0.07,
+      "failure_constraint": true,
+      "overlap_forced_abort": 33,
+      "guarantee_violations": 0
+    },
+    "F8": {
+      "n": 100,
+      "s_coverage": 1.0,
+      "c_coverage": 1.0,
+      "full_regret": {
+        "n": 100,
+        "mean": 5.952872787589009,
+        "p2_5": 3.6854759392130525,
+        "p97_5": 8.532414565918366
+      },
+      "point_regret": {
+        "n": 100,
+        "mean": 5.952872787589009,
+        "p2_5": 3.6854759392130525,
+        "p97_5": 8.532414565918366
+      },
+      "full_minus_point": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "point_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "interval_minus_full": {
+        "n": 100,
+        "mean": 0.0,
+        "p2_5": 0.0,
+        "p97_5": 0.0
+      },
+      "probe_rate": 0.0,
+      "probe_action_change_rate": 0.0,
+      "mean_probe_cost": 0.0,
+      "always_continue_failure": 0.33,
+      "full_failure": 0.05,
+      "failure_constraint": true,
+      "overlap_forced_abort": 33,
+      "guarantee_violations": 0
+    }
+  },
+  "width_low_tokens": 31.802239628907564,
+  "width_high_tokens": 31.132453831783835,
+  "probe_rate_narrow": 0.0,
+  "probe_rate_wide": 0.0,
+  "regret_families": [],
+  "probe_families": [],
+  "gate_A": false,
+  "gate_B": false,
+  "gate_D_partial": {
+    "two_families": false,
+    "probe_family": false,
+    "failure_constraints": true
+  }
+}
