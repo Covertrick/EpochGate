@@ -1,0 +1,184 @@
+{
+  "version": "ucr-2.1",
+  "alpha": 0.1,
+  "cell_size": 80,
+  "benefit_s": 1.7,
+  "information_probability": "min(1, 0.70 + 0.25 * tau)",
+  "s_features": [
+    "generated_tokens",
+    "tool_type",
+    "tool_param_fields",
+    "token_rate",
+    "predicate_time",
+    "queue_length",
+    "slot_occupancy",
+    "completion_horizon",
+    "nominal_rate"
+  ],
+  "c_features": [
+    "generated_tokens",
+    "tool_type",
+    "tool_param_fields",
+    "token_rate",
+    "predicate_time",
+    "queue_length",
+    "slot_occupancy",
+    "completion_horizon",
+    "nominal_rate",
+    "recent_restart_service",
+    "predicate_valid",
+    "probe_budget"
+  ],
+  "forbidden_features": [
+    "C",
+    "S",
+    "candidate_after",
+    "n_total",
+    "oracle_action",
+    "predicate_after",
+    "probe_class",
+    "true_remaining_s",
+    "true_restart_s"
+  ],
+  "voi_buckets": [
+    "overlap_width",
+    "queue_length",
+    "slot_occupancy",
+    "predicate_valid",
+    "probe_budget"
+  ],
+  "voi_forbidden": [
+    "candidate_after",
+    "oracle_action",
+    "predicate_after",
+    "probe_class",
+    "true_remaining_s",
+    "true_restart_s"
+  ],
+  "primary_candidate": "hybrid-group",
+  "families": {
+    "dev": {
+      "F9": {
+        "seed_start": 8000,
+        "n": 800,
+        "tool": "reserve",
+        "bands": [
+          "early",
+          "mid"
+        ],
+        "rate": 1.2,
+        "fields": [
+          2,
+          4
+        ],
+        "scales": [
+          0.8,
+          1.2
+        ]
+      },
+      "F10": {
+        "seed_start": 9000,
+        "n": 800,
+        "tool": "query",
+        "bands": [
+          "mid",
+          "late"
+        ],
+        "rate": 0.8,
+        "fields": [
+          6,
+          8
+        ],
+        "scales": [
+          1.2,
+          1.6
+        ]
+      }
+    },
+    "holdout": {
+      "F13": {
+        "seed_start": 12000,
+        "n": 400,
+        "tool": "reserve",
+        "band": "late",
+        "rate": 0.8,
+        "fields": 8,
+        "scale": 1.6
+      },
+      "F14": {
+        "seed_start": 13000,
+        "n": 400,
+        "tool": "query",
+        "band": "early",
+        "rate": 1.2,
+        "fields": 2,
+        "scale": 0.8
+      },
+      "F15": {
+        "seed_start": 14000,
+        "n": 400,
+        "tool": "reserve",
+        "band": "mid",
+        "rate": 0.8,
+        "fields": 4,
+        "scale": 1.6
+      },
+      "F16": {
+        "seed_start": 15000,
+        "n": 400,
+        "tool": "query",
+        "band": "late",
+        "rate": 1.2,
+        "fields": 6,
+        "scale": 0.8
+      }
+    },
+    "stress": {
+      "F17": {
+        "seed_start": 16000,
+        "n": 200,
+        "tool": "reserve",
+        "band": "mid",
+        "rate": 1.2,
+        "fields": [
+          12,
+          20
+        ],
+        "scale": 1.0
+      },
+      "F18": {
+        "seed_start": 17000,
+        "n": 200,
+        "tool": "reserve",
+        "band": "mid",
+        "rate": 1.2,
+        "fields": 4,
+        "scale": 2.5
+      },
+      "F19": {
+        "seed_start": 18000,
+        "n": 200,
+        "tool": "transfer",
+        "band": "mid",
+        "rate": 1.2,
+        "fields": 4,
+        "scale": 1.2
+      },
+      "F20": {
+        "seed_start": 19000,
+        "n": 200,
+        "tool": "query",
+        "band": "mid",
+        "rate": 0.4,
+        "fields": 6,
+        "scale": 1.2
+      }
+    }
+  },
+  "label": {
+    "S": "t_fixed + max(1, N-g)/r + t_replan*tau + eps",
+    "C": "(0.52 + 0.16*scale/1.2)*full + t_replan*tau + eps",
+    "N": "a_tool + b_tool*fields + 10*tau"
+  },
+  "gate_a0_pass": true
+}

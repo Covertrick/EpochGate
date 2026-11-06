@@ -1,0 +1,61 @@
+# UCR-2.1 实验方案
+
+冻结日：2026-11-06。机器可读副本在 `results/experiments/ucr2/generator_spec_v2_1.json`。UCR-1 已封存，F5–F8 不参与本协议的拟合或最终留出。本文写在拟合之前。后面的阶段只追加执行记录，不改这些常数，也不因留出结果改生成器。
+
+本协议保证失败时能够解释，不保证 Gate D 通过。普通 CQR 依赖交换性。主结论只谈插值留出上的经验表现。F17–F20 是外推压力，不声称 conformal 保证。
+
+## 标签
+
+\[
+N = a_{\text{tool}} + b_{\text{tool}} F + 10\tau
+\]
+
+\[
+S = t_{\text{fixed}}(\text{tool}) + \frac{\max(1, N-g)}{r} + t_{\text{replan}}(\text{tool})\,\tau + \epsilon_S
+\]
+
+\[
+C = \big(0.52 + 0.16\,\text{scale}/1.2\big)\big(t_{\text{fixed}} + N/r\big) + t_{\text{replan}}(\text{tool})\,\tau + \epsilon_C
+\]
+
+\(r\) 只出现在分母。\(g\) 从 \(0\) 到 \(N-1\)。\(\tau\in(0,1)\) 连续。reserve 与 query 的 \(a,b,t_{\text{fixed}},t_{\text{replan}}\) 不同。transfer 只出现在 F19。
+
+有信息和高代价 probe 的信息概率是 \(\min(1, 0.70+0.25\tau)\)，随 \(\tau\) 上升。揭示信息时，一半机会形成候选，接受服务比当前更短的动作少 1.7 秒；另一半把 \(S\) 和 \(C\) 各增加 0.6 秒。真实 probe 价值比较揭示前后的 Oracle 代价，不把 probe 消耗的服务算进收益。策略若真的 probe，仍支付预算并缩短剩余服务。无信息类不改变谓词和候选。高代价类的预算是 2 秒，其余是 \(\min(8/r, 0.2)\)。
+
+完成期限按该族名义最大剩余服务加 1 秒写入特征 `completion_horizon`，不从测试标签估计。
+
+## 不允许进入特征或信息价值分桶的量
+
+特征禁止 `probe_class`、真实 \(S/C\)、probe 之后的谓词和候选。信息价值表只按决策前已知的五类分桶：区间重叠宽度、队列长度、槽占用、当前谓词是否有效、probe 预算。
+
+## 切分
+
+种子从 8000 起。F9、F10 各 800 条，只用于拟合。校准池是 reserve/query × 早中晚 × 名义速率 0.8/1.2 的 12 格，每格 80 条。F13–F16 各 400 条，是未见联合。F17–F20 各 200 条，只在 Gate B 通过后作为压力测试。
+
+## 估计器
+
+在打开 F13 之前比较分桶分位数、线性分位数、线性趋势加树残差、深度 2 的梯度提升树。每种都报告 pooled CQR 和按工具 × 时刻箱 × 名义速率的 group-conditional CQR。优先候选是趋势加树残差配 group-conditional CQR。它若在每个不少于 50 条的校准格上经验覆盖率都不低于 0.9，就锁定它；否则在满足该条件的候选里取平均宽度最小者。锁写入 `estimator_lock.json`。评分脚本没有锁就拒绝读取 F13。
+
+## 策略与基线
+
+AlwaysContinue、AlwaysAbort、PredicateOnly、ExpectedValue、Cost Oracle、Point、Interval、Full、NoProbe。
+
+ExpectedValue 使用点预测。谓词无效，或校准分箱里的继续失败概率大于 0.5，或 \(E[C]<E[S]\)，则中止。它不用共形区间，也不 probe。
+
+主代价 \(J=U+W\)。敏感性 \(J_M=J+M\cdot 1[\text{失败}]\)，\(M\) 为开发集最大服务的 10 倍。失败率不得超过同一批 trace 上 AlwaysContinue 加 0.02。
+
+## 门
+
+Gate A0 只查生成器：已生成 token 与 \(S\) 的偏相关小于 −0.3，\(1/r\) 与 \(S\) 的偏相关大于 0.3，两种工具的平均 \(S\) 相差至少 20%，早中晚的平均 \(C\) 递增，高 token 组的 \(S\) 更短，真实成本接近的 trace 占 20%–40%，其中 probe 价值为正、为负的各至少 20%，高代价类至少 90% 的价值低于 probe 成本，有信息类的动作改变率至少 0.2，无信息类不超过 0.05，AlwaysContinue 失败率低于 0.15。不通过就不拟合。
+
+Gate A：F13–F16 每族经验覆盖率至少 0.9，并报告 Wilson 95% 下界、失败条数和分组覆盖率。不把 Wilson 下界 \(\ge 0.9\) 当作通过线，也不把结果写成覆盖保证。高 token 组的 \(S\) 区间更窄。外推族不进入本门。
+
+Gate B：Full 的后悔低于 Point，也低于 ExpectedValue，且至少两个族的 bootstrap 下界大于 0。probe 只出现在重叠区，probe 后动作改变率不为 0，至少一个族去掉 probe 后退化。失败率约束成立。区间都覆盖时，\(U_C<L_S\) 则中止的 \(J\) 不大于继续，反向亦然。重叠且 probe 时，额外代价不超过 probe 成本加区间宽度。
+
+Gate C：旧提交 0，失效提交 0，重复副作用 0，拒绝原因可追溯，未知回执保持未知。
+
+Gate D 还要求：收益不能被 ExpectedValue 或单纯更准的点预测解释，选择命题违反数为 0，并有一条真实 Runtime 闭环。外推限制必须写明。
+
+## 执行记录
+
+2026-11-06。Gate A0 通过，估计器锁定为 hybrid-group。F13–F16 上 Gate A 与 Gate B 都不通过，F17–F20 和 vLLM 没有运行。数字和收口句在 [论文UCR-2.md](论文UCR-2.md)。上面的常数没有因这个结果改动。

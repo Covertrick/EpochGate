@@ -1,0 +1,572 @@
+{
+  "gate_a": false,
+  "gate_b": false,
+  "better_families": [],
+  "probe_helps": [
+    "F13",
+    "F14",
+    "F15",
+    "F16"
+  ],
+  "failure_ok": true,
+  "selective_ok": true,
+  "families": {
+    "F13": {
+      "n": 400,
+      "s_coverage": 0.99,
+      "c_coverage": 1.0,
+      "s_wilson_lower": 0.9745730330055917,
+      "c_wilson_lower": 0.9904873594003194,
+      "s_misses": 4,
+      "c_misses": 0,
+      "both_coverage": 0.99,
+      "width_low_tokens": 67.14983438762653,
+      "width_high_tokens": 58.72863325994574,
+      "slices": {
+        "tool": {
+          "0.0": {
+            "n": 400,
+            "s": 0.99,
+            "c": 1.0
+          }
+        },
+        "time": {
+          "2": {
+            "n": 400,
+            "s": 0.99,
+            "c": 1.0
+          }
+        },
+        "rate": {
+          "0.8": {
+            "n": 400,
+            "s": 0.99,
+            "c": 1.0
+          }
+        }
+      },
+      "policies": {
+        "always-continue": {
+          "regret_mean": 4.60973243745622,
+          "regret_lower": -0.17890605576679217,
+          "jm_mean": 462.57292661168105,
+          "failure_rate": 0.1025,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "always-abort": {
+          "regret_mean": 79.59152451095518,
+          "regret_lower": 69.59988707132156,
+          "jm_mean": 255.6870830730038,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "predicate-only": {
+          "regret_mean": 11.102822963556155,
+          "regret_lower": 8.721155041335507,
+          "jm_mean": 187.19838152560482,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "expected-value": {
+          "regret_mean": 2.5994637739952746,
+          "regret_lower": 1.7904157941798813,
+          "jm_mean": 178.69502233604396,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "cost-oracle": {
+          "regret_mean": 0.0,
+          "regret_lower": 0.0,
+          "jm_mean": 176.0955585620487,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "point": {
+          "regret_mean": 2.5994637739952746,
+          "regret_lower": 1.7904157941798813,
+          "jm_mean": 178.69502233604396,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 54,
+          "probe_bound_violations": 0
+        },
+        "interval": {
+          "regret_mean": 11.102822963556155,
+          "regret_lower": 8.721155041335507,
+          "jm_mean": 187.19838152560482,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "full": {
+          "regret_mean": 9.343689580686222,
+          "regret_lower": 7.137191010174295,
+          "jm_mean": 185.43924814273487,
+          "failure_rate": 0.0,
+          "probe_rate": 0.34,
+          "action_change_rate": 0.19117647058823528,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "noprobe": {
+          "regret_mean": 11.102822963556155,
+          "regret_lower": 8.721155041335507,
+          "jm_mean": 187.19838152560482,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        }
+      },
+      "full_minus_point_lower": -9.333258078349152,
+      "full_minus_expected_lower": -9.333258078349152,
+      "noprobe_minus_full_lower": 0.7158211234401973
+    },
+    "F14": {
+      "n": 400,
+      "s_coverage": 1.0,
+      "c_coverage": 1.0,
+      "s_wilson_lower": 0.9904873594003194,
+      "c_wilson_lower": 0.9904873594003194,
+      "s_misses": 0,
+      "c_misses": 0,
+      "both_coverage": 1.0,
+      "width_low_tokens": 90.53189962885735,
+      "width_high_tokens": 60.57397620035645,
+      "slices": {
+        "tool": {
+          "1.0": {
+            "n": 400,
+            "s": 1.0,
+            "c": 1.0
+          }
+        },
+        "time": {
+          "0": {
+            "n": 400,
+            "s": 1.0,
+            "c": 1.0
+          }
+        },
+        "rate": {
+          "1.2": {
+            "n": 400,
+            "s": 1.0,
+            "c": 1.0
+          }
+        }
+      },
+      "policies": {
+        "always-continue": {
+          "regret_mean": 13.738386246831737,
+          "regret_lower": 10.235116247855899,
+          "jm_mean": 335.5867669811859,
+          "failure_rate": 0.08,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "always-abort": {
+          "regret_mean": 38.49846001939961,
+          "regret_lower": 33.45768534177154,
+          "jm_mean": 140.35258856864075,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "predicate-only": {
+          "regret_mean": 14.803875886336366,
+          "regret_lower": 12.084421605392441,
+          "jm_mean": 116.6580044355775,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "expected-value": {
+          "regret_mean": 0.6814941303239828,
+          "regret_lower": 0.3911111395553879,
+          "jm_mean": 102.53562267956511,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "cost-oracle": {
+          "regret_mean": 0.0,
+          "regret_lower": 0.0,
+          "jm_mean": 101.85412854924114,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "point": {
+          "regret_mean": 0.6814941303239828,
+          "regret_lower": 0.3911111395553879,
+          "jm_mean": 102.53562267956511,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 30,
+          "probe_bound_violations": 0
+        },
+        "interval": {
+          "regret_mean": 14.803875886336366,
+          "regret_lower": 12.084421605392441,
+          "jm_mean": 116.6580044355775,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "full": {
+          "regret_mean": 13.289262038744765,
+          "regret_lower": 10.728031165252256,
+          "jm_mean": 115.1433905879859,
+          "failure_rate": 0.0,
+          "probe_rate": 0.455,
+          "action_change_rate": 0.16483516483516483,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "noprobe": {
+          "regret_mean": 14.803875886336366,
+          "regret_lower": 12.084421605392441,
+          "jm_mean": 116.6580044355775,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        }
+      },
+      "full_minus_point_lower": -15.302816693247859,
+      "full_minus_expected_lower": -15.302816693247859,
+      "noprobe_minus_full_lower": 0.5175435946237057
+    },
+    "F15": {
+      "n": 400,
+      "s_coverage": 0.92,
+      "c_coverage": 0.9725,
+      "s_wilson_lower": 0.8892447798392307,
+      "c_wilson_lower": 0.951434030711826,
+      "s_misses": 32,
+      "c_misses": 11,
+      "both_coverage": 0.895,
+      "width_low_tokens": 57.799553846605235,
+      "width_high_tokens": 51.65630618699336,
+      "slices": {
+        "tool": {
+          "0.0": {
+            "n": 400,
+            "s": 0.92,
+            "c": 0.9725
+          }
+        },
+        "time": {
+          "1": {
+            "n": 400,
+            "s": 0.92,
+            "c": 0.9725
+          }
+        },
+        "rate": {
+          "0.8": {
+            "n": 400,
+            "s": 0.92,
+            "c": 0.9725
+          }
+        }
+      },
+      "policies": {
+        "always-continue": {
+          "regret_mean": 5.760832407381779,
+          "regret_lower": 3.090743420455488,
+          "jm_mean": 320.25843021097074,
+          "failure_rate": 0.0725,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "always-abort": {
+          "regret_mean": 61.075754628797405,
+          "regret_lower": 54.63278171693568,
+          "jm_mean": 176.20356138962762,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "predicate-only": {
+          "regret_mean": 7.964413953777475,
+          "regret_lower": 6.214647762628041,
+          "jm_mean": 123.09222071460766,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "expected-value": {
+          "regret_mean": 1.6629222310881386,
+          "regret_lower": 1.1138398975859107,
+          "jm_mean": 116.79072899191833,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "cost-oracle": {
+          "regret_mean": 0.0,
+          "regret_lower": 0.0,
+          "jm_mean": 115.12780676083021,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "point": {
+          "regret_mean": 1.6629222310881386,
+          "regret_lower": 1.1138398975859107,
+          "jm_mean": 116.79072899191833,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 39,
+          "probe_bound_violations": 0
+        },
+        "interval": {
+          "regret_mean": 7.964413953777475,
+          "regret_lower": 6.214647762628041,
+          "jm_mean": 123.09222071460766,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "full": {
+          "regret_mean": 6.390085124829468,
+          "regret_lower": 4.800068992184101,
+          "jm_mean": 121.51789188565967,
+          "failure_rate": 0.0,
+          "probe_rate": 0.41,
+          "action_change_rate": 0.21951219512195122,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "noprobe": {
+          "regret_mean": 7.964413953777475,
+          "regret_lower": 6.214647762628041,
+          "jm_mean": 123.09222071460766,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        }
+      },
+      "full_minus_point_lower": -6.646410269466959,
+      "full_minus_expected_lower": -6.646410269466959,
+      "noprobe_minus_full_lower": 0.734964821206889
+    },
+    "F16": {
+      "n": 400,
+      "s_coverage": 0.79,
+      "c_coverage": 0.99,
+      "s_wilson_lower": 0.7474197657946616,
+      "c_wilson_lower": 0.9745730330055917,
+      "s_misses": 84,
+      "c_misses": 4,
+      "both_coverage": 0.7825,
+      "width_low_tokens": 77.80497107875593,
+      "width_high_tokens": 51.75030000534324,
+      "slices": {
+        "tool": {
+          "1.0": {
+            "n": 400,
+            "s": 0.79,
+            "c": 0.99
+          }
+        },
+        "time": {
+          "2": {
+            "n": 400,
+            "s": 0.79,
+            "c": 0.99
+          }
+        },
+        "rate": {
+          "1.2": {
+            "n": 400,
+            "s": 0.79,
+            "c": 0.99
+          }
+        }
+      },
+      "policies": {
+        "always-continue": {
+          "regret_mean": 13.431205718889245,
+          "regret_lower": 7.840273771299972,
+          "jm_mean": 455.8244482231478,
+          "failure_rate": 0.1025,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "always-abort": {
+          "regret_mean": 63.93510606793247,
+          "regret_lower": 55.86721320370813,
+          "jm_mean": 224.46071296001486,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "predicate-only": {
+          "regret_mean": 19.5902906093016,
+          "regret_lower": 15.838926183359323,
+          "jm_mean": 180.115897501384,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "expected-value": {
+          "regret_mean": 2.21711862250511,
+          "regret_lower": 1.4596422992259128,
+          "jm_mean": 162.7427255145875,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "cost-oracle": {
+          "regret_mean": 0.0,
+          "regret_lower": 0.0,
+          "jm_mean": 160.5256068920824,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "point": {
+          "regret_mean": 2.21711862250511,
+          "regret_lower": 1.4596422992259128,
+          "jm_mean": 162.7427255145875,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 53,
+          "probe_bound_violations": 0
+        },
+        "interval": {
+          "regret_mean": 16.6104717554674,
+          "regret_lower": 13.22296687866797,
+          "jm_mean": 177.1360786475498,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "full": {
+          "regret_mean": 14.631704564747292,
+          "regret_lower": 11.35590696432409,
+          "jm_mean": 175.1573114568297,
+          "failure_rate": 0.0,
+          "probe_rate": 0.2325,
+          "action_change_rate": 0.21505376344086022,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        },
+        "noprobe": {
+          "regret_mean": 16.6104717554674,
+          "regret_lower": 13.22296687866797,
+          "jm_mean": 177.1360786475498,
+          "failure_rate": 0.0,
+          "probe_rate": 0.0,
+          "action_change_rate": 0.0,
+          "probe_outside_overlap": 0,
+          "selective_violations": 0,
+          "probe_bound_violations": 0
+        }
+      },
+      "full_minus_point_lower": -15.899801352088824,
+      "full_minus_expected_lower": -15.899801352088824,
+      "noprobe_minus_full_lower": 0.8866697085519
+    }
+  },
+  "stress": null
+}

@@ -1,0 +1,66 @@
+{
+  "pooled": {
+    "n": 2560,
+    "corr_g_s": -0.9810974378675921,
+    "corr_inv_r_s": 0.7547579126167084,
+    "by_tool": {
+      "reserve": {
+        "S": 33.20428951864626,
+        "C": 43.55737292761647,
+        "n": 1280
+      },
+      "query": {
+        "S": 103.36485952496567,
+        "C": 143.92650787135176,
+        "n": 1280
+      }
+    },
+    "c_by_time": {
+      "early": 52.500323952422455,
+      "mid": 91.99665448808918,
+      "late": 137.69844604204903
+    },
+    "mean_s_high_tokens": 59.224801369478456,
+    "mean_s_low_tokens": 77.60278811271017,
+    "overlap_fraction": 0.384765625,
+    "overlap_positive": 0.25076142131979695,
+    "overlap_negative": 0.28426395939086296,
+    "classes": {
+      "uninformative": {
+        "n": 854,
+        "change_rate": 0.0
+      },
+      "informative": {
+        "n": 853,
+        "change_rate": 0.3716295427901524
+      },
+      "costly": {
+        "n": 853,
+        "change_rate": 0.38686987104337633
+      }
+    },
+    "costly_value_below_cost": 1.0,
+    "always_continue_failure": 0.083984375
+  },
+  "holdout_always_continue_failure": {
+    "F13": 0.1025,
+    "F14": 0.08,
+    "F15": 0.0725,
+    "F16": 0.1025
+  },
+  "checks": {
+    "corr_g": true,
+    "corr_r": true,
+    "tool": true,
+    "time": true,
+    "tokens": true,
+    "overlap": true,
+    "positive": true,
+    "negative": true,
+    "costly": true,
+    "info_change": true,
+    "noinfo_change": true,
+    "horizon": true
+  },
+  "pass": true
+}

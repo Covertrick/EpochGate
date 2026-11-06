@@ -1,0 +1,12 @@
+{
+  "estimator": "hybrid-group",
+  "primary_candidate": "hybrid-group",
+  "qualified": [
+    "bucket-group",
+    "linear-group",
+    "hybrid-group",
+    "tree-group"
+  ],
+  "M": 2749.928152313914,
+  "opened_holdout": false
+}

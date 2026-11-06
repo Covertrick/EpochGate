@@ -4,7 +4,8 @@
 
 - **4.0：队列现象测量。** 共享槽上，失效占用怎么变成旁观者等待。数字在 [docs/论文/论文4.0.md](docs/论文/论文4.0.md)。
 - **5.0：安全 Gateway 和复现失败。** 已知 \(C/S\) 的切换没有形成可投稿结果；DeepSeek 那条复现也失败了，原文在 [docs/舍弃分支/](docs/舍弃分支/README.md)。审计在 [docs/论文/论文5.0.md](docs/论文/论文5.0.md)。
-- **UCR：非 Oracle 不确定性策略未通过 Gate A/B/D。** 安全闭环成立，旧提交为 0；留出集上没有证明区间和 probe 优于点估计。结论在 [docs/论文/论文UCR.md](docs/论文/论文UCR.md)，F5/F6 的外推诊断在 [docs/论文/UCR-F5F6诊断.md](docs/论文/UCR-F5F6诊断.md)。
+- **UCR-1：非 Oracle 不确定性策略未被有效评估。** 生成器要求模型在训练支持域外外推，谓词时刻和工具类型没有进入成本标签。Gate A/B/D 不通过，Gate C 通过。封存在 [docs/论文/ucr_v1_diagnosis.md](docs/论文/ucr_v1_diagnosis.md)。
+- **UCR-2.1：插值 Gate A/B 不通过，算法线收口。** 生成器审计通过，但 F16 的剩余服务覆盖率是 0.79，区间加 probe 的后悔高于点估计。没有跑外推，也没有为此再跑 vLLM。结论在 [docs/论文/论文UCR-2.md](docs/论文/论文UCR-2.md)。
 
 **现在不投 ArXiv。**
 
@@ -71,7 +72,7 @@ python scripts/audit_v40_p95.py
 
 | 文件夹 | 现在读哪一份 |
 | --- | --- |
-| [docs/论文/](docs/论文/) | [论文UCR.md](docs/论文/论文UCR.md) 是 UCR 的判定；[UCR-F5F6诊断.md](docs/论文/UCR-F5F6诊断.md) 解释覆盖失败；[论文5.0.md](docs/论文/论文5.0.md) 是已知 \(C/S\) 的审计；[论文4.0.md](docs/论文/论文4.0.md) 是回放参照 |
+| [docs/论文/](docs/论文/) | [论文UCR-2.md](docs/论文/论文UCR-2.md) 收口 UCR-2.1；[论文UCR.md](docs/论文/论文UCR.md) 封存 UCR-1；[论文5.0.md](docs/论文/论文5.0.md) 是已知 \(C/S\) 的审计；[论文4.0.md](docs/论文/论文4.0.md) 是回放参照 |
 | [docs/开发文档/](docs/开发文档/) | [项目开发文档UCR.md](docs/开发文档/项目开发文档UCR.md) 是 UCR 记录；[项目开发文档5.0.md](docs/开发文档/项目开发文档5.0.md) 是上一条合同 |
 | [docs/舍弃分支/](docs/舍弃分支/) | DeepSeek 黑盒和 vLLM 四组，不再作为论文主线 |
 | [docs/工程实现说明/](docs/工程实现说明/) | [工程实现说明.md](docs/工程实现说明/工程实现说明.md) 是当前模块和命令。`v0.1.md`–`v1.0.md` 是各版原文 |

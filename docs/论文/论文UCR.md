@@ -2,7 +2,7 @@
 
 日期：2026-11-06。协议在 [UCR-Agent实验方案.md](UCR-Agent实验方案.md)。数字在 `results/experiments/ucr/summary.json`。
 
-**安全闭环成立，非 Oracle 策略收益未证明。** 这条线现在不能写成创新论文，也不准备 ArXiv。F5/F6 为什么失败写在 [UCR-F5F6诊断.md](UCR-F5F6诊断.md)：是字段数和重规划尺度的外推失败，生成器本身对字段数是可预测的。
+**安全闭环成立，非 Oracle 策略收益未证明。** 这条线现在不能写成创新论文，也不准备 ArXiv。F5/F6 为什么失败写在 [UCR-F5F6诊断.md](UCR-F5F6诊断.md)：是字段数和重规划尺度的外推失败，生成器本身对字段数是可预测的。UCR-1 已封存，见 [ucr_v1_diagnosis.md](ucr_v1_diagnosis.md)。后续若再做，必须是新协议，不能把 F5–F8 重新当作最终留出集。
 
 ## 留出评估
 
