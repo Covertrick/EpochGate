@@ -1,0 +1,467 @@
+{
+  "data_gate": "stop",
+  "candidates_searched": 15,
+  "admitted": 4,
+  "linux_replay": true,
+  "reason": "4 条可重放样本已在 Linux 容器里跑完变更后测试并准入。其余 11 条仍是 GitHub 403、网络中断或没有附近提交。不足五个完整事件对，数据门保持 stop。",
+  "reports": [
+    {
+      "case_id": "astropy__astropy-12907",
+      "repo": "astropy/astropy",
+      "base_commit": "d16bfe05a744909de4b27f5875fe0d4ed41ce607",
+      "change_commit": "0ace3f93af69b4186199751619294ded65930d0c",
+      "ancestor": true,
+      "gold_file_count": 1,
+      "change_file_count": 1,
+      "shared_files": [],
+      "apply_detail": "host_git_tree_diff",
+      "admission": {
+        "case_id": "astropy__astropy-12907",
+        "checks": {
+          "time_valid": true,
+          "source_real": true,
+          "applicable": true,
+          "task_not_pre_solved": true,
+          "solvable_after_change": true,
+          "independently_scorable": true
+        },
+        "admitted": true,
+        "reasons": {}
+      },
+      "linux_post_state": {
+        "image": "python:3.10-slim",
+        "image_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+        "container": "eg-score",
+        "user": "1000:1000",
+        "exit_code": 0,
+        "pytest_started": true,
+        "pytest_target": "astropy/modeling/tests/test_separable.py",
+        "summary": "11 passed in 0.10s",
+        "version_stub": false,
+        "tree_note": "replay worktree; nearby commit 0ace3f93 changes tox.ini only"
+      }
+    },
+    {
+      "case_id": "astropy__astropy-13033",
+      "repo": "astropy/astropy",
+      "base_commit": "298ccb478e6bf092953bca67a3d29dc6c35f6752",
+      "change_commit": "bfecdf7d7bd1ea63978a51e2ba11fb5daecf6b3c",
+      "ancestor": true,
+      "gold_file_count": 1,
+      "change_file_count": 5,
+      "shared_files": [],
+      "apply_detail": "host_git_tree_diff",
+      "admission": {
+        "case_id": "astropy__astropy-13033",
+        "checks": {
+          "time_valid": true,
+          "source_real": true,
+          "applicable": true,
+          "task_not_pre_solved": true,
+          "solvable_after_change": true,
+          "independently_scorable": true
+        },
+        "admitted": true,
+        "reasons": {}
+      },
+      "linux_post_state": {
+        "image": "python:3.10-slim",
+        "image_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+        "container": "eg-score",
+        "user": "1000:1000",
+        "exit_code": 0,
+        "pytest_started": true,
+        "pytest_target": "astropy/modeling/tests/test_functional_models.py",
+        "summary": "40 passed, 14 skipped in 0.30s",
+        "version_stub": true,
+        "tree_note": "replay worktree at base 298ccb478e6b with the nearby commit applied"
+      }
+    },
+    {
+      "case_id": "astropy__astropy-13236",
+      "repo": "astropy/astropy",
+      "base_commit": "6ed769d58d89380ebaa1ef52b300691eefda8928",
+      "change_commit": "a04fb7c355292c04957ffc04438485ee1a251bf8",
+      "ancestor": true,
+      "gold_file_count": 1,
+      "change_file_count": 3,
+      "shared_files": [
+        "astropy/table/table.py"
+      ],
+      "apply_detail": "fatal: unable to access 'https://github.com/astropy/astropy.git/': Recv failure: Connection was reset",
+      "admission": {
+        "case_id": "astropy__astropy-13236",
+        "checks": {
+          "time_valid": true,
+          "source_real": true,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-13398",
+      "repo": "astropy/astropy",
+      "base_commit": "6500928dc0e57be8f06d1162eacc3ba5e2eff692",
+      "change_commit": "f13ba6f39570a19b05c9bcf81f38a822947e6007",
+      "ancestor": true,
+      "gold_file_count": 4,
+      "change_file_count": 1,
+      "shared_files": [],
+      "apply_detail": "host_git_tree_diff",
+      "admission": {
+        "case_id": "astropy__astropy-13398",
+        "checks": {
+          "time_valid": true,
+          "source_real": true,
+          "applicable": true,
+          "task_not_pre_solved": true,
+          "solvable_after_change": true,
+          "independently_scorable": true
+        },
+        "admitted": true,
+        "reasons": {}
+      },
+      "linux_post_state": {
+        "image": "python:3.10-slim",
+        "image_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+        "container": "eg-score",
+        "user": "1000:1000",
+        "exit_code": 0,
+        "pytest_started": true,
+        "pytest_target": "astropy/wcs/wcsapi/tests/test_fitswcs.py",
+        "summary": "59 passed in 1.21s",
+        "version_stub": true,
+        "tree_note": "replay worktree at base 6500928dc0e5 with the nearby commit applied"
+      }
+    },
+    {
+      "case_id": "astropy__astropy-13453",
+      "repo": "astropy/astropy",
+      "base_commit": "19cc80471739bcb67b7e8099246b391c355023ee",
+      "apply_detail": "no_nearby_commit",
+      "admission": {
+        "case_id": "astropy__astropy-13453",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-13579",
+      "repo": "astropy/astropy",
+      "base_commit": "0df94ff7097961e92fd7812036a24b145bc13ca8",
+      "change_commit": "752b961b59e98c3ffcf1549fef7bb3d2cfd0d435",
+      "ancestor": true,
+      "gold_file_count": 1,
+      "change_file_count": 2,
+      "shared_files": [],
+      "apply_detail": "fatal: unable to access 'https://github.com/astropy/astropy.git/': Recv failure: Connection was reset",
+      "admission": {
+        "case_id": "astropy__astropy-13579",
+        "checks": {
+          "time_valid": true,
+          "source_real": true,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-13977",
+      "repo": "astropy/astropy",
+      "base_commit": "5250b2442501e6c671c6b380536f1edb352602d1",
+      "apply_detail": "IncompleteRead",
+      "admission": {
+        "case_id": "astropy__astropy-13977",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14096",
+      "repo": "astropy/astropy",
+      "base_commit": "1a4462d72eb03f30dc83a879b1dd57aac8b2c18b",
+      "apply_detail": "IncompleteRead",
+      "admission": {
+        "case_id": "astropy__astropy-14096",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14182",
+      "repo": "astropy/astropy",
+      "base_commit": "a5917978be39d13cd90b517e1de4e7a539ffaa48",
+      "apply_detail": "RemoteDisconnected",
+      "admission": {
+        "case_id": "astropy__astropy-14182",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14309",
+      "repo": "astropy/astropy",
+      "base_commit": "cdb66059a2feb44ee49021874605ba90801f9986",
+      "change_commit": "d9d9adbd2e84622c3fd0b4258dced7b642748136",
+      "ancestor": true,
+      "gold_file_count": 1,
+      "change_file_count": 1,
+      "shared_files": [],
+      "apply_detail": "host_git_tree_diff",
+      "admission": {
+        "case_id": "astropy__astropy-14309",
+        "checks": {
+          "time_valid": true,
+          "source_real": true,
+          "applicable": true,
+          "task_not_pre_solved": true,
+          "solvable_after_change": true,
+          "independently_scorable": true
+        },
+        "admitted": true,
+        "reasons": {}
+      },
+      "linux_post_state": {
+        "image": "python:3.10-slim",
+        "image_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+        "container": "eg-score",
+        "user": "1000:1000",
+        "exit_code": 0,
+        "pytest_started": true,
+        "pytest_target": "astropy/io/fits/_tiled_compression/tests",
+        "summary": "240 passed, 1 skipped, 56 xfailed in 5.68s",
+        "version_stub": true,
+        "tree_note": "replay worktree at base cdb66059a2fe with the nearby commit applied"
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14365",
+      "repo": "astropy/astropy",
+      "base_commit": "7269fa3e33e8d02485a647da91a5a2a60a06af61",
+      "apply_detail": "IncompleteRead",
+      "admission": {
+        "case_id": "astropy__astropy-14365",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14369",
+      "repo": "astropy/astropy",
+      "base_commit": "fa4e8d1cd279acf9b24560813c8652494ccd5922",
+      "change_commit": "4ec671b4a5d5b5bba6074dc1c9d025cecbc4ffd5",
+      "ancestor": true,
+      "gold_file_count": 2,
+      "change_file_count": 3,
+      "shared_files": [
+        "astropy/units/format/cds.py"
+      ],
+      "apply_detail": "fatal: unable to access 'https://github.com/astropy/astropy.git/': Recv failure: Connection was reset",
+      "admission": {
+        "case_id": "astropy__astropy-14369",
+        "checks": {
+          "time_valid": true,
+          "source_real": true,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14508",
+      "repo": "astropy/astropy",
+      "base_commit": "a3f4ae6cd24d5ecdf49f213d77b3513dd509a06c",
+      "apply_detail": "github_http_403",
+      "admission": {
+        "case_id": "astropy__astropy-14508",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14539",
+      "repo": "astropy/astropy",
+      "base_commit": "c0a24c1dc957a3b565294213f435fefb2ec99714",
+      "apply_detail": "github_http_403",
+      "admission": {
+        "case_id": "astropy__astropy-14539",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    },
+    {
+      "case_id": "astropy__astropy-14598",
+      "repo": "astropy/astropy",
+      "base_commit": "80c3854a5f4f4a6ab86c03d9db7854767fcd83c1",
+      "apply_detail": "github_http_403",
+      "admission": {
+        "case_id": "astropy__astropy-14598",
+        "checks": {
+          "time_valid": false,
+          "source_real": false,
+          "applicable": false,
+          "task_not_pre_solved": false,
+          "solvable_after_change": false,
+          "independently_scorable": false
+        },
+        "admitted": false,
+        "reasons": {
+          "time_valid": "missing ancestry or time order",
+          "source_real": "change url or full sha missing",
+          "applicable": "apply_status=not_attempted",
+          "task_not_pre_solved": "not established",
+          "solvable_after_change": "no recovery witness",
+          "independently_scorable": "no post-state test or rule"
+        }
+      }
+    }
+  ],
+  "admitted_ids": [
+    "astropy__astropy-12907",
+    "astropy__astropy-13033",
+    "astropy__astropy-13398",
+    "astropy__astropy-14309"
+  ],
+  "linux_score_env": {
+    "distro": "eg-alpine",
+    "image": "python:3.10-slim",
+    "image_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+    "container": "eg-score",
+    "user": "1000:1000",
+    "network": "host",
+    "cflags": "-Wno-incompatible-pointer-types -Wno-error"
+  }
+}

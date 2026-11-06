@@ -1,0 +1,10 @@
+{
+  "stage": "1A",
+  "verdict": "same_engine_abort_path",
+  "e2_observed": false,
+  "proceed_to_1b_as_distinct_reclamation": false,
+  "proceed_to_stage_2": false,
+  "proceed_to_tracelab": false,
+  "grade": "C",
+  "reason": "客户端断流和显式 abort 都进入 EngineCore.abort_requests_async。没有请求级调度停止证据。不把 ClientStopOnly 当作未中止对照，也不做旁观者性能矩阵。"
+}

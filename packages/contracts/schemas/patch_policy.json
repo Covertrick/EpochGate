@@ -1,0 +1,6 @@
+{
+  "skip_dir_names": ["__pycache__", ".git", "node_modules", ".pytest_cache", "build", "dist"],
+  "skip_suffixes": [".pyc", ".pyo", ".o", ".so", ".log"],
+  "skip_dir_suffixes": [".egg-info"],
+  "harness_files": ["astropy/_version.py"]
+}

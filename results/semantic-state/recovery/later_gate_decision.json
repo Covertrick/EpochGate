@@ -1,0 +1,10 @@
+{
+  "m2_started": false,
+  "m3_started": false,
+  "m4_started": false,
+  "m5_started": false,
+  "m6_started": false,
+  "arxiv": false,
+  "both_gates": false,
+  "reason": "M1-R 工程闭环或 M0-R 启动门没有同时通过。M2 到 M6 不开始，也不填写论文数字。"
+}

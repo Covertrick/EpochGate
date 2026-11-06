@@ -1,0 +1,17 @@
+{
+  "name": "epochgate-dsh-research",
+  "private": true,
+  "version": "0.0.0",
+  "dependencies": {
+    "@deepseek-ai/dsh": "0.2.2-rc.1",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.1",
+    "@epochgate/eg-observability": "file:../../../packages/eg-observability",
+    "@epochgate/eg-policy": "file:../../../packages/eg-policy",
+    "@epochgate/eg-workspace": "file:../../../packages/eg-workspace"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": ["dsh-base", "dsh-sdk"]
+    }
+  }
+}

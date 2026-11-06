@@ -1,0 +1,3 @@
+- insert:
+    - id: eg-workspace
+      name: "@epochgate/eg-workspace"

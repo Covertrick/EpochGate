@@ -1,0 +1,19 @@
+{
+  "m0_data_gate": "stop",
+  "admitted": 4,
+  "bundles_installed": true,
+  "clean_loop_attempted": true,
+  "m1_passed": false,
+  "reason": "4 条完整事件对，少于 5。三个 bundle 已装入研究 profile，并用于一条 Clean 闭环。该闭环七步未通过。变更臂、多 Agent 实验和确认性实验未跑。",
+  "checkpoint": {
+    "in_process_prefix_fork_tested": true,
+    "dsh_session_fork_executed": false,
+    "ledger": "candidate_invalid_attempt, gateway_rejection, final_task_failure are separate",
+    "oracle_deployable": false
+  },
+  "change_arms": false,
+  "pilot": false,
+  "confirmatory": false,
+  "multi_agent_claimed": false,
+  "paper_numbers": false
+}

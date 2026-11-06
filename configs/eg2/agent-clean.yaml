@@ -1,0 +1,7 @@
+instance_id: astropy__astropy-12907
+base_commit: d16bfe05a744909de4b27f5875fe0d4ed41ce607
+tools:
+  - eg_read
+  - eg_write
+  - eg_bash
+gold_visible_to_agent: false

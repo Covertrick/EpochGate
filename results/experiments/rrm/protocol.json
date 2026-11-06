@@ -1,0 +1,58 @@
+{
+  "protocol_id": "rrm-1",
+  "version": "1.0.0",
+  "frozen_on": "2026-11-06",
+  "engine": {
+    "name": "vllm",
+    "required_version": "0.32.0",
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "gpu": "RTX 4060"
+  },
+  "arms": {
+    "CommitOnly": "不提前中止。Gateway 拒绝过期提交。不预设它最慢。",
+    "ClientStopOnly": "客户端断流。RRM 不额外调用显式中止。不预设服务端没有自动取消。",
+    "PredicateAbort": "谓词失效后走已核实的显式中止。返回成功不等于资源已回收。",
+    "SignalAbort": "信号到达后显式中止，不检查谓词。不预设误撤一定有性能损失。",
+    "DelayedAbort": "同一显式中止，只是延后。不预设旁观者一定变差。"
+  },
+  "evidence_levels": {
+    "E0": "客户端断流。只能写本地撤销。",
+    "E1": "请求级中止调用进入引擎路径。只能写引擎收到或处理了中止命令。",
+    "E2": "请求级调度事件证明该请求不再被继续调度。",
+    "E3": "请求级资源释放或复用有独立验证。不要求 nvidia-smi 下降。"
+  },
+  "time_fields": [
+    "t0_predicate_invalid",
+    "t1_client_stop",
+    "t2_explicit_abort_call",
+    "t3_scheduler_stopped",
+    "t4a_request_ownership_end",
+    "t4b_blocks_reusable",
+    "t4c_capacity_effect"
+  ],
+  "loads": {
+    "L0": "不拥塞。负对照。不要求 P95 改善。",
+    "L1": "中度拥塞。主效应。",
+    "L2": "较高但仍可用。只用于看 L1 能否复现。"
+  },
+  "primary_comparison": "invalid 条件下 PredicateAbort 相对 CommitOnly 的运行内旁观者 queue_time P95 之差",
+  "mechanism_comparison": "PredicateAbort 相对 ClientStopOnly",
+  "primary_endpoint": "同一次独立运行内旁观者 queue_time_ms 的 P95，再对同种子配对差做运行级 bootstrap",
+  "secondary_endpoint": "workflow 完成时间。只有多轮工作流才能使用这个名字。",
+  "missing_data": "目标请求没有最终 usage chunk 时，不得把 queue_time 补成 0。超时和失败不得从 P95 中删除。事件可以缺失，禁止编造时刻。",
+  "seeds": {
+    "path_check": [],
+    "pilot": {"start": 9100, "end": 9199},
+    "development": {"start": 9200, "end": 9299},
+    "confirmatory": {"start": 11000, "end": 11999}
+  },
+  "statistics_frozen_before_confirmatory": true,
+  "ucr_policy": "不使用 CQR、probe 或 F13–F16 的估计器",
+  "gate1_minimum": "E2，并且一条独立旁观者能返回真实 queue_time_ms",
+  "stop_rules": [
+    "1A 若断流与显式 abort 进入同一个 EngineCore.abort，则 ClientStopOnly 不是未中止对照，不进入把两者解释成两种回收机制的 1B。",
+    "只有 E1 时不进入阶段 2。",
+    "E2 成立而 E3 未知时，不得写 KV 已回收。",
+    "主比较不显著时，不得改用机制臂当主结果。"
+  ]
+}

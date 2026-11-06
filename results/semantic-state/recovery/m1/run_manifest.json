@@ -1,0 +1,40 @@
+{
+  "episode_id": "ep-eg-m1r-651c9e378414",
+  "session_id": "eg-m1r-651c9e378414",
+  "instance_id": "astropy__astropy-12907",
+  "base_commit": "d16bfe05a744909de4b27f5875fe0d4ed41ce607",
+  "provider": "deepseek-official",
+  "model_route": "deepseek-flash",
+  "reported_models": [
+    "deepseek-flash"
+  ],
+  "image": "epochgate/astropy-task:m1r",
+  "image_id": "sha256:359b4f7c1e8f07256558143f330d632f97354bba46c90dd5f0038d77eba5f829",
+  "agent_container": "eg-m1r-agent",
+  "scorer_container": "eg-m1r-scorer",
+  "container_user": "1000:1000",
+  "patch_kind": "VALID_PATCH",
+  "patch_files": [
+    "probe.txt"
+  ],
+  "usage": {
+    "input_tokens": 9845,
+    "output_tokens": 11409
+  },
+  "tool_names_seen": [
+    "eg_read",
+    "eg_write",
+    "eg_bash"
+  ],
+  "host_shell_executed": false,
+  "initialize_error": null,
+  "prompt_error": null,
+  "wait_error": null,
+  "candidate_sha256": "53fab4dd390780fc2241101dcfde6158a56fa84951d7a9e407e3ee0828ff32ce",
+  "key_printed": false,
+  "server_info": {
+    "name": "deepseek-harness-sdk-runtime",
+    "version": "0.0.1"
+  },
+  "baseline": "post-install workspace, so Cython outputs from install are not part of the patch"
+}

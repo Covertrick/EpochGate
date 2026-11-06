@@ -1,0 +1,14 @@
+{
+  "data_gate": "stop",
+  "complete_pairs": 0,
+  "repositories": [],
+  "pool_size": 33,
+  "status_counts": {
+    "limited_existing": 4,
+    "Unsatisfiable": 6,
+    "Unscorable": 5,
+    "AccessBlocked": 18
+  },
+  "paper_sample_frozen": false,
+  "reason": "工程启动门要求至少 5 条完整事件对，并且来自至少 2 个仓库。"
+}

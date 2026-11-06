@@ -1,0 +1,56 @@
+{
+  "stage": "M-1",
+  "passed": false,
+  "node": "v24.16.0",
+  "pnpm": "10.11.0",
+  "dsh_version": "0.2.2-rc.1",
+  "api": {
+    "status": "API_OK",
+    "model_alias": "deepseek-flash",
+    "reported_model": "deepseek-flash",
+    "run_date": "2026-11-06",
+    "key_printed": false
+  },
+  "profile_dump": {
+    "sdk_jsonrpc_server": true,
+    "model": "deepseek-flash",
+    "session_log_enabled": false,
+    "host_shell_tools_disabled_in_research_patch": true,
+    "dump": "results/semantic-state/sdk_research_config.txt"
+  },
+  "wsl": {
+    "kernel": "5.10.16.3-microsoft-standard-WSL2",
+    "kernel_install": "datasets/cache/wsl_update_x64.msi msiexec exit 0",
+    "wsl_update_cli": "failed 0x80d03805",
+    "ubuntu_store_install": "failed 0x8000ffff",
+    "distro": "eg-alpine",
+    "distro_version": 2,
+    "os": "Alpine Linux 3.21.9",
+    "distro_running": true,
+    "reboot_required": false
+  },
+  "docker": {
+    "installed_in_distro": true,
+    "engine": "27.3.1",
+    "image": "docker.io/library/alpine:3.21",
+    "image_id": "sha256:e50d940e9d2c4d81e5b3506b2ed87bfc7e91267b36ff016eb4b4cb21c39a3331",
+    "image_digest": "sha256:87a4361f6c819618a6bafa2ed5228714cb0bb22195d2b49c95eb26799990128a",
+    "container_user": "uid=1000 gid=1000",
+    "container_has_api_key": false,
+    "host_env_visible_in_container": false
+  },
+  "linux_container_runnable": true,
+  "container_requirement_met": true,
+  "sdk_session": {
+    "session_id": "eg-sdk-5d49ad751607",
+    "reported_model": "deepseek-flash",
+    "assistant_text_sha256": "9795c5ff8937f23526ccb207a5684c1fc94a7854e19c021b39d944e51f5baef2",
+    "host_shell_executed": false,
+    "host_shell_offered": false,
+    "record": "results/semantic-state/sdk_session.json"
+  },
+  "m1_seven_step": "results/semantic-state/m1_clean.json passed false",
+  "blockers": [
+    "Microsoft Store 上的 Ubuntu 安装失败（0x8000ffff）。当前 WSL2 发行版是导入的 Alpine 3.21.9。非 root 容器已在该发行版里跑通。"
+  ]
+}

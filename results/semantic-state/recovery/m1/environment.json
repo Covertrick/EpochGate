@@ -1,0 +1,10 @@
+{
+  "image": "epochgate/astropy-task:m1r",
+  "image_present": true,
+  "image_digest": "sha256:b626c0b5e88a18a55dde20c2b9d03735d42733d7ce92409d06f0ddcf0c11b9c5",
+  "image_id": "sha256:b626c0b5e88a18a55dde20c2b9d03735d42733d7ce92409d06f0ddcf0c11b9c5",
+  "dockerfile": "infrastructure/docker/task-images/astropy/Dockerfile",
+  "agent_and_scorer_share_digest": true,
+  "episode_image_id": "sha256:359b4f7c1e8f07256558143f330d632f97354bba46c90dd5f0038d77eba5f829",
+  "note": "会话 eg-m1r-651c9e378414 使用的是加入 venv chown 之前的镜像。当前镜像把 /opt/venv 交给 uid 1000。"
+}

@@ -1,0 +1,85 @@
+{
+  "cases": [
+    {
+      "case_id": "astropy__astropy-12907",
+      "historical_admission_unchanged": true,
+      "old_admitted": true,
+      "nearby_change_touches_gold_files": false,
+      "task_relevance": "unknown",
+      "evidence_invalidation": "unknown",
+      "refresh_requirement": "unknown",
+      "world_effect": "unknown",
+      "information": "insufficient",
+      "cells": {
+        "base": "not_run",
+        "base_plus_gold": "not_run",
+        "base_plus_change": "passed",
+        "base_plus_change_plus_valid_fix": "not_run"
+      },
+      "discriminates_wrong_from_right": false,
+      "research_suitability": "limited",
+      "reason": "旧六项准入保持不变。附近提交没有改 gold 文件，已有的 Linux pytest 跑在变更后的树上。这次审计没有同时看到失败的基线和通过的参考修复，所以还不能把测试当作能区分对错的评分。"
+    },
+    {
+      "case_id": "astropy__astropy-13033",
+      "historical_admission_unchanged": true,
+      "old_admitted": true,
+      "nearby_change_touches_gold_files": false,
+      "task_relevance": "unknown",
+      "evidence_invalidation": "unknown",
+      "refresh_requirement": "unknown",
+      "world_effect": "unknown",
+      "information": "insufficient",
+      "cells": {
+        "base": "not_run",
+        "base_plus_gold": "not_run",
+        "base_plus_change": "passed",
+        "base_plus_change_plus_valid_fix": "not_run"
+      },
+      "discriminates_wrong_from_right": false,
+      "research_suitability": "limited",
+      "reason": "旧六项准入保持不变。附近提交没有改 gold 文件，已有的 Linux pytest 跑在变更后的树上。这次审计没有同时看到失败的基线和通过的参考修复，所以还不能把测试当作能区分对错的评分。"
+    },
+    {
+      "case_id": "astropy__astropy-13398",
+      "historical_admission_unchanged": true,
+      "old_admitted": true,
+      "nearby_change_touches_gold_files": false,
+      "task_relevance": "unknown",
+      "evidence_invalidation": "unknown",
+      "refresh_requirement": "unknown",
+      "world_effect": "unknown",
+      "information": "insufficient",
+      "cells": {
+        "base": "not_run",
+        "base_plus_gold": "not_run",
+        "base_plus_change": "passed",
+        "base_plus_change_plus_valid_fix": "not_run"
+      },
+      "discriminates_wrong_from_right": false,
+      "research_suitability": "limited",
+      "reason": "旧六项准入保持不变。附近提交没有改 gold 文件，已有的 Linux pytest 跑在变更后的树上。这次审计没有同时看到失败的基线和通过的参考修复，所以还不能把测试当作能区分对错的评分。"
+    },
+    {
+      "case_id": "astropy__astropy-14309",
+      "historical_admission_unchanged": true,
+      "old_admitted": true,
+      "nearby_change_touches_gold_files": false,
+      "task_relevance": "unknown",
+      "evidence_invalidation": "unknown",
+      "refresh_requirement": "unknown",
+      "world_effect": "unknown",
+      "information": "insufficient",
+      "cells": {
+        "base": "not_run",
+        "base_plus_gold": "not_run",
+        "base_plus_change": "passed",
+        "base_plus_change_plus_valid_fix": "not_run"
+      },
+      "discriminates_wrong_from_right": false,
+      "research_suitability": "limited",
+      "reason": "旧六项准入保持不变。附近提交没有改 gold 文件，已有的 Linux pytest 跑在变更后的树上。这次审计没有同时看到失败的基线和通过的参考修复，所以还不能把测试当作能区分对错的评分。"
+    }
+  ],
+  "old_screen_unchanged": true
+}

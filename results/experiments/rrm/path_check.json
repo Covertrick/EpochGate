@@ -1,0 +1,32 @@
+{
+  "stage": "1A",
+  "installed_version": "0.32.0",
+  "version_matches_protocol": true,
+  "async_llm": {
+    "generate_catches_cancel_and_generator_exit": true,
+    "abort_reaches_engine_core": true
+  },
+  "http": {
+    "openai_completion_route_has_abort_endpoint": false,
+    "completion_route_uses_with_cancellation": true,
+    "streaming_returns_streaming_response": true,
+    "merge_aclose_on_exit": true,
+    "per_request_metrics_only_on_final_usage": true
+  },
+  "request_id_visible_to_client": true,
+  "explicit_abort_is_python_api": true,
+  "openai_http_has_per_request_abort": false,
+  "verdict": "same_engine_abort_path",
+  "client_stop_is_uncancelled_control": false,
+  "e2_observed": false,
+  "proceed_to_1b_as_distinct_reclamation": false,
+  "natural_completion_is_not_cancel_success": true,
+  "evidence": "installed_source",
+  "notes": [
+    "AsyncLLM.generate 捕获 CancelledError 和 GeneratorExit 后调用 abort。",
+    "abort 调用 engine_core.abort_requests_async。",
+    "OpenAI /v1/completions 没有单独的逐请求 abort 路由。",
+    "流式响应断开时，merge_async_iterators 会 aclose 内层 generate。",
+    "这次没有把全局 num_requests_running 写成该请求已停止。"
+  ]
+}

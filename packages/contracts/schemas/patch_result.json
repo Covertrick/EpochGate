@@ -1,0 +1,17 @@
+{
+  "$id": "eg2.patch_result.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "files"],
+  "properties": {
+    "kind": {
+      "enum": ["VALID_PATCH", "EMPTY_PATCH", "INVALID_PATCH", "EXPORT_ERROR"]
+    },
+    "files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "diff": { "type": "string" },
+    "reason": { "type": "string" }
+  }
+}

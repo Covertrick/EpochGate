@@ -1,0 +1,18 @@
+{
+  "$id": "eg2.events.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "episode_id", "session_id", "event_seq", "event_type", "timestamp_utc", "status", "payload"],
+  "properties": {
+    "schema_version": { "const": "eg2.events.v1" },
+    "episode_id": { "type": "string", "minLength": 1 },
+    "session_id": { "type": "string", "minLength": 1 },
+    "event_seq": { "type": "integer", "minimum": 1 },
+    "event_type": { "type": "string", "minLength": 1 },
+    "tool_call_id": { "type": "string" },
+    "timestamp_utc": { "type": "string", "minLength": 1 },
+    "monotonic_ns": { "type": "integer" },
+    "status": { "enum": ["success", "error", "refused", "started"] },
+    "payload": { "type": "object" }
+  }
+}

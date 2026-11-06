@@ -1,0 +1,3 @@
+- insert:
+    - id: eg-observability
+      name: "@epochgate/eg-observability"

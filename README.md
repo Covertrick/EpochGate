@@ -6,6 +6,8 @@
 - **5.0：安全 Gateway 和复现失败。** 已知 \(C/S\) 的切换没有形成可投稿结果；DeepSeek 那条复现也失败了，原文在 [docs/舍弃分支/](docs/舍弃分支/README.md)。审计在 [docs/论文/论文5.0.md](docs/论文/论文5.0.md)。
 - **UCR-1：非 Oracle 不确定性策略未被有效评估。** 生成器要求模型在训练支持域外外推，谓词时刻和工具类型没有进入成本标签。Gate A/B/D 不通过，Gate C 通过。封存在 [docs/论文/ucr_v1_diagnosis.md](docs/论文/ucr_v1_diagnosis.md)。
 - **UCR-2.1：插值 Gate A/B 不通过，算法线收口。** 生成器审计通过，但 F16 的剩余服务覆盖率是 0.79，区间加 probe 的后悔高于点估计。没有跑外推，也没有为此再跑 vLLM。结论在 [docs/论文/论文UCR-2.md](docs/论文/论文UCR-2.md)。
+- **RRM-1：取消路径核对，不是新算法。** 未得到请求级调度停止证据之前，不写资源回收，也不跑旁观者性能矩阵。方案在 [docs/论文/RRM-1实验方案.md](docs/论文/RRM-1实验方案.md)，1A 记录在 [docs/论文/论文RRM.md](docs/论文/论文RRM.md)。
+- **EpochGate 2.0：DSH 上的真实历史重放。** 旧结论保持封存。新合同在 [docs/开发文档/项目开发文档EpochGate-2.0.md](docs/开发文档/项目开发文档EpochGate-2.0.md)。五个可评分事件对出现之前，不扩展 benchmark，也不写论文数字。
 
 **现在不投 ArXiv。**
 
@@ -72,8 +74,8 @@ python scripts/audit_v40_p95.py
 
 | 文件夹 | 现在读哪一份 |
 | --- | --- |
-| [docs/论文/](docs/论文/) | [论文UCR-2.md](docs/论文/论文UCR-2.md) 收口 UCR-2.1；[论文UCR.md](docs/论文/论文UCR.md) 封存 UCR-1；[论文5.0.md](docs/论文/论文5.0.md) 是已知 \(C/S\) 的审计；[论文4.0.md](docs/论文/论文4.0.md) 是回放参照 |
-| [docs/开发文档/](docs/开发文档/) | [项目开发文档UCR.md](docs/开发文档/项目开发文档UCR.md) 是 UCR 记录；[项目开发文档5.0.md](docs/开发文档/项目开发文档5.0.md) 是上一条合同 |
+| [docs/论文/](docs/论文/) | [论文RRM.md](docs/论文/论文RRM.md) 是取消路径核对；[论文UCR-2.md](docs/论文/论文UCR-2.md) 收口 UCR-2.1；[论文5.0.md](docs/论文/论文5.0.md) 是已知 \(C/S\) 的审计；[论文4.0.md](docs/论文/论文4.0.md) 是回放参照 |
+| [docs/开发文档/](docs/开发文档/) | [项目开发文档EpochGate-2.0.md](docs/开发文档/项目开发文档EpochGate-2.0.md) 是新平台合同；[项目开发文档5.0.md](docs/开发文档/项目开发文档5.0.md) 是上一条合同 |
 | [docs/舍弃分支/](docs/舍弃分支/) | DeepSeek 黑盒和 vLLM 四组，不再作为论文主线 |
 | [docs/工程实现说明/](docs/工程实现说明/) | [工程实现说明.md](docs/工程实现说明/工程实现说明.md) 是当前模块和命令。`v0.1.md`–`v1.0.md` 是各版原文 |
 | [docs/面试/](docs/面试/) | [面试讲解.md](docs/面试/面试讲解.md) 是口述；[结果与复现.md](docs/面试/结果与复现.md) 是结果索引 |

@@ -1,0 +1,3 @@
+- insert:
+    - id: eg-policy
+      name: "@epochgate/eg-policy"

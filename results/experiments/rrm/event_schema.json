@@ -1,0 +1,21 @@
+{
+  "required": [
+    "run_id",
+    "request_id",
+    "role",
+    "arm",
+    "event",
+    "timestamp_monotonic_ns",
+    "source",
+    "evidence_level",
+    "observation_status",
+    "plan_epoch",
+    "config_hash"
+  ],
+  "roles": ["target", "bystander", "successor"],
+  "arms": ["CommitOnly", "ClientStopOnly", "PredicateAbort", "SignalAbort", "DelayedAbort"],
+  "evidence_levels": ["E0", "E1", "E2", "E3"],
+  "observation_status": ["observed", "missing", "censored"],
+  "forbidden_sources_for_e3": ["num_requests_running", "nvidia_smi"],
+  "notes": "同一请求共用 request_id。observation_status 为 missing 或 censored 时，timestamp_monotonic_ns 必须为 null。ClientStopOnly 不得出现 event=rrm_explicit_abort。"
+}

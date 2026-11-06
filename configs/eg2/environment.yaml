@@ -1,0 +1,10 @@
+provider: deepseek-official
+model_route: deepseek-flash
+dsh_version: 0.2.2-rc.1
+image_name: epochgate/astropy-task:m1r
+agent_user: "1000:1000"
+scorer_user: "1000:1000"
+secret_names:
+  - DEEPSEEK_API_KEY
+  - EPOCHGATE_API_KEY
+  - DS_API_KEY

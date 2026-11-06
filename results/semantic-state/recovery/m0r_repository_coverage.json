@@ -1,0 +1,9 @@
+{
+  "repositories": {
+    "astropy/astropy": 9,
+    "django/django": 8,
+    "pylint-dev/pylint": 8,
+    "pytest-dev/pytest": 8
+  },
+  "repository_count": 4
+}

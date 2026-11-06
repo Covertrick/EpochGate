@@ -1,0 +1,20 @@
+{
+  "$id": "eg2.evidence.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence_id", "episode_id", "source_type", "resource", "content_sha256", "validity"],
+  "properties": {
+    "evidence_id": { "type": "string" },
+    "episode_id": { "type": "string" },
+    "tool_call_id": { "type": "string" },
+    "source_type": { "type": "string" },
+    "resource": { "type": "string" },
+    "source_commit": { "type": "string" },
+    "content_sha256": { "type": "string" },
+    "observed_event_seq": { "type": "integer" },
+    "validity": {
+      "enum": ["OBSERVED", "POTENTIALLY_STALE", "REFRESHED", "CONFIRMED_STALE", "UNKNOWN"]
+    },
+    "invalidated_by": { "type": ["string", "null"] }
+  }
+}

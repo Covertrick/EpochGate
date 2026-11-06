@@ -1,0 +1,38 @@
+# Overrides for the locked 0.2.2-rc.1 sdk profile.
+# A patch replaces the targeted row's whole config. Schema defaults fill the rest.
+- id: session-log-deepseek
+  name: "@deepseek-ai/dsh-session-log-deepseek"
+  config:
+    enabled: false
+- id: agent-default-model
+  name: "@deepseek-ai/dsh-agent-default-model"
+  config:
+    provider: deepseek-official
+    model: deepseek-flash
+# This session keeps host shells and host file tools closed.
+# A patch that omits config only replaces the fields it sets.
+- id: tool-bash
+  disabled: true
+- id: tool-pwsh
+  disabled: true
+- id: bash-sandbox
+  disabled: true
+- id: pwsh-sandbox
+  disabled: true
+- id: tool-jobs
+  disabled: true
+- id: tool-fs
+  disabled: true
+- id: tool-fs-search
+  disabled: true
+- id: tool-plugin-manager
+  disabled: true
+- id: tool-web
+  disabled: true
+- insert:
+    - id: eg-workspace
+      name: "file:///D:/Workspace/EpochGate/packages/eg-workspace/lib/index.js"
+    - id: eg-policy
+      name: "file:///D:/Workspace/EpochGate/packages/eg-policy/lib/index.js"
+    - id: eg-observability
+      name: "file:///D:/Workspace/EpochGate/packages/eg-observability/lib/index.js"

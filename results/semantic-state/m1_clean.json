@@ -1,0 +1,59 @@
+{
+  "stage": "M1",
+  "passed": false,
+  "steps": {
+    "task_loaded": true,
+    "image_and_sha": true,
+    "sdk_started": true,
+    "container_tools_used": true,
+    "gateway_candidate": false,
+    "external_score": false,
+    "trace_replay": false
+  },
+  "instance_id": "astropy__astropy-12907",
+  "base_commit": "d16bfe05a744909de4b27f5875fe0d4ed41ce607",
+  "image": "python:3.11-slim",
+  "image_digest": "sha256:65bd3d9f1d7fa268dd1909973ba7eb4bdf41f6dcf2cfbe76ba9528b170f3fd79",
+  "container": "eg-clean",
+  "container_user": "1000:1000",
+  "container_has_api_key": false,
+  "session_id": "eg-clean-d05bd7aa8047",
+  "server_info": {
+    "name": "deepseek-harness-sdk-runtime",
+    "version": "0.0.1"
+  },
+  "initialize_error": null,
+  "prompt_error": null,
+  "wait_error": null,
+  "shutdown_result": {},
+  "tool_names_seen": [
+    "eg_read",
+    "eg_write",
+    "eg_bash"
+  ],
+  "host_shell_executed": false,
+  "usage": {
+    "input_tokens": 13273,
+    "output_tokens": 8085
+  },
+  "candidate_sha256": "1edd02070a4d9c4e1daddad641161720a251b821d5743f6382e82a4ac1e8235f",
+  "grade": {
+    "exit_code": 1,
+    "pytest_started": false
+  },
+  "replay": {
+    "matched": false,
+    "exit_code": null,
+    "apply_error": "error: corrupt patch at line 123\n"
+  },
+  "bundles": [
+    "@epochgate/eg-workspace",
+    "@epochgate/eg-policy",
+    "@epochgate/eg-observability"
+  ],
+  "strategy_comparison": false,
+  "multi_agent_claimed": false,
+  "key_printed": false,
+  "candidate_kind": "bytecode_only",
+  "note": "eg_read、eg_write、eg_bash 已在容器内执行。源码没有改动，工作区只多了 __pycache__，所以没有可评分的候选 diff。"
+}

@@ -1,3 +1,8 @@
+# Node
+node_modules/
+infrastructure/dsh-home/
+infrastructure/dsh-profiles/research/datasets/
+
 # Python
 __pycache__/
 *.py[cod]
@@ -16,6 +21,9 @@ Thumbs.db
 
 # Follow-up replay is larger than GitHub's file limit. Commit the summary, not the JSONL.
 results/experiments/followup/matrix.jsonl
+
+# Downloaded benchmark caches. Commit the screening report, not the raw dump.
+datasets/cache/
 
 # Local experiment artifacts (when code lands)
 runs/

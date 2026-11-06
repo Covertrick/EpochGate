@@ -1,0 +1,3 @@
+strategy: reread_retest
+activated: false
+reason: 等 M1-R 与 M0-R 都通过后再加载

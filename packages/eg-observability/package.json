@@ -1,0 +1,17 @@
+{
+  "name": "@epochgate/eg-observability",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml",
+      "dsh": "0.2.2-rc.1"
+    }
+  }
+}
