@@ -1,0 +1,36 @@
+{
+  "workload": "W0_real_process",
+  "concurrency": 2,
+  "repeats": 3,
+  "sleep_seconds": 0.05,
+  "arms": [
+    {
+      "arm": "B0",
+      "samples_seconds": [
+        0.07669989997521043,
+        0.07723480003187433,
+        0.07853030000114813
+      ],
+      "median_seconds": 0.07723480003187433
+    },
+    {
+      "arm": "B1",
+      "samples_seconds": [
+        0.07421579997753724,
+        0.07916059996932745,
+        0.07786720001604408
+      ],
+      "median_seconds": 0.07786720001604408
+    },
+    {
+      "arm": "B2",
+      "samples_seconds": [
+        0.09311419998994097,
+        0.15338879998307675,
+        0.08533159998478368
+      ],
+      "median_seconds": 0.09311419998994097
+    }
+  ],
+  "measurement": "local process sleep plus control-plane work; not a model or GPU measurement"
+}

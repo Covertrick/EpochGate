@@ -1,0 +1,64 @@
+{
+  "official_harness": false,
+  "official_node_list": true,
+  "dataset": "princeton-nlp/SWE-bench_Verified",
+  "instance_id": "astropy__astropy-12907",
+  "sample_size": 1,
+  "base_commit_dataset": "d16bfe05a744909de4b27f5875fe0d4ed41ce607",
+  "base_commit_checkout": "d16bfe05a744909de4b27f5875fe0d4ed41ce607",
+  "checkout_matches_dataset": true,
+  "fail_to_pass": [
+    "astropy/modeling/tests/test_separable.py::test_separable[compound_model6-result6]",
+    "astropy/modeling/tests/test_separable.py::test_separable[compound_model9-result9]"
+  ],
+  "pass_to_pass_count": 13,
+  "pass_to_pass_ran": false,
+  "gold_patch_sha256": "0f3e44432ed8540e9526edff4f83793948a2f139fc3971b67c30043c1eb7964a",
+  "test_patch_sha256": "5ef90b640ffce4590bb61ef2ea0e3256416dddf41b45bf4f2c3610a6e8c53718",
+  "agent_patch_ran": false,
+  "image": "epochgate/astropy-task:m1r",
+  "test_patch_apply": {
+    "returncode": 0,
+    "stderr_tail": ""
+  },
+  "container_started": true,
+  "sync_base": {
+    "ok": true
+  },
+  "install": {
+    "exit_code": 0,
+    "output_tail": "(from astropy==0.0.0) (6.0.3)\nRequirement already satisfied: numpy>=1.18 in /opt/venv/lib/python3.10/site-packages (from astropy==0.0.0) (1.24.4)\nBuilding wheels for collected packages: astropy\n  Building editable for astropy (pyproject.toml): started\n  Building editable for astropy (pyproject.toml): still running...\n  Building editable for astropy (pyproject.toml): finished with status 'done'\n  Created wheel for astropy: filename=astropy-0.0.0-0.editable-cp310-cp310-linux_x86_64.whl size=6411 sha256=91584346abb65a8179b79af904f0f83ff6d823aec4873a1c5192a3687a62a1c8\n  Stored in directory: /tmp/pip-ephem-wheel-cache-jl_50v2h/wheels/80/75/f6/d63789e3414f7f88206102fa596a8ddafc889f48984e8712b3\nSuccessfully built astropy\nInstalling collected packages: astropy\nSuccessfully installed astropy-0.0.0\n",
+    "network": "bridge, required by pip install -e"
+  },
+  "collect_only_tail": "astropy/modeling/tests/test_separable.py::test_separable[compound_model0-result0]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model1-result1]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model2-result2]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model3-result3]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model4-result4]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model5-result5]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model6-result6]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model7-result7]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model8-result8]\nastropy/modeling/tests/test_separable.py::test_separable[compound_model9-result9]\n\n10 tests collected in 0.19s\n",
+  "baseline": {
+    "exit_code": 1,
+    "output_tail": "FF                                                                       [100%]\n=================================== FAILURES ===================================\nE   AssertionError: \n    Not equal to tolerance rtol=1e-07, atol=0\n    \n    Mismatched elements: 2 / 4 (50%)\n     x: array([False, False, False, False])\n     y: array([False, False,  True,  True])\n/usr/local/lib/python3.10/contextlib.py:79: AssertionError:\nE   AssertionError: \n    Not equal to tolerance rtol=1e-07, atol=0\n    \n    Mismatched elements: 2 / 5 (40%)\n     x: array([False, False,  True, False, False])\n     y: array([False, False,  True,  True,  True])\n/usr/local/lib/python3.10/contextlib.py:79: AssertionError:\n=========================== short test summary info ============================\nFAILED astropy/modeling/tests/test_separable.py::test_separable[compound_model6-result6]\nFAILED astropy/modeling/tests/test_separable.py::test_separable[compound_model9-result9]\n2 failed in 0.08s\n"
+  },
+  "gold_patch_apply": {
+    "returncode": 0,
+    "stderr_tail": ""
+  },
+  "sync_gold": {
+    "ok": true
+  },
+  "reinstall_after_gold": {
+    "exit_code": 0,
+    "output_tail": "239e1d56f853a7\n  Stored in directory: /tmp/pip-ephem-wheel-cache-sf_7pmh3/wheels/80/75/f6/d63789e3414f7f88206102fa596a8ddafc889f48984e8712b3\nSuccessfully built astropy\nInstalling collected packages: astropy\n  Attempting uninstall: astropy\n    Found existing installation: astropy 0.0.0\n    Uninstalling astropy-0.0.0:\n      Successfully uninstalled astropy-0.0.0\nSuccessfully installed astropy-0.0.0\n"
+  },
+  "gold": {
+    "exit_code": 0,
+    "output_tail": "..                                                                       [100%]\n2 passed in 0.21s\n"
+  },
+  "baseline_collected": true,
+  "gold_collected": true,
+  "base_fail_to_pass_failed": true,
+  "gold_fail_to_pass_passed": true,
+  "protocol_discriminating": true,
+  "status": "scored",
+  "node_transport": "base64 argv, no shell",
+  "apply_method": "git apply --directory=<work>",
+  "previous_attempts": "sh -c expanded brackets; a later git apply inside the EpochGate repo skipped the patch and still returned 0, so those runs collected only the six base parameters and did not execute compound_model6 or compound_model9.",
+  "repair_demonstrated": false,
+  "repair_note": "No agent patch was generated or scored. This sample checks the official nodes on the base tree and the dataset gold patch."
+}

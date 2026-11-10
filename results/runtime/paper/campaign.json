@@ -1,0 +1,2122 @@
+{
+  "model": "deepseek-flash",
+  "B": {
+    "package": "B",
+    "repeats": 5,
+    "scenario_count": 10,
+    "all_match": true,
+    "scenarios": [
+      {
+        "scenario": "notification_absent",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "notification_absent",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "没有 supersede 时旧 token 仍然有效。fencing 不会自己看见外部库存变化。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_absent",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "没有 supersede 时旧 token 仍然有效。fencing 不会自己看见外部库存变化。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_absent",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "没有 supersede 时旧 token 仍然有效。fencing 不会自己看见外部库存变化。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_absent",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "没有 supersede 时旧 token 仍然有效。fencing 不会自己看见外部库存变化。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_absent",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "没有 supersede 时旧 token 仍然有效。fencing 不会自己看见外部库存变化。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "notification_timely",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "notification_timely_aligned",
+            "expected": "rejected/completed",
+            "observed": "rejected/completed",
+            "sink_payloads": [
+              null,
+              {
+                "receipt": "72c81d040913230abb28d810a1b7a8c67ba99bf61dec6f90eacefc0244cd11dd",
+                "payload": "inventory:0",
+                "state_version": 2
+              }
+            ],
+            "safety": true,
+            "forward_progress": true,
+            "rule": "supersede(sink) 同时推进 token、state_version 和 sink 版本。旧依据拒绝，新依据可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_timely_aligned",
+            "expected": "rejected/completed",
+            "observed": "rejected/completed",
+            "sink_payloads": [
+              null,
+              {
+                "receipt": "72c81d040913230abb28d810a1b7a8c67ba99bf61dec6f90eacefc0244cd11dd",
+                "payload": "inventory:0",
+                "state_version": 2
+              }
+            ],
+            "safety": true,
+            "forward_progress": true,
+            "rule": "supersede(sink) 同时推进 token、state_version 和 sink 版本。旧依据拒绝，新依据可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_timely_aligned",
+            "expected": "rejected/completed",
+            "observed": "rejected/completed",
+            "sink_payloads": [
+              null,
+              {
+                "receipt": "72c81d040913230abb28d810a1b7a8c67ba99bf61dec6f90eacefc0244cd11dd",
+                "payload": "inventory:0",
+                "state_version": 2
+              }
+            ],
+            "safety": true,
+            "forward_progress": true,
+            "rule": "supersede(sink) 同时推进 token、state_version 和 sink 版本。旧依据拒绝，新依据可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_timely_aligned",
+            "expected": "rejected/completed",
+            "observed": "rejected/completed",
+            "sink_payloads": [
+              null,
+              {
+                "receipt": "72c81d040913230abb28d810a1b7a8c67ba99bf61dec6f90eacefc0244cd11dd",
+                "payload": "inventory:0",
+                "state_version": 2
+              }
+            ],
+            "safety": true,
+            "forward_progress": true,
+            "rule": "supersede(sink) 同时推进 token、state_version 和 sink 版本。旧依据拒绝，新依据可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_timely_aligned",
+            "expected": "rejected/completed",
+            "observed": "rejected/completed",
+            "sink_payloads": [
+              null,
+              {
+                "receipt": "72c81d040913230abb28d810a1b7a8c67ba99bf61dec6f90eacefc0244cd11dd",
+                "payload": "inventory:0",
+                "state_version": 2
+              }
+            ],
+            "safety": true,
+            "forward_progress": true,
+            "rule": "supersede(sink) 同时推进 token、state_version 和 sink 版本。旧依据拒绝，新依据可以提交。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "notification_delayed",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "notification_after_commit",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "提交先完成时，之后的 supersede 不能把已经接受的效果收回。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_after_commit",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "提交先完成时，之后的 supersede 不能把已经接受的效果收回。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_after_commit",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "提交先完成时，之后的 supersede 不能把已经接受的效果收回。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_after_commit",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "提交先完成时，之后的 supersede 不能把已经接受的效果收回。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_after_commit",
+            "expected": "completed",
+            "observed": "completed",
+            "sink_accepts": 1,
+            "safety": false,
+            "forward_progress": null,
+            "rule": "提交先完成时，之后的 supersede 不能把已经接受的效果收回。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "notification_repeated",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "notification_repeated",
+            "expected": "completed",
+            "observed": "completed",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "重复的对齐通知只留下最后一对 token 和版本。最后的后继可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_repeated",
+            "expected": "completed",
+            "observed": "completed",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "重复的对齐通知只留下最后一对 token 和版本。最后的后继可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_repeated",
+            "expected": "completed",
+            "observed": "completed",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "重复的对齐通知只留下最后一对 token 和版本。最后的后继可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_repeated",
+            "expected": "completed",
+            "observed": "completed",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "重复的对齐通知只留下最后一对 token 和版本。最后的后继可以提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "notification_repeated",
+            "expected": "completed",
+            "observed": "completed",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "重复的对齐通知只留下最后一对 token 和版本。最后的后继可以提交。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "duplicate_commit",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "duplicate_commit",
+            "expected": "completed/replayed/1",
+            "observed": "completed/replayed/1",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "同一幂等键第二次不增加接受次数。",
+            "matched": true
+          },
+          {
+            "mechanism": "duplicate_commit",
+            "expected": "completed/replayed/1",
+            "observed": "completed/replayed/1",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "同一幂等键第二次不增加接受次数。",
+            "matched": true
+          },
+          {
+            "mechanism": "duplicate_commit",
+            "expected": "completed/replayed/1",
+            "observed": "completed/replayed/1",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "同一幂等键第二次不增加接受次数。",
+            "matched": true
+          },
+          {
+            "mechanism": "duplicate_commit",
+            "expected": "completed/replayed/1",
+            "observed": "completed/replayed/1",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "同一幂等键第二次不增加接受次数。",
+            "matched": true
+          },
+          {
+            "mechanism": "duplicate_commit",
+            "expected": "completed/replayed/1",
+            "observed": "completed/replayed/1",
+            "safety": true,
+            "forward_progress": true,
+            "rule": "同一幂等键第二次不增加接受次数。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "revoke_before_commit",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "revoke_before_commit",
+            "expected": "rejected",
+            "observed": "rejected",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "revoke 取消资格并推进 sink。旧 token 不能提交，这条 Run 也没有后继资格。",
+            "matched": true
+          },
+          {
+            "mechanism": "revoke_before_commit",
+            "expected": "rejected",
+            "observed": "rejected",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "revoke 取消资格并推进 sink。旧 token 不能提交，这条 Run 也没有后继资格。",
+            "matched": true
+          },
+          {
+            "mechanism": "revoke_before_commit",
+            "expected": "rejected",
+            "observed": "rejected",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "revoke 取消资格并推进 sink。旧 token 不能提交，这条 Run 也没有后继资格。",
+            "matched": true
+          },
+          {
+            "mechanism": "revoke_before_commit",
+            "expected": "rejected",
+            "observed": "rejected",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "revoke 取消资格并推进 sink。旧 token 不能提交，这条 Run 也没有后继资格。",
+            "matched": true
+          },
+          {
+            "mechanism": "revoke_before_commit",
+            "expected": "rejected",
+            "observed": "rejected",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "revoke 取消资格并推进 sink。旧 token 不能提交，这条 Run 也没有后继资格。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "commit_then_revoke",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "commit_then_revoke",
+            "expected": "completed/rejected/True",
+            "observed": "completed/rejected/True",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "已经写入 sink 的 receipt 还在。撤销只挡住下一次提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "commit_then_revoke",
+            "expected": "completed/rejected/True",
+            "observed": "completed/rejected/True",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "已经写入 sink 的 receipt 还在。撤销只挡住下一次提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "commit_then_revoke",
+            "expected": "completed/rejected/True",
+            "observed": "completed/rejected/True",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "已经写入 sink 的 receipt 还在。撤销只挡住下一次提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "commit_then_revoke",
+            "expected": "completed/rejected/True",
+            "observed": "completed/rejected/True",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "已经写入 sink 的 receipt 还在。撤销只挡住下一次提交。",
+            "matched": true
+          },
+          {
+            "mechanism": "commit_then_revoke",
+            "expected": "completed/rejected/True",
+            "observed": "completed/rejected/True",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "已经写入 sink 的 receipt 还在。撤销只挡住下一次提交。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "version_unaligned",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "version_unaligned",
+            "expected": "rejected/rejected",
+            "observed": "rejected/rejected",
+            "safety": true,
+            "forward_progress": false,
+            "classification": "coordination_defect",
+            "rule": "协调规则要求 sink 版本和 state_version 一起变。只调用 supersede() 时新 token 也会被版本检查拒绝。这不是预期的安全拒绝。",
+            "matched": true
+          },
+          {
+            "mechanism": "version_unaligned",
+            "expected": "rejected/rejected",
+            "observed": "rejected/rejected",
+            "safety": true,
+            "forward_progress": false,
+            "classification": "coordination_defect",
+            "rule": "协调规则要求 sink 版本和 state_version 一起变。只调用 supersede() 时新 token 也会被版本检查拒绝。这不是预期的安全拒绝。",
+            "matched": true
+          },
+          {
+            "mechanism": "version_unaligned",
+            "expected": "rejected/rejected",
+            "observed": "rejected/rejected",
+            "safety": true,
+            "forward_progress": false,
+            "classification": "coordination_defect",
+            "rule": "协调规则要求 sink 版本和 state_version 一起变。只调用 supersede() 时新 token 也会被版本检查拒绝。这不是预期的安全拒绝。",
+            "matched": true
+          },
+          {
+            "mechanism": "version_unaligned",
+            "expected": "rejected/rejected",
+            "observed": "rejected/rejected",
+            "safety": true,
+            "forward_progress": false,
+            "classification": "coordination_defect",
+            "rule": "协调规则要求 sink 版本和 state_version 一起变。只调用 supersede() 时新 token 也会被版本检查拒绝。这不是预期的安全拒绝。",
+            "matched": true
+          },
+          {
+            "mechanism": "version_unaligned",
+            "expected": "rejected/rejected",
+            "observed": "rejected/rejected",
+            "safety": true,
+            "forward_progress": false,
+            "classification": "coordination_defect",
+            "rule": "协调规则要求 sink 版本和 state_version 一起变。只调用 supersede() 时新 token 也会被版本检查拒绝。这不是预期的安全拒绝。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "started_unconfirmed",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "started_unconfirmed",
+            "expected": "unknown",
+            "observed": "unknown",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "效果已经标成 STARTED 又没有 receipt 时，提交停在 unknown，不自动再写 sink。",
+            "matched": true
+          },
+          {
+            "mechanism": "started_unconfirmed",
+            "expected": "unknown",
+            "observed": "unknown",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "效果已经标成 STARTED 又没有 receipt 时，提交停在 unknown，不自动再写 sink。",
+            "matched": true
+          },
+          {
+            "mechanism": "started_unconfirmed",
+            "expected": "unknown",
+            "observed": "unknown",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "效果已经标成 STARTED 又没有 receipt 时，提交停在 unknown，不自动再写 sink。",
+            "matched": true
+          },
+          {
+            "mechanism": "started_unconfirmed",
+            "expected": "unknown",
+            "observed": "unknown",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "效果已经标成 STARTED 又没有 receipt 时，提交停在 unknown，不自动再写 sink。",
+            "matched": true
+          },
+          {
+            "mechanism": "started_unconfirmed",
+            "expected": "unknown",
+            "observed": "unknown",
+            "sink_accepts": 0,
+            "safety": true,
+            "forward_progress": false,
+            "rule": "效果已经标成 STARTED 又没有 receipt 时，提交停在 unknown，不自动再写 sink。",
+            "matched": true
+          }
+        ]
+      },
+      {
+        "scenario": "external_unconfirmed",
+        "n": 5,
+        "all_match": true,
+        "rows": [
+          {
+            "mechanism": "external_unconfirmed",
+            "expected": "False/replayed",
+            "observed": "False/replayed",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "不能条件提交的外部效果只封一次，retry 为 false。",
+            "matched": true
+          },
+          {
+            "mechanism": "external_unconfirmed",
+            "expected": "False/replayed",
+            "observed": "False/replayed",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "不能条件提交的外部效果只封一次，retry 为 false。",
+            "matched": true
+          },
+          {
+            "mechanism": "external_unconfirmed",
+            "expected": "False/replayed",
+            "observed": "False/replayed",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "不能条件提交的外部效果只封一次，retry 为 false。",
+            "matched": true
+          },
+          {
+            "mechanism": "external_unconfirmed",
+            "expected": "False/replayed",
+            "observed": "False/replayed",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "不能条件提交的外部效果只封一次，retry 为 false。",
+            "matched": true
+          },
+          {
+            "mechanism": "external_unconfirmed",
+            "expected": "False/replayed",
+            "observed": "False/replayed",
+            "safety": true,
+            "forward_progress": false,
+            "rule": "不能条件提交的外部效果只封一次，retry 为 false。",
+            "matched": true
+          }
+        ]
+      }
+    ]
+  },
+  "D": {
+    "package": "D",
+    "crashes": [
+      {
+        "repeat": 0,
+        "fault": "before_dispatch",
+        "exit_code": 86,
+        "decision": "not_applied",
+        "sink_accepts": 0
+      },
+      {
+        "repeat": 0,
+        "fault": "before_sink",
+        "exit_code": 86,
+        "decision": "not_applied",
+        "sink_accepts": 0
+      },
+      {
+        "repeat": 0,
+        "fault": "after_sink",
+        "exit_code": 86,
+        "decision": "confirmed_from_sink",
+        "sink_accepts": 1
+      },
+      {
+        "repeat": 0,
+        "fault": "after_receipt",
+        "exit_code": 86,
+        "decision": "replay",
+        "sink_accepts": 1
+      },
+      {
+        "repeat": 1,
+        "fault": "before_dispatch",
+        "exit_code": 86,
+        "decision": "not_applied",
+        "sink_accepts": 0
+      },
+      {
+        "repeat": 1,
+        "fault": "before_sink",
+        "exit_code": 86,
+        "decision": "not_applied",
+        "sink_accepts": 0
+      },
+      {
+        "repeat": 1,
+        "fault": "after_sink",
+        "exit_code": 86,
+        "decision": "confirmed_from_sink",
+        "sink_accepts": 1
+      },
+      {
+        "repeat": 1,
+        "fault": "after_receipt",
+        "exit_code": 86,
+        "decision": "replay",
+        "sink_accepts": 1
+      },
+      {
+        "repeat": 2,
+        "fault": "before_dispatch",
+        "exit_code": 86,
+        "decision": "not_applied",
+        "sink_accepts": 0
+      },
+      {
+        "repeat": 2,
+        "fault": "before_sink",
+        "exit_code": 86,
+        "decision": "not_applied",
+        "sink_accepts": 0
+      },
+      {
+        "repeat": 2,
+        "fault": "after_sink",
+        "exit_code": 86,
+        "decision": "confirmed_from_sink",
+        "sink_accepts": 1
+      },
+      {
+        "repeat": 2,
+        "fault": "after_receipt",
+        "exit_code": 86,
+        "decision": "replay",
+        "sink_accepts": 1
+      }
+    ],
+    "crash_exit_codes": [
+      86
+    ],
+    "cancels": [
+      {
+        "repeat": 0,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 0.8297026000218466
+      },
+      {
+        "repeat": 1,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 0.8760806000209413
+      },
+      {
+        "repeat": 2,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 1.0839841000270098
+      },
+      {
+        "repeat": 3,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 0.929154000012204
+      },
+      {
+        "repeat": 4,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 0.9841858000145294
+      },
+      {
+        "repeat": 5,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 0.7967206999892369
+      },
+      {
+        "repeat": 6,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 0.7124239000258967
+      },
+      {
+        "repeat": 7,
+        "exited": true,
+        "slot_released": true,
+        "cancel_to_exit_seconds": 0.9452350999927148
+      }
+    ],
+    "cancel_all_released": true,
+    "races": [
+      {
+        "repeat": 0,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 1,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 2,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 3,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 4,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 5,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 6,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 7,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 8,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 9,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 10,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 11,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 12,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 13,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 14,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 15,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 16,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 17,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 18,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      },
+      {
+        "repeat": 19,
+        "status": "completed",
+        "sink_accepts": 1,
+        "consistent": true
+      }
+    ],
+    "race_consistent": true
+  },
+  "A": {
+    "package": "A",
+    "path": "deepseek_tool_commit",
+    "session_runtime": "ControlServer+RunLedger",
+    "cases": [
+      {
+        "case": "no-notice",
+        "notice": "absent",
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "content": "COMMIT reserve:3",
+        "content_obeyed": true,
+        "usage": {
+          "prompt_tokens": 20,
+          "completion_tokens": 5,
+          "total_tokens": 25
+        },
+        "old_token_status": null,
+        "commit_status": "completed",
+        "sink_accepts": 1,
+        "event_types": [
+          "effect_committed"
+        ],
+        "error": null
+      },
+      {
+        "case": "aligned",
+        "notice": "aligned",
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "content": "COMMIT reserve:0",
+        "content_obeyed": true,
+        "usage": {
+          "prompt_tokens": 20,
+          "completion_tokens": 5,
+          "total_tokens": 25
+        },
+        "old_token_status": "rejected",
+        "commit_status": "completed",
+        "sink_accepts": 1,
+        "event_types": [
+          "eligibility_superseded",
+          "commit_rejected",
+          "effect_committed"
+        ],
+        "error": null
+      },
+      {
+        "case": "unaligned",
+        "notice": "unaligned",
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "content": "COMMIT reserve:0",
+        "content_obeyed": true,
+        "usage": {
+          "prompt_tokens": 20,
+          "completion_tokens": 5,
+          "total_tokens": 25
+        },
+        "old_token_status": "rejected",
+        "commit_status": "rejected",
+        "sink_accepts": 0,
+        "event_types": [
+          "eligibility_superseded",
+          "commit_rejected",
+          "commit_rejected"
+        ],
+        "error": null
+      }
+    ]
+  },
+  "C": {
+    "package": "C",
+    "design": "same model call and same sink payload OK; B0 checks the sink version only; B1 and B2 call commit_authorized; B2 then reopens the ledger and reads the receipt. record_intent is not used here because a started effect is not committable.",
+    "repeats": 20,
+    "interleave_seed": 20261110,
+    "requested_model": "deepseek-flash",
+    "reported_model": "deepseek-flash",
+    "price": null,
+    "arms": {
+      "B0": {
+        "n": 20,
+        "completed": 20,
+        "receipt_visible": 20,
+        "total_median": 0.8778954499866813,
+        "total_mean": 0.8751456950034481,
+        "total_min": 0.44264070002827793,
+        "total_max": 1.5208624000078999,
+        "commit_median": 0.09551865002140403,
+        "audit_median": 0.0,
+        "token_total": 220
+      },
+      "B1": {
+        "n": 20,
+        "completed": 20,
+        "receipt_visible": 20,
+        "total_median": 1.034294500015676,
+        "total_mean": 1.0835381600045366,
+        "total_min": 0.6822837000363506,
+        "total_max": 1.6678626000066288,
+        "commit_median": 0.2833497000101488,
+        "audit_median": 6.750022293999791e-06,
+        "token_total": 220
+      },
+      "B2": {
+        "n": 20,
+        "completed": 20,
+        "receipt_visible": 20,
+        "total_median": 1.067403449997073,
+        "total_mean": 1.184554714994738,
+        "total_min": 0.6598027999862097,
+        "total_max": 4.281274300010409,
+        "commit_median": 0.28251459999592043,
+        "audit_median": 0.0037437999853864312,
+        "token_total": 220
+      }
+    },
+    "samples": [
+      {
+        "arm": "B1",
+        "order": 0,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.064393899985589,
+          "commit": 0.2773997000185773,
+          "audit": 9.400013368576765e-06,
+          "total": 1.341803000017535
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 1,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8127197999856435,
+          "commit": 0.29595110000809655,
+          "audit": 0.0009674999746493995,
+          "total": 1.1096383999683894
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 2,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.6092635999666527,
+          "commit": 0.26662480004597455,
+          "audit": 1.699995482340455e-05,
+          "total": 0.8759053999674506
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 3,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.868269800033886,
+          "commit": 0.34016750002047047,
+          "audit": 0.002607199945487082,
+          "total": 1.2110444999998435
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 4,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.3827739999978803,
+          "commit": 0.28507849999004975,
+          "audit": 1.0100018698722124e-05,
+          "total": 1.6678626000066288
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 5,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7285499999998137,
+          "commit": 0.07952289999229833,
+          "audit": 0.0,
+          "total": 0.8080728999921121
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 6,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8418181000160985,
+          "commit": 0.10133430000860244,
+          "audit": 0.0,
+          "total": 0.9431524000247009
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 7,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8665788999642245,
+          "commit": 0.10586030001286417,
+          "audit": 0.0,
+          "total": 0.9724391999770887
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 8,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7059060999890789,
+          "commit": 0.26126459997612983,
+          "audit": 5.700043402612209e-06,
+          "total": 0.9671764000086114
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 9,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7608241999987513,
+          "commit": 0.09009380004135892,
+          "audit": 0.0,
+          "total": 0.8509180000401102
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 10,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.38739950000308454,
+          "commit": 0.2768625000026077,
+          "audit": 0.0028594000032171607,
+          "total": 0.6671214000089094
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 11,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 3.973280399979558,
+          "commit": 0.3036100000026636,
+          "audit": 0.004383900028187782,
+          "total": 4.281274300010409
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 12,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8598420000053011,
+          "commit": 0.08271859999513254,
+          "audit": 0.0,
+          "total": 0.9425606000004336
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 13,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.0661504000308923,
+          "commit": 0.09498250001342967,
+          "audit": 0.0,
+          "total": 1.161132900044322
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 14,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.4209071999648586,
+          "commit": 0.09995520004304126,
+          "audit": 0.0,
+          "total": 1.5208624000078999
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 15,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.9106354999821633,
+          "commit": 0.2905836999998428,
+          "audit": 0.003247199987526983,
+          "total": 1.204466399969533
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 16,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.5076788000296801,
+          "commit": 0.29406939999898896,
+          "audit": 4.999979864805937e-06,
+          "total": 0.8017532000085339
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 17,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.1722429999499582,
+          "commit": 0.32009150000521913,
+          "audit": 4.400033503770828e-06,
+          "total": 1.492338899988681
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 18,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.4263281000312418,
+          "commit": 0.09520189999602735,
+          "audit": 0.0,
+          "total": 0.5215300000272691
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 19,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.152855799999088,
+          "commit": 0.28175520000513643,
+          "audit": 0.0016140000079758465,
+          "total": 1.4362250000122003
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 20,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.9646106999716721,
+          "commit": 0.09547400003066286,
+          "audit": 0.0,
+          "total": 1.060084700002335
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 21,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.085846500005573,
+          "commit": 0.30657489999430254,
+          "audit": 5.300040356814861e-06,
+          "total": 1.3924267000402324
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 22,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7554319000337273,
+          "commit": 0.10635959997307509,
+          "audit": 0.0,
+          "total": 0.8617915000068024
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 23,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.5728273999993689,
+          "commit": 0.09556330001214519,
+          "audit": 0.0,
+          "total": 0.6683907000115141
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 24,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.5593593000085093,
+          "commit": 0.08608350000577047,
+          "audit": 0.0,
+          "total": 0.6454428000142798
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 25,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.6928541000233963,
+          "commit": 0.2595294999773614,
+          "audit": 0.004848700016736984,
+          "total": 0.9572323000174947
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 26,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.6603632000042126,
+          "commit": 0.27311180002288893,
+          "audit": 7.90000194683671e-06,
+          "total": 0.9334829000290483
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 27,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7483006999827921,
+          "commit": 0.28327399998670444,
+          "audit": 0.0023362000356428325,
+          "total": 1.0339109000051394
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 28,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7462959000258707,
+          "commit": 0.08086529996944591,
+          "audit": 0.0,
+          "total": 0.8271611999953166
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 29,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7923250000458211,
+          "commit": 0.34392019995721057,
+          "audit": 0.005539000034332275,
+          "total": 1.141784200037364
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 30,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.0134632000117563,
+          "commit": 0.23676619998877868,
+          "audit": 4.300032742321491e-06,
+          "total": 1.2502337000332773
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 31,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.5095523999771103,
+          "commit": 0.31444400001782924,
+          "audit": 4.699977580457926e-06,
+          "total": 0.82400109997252
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 32,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.9694197999779135,
+          "commit": 0.28162090003024787,
+          "audit": 9.399955160915852e-06,
+          "total": 1.2510500999633223
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 33,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7521475999965332,
+          "commit": 0.2745882999734022,
+          "audit": 0.004824400006327778,
+          "total": 1.0315602999762632
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 34,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.0056278000120074,
+          "commit": 0.2876201000181027,
+          "audit": 0.00443889998132363,
+          "total": 1.2976868000114337
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 35,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8495576000423171,
+          "commit": 0.2518434000085108,
+          "audit": 1.1599971912801266e-05,
+          "total": 1.1014126000227407
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 36,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.5756140999728814,
+          "commit": 0.26026359997922555,
+          "audit": 9.800016414374113e-06,
+          "total": 0.8358874999685213
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 37,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.6456147999851964,
+          "commit": 0.30304600001545623,
+          "audit": 5.199981387704611e-06,
+          "total": 0.9486659999820404
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 38,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8176735999877565,
+          "commit": 0.28052129998104647,
+          "audit": 0.0027011000202037394,
+          "total": 1.1008959999890067
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 39,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8352670000167564,
+          "commit": 0.2908663999987766,
+          "audit": 8.800008799880743e-06,
+          "total": 1.1261422000243329
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 40,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7149659999995492,
+          "commit": 0.47077319998061284,
+          "audit": 1.0000017937272787e-05,
+          "total": 1.1857491999980994
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 41,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.5759576999698766,
+          "commit": 0.27314429997932166,
+          "audit": 0.0020893000182695687,
+          "total": 0.8511912999674678
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 42,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.6882571000023745,
+          "commit": 0.24519990000408143,
+          "audit": 4.199973773211241e-06,
+          "total": 0.9334611999802291
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 43,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.6719378000125289,
+          "commit": 0.10324929998023435,
+          "audit": 0.0,
+          "total": 0.7751870999927633
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 44,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.38142079999670386,
+          "commit": 0.2766923999879509,
+          "audit": 0.0016896000015549362,
+          "total": 0.6598027999862097
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 45,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.32846190000418574,
+          "commit": 0.1141788000240922,
+          "audit": 0.0,
+          "total": 0.44264070002827793
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 46,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.3980851999949664,
+          "commit": 0.3041347999824211,
+          "audit": 0.004331899981480092,
+          "total": 0.7065518999588676
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 47,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.9526811999967322,
+          "commit": 0.10739449999528006,
+          "audit": 0.0,
+          "total": 1.0600756999920122
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 48,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.41818009997950867,
+          "commit": 0.2989602999878116,
+          "audit": 0.004620000021532178,
+          "total": 0.7217603999888524
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 49,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.9881626000278629,
+          "commit": 0.2889663999667391,
+          "audit": 0.005326899990905076,
+          "total": 1.2824558999855071
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 50,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8221911999862641,
+          "commit": 0.10160890000406653,
+          "audit": 0.0,
+          "total": 0.9238000999903306
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 51,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.3934084000065923,
+          "commit": 0.2888676000293344,
+          "audit": 7.700000423938036e-06,
+          "total": 0.6822837000363506
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 52,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8131931999814697,
+          "commit": 0.08080619998509064,
+          "audit": 0.0,
+          "total": 0.8939993999665603
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 53,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.5921950000338256,
+          "commit": 0.2745943999616429,
+          "audit": 5.800044164061546e-06,
+          "total": 0.8667952000396326
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 54,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.39246210001874715,
+          "commit": 0.09480649995384738,
+          "audit": 0.0,
+          "total": 0.48726859997259453
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 55,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.7404353999882005,
+          "commit": 0.2599980000522919,
+          "audit": 0.0025260999682359397,
+          "total": 1.0029595000087284
+        }
+      },
+      {
+        "arm": "B0",
+        "order": 56,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 1.0246597999939695,
+          "commit": 0.11174319998826832,
+          "audit": 0.0,
+          "total": 1.1364029999822378
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 57,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.46584610000718385,
+          "commit": 0.2688727999920957,
+          "audit": 0.005239200021605939,
+          "total": 0.7399581000208855
+        }
+      },
+      {
+        "arm": "B2",
+        "order": 58,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.9889189999666996,
+          "commit": 0.26041450002230704,
+          "audit": 0.004240399983245879,
+          "total": 1.2535738999722525
+        }
+      },
+      {
+        "arm": "B1",
+        "order": 59,
+        "model_ok": true,
+        "reported_model": "deepseek-flash",
+        "usage": {
+          "prompt_tokens": 10,
+          "completion_tokens": 1,
+          "total_tokens": 11
+        },
+        "commit_status": "completed",
+        "receipt_visible": true,
+        "seconds": {
+          "model": 0.8352834000252187,
+          "commit": 0.35704420000547543,
+          "audit": 3.999972250312567e-06,
+          "total": 1.1923316000029445
+        }
+      }
+    ]
+  }
+}

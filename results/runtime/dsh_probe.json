@@ -1,0 +1,20 @@
+{
+  "status": "tool_controlled",
+  "run_id": "dsh-0dd9ee3abc53",
+  "session_id": "eg-rt-912494a87413",
+  "initialize_error": null,
+  "wait_error": null,
+  "note_written": true,
+  "note_sha256": "2689367b205c16ce32ed4200942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df",
+  "eligible": true,
+  "event_types": [
+    "attempt_opened",
+    "intent_recorded",
+    "file_published"
+  ],
+  "key_printed": false,
+  "effect_count": 1,
+  "effect_states": [
+    "RESULT_PERSISTED"
+  ]
+}

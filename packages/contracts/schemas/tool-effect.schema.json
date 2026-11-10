@@ -1,0 +1,15 @@
+{
+  "title": "ToolEffect",
+  "type": "object",
+  "required": ["schema_version", "idempotency_key", "effect_state"],
+  "properties": {
+    "schema_version": {"const": "runtime.v1"},
+    "idempotency_key": {"type": "string"},
+    "effect_id": {"type": "string"},
+    "effect_state": {
+      "enum": ["INTENT_RECORDED", "DISPATCHED", "RESULT_PERSISTED", "OUTCOME_UNKNOWN", "NOT_APPLIED"]
+    },
+    "receipt": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

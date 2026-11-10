@@ -1,0 +1,5 @@
+# 复制为仓库根的 epochgate.yaml，或直接运行 egctl init。
+schema_version: 1
+data_dir: .epochgate
+host: 127.0.0.1
+port: 8765

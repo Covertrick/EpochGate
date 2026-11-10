@@ -16,7 +16,7 @@ from epochgate.v51_audit import (
 )
 from epochgate.v51_analysis import sha256_file
 
-AUDIT_MD = Path("docs/测试记录/v5.1-DS审计.md")
+AUDIT_MD = Path("docs/档案/v5.1/弃用-DS审计.md")
 AUDIT_JSON = Path("results/experiments/v5_1/audit/v51_ds_audit.json")
 PROTOCOL_OUT = Path("results/experiments/v5_1/protocol/v51_protocol.json")
 

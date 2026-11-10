@@ -1,0 +1,22 @@
+{
+  "case": "aligned",
+  "notice": "aligned",
+  "model_ok": true,
+  "reported_model": "deepseek-flash",
+  "content": "COMMIT reserve:0",
+  "content_obeyed": true,
+  "usage": {
+    "prompt_tokens": 20,
+    "completion_tokens": 5,
+    "total_tokens": 25
+  },
+  "old_token_status": "rejected",
+  "commit_status": "completed",
+  "sink_accepts": 1,
+  "event_types": [
+    "eligibility_superseded",
+    "commit_rejected",
+    "effect_committed"
+  ],
+  "error": null
+}

@@ -1,0 +1,49 @@
+{
+  "world": "inventory 3 then 0 before commit",
+  "mechanism": "RunLedger.supersede raises the fencing token after the controller records the change. The ledger does not watch the inventory file by itself.",
+  "without_epoch_advance": {
+    "run_id": "file-no-supersede",
+    "supersede": false,
+    "inventory_at_grant": 3,
+    "inventory_before_commit": "0",
+    "publish_status": "completed",
+    "published": true,
+    "bytes": "reserve:1\n",
+    "note": "Changing the inventory file does not by itself expire the fencing token."
+  },
+  "with_epoch_advance": {
+    "run_id": "file-supersede",
+    "supersede": true,
+    "inventory_at_grant": 3,
+    "inventory_before_commit": 0,
+    "expired_token": 1,
+    "valid_token": 2,
+    "expired_status": "withheld",
+    "expired_published": false,
+    "valid_status": "completed",
+    "valid_published": true,
+    "valid_sha256": "4a8bf1c7095d19679d1e9eddeccff8e9b852c86e38b0d0ba9b6cf0d7f3afc44d",
+    "bytes": "inventory:0\n",
+    "replay_status": "replayed",
+    "bytes_unchanged_after_replay": true
+  },
+  "inventory_commit": {
+    "expired_token": 1,
+    "expired_version": 1,
+    "successor_token": 2,
+    "successor_version": 2,
+    "stale_status": "rejected",
+    "stale_sink_accepts": 0,
+    "successor_commit_status": "rejected",
+    "successor_sink_accepts": 0,
+    "successor_note": "supersede increments the ledger state_version and does not bump EffectSink. commit_authorized then rejects the successor token because the sink version is still 1.",
+    "aligned_token": 1,
+    "aligned_version": 1,
+    "aligned_status": "completed",
+    "aligned_sink_accepts": 1,
+    "duplicate_status": "replayed",
+    "gpu_reclaimed": false
+  },
+  "gpu_reclaimed": false,
+  "resource_observation": "not_observable"
+}

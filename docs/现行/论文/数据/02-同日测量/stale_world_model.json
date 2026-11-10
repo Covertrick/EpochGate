@@ -1,0 +1,25 @@
+{
+  "requested_model": "deepseek-flash",
+  "ok": true,
+  "reported_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 32,
+    "completion_tokens": 2,
+    "total_tokens": 34,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 32
+  },
+  "error": null,
+  "reply": "SKIP",
+  "deterministic_control": {
+    "expired_status": "withheld",
+    "valid_published": true,
+    "bytes": "inventory:0\n"
+  },
+  "model_publish": {
+    "expired_status": "withheld",
+    "expired_published": false,
+    "valid_published": true,
+    "bytes": "inventory:0\n"
+  }
+}

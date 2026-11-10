@@ -1,4 +1,7 @@
-"""命令行：演示、HTTP 冒烟、同种子对照实验。"""
+"""命令行：已封存的研究实验，以及执行控制面入口。
+
+控制面命令来自 ``epochgate_runtime``。研究模块只在对应子命令里导入。
+"""
 
 from __future__ import annotations
 
@@ -8,12 +11,10 @@ from pathlib import Path
 
 import typer
 
-from epochgate.experiment import reproduce_cell, run_experiment, run_freshness_cell
-from epochgate.explain import explain_task
-from epochgate.real_run import run_static_series, run_stream_pairs
-from epochgate.smoke import run_http_smoke
+from epochgate_runtime.cli import mount
 
 app = typer.Typer(add_completion=False, no_args_is_help=True, help="EpochGate 研究运行时命令行")
+mount(app)
 
 
 def load_project_env(path: Path | None = None) -> None:
@@ -66,6 +67,7 @@ def demo(seed: int = typer.Option(7, help="外生库存变化的种子")) -> Non
     """在同一份外生库存上比较 B0、B3 和 J0 的刷新与吞吐。"""
 
     async def _run() -> None:
+        from epochgate.experiment import run_freshness_cell
         for policy in ("b0", "b3", "j0"):
             metrics = await run_freshness_cell(
                 seed=seed,
@@ -90,6 +92,7 @@ def explain(
     trace: str = typer.Option("results/explain/demo.jsonl", "--trace", help="JSONL trace"),
 ) -> None:
     """从 trace 打印 stale_observation、late_output_rejected、eligibility_revoked。"""
+    from epochgate.explain import explain_task
     for line in explain_task(Path(trace), task_id):
         typer.echo(line)
 
@@ -116,6 +119,7 @@ def http_smoke(
     model_url = base_url or configured_base
 
     async def _run() -> None:
+        from epochgate.smoke import run_http_smoke
         report = await run_http_smoke(
             base_url=model_url,
             api_key=api_key,
@@ -148,6 +152,7 @@ def experiment(
     """同一种子跑 B0 到临近准入，再跑 B3 和 J0，写出 manifest 并打印 trace 指标。"""
 
     async def _run() -> None:
+        from epochgate.experiment import run_experiment
         summaries = await run_experiment(seed=seed, out_dir=Path(out), scenario=scenario)
         for policy, metrics in summaries.items():
             if policy == "bootstrap" or "tasks" not in metrics:
@@ -175,6 +180,7 @@ def reproduce(
     """按 manifest 精确重跑一个 cell。"""
 
     async def _run() -> None:
+        from epochgate.experiment import reproduce_cell
         metrics = await reproduce_cell(manifest_path=Path(manifest), cell=cell_id, out_dir=Path(out))
         typer.echo(
             f"{cell_id} tasks={metrics['tasks']} on_time={metrics['on_time_success']} "
@@ -201,6 +207,7 @@ def static_reserve(
     base_url, api_key, model = _require_http()
 
     async def _run() -> None:
+        from epochgate.real_run import run_static_series
         rows = await run_static_series(
             base_url=base_url,
             api_key=api_key,
@@ -232,6 +239,7 @@ def stream_ab(
     base_url, api_key, model = _require_http()
 
     async def _run() -> None:
+        from epochgate.real_run import run_stream_pairs
         rows = await run_stream_pairs(
             base_url=base_url,
             api_key=api_key,

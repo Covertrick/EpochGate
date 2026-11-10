@@ -1,0 +1,14 @@
+{
+  "status": "ready",
+  "checks": {
+    "python_ok": true,
+    "node_ok": true,
+    "dsh_bin_ok": true,
+    "ledger_ok": true,
+    "docker_ok": true
+  },
+  "docker_stderr_tail": "WARNING: No blkio throttle.read_bps_device support\nWARNING: No blkio throttle.write_bps_device support\nWARNING: No blkio throttle.read_iops_device support\nWARNING: No blkio throttle.write_iops_device support\n",
+  "package": "epochgate-runtime",
+  "package_version": "0.1.0",
+  "runtime_line": "3.0"
+}

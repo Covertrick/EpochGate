@@ -1,0 +1,28 @@
+[project]
+name = "epochgate-runtime"
+version = "0.1.0"
+description = "Execution control plane for tool-using agents: eligibility, effect publication, and crash reconciliation."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "jsonschema>=4.23",
+    "typer>=0.12",
+]
+
+[project.scripts]
+epochgate-runtime = "epochgate_runtime.cli:app"
+egctl = "epochgate_runtime.egctl:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/epochgate_runtime"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/epochgate_runtime" = "epochgate_runtime"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

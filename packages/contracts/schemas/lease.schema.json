@@ -1,0 +1,15 @@
+{
+  "title": "ExecutionLease",
+  "type": "object",
+  "required": ["schema_version", "lease_id", "run_id", "resource_class", "state"],
+  "properties": {
+    "schema_version": {"const": "runtime.v1"},
+    "lease_id": {"type": "string"},
+    "run_id": {"type": "string"},
+    "worker_id": {"type": "string"},
+    "resource_class": {"enum": ["run_admission", "model_request", "tool_executor"]},
+    "state": {"enum": ["held", "released"]},
+    "pid": {"type": ["integer", "null"]}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "gpu_reclaimed": false,
+  "resource_observation": "not_observable",
+  "distributed_exactly_once": false,
+  "scope": "one local sqlite ledger and one local sink; not arbitrary HTTP",
+  "rows": [
+    {
+      "fault": "before_dispatch",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "before_sink",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "after_sink",
+      "exit_code": 86,
+      "decision": "confirmed_from_sink",
+      "sink_accepts": 1,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "after_receipt",
+      "exit_code": 86,
+      "decision": "replay",
+      "sink_accepts": 1,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "cancel_process",
+      "decision": "exited",
+      "slot_released": true,
+      "gpu_reclaimed": false,
+      "cancel_to_exit_seconds": 0.7274132999591529,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "duplicate_commit",
+      "first_status": "completed",
+      "second_status": "replayed",
+      "sink_accepts": 1,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "revoke_then_commit",
+      "commit_status": "rejected",
+      "sink_accepts": 0,
+      "eligible_after_revoke": false,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "commit_then_revoke",
+      "commit_status": "completed",
+      "retry_with_old_token_status": "rejected",
+      "sink_accepts": 1,
+      "retry_sink_accepts": 0,
+      "receipt_still_present": true,
+      "eligible_after_revoke": false,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable"
+    },
+    {
+      "fault": "revoke_vs_commit_concurrent",
+      "n": 1,
+      "observed_status": "completed",
+      "sink_accepts": 1,
+      "status_matches_accepts": true,
+      "gpu_reclaimed": false,
+      "resource_observation": "not_observable",
+      "note": "一次并发样本，不是全部交错的分布。"
+    }
+  ]
+}

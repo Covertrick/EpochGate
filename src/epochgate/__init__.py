@@ -1,6 +1,7 @@
-"""EpochGate：多会话 Agent 运行时的版本化准入与资格层。"""
+"""已封存的研究运行时。
 
-from epochgate.runtime import Runtime
+执行控制面是独立包 ``epochgate_runtime``。研究类 ``Runtime`` 从
+``epochgate.runtime`` 导入，``import epochgate`` 不加载它。
+"""
 
-__all__ = ["Runtime"]
 __version__ = "5.0.0"

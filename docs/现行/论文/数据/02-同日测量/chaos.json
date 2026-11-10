@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "fault": "before_dispatch",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "fault": "before_sink",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "fault": "after_sink",
+      "exit_code": 86,
+      "decision": "confirmed_from_sink",
+      "sink_accepts": 1
+    },
+    {
+      "fault": "after_receipt",
+      "exit_code": 86,
+      "decision": "replay",
+      "sink_accepts": 1
+    },
+    {
+      "fault": "cancel_process",
+      "decision": "exited",
+      "slot_released": true,
+      "gpu_reclaimed": false,
+      "cancel_to_exit_seconds": 0.8276185999857262
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "model": "deepseek-flash",
+  "cases": [
+    {
+      "name": "no-notice",
+      "aligned": false,
+      "run_id": "dsh-452adcb9b31e",
+      "session_id": "eg-rev-6bb3e9aaef0d",
+      "granted_token": 1,
+      "final_token": 1,
+      "final_state_version": 1,
+      "eligible": true,
+      "notice": {
+        "fired": true,
+        "stock_after": "0"
+      },
+      "initialize_error": null,
+      "wait_error": null,
+      "followup_sent": false,
+      "followup_error": null,
+      "tool_names": [
+        "eg_read",
+        "eg_read",
+        "eg_write",
+        "eg_write"
+      ],
+      "event_types": [
+        "attempt_opened",
+        "intent_recorded",
+        "file_published"
+      ],
+      "effects": [
+        {
+          "idempotency_key": "e66cf3c198ec",
+          "phase": "completed",
+          "effect_state": "RESULT_PERSISTED",
+          "receipt": "file:order.txt:32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+          "fencing_token": 1
+        }
+      ],
+      "stock_final": "0",
+      "order_text": "order 3",
+      "errors": [],
+      "key_printed": false
+    },
+    {
+      "name": "aligned",
+      "aligned": true,
+      "run_id": "dsh-963323c7fb0c",
+      "session_id": "eg-rev-39099867bc44",
+      "granted_token": 1,
+      "final_token": 2,
+      "final_state_version": 2,
+      "eligible": true,
+      "notice": {
+        "fired": true,
+        "response": {
+          "phase": "running",
+          "fencing_token": 2,
+          "state_version": 2,
+          "eligible": true
+        },
+        "stock_after": "0"
+      },
+      "initialize_error": null,
+      "wait_error": null,
+      "followup_sent": false,
+      "followup_error": null,
+      "tool_names": [
+        "eg_read",
+        "eg_read",
+        "eg_write",
+        "eg_write",
+        "eg_read",
+        "eg_read",
+        "eg_write",
+        "eg_write"
+      ],
+      "event_types": [
+        "attempt_opened",
+        "intent_recorded",
+        "eligibility_superseded",
+        "result_withheld",
+        "intent_recorded",
+        "file_published"
+      ],
+      "effects": [
+        {
+          "idempotency_key": "e66cf3c198ec",
+          "phase": "started",
+          "effect_state": "INTENT_RECORDED",
+          "receipt": null,
+          "fencing_token": 1
+        },
+        {
+          "idempotency_key": "2a52d009326d",
+          "phase": "completed",
+          "effect_state": "RESULT_PERSISTED",
+          "receipt": "file:order.txt:202f8b12ba2c0a98fd65c03dfa303715b72c28bbf98a0bd0c30bdcc6428b30c1",
+          "fencing_token": 2
+        }
+      ],
+      "stock_final": "0",
+      "order_text": "order 0",
+      "errors": [],
+      "key_printed": false
+    }
+  ]
+}

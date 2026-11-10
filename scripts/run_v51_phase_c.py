@@ -12,7 +12,7 @@ from epochgate.v51_scripted import event_time, run_scripted_group
 
 SCRIPTED_OUT = Path("results/experiments/v5_1/scripted/calibration.json")
 VLLM_OUT = Path("results/experiments/v5_1/vllm/compat.json")
-MD = Path("docs/测试记录/v5.1-机制.md")
+MD = Path("docs/档案/v5.1/弃用-机制.md")
 
 
 async def _vllm_compat() -> dict:

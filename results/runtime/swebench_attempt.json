@@ -1,0 +1,47 @@
+{
+  "official_swebench": false,
+  "official_harness_installed": false,
+  "gold_fail_to_pass_nodes_present": false,
+  "sample_size": 0,
+  "instance_attempted": "astropy__astropy-12907",
+  "local_checkout_present": true,
+  "dataset_fetch": {
+    "huggingface_search": "http_200",
+    "huggingface_rows": "http_200"
+  },
+  "reason": "The swebench package is not installed, the official FAIL_TO_PASS node list was not retrieved, and this repository has no gold patch file. The runs below are the closest local task, not official SWE-bench.",
+  "prior_12907_recorded": {
+    "scoring_chain_present": true,
+    "discriminating": false,
+    "repair_demonstrated": false,
+    "reason": "基线上的 FAIL_TO_PASS 没有失败，这组测试还不能区分错误实现和修复。",
+    "instance_id": "astropy__astropy-12907",
+    "session_id": "eg-m1r-651c9e378414",
+    "pytest_summary": "11 passed in 0.21s",
+    "patch_files": [
+      "probe.txt"
+    ]
+  },
+  "prior_12907_note": "Earlier whole-file pytest of test_separable.py was 11 passed. That record is not a new official node run.",
+  "closest_real_task_host": {
+    "base_fail_to_pass_failed": true,
+    "gold_fail_to_pass_passed": true,
+    "probe_fail_to_pass_passed": false,
+    "probe_marked_repaired": false,
+    "discriminating": true,
+    "runner": "python_subprocess",
+    "official_swebench": false,
+    "assertion": "bug.value() == 1"
+  },
+  "closest_real_task_container": {
+    "docker": true,
+    "image": "python:3.10-slim",
+    "network": "none",
+    "official_swebench": false,
+    "assertion": "bug.value() == 1",
+    "base_fail_to_pass_failed": true,
+    "gold_fail_to_pass_passed": true,
+    "probe_marked_repaired": false,
+    "discriminating": true
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "run_id": "code-de85cb5530a6",
+  "session_id": "eg-code-8c90621aea59",
+  "key_printed": false,
+  "scorer": {
+    "base_fail_to_pass_failed": true,
+    "gold_fail_to_pass_passed": true,
+    "probe_marked_repaired": false,
+    "discriminating": true
+  },
+  "prompt_rounds": 2,
+  "initialize_error": null,
+  "wait_error": null,
+  "agent_fail_to_pass_passed": true,
+  "event_types": [
+    "attempt_opened",
+    "intent_recorded",
+    "intent_recorded",
+    "intent_recorded",
+    "intent_recorded",
+    "file_published"
+  ],
+  "tool_names": [
+    "eg_bash",
+    "eg_bash",
+    "eg_bash",
+    "eg_write"
+  ],
+  "effect_states": [
+    "INTENT_RECORDED",
+    "INTENT_RECORDED",
+    "INTENT_RECORDED",
+    "RESULT_PERSISTED"
+  ],
+  "repair_demonstrated": true,
+  "chain_complete": true,
+  "status": "scored"
+}

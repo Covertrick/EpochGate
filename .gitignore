@@ -25,6 +25,13 @@ results/experiments/followup/matrix.jsonl
 # Downloaded benchmark caches. Commit the screening report, not the raw dump.
 datasets/cache/
 
+# Local control-plane data created by egctl
+.epochgate/
+
+# Regenerated ledgers and third-party checkouts. Commit the JSON summaries.
+*.sqlite
+results/runtime/swebench_12907_work/
+
 # Local experiment artifacts (when code lands)
 runs/
 artifacts/
@@ -35,6 +42,6 @@ traces/
 !docs/**
 
 # Temp figure builds
-docs/figures/_preview/
-docs/figures/_*.py
-docs/figures/build_svgs.py
+docs/档案/图/_preview/
+docs/档案/图/_*.py
+docs/档案/图/build_svgs.py

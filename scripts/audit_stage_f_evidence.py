@@ -247,7 +247,7 @@ def build_audit(
         },
         "stale_markdown_equal_weight_contrast": {
             "role": "explains_an_external_review_figure_not_a_result",
-            "source": "docs/测试记录/阶段F实验协议与结果.md F1-M table before the v1.3 correction",
+            "source": "docs/档案/v1.2/阶段F实验协议与结果.md F1-M table before the v1.3 correction",
             "cell_text_means": list(STALE_DOC_CELL_TEXT),
             "equal_weight_text_mean": _round(_mean(list(STALE_DOC_CELL_TEXT)), 4),
             "cell_slot_means": list(STALE_DOC_CELL_SLOT),

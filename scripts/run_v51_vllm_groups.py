@@ -12,7 +12,7 @@ import httpx
 
 BASE = "http://127.0.0.1:8000"
 OUT = Path("results/experiments/v5_1/vllm/groups.json")
-MD = Path("docs/测试记录/v5.1-vLLM四组.md")
+MD = Path("docs/档案/v5.1/弃用-vLLM四组.md")
 GAUGES = (
     "vllm:num_requests_running",
     "vllm:num_requests_waiting",

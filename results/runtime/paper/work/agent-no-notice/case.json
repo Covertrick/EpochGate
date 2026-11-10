@@ -1,0 +1,20 @@
+{
+  "case": "no-notice",
+  "notice": "absent",
+  "model_ok": true,
+  "reported_model": "deepseek-flash",
+  "content": "COMMIT reserve:3",
+  "content_obeyed": true,
+  "usage": {
+    "prompt_tokens": 20,
+    "completion_tokens": 5,
+    "total_tokens": 25
+  },
+  "old_token_status": null,
+  "commit_status": "completed",
+  "sink_accepts": 1,
+  "event_types": [
+    "effect_committed"
+  ],
+  "error": null
+}

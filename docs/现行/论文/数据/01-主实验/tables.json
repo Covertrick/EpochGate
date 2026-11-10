@@ -1,0 +1,272 @@
+{
+  "model": "deepseek-flash",
+  "fair_overhead": {
+    "B0": {
+      "n": 20,
+      "completed": 20,
+      "receipt_visible": 20,
+      "total_median": 0.878,
+      "total_mean": 0.875,
+      "total_min": 0.443,
+      "total_max": 1.521,
+      "commit_median": 0.096,
+      "audit_median": 0.0,
+      "token_total": 220
+    },
+    "B1": {
+      "n": 20,
+      "completed": 20,
+      "receipt_visible": 20,
+      "total_median": 1.034,
+      "total_mean": 1.084,
+      "total_min": 0.682,
+      "total_max": 1.668,
+      "commit_median": 0.283,
+      "audit_median": 0.0,
+      "token_total": 220
+    },
+    "B2": {
+      "n": 20,
+      "completed": 20,
+      "receipt_visible": 20,
+      "total_median": 1.067,
+      "total_mean": 1.185,
+      "total_min": 0.66,
+      "total_max": 4.281,
+      "commit_median": 0.283,
+      "audit_median": 0.004,
+      "token_total": 220
+    }
+  },
+  "revocation": [
+    {
+      "case": "no-notice",
+      "content": "COMMIT reserve:3",
+      "old_token_status": null,
+      "commit_status": "completed",
+      "usage": {
+        "prompt_tokens": 20,
+        "completion_tokens": 5,
+        "total_tokens": 25
+      },
+      "reported_model": "deepseek-flash"
+    },
+    {
+      "case": "aligned",
+      "content": "COMMIT reserve:0",
+      "old_token_status": "rejected",
+      "commit_status": "completed",
+      "usage": {
+        "prompt_tokens": 20,
+        "completion_tokens": 5,
+        "total_tokens": 25
+      },
+      "reported_model": "deepseek-flash"
+    },
+    {
+      "case": "unaligned",
+      "content": "COMMIT reserve:0",
+      "old_token_status": "rejected",
+      "commit_status": "rejected",
+      "usage": {
+        "prompt_tokens": 20,
+        "completion_tokens": 5,
+        "total_tokens": 25
+      },
+      "reported_model": "deepseek-flash"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenario": "notification_absent",
+      "n": 5,
+      "all_match": true,
+      "expected": "completed",
+      "observed": "completed",
+      "safety": false,
+      "forward_progress": null
+    },
+    {
+      "scenario": "notification_timely",
+      "n": 5,
+      "all_match": true,
+      "expected": "rejected/completed",
+      "observed": "rejected/completed",
+      "safety": true,
+      "forward_progress": true
+    },
+    {
+      "scenario": "notification_delayed",
+      "n": 5,
+      "all_match": true,
+      "expected": "completed",
+      "observed": "completed",
+      "safety": false,
+      "forward_progress": null
+    },
+    {
+      "scenario": "notification_repeated",
+      "n": 5,
+      "all_match": true,
+      "expected": "completed",
+      "observed": "completed",
+      "safety": true,
+      "forward_progress": true
+    },
+    {
+      "scenario": "duplicate_commit",
+      "n": 5,
+      "all_match": true,
+      "expected": "completed/replayed/1",
+      "observed": "completed/replayed/1",
+      "safety": true,
+      "forward_progress": true
+    },
+    {
+      "scenario": "revoke_before_commit",
+      "n": 5,
+      "all_match": true,
+      "expected": "rejected",
+      "observed": "rejected",
+      "safety": true,
+      "forward_progress": false
+    },
+    {
+      "scenario": "commit_then_revoke",
+      "n": 5,
+      "all_match": true,
+      "expected": "completed/rejected/True",
+      "observed": "completed/rejected/True",
+      "safety": true,
+      "forward_progress": false
+    },
+    {
+      "scenario": "version_unaligned",
+      "n": 5,
+      "all_match": true,
+      "expected": "rejected/rejected",
+      "observed": "rejected/rejected",
+      "safety": true,
+      "forward_progress": false
+    },
+    {
+      "scenario": "started_unconfirmed",
+      "n": 5,
+      "all_match": true,
+      "expected": "unknown",
+      "observed": "unknown",
+      "safety": true,
+      "forward_progress": false
+    },
+    {
+      "scenario": "external_unconfirmed",
+      "n": 5,
+      "all_match": true,
+      "expected": "False/replayed",
+      "observed": "False/replayed",
+      "safety": true,
+      "forward_progress": false
+    }
+  ],
+  "crashes": [
+    {
+      "repeat": 0,
+      "fault": "before_dispatch",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "repeat": 0,
+      "fault": "before_sink",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "repeat": 0,
+      "fault": "after_sink",
+      "exit_code": 86,
+      "decision": "confirmed_from_sink",
+      "sink_accepts": 1
+    },
+    {
+      "repeat": 0,
+      "fault": "after_receipt",
+      "exit_code": 86,
+      "decision": "replay",
+      "sink_accepts": 1
+    },
+    {
+      "repeat": 1,
+      "fault": "before_dispatch",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "repeat": 1,
+      "fault": "before_sink",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "repeat": 1,
+      "fault": "after_sink",
+      "exit_code": 86,
+      "decision": "confirmed_from_sink",
+      "sink_accepts": 1
+    },
+    {
+      "repeat": 1,
+      "fault": "after_receipt",
+      "exit_code": 86,
+      "decision": "replay",
+      "sink_accepts": 1
+    },
+    {
+      "repeat": 2,
+      "fault": "before_dispatch",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "repeat": 2,
+      "fault": "before_sink",
+      "exit_code": 86,
+      "decision": "not_applied",
+      "sink_accepts": 0
+    },
+    {
+      "repeat": 2,
+      "fault": "after_sink",
+      "exit_code": 86,
+      "decision": "confirmed_from_sink",
+      "sink_accepts": 1
+    },
+    {
+      "repeat": 2,
+      "fault": "after_receipt",
+      "exit_code": 86,
+      "decision": "replay",
+      "sink_accepts": 1
+    }
+  ],
+  "cancel_seconds": [
+    0.83,
+    0.876,
+    1.084,
+    0.929,
+    0.984,
+    0.797,
+    0.712,
+    0.945
+  ],
+  "race_status_counts": {
+    "completed": 20,
+    "n": 20,
+    "consistent": true
+  }
+}

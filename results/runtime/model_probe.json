@@ -1,0 +1,19 @@
+{
+  "requested_model": "deepseek-flash",
+  "product_name_expected_by_repo": "DeepSeek-V4.1-Flash",
+  "ok": true,
+  "reported_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 2,
+    "total_tokens": 12,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 10
+  },
+  "content": "API_OK",
+  "error": null,
+  "url": "https://api.deepseek.com/v1/chat/completions",
+  "thinking": {
+    "type": "disabled"
+  }
+}

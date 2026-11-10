@@ -1,90 +1,206 @@
 # EpochGate
 
-## 三条线
+**Reliable tool execution for LLM agents.**
 
-- **4.0：队列现象测量。** 共享槽上，失效占用怎么变成旁观者等待。数字在 [docs/论文/论文4.0.md](docs/论文/论文4.0.md)。
-- **5.0：安全 Gateway 和复现失败。** 已知 \(C/S\) 的切换没有形成可投稿结果；DeepSeek 那条复现也失败了，原文在 [docs/舍弃分支/](docs/舍弃分支/README.md)。审计在 [docs/论文/论文5.0.md](docs/论文/论文5.0.md)。
-- **UCR-1：非 Oracle 不确定性策略未被有效评估。** 生成器要求模型在训练支持域外外推，谓词时刻和工具类型没有进入成本标签。Gate A/B/D 不通过，Gate C 通过。封存在 [docs/论文/ucr_v1_diagnosis.md](docs/论文/ucr_v1_diagnosis.md)。
-- **UCR-2.1：插值 Gate A/B 不通过，算法线收口。** 生成器审计通过，但 F16 的剩余服务覆盖率是 0.79，区间加 probe 的后悔高于点估计。没有跑外推，也没有为此再跑 vLLM。结论在 [docs/论文/论文UCR-2.md](docs/论文/论文UCR-2.md)。
-- **RRM-1：取消路径核对，不是新算法。** 未得到请求级调度停止证据之前，不写资源回收，也不跑旁观者性能矩阵。方案在 [docs/论文/RRM-1实验方案.md](docs/论文/RRM-1实验方案.md)，1A 记录在 [docs/论文/论文RRM.md](docs/论文/论文RRM.md)。
-- **EpochGate 2.0：DSH 上的真实历史重放。** 旧结论保持封存。新合同在 [docs/开发文档/项目开发文档EpochGate-2.0.md](docs/开发文档/项目开发文档EpochGate-2.0.md)。五个可评分事件对出现之前，不扩展 benchmark，也不写论文数字。
+State-aware execution eligibility, fenced side-effect commits, crash recovery, and cancellation for DeepSeek Harness agents.
 
-**现在不投 ArXiv。**
+Python 3.12 · SQLite · TypeScript · Docker · DeepSeek Harness
 
-把 Agent 的**执行资格**和 **Runtime 槽位**分开：过期动作不能提交；槽位让不让出来，是另一件可以测量的事。
+| 50 | 4 | 20 |
+| --- | --- | --- |
+| 控制面测试通过（2026-11-10，78.50 秒） | 崩溃检查点，退出码 86 | 每个提交臂的重复次数 |
 
-当前包版本 **5.0.0**。可引用的结果仍是 4.0 旁观者回放和 v1.2 安全证据。
-
-## 30 秒
-
-共享槽上有一个长任务正在生成，外部状态中途变化。
-
-- **G0** 把失效尾巴读完，到提交边界才拒绝。
-- **G1** 看见相关信号就停，并立刻重做。
-- **G2** 先问前提还在不在，只有前提为假才停并放槽。
-
-在 4 个槽的逻辑时钟回放里，前提已经失效时，G2 相对 G0 少做 12.8 秒失效占用，下一只槽先交给后继，旁观者 P95 等待仍在 12/12 个主格跨过预先冻结的门槛，大约少 1.6–2.6 秒。前提仍成立时，差的符号跟着 restart 长短走，不是 G2 处处更好。这是这条槽模型上的传导，不是新的队列定律。Retire 已经检查过无关租户，这里的主指标是旁观者等待。客户端停读不是 GPU 已回收。
-
-4.0 回放数字在 [docs/论文/论文4.0.md](docs/论文/论文4.0.md)。5.0 审计在 [docs/论文/论文5.0.md](docs/论文/论文5.0.md)。现行合同在 [docs/开发文档/项目开发文档5.0.md](docs/开发文档/项目开发文档5.0.md)。v1.2 真实 API 槽位在 [docs/论文/论文初稿.md](docs/论文/论文初稿.md)。
-
-## 本地运行
-
-需要 Python 3.12+。本机没有把 `uv` 放进 PATH 时，用 `python -m uv`。
-
-```powershell
-python -m uv sync --extra dev
-python -m uv run pytest -q
-python -m uv run epochgate demo
-python -m uv run epochgate explain t-explain --trace results/explain/demo.jsonl
-```
-
-`explain` 打印的是资格标签，不是性能数字：
+离线命令不调用模型。下面是一次真实运行的终端输出：旧 token 被拒绝，新 token 写入并核对 receipt。
 
 ```text
-task=t-explain
-stale_observation source=inventory reason=exogenous
-eligibility_revoked reason=dirty and premise failed; revoke eligibility
-late_output_rejected reason=attempt not eligible
-late_output_rejected reason=insufficient stock
+Run                  demo-09573d69d47e
+Attempt #1           REVOKED
+Attempt #2           COMMITTED
+Effect receipt       VERIFIED
+Duplicate accepts    0
+Execution control verified
 ```
 
-## 结果在哪
+```text
+Run                  crash-352901face50
+Worker exit          86
+Recovery             confirmed_from_sink
+Second recovery      replay
+Effect receipt       VERIFIED
+Duplicate accepts    0
+Recovery verified
+```
 
-| 要看的东西 | 位置 |
-| --- | --- |
-| 旁观者确认性主表，2400 行，只读 | `results/experiments/v2_1/confirmatory/traces.jsonl` |
-| 四张表的汇总 | `results/experiments/v2_1/reports/v21_summary.json` |
-| 审计、敏感性、三张图 | `results/experiments/v4_0/` |
-| 5.0 回放区间和 240 个 attempt | `results/experiments/followup/comparisons.json`、`runtime_summary.json` |
-| UCR 留出评估和安全闭环 | `results/experiments/ucr/summary.json`、`runtime_summary.json` |
-| 舍弃的 DeepSeek / vLLM 数据 | `results/experiments/v5_0/`、`results/experiments/v5_1/` |
-| 重算主表、重画图、审计 P95，不重跑确认性 | 下面三条命令 |
+报告写在 `.epochgate/runs/<run-id>/report.html`。
+
+## 为什么需要 EpochGate
+
+工具按拿到资格时的世界执行。之后状态会变，进程可能还活着，文件或外部系统也可能已经写过。
+
+| | 直接执行 | EpochGate |
+| --- | --- | --- |
+| 谁能写 | 工具进程自己 | RunLedger 上的 fencing token |
+| 同一次副作用再来 | 可能再写一遍 | 已完成的幂等键重放 receipt |
+| 写到一半进程没了 | 调用方自己猜 | EffectSink 对账；对不上就停在 `OUTCOME_UNKNOWN` |
+| 取消 | 常常只是客户端断流 | 资格、停止信号、进程退出、槽位释放分开记录 |
+
+```mermaid
+flowchart LR
+  notice["状态已通知"] --> old["旧 token 被拒绝"]
+  old --> fresh["新 token 提交成功"]
+  fresh --> receipt["receipt 已核对"]
+```
+
+旧 token 被拒绝，要先有一次可信的 `supersede` 或等价的状态重验。没有通知时，旧 token 仍会发布。新 token 能提交，还要求 Run 版本和 EffectSink 的提交前提一致。只推进 Run、不推进 sink 时，新 token 也会被拒绝。规则在 [协议](docs/现行/论文/协议.md)。
+
+## 快速开始
+
+在仓库里：
 
 ```powershell
-python -m uv run python scripts/analyze_v21.py
-python -m uv run python scripts/plot_v21_figures.py
-python scripts/audit_v40_p95.py
+uv run egctl doctor
+uv run egctl demo --scenario stale-write --offline
+uv run egctl demo --scenario crash-recovery --offline
+uv run egctl runs list
+uv run egctl runs inspect <run-id>
 ```
 
-不要为了核对主表执行 `scripts/run_v21_pilot.py --phase confirmatory`，它会重写已封存的 JSONL。
+`<run-id>` 用 `runs list` 打出来的那一列。`runs inspect` 会打印时间线，并写出 `report.json` 和 `report.html`。`effects verify <run-id>` 核对 receipt。每次 Demo 使用新的 Run ID，不用删 SQLite。
+
+只装控制面：`uv tool install ./packages/runtime`，然后直接用 `egctl`。
+
+接 DSH 时开两个终端。第一个：
+
+```powershell
+uv run egctl serve
+```
+
+它打印 `http://127.0.0.1:8765`。第二个：
+
+```powershell
+$env:EG_CONTROL_URL = "http://127.0.0.1:8765"
+$env:EG_REQUIRE_CONTROL = "1"
+
+uv run egctl demo --scenario coding --model deepseek-flash
+```
+
+没有密钥时第二条会停下来，不会发请求。插件说明在 [接入](docs/现行/使用/接入.md)。
+
+```python
+from epochgate_runtime import Runtime
+
+runtime = Runtime.open(".epochgate/epochgate.db")
+attempt = runtime.reserve(
+    run_id="example-001",
+    resource="workspace/main.py",
+)
+runtime.close()
+```
+
+`reserve` 只申请资格。文件仍由控制面核对 token 和 SHA-256。
+
+## 架构
+
+```mermaid
+flowchart TB
+  subgraph agentLayer [代理层]
+    DSH["DSH 对话循环"]
+    Plugin["TypeScript 插件"]
+  end
+  subgraph controlPlane [控制面]
+    HTTP["控制服务 HTTP"]
+    Elig["资格与 fencing"]
+    Ledger["RunLedger SQLite"]
+    Sched["调度与租约"]
+    Receipt["效果与 receipt"]
+    Recovery["恢复对账"]
+  end
+  subgraph executionPlane [执行面]
+    Exec["进程或容器执行器"]
+    Stage["暂存"]
+    Publisher["受控发布"]
+    Sink["EffectSink"]
+  end
+  DSH --> Plugin
+  Plugin -->|"准入 / 预留"| HTTP
+  HTTP --> Elig
+  Elig --> Ledger
+  Plugin --> Stage
+  Stage --> Publisher
+  Publisher -->|"核对 token 和摘要"| HTTP
+  Publisher --> Sink
+  HTTP -->|"返回 receipt"| Plugin
+  HTTP --> Sched
+  Sched -->|"启动"| Exec
+  Exec -->|"进程已退出"| Sched
+  Sched -->|"释放租约"| Ledger
+  Recovery --> Ledger
+  Recovery --> Sink
+```
+
+提交从插件进入 Control Service，Publisher 核对 token 和摘要后把 receipt 交回插件。取消从 Scheduler 的 Lease 出发，进程退出之后才释放槽位。DSH 管对话。插件通过 HTTP 读回资格，自己不建第二本账。`eg_read` 只准入。写和命令才占资格。`eg-policy` 能提前拒绝 `.env`、gold 和 `git push`，不能授权发布。Publisher 先把暂存字节读进内存，再以 uid 1001 写入 `/workspace`。工具用户 uid 1000 只能写 `/scratch`。
+
+SQLite 的 `BEGIN IMMEDIATE` 把资格检查串行化。它不包含文件系统。文件发布在事务里核对 token 和摘要，跨过数据库和磁盘的崩溃窗口靠受控发布和恢复对账补上同一次 claim，或者停在 `OUTCOME_UNKNOWN`。
+
+| 层 | 选择 |
+| --- | --- |
+| Agent | DSH 0.2.2-rc.1。复用官方 Loop |
+| 权威 | Python 3.12 + SQLite RunLedger |
+| 插件 | TypeScript，只走本地 HTTP |
+| 隔离 | `python:3.10-slim`，`--network none`，`no-new-privileges`，256MB，不挂载 docker socket |
+
+单机账本。说明见 [运行时](docs/现行/架构/运行时.md)。
+
+## 工程难点
+
+| 问题 | 做法 | 已经看到的结果 |
+| --- | --- | --- |
+| 过期工具提交 | fencing token，SQLite 事务，受控 Publisher | 离线 Demo：Attempt #1 `REVOKED`，Attempt #2 `COMMITTED`，重复接受 0。DSH 会话里，没有通知时写下 `order 3`；对齐通知后旧 token 被拒，新 token 写下 `order 0` |
+| 效果落地后崩溃 | 幂等键、receipt、EffectSink 对账 | 四个检查点各 3 次，退出码 86，接受次数 0、0、1、1。离线 Demo 的恢复是 `confirmed_from_sink`，再读一次是 `replay` |
+| 取消不等于完成 | 资格、进程退出、槽位释放分开 | 8 次短进程都退出并释放槽位，0.712–1.084 秒。孙进程还活着时槽位不释放 |
+
+入口：[副作用](docs/现行/协议/副作用.md)、[恢复](docs/现行/协议/恢复.md)、[取消](docs/现行/协议/取消.md)。离线命令就是上面的 `stale-write` 和 `crash-recovery`。
+
+## 测量
+
+两张图都来自 `deepseek-flash`。原始中位和文件路径在 [在线对照](docs/现行/基准/在线对照.md)。
+
+在线短任务的 batch 中位秒。三条线依次是 B0 无账本、B1 只做资格、B2 写出 receipt。每格 n=3，三臂完成的控制路径不同，这张图是初步墙钟。
+
+```mermaid
+xychart-beta
+    title "在线短任务 batch 中位秒，n=3"
+    x-axis ["并发 1", "并发 2", "并发 4", "并发 8"]
+    y-axis "秒" 0 --> 12
+    line [1.600, 3.829, 3.961, 5.538]
+    line [1.740, 4.701, 5.180, 7.598]
+    line [2.919, 5.278, 6.676, 9.940]
+```
+
+同等一次模型调用、同等一次 `OK` 提交。每臂 20 次，并发 1，全部完成。第一组柱是总时间中位，第二组是提交段中位。两组分开计算，不能把两个中位数相减当成同一次运行的分段。
+
+```mermaid
+xychart-beta
+    title "单次提交中位秒，每臂 20 次"
+    x-axis [B0, B1, B2]
+    y-axis "秒" 0 --> 1.2
+    bar [0.878, 1.034, 1.067]
+    bar [0.096, 0.283, 0.283]
+```
+
+这一次短调用上，B2 的总时间中位比 B0 高约 21.5%。多出来的时间主要出现在提交段的中位上。
+
+## 限制
+
+资格不会自己看见外部文件或库存。通知没有到达时，旧 token 可以发布。文件发布核对的是 fencing token 和摘要，SQLite 与文件系统之间留有崩溃窗口，由恢复对账处理。`astropy__astropy-12907` 的两个官方节点能分开基线和 gold patch，没有 Agent 补丁。
 
 ## 文档
 
-`docs/` 按用途分文件夹。现行稿各管一件事。历代文档是演进历程，原文保留。
-
-| 文件夹 | 现在读哪一份 |
+| | |
 | --- | --- |
-| [docs/论文/](docs/论文/) | [论文RRM.md](docs/论文/论文RRM.md) 是取消路径核对；[论文UCR-2.md](docs/论文/论文UCR-2.md) 收口 UCR-2.1；[论文5.0.md](docs/论文/论文5.0.md) 是已知 \(C/S\) 的审计；[论文4.0.md](docs/论文/论文4.0.md) 是回放参照 |
-| [docs/开发文档/](docs/开发文档/) | [项目开发文档EpochGate-2.0.md](docs/开发文档/项目开发文档EpochGate-2.0.md) 是新平台合同；[项目开发文档5.0.md](docs/开发文档/项目开发文档5.0.md) 是上一条合同 |
-| [docs/舍弃分支/](docs/舍弃分支/) | DeepSeek 黑盒和 vLLM 四组，不再作为论文主线 |
-| [docs/工程实现说明/](docs/工程实现说明/) | [工程实现说明.md](docs/工程实现说明/工程实现说明.md) 是当前模块和命令。`v0.1.md`–`v1.0.md` 是各版原文 |
-| [docs/面试/](docs/面试/) | [面试讲解.md](docs/面试/面试讲解.md) 是口述；[结果与复现.md](docs/面试/结果与复现.md) 是结果索引 |
-| [docs/问题记录/](docs/问题记录/) | [开发问题.md](docs/问题记录/开发问题.md) 从 v0.2 到 4.0 实际撞上的问题 |
-| [docs/测试记录/](docs/测试记录/) | 阶段一到 v2.1 |
-| [docs/早期/](docs/早期/) | [实验协议.md](docs/早期/实验协议.md)、[第二环境.md](docs/早期/第二环境.md)、最初的 HTML 设计书 |
-| [docs/figures/](docs/figures/) | 初始设计书里的八张示意图 |
-
-## 共同开发者
-
-- [Covertrick](https://github.com/Covertrick)
-- [chenjj2326](https://github.com/chenjj2326)
+| 使用 | [快速开始](docs/现行/使用/快速开始.md)、[接入](docs/现行/使用/接入.md) |
+| 架构与协议 | [运行时](docs/现行/架构/运行时.md)、[副作用](docs/现行/协议/副作用.md)、[恢复](docs/现行/协议/恢复.md) |
+| 数字 | [在线对照](docs/现行/基准/在线对照.md)、[复现](docs/现行/复现/运行时.md) |
+| CI | [ci.yml](.github/workflows/ci.yml)。`runtime` 在 Ubuntu 上跑控制面测试和离线 Demo。`containers` 在该 runner 的 Docker 上跑 Publisher 和容器测试。本机 2026-11-10 用 WSL `eg-alpine` 跑过同一组，9 passed，45.49 秒，记录在 [容器测试](docs/现行/复现/容器测试.md) |
+| 实证测量 | [论文材料](docs/现行/论文/README.md) |
+| 其余文档 | [索引](docs/README.md) |

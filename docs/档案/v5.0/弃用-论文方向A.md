@@ -1,0 +1,112 @@
+# Client-Observable vs Backend-Observable Bystander Latency under State-Triggered Revocation
+
+状态触发撤权下：客户端可观察与后端可观察的旁观者延迟
+
+包版本 **5.0.0**。研究目标（证据前不改成「我们解决了」）：测量撤权后客户端与后端资源释放语义可能不一致时，独立工作流延迟如何变化，并分别建立黑盒 API 上的可观察边界与可观测 serving 上的机制边界。
+
+4.0 逻辑时钟回放保留为理想化参照：[论文4.0.md](../v4.0/论文.md)。本稿不重跑、不改写 v2.1 确认性 JSONL。
+
+## 摘要
+
+共享 Agent Runtime 上，attempt 因外部状态失去资格后，本地是否立即停读并释放 Runtime 槽，会改变旁观者的排队。客户端释放槽**不等于**服务端已停止生成。本文把证据拆成两层：
+
+1. **DeepSeek API（D1–D3）**：真实黑盒服务下的客户端可观察队列外部性，以及 \(W_{\mathrm{slot}}\) 与 \(T_{\mathrm{e2e}}\) 是否分离；残余一律 `unknown`。
+2. **vLLM**：请求终止 / 出队 / 资源指标三级观测下的机制识别；可含 G2-residual。
+
+两层回答不同问题，数值不得并排当作因果对比。机制意义上的总 Go 要求 vLLM 层越过预登记的服务量基准 \(M_0\)。
+
+## 1. 贡献边界
+
+| 能主张 | 不能主张 |
+| --- | --- |
+| DS：客户端可观察的 bystander 等待 / 端到端效应 | DS：服务端 GPU/KV 已回收或残余导致反转 |
+| vLLM：L2-a/b/c 与旁观者延迟的机制关系 | 把 vLLM 毫秒数等同 DeepSeek 结果 |
+| 4.0：理想语义下的服务量传导参照 | 新的取消算法或最优策略 |
+
+近邻（Retire、Readiness/Release、Vesta、ATR 等）已排除「权限与资源分离」「queue externality 概念」「workflow P95」等独占创新表述。本文增量若成立，只能是**特定释放语义不一致条件下的效果边界**。
+
+## 2. 三资源与处理组
+
+Runtime slot、API stream、Backend generation 分开定义。合同见协议：
+
+- **G0**：撤权后禁止提交，但持有 Runtime 槽直至流自然结束。
+- **G2-local**：停读后立即放槽；黑盒 `backend_stop_status=unknown`。
+- **G2-residual**：本地槽已释放，后端仍有可观测/注入残余；**禁止作为 DS 臂**。
+- **G2-hold-slot**：资格撤销但槽延迟释放（回放/脚本）。
+
+## 3. 方法要点
+
+- 每 trace：1 target + 8 bystander；S=2；同 seed 到达序列跨臂共享；臂交错随机先后。
+- \(W_{\mathrm{slot}}=t_{\mathrm{slot\_acquired}}-t_{\mathrm{arrival}}\)；\(T_{\mathrm{e2e}}=t_{\mathrm{completed}}-t_{\mathrm{arrival}}\)；TTFT 另列。
+- 统计单位=trace 内 P95，再配对差 bootstrap；禁止 bystander 当独立样本。
+- \(M_0:\widehat{\Delta T}=\alpha\Delta U_{\mathrm{client}}+\beta\)，仅开发中负载拟合；高负载留出。
+
+## 4. 结果（2026-11-04，deepseek-flash）
+
+API 模型名 `deepseek-flash`，对应 DeepSeek-V4.1-Flash。thinking 关闭。确认性种子 7000–7049，每负载 50 对。Δ 定义为 G0 − G2-local 的 trace 内 bystander P95，bootstrap 10000 次、种子 20261104。
+
+| 负载 | ΔW_slot | 相对 | ΔT_e2e | 相对 |
+| --- | --- | --- | --- | --- |
+| medium，到达窗 12 s | 0.891 s [0.697, 1.074] | 21.4% | 0.873 s [0.669, 1.070] | 12.3% |
+| high，到达窗 6.4 s | 0.863 s [0.664, 1.066] | 11.2% | 0.922 s [0.698, 1.153] | 8.6% |
+
+正数表示 G2-local 比 G0 更短。两档负载的槽等待差和端到端差都为正，bootstrap 区间都不含 0。按预登记门槛（相对至少 10%，且 2.5% 分位大于 0）：槽等待两档都过；端到端只有中负载过。高负载端到端相对 8.6%，绝对差为正，**不能**说它达到了工程门槛。
+
+G2-local 的焦点请求在撤权后关闭本地流（50/50）；G0 读到 512 token 自然结束。`backend_stop_status` 全部为 `unknown`。中负载槽等待改善 0.891 秒、端到端改善 0.873 秒；高负载分别为 0.863 秒和 0.922 秒。在当前模型、请求配置和负载范围内，本地等待改善传导到了旁观者端到端时间，没有观察到系统性抵消或反转。D2 原先期待的 local/e2e 分叉没有出现。这否定的是那一种现象，不是整份 5.0 测量。
+
+可以写入论文的句子：
+
+> 在 DeepSeek V4.1-Flash 的当前实验配置下，撤权后立即停止本地读取并释放 Runtime slot，相对继续持有本地 slot 直至流结束，两档测试负载下独立旁观者的本地槽等待均有所下降；端到端完成时间也观察到正向差异，但高负载端到端相对改善未达到预登记的 10% 门槛。由于服务端停止状态不可观测，不能将该结果归因于服务端计算或 KV 资源回收。
+
+### 4.1 这组数字不能区分的原因
+
+G0 与 G2-local 同时改变了两件事：撤权后是否继续读流，以及 Runtime slot 何时释放。断流还可能间接改变服务端行为。0.86–0.92 秒的端到端改善至少兼容四种解释：本地队列更早放行；断流触发了后端停止；两者同时发生；API 时长、输出 token 和服务波动。当前 DS 结果无法区分。
+
+旁观者端到端变短，也不等于模型服务端排队变短。\(T_{\mathrm{e2e}}\) 从工作流到达计时，里面可以同时有 Runtime 等待、API 等待、生成和传输。论文应拆阶段，而不是只报一个总数：
+
+\[
+T_{\mathrm{e2e}} = W_{\mathrm{runtime}} + W_{\mathrm{provider}} + T_{\mathrm{generation}} + T_{\mathrm{transfer}} + T_{\mathrm{other}}
+\]
+
+实际埋点避免把重叠时段加两次。拿不到 provider 排队时间就标不可观测，不用差值冒充精确测量。
+
+### 4.2 近邻对主张的限制
+
+检索截至 2026-11-04，依据公开摘要与版本页，不是逐页全文对照。
+
+- Retire（arXiv:2610.01160）已经把发布权限和 serving 资源分开，并在 vLLM 里做版本化执行、异步回收和 KV 继承。不能把「权限与资源不是一回事」或「取消后仍有回收过程」写成新发现。
+- Vesta（arXiv:2610.14686）已经用 queueing externality 做请求放置。不能把排队外部性本身写成创新。
+- Readiness/Release（arXiv:2609.10964）已经研究 ready turn 何时进入 serving，并以 workflow P95 为目标。EpochGate 测的是在途 attempt 失去资格之后的放槽时机，但仍须用处理组和事件链说明这不是另一个普通 release policy。
+- Stop Means Stop（arXiv:2607.14166）和 Root-Scoped Quiescence（arXiv:2609.21284）已经覆盖控制原语是否挡住副作用，以及撤权后的静默证明。本文把旧 attempt 失去资格当作前提，主文只研究后续延迟。
+
+5.1 已经做完独立复现、本机四组 vLLM 和 Retire 全文审计。问题真实，新算法不成立。高负载上的正差没有在新窗口复现。本机 vLLM 没有给出可重复、且 M0 解释不了的后端残余。测量型论文的当前主张不发布。判决写在 [v5.1-结果与定位.md](../v5.1/弃用-结果与定位.md)。
+
+| 层 | 状态 | 结论 |
+| --- | --- | --- |
+| L0 脚本 | 已跑 | 不作主表 |
+| DS 确认性 7000–7049 | 已封存 | 客户端可观察同向变短；高负载端到端未过 10% 门槛 |
+| DS 独立复现 8100–8132 | 已跑 | 高负载没有复现；中负载过门槛但区间过宽 |
+| vLLM | 本机四组一次 | 本地握槽能在 running=0 时挡住下一条；无 abort 回执，无 KV 曲线。`vllm_go=no` |
+| **总 Go** | | **no** |
+
+明细在 [v5.0-确认性-DS.md](弃用-确认性-DS.md)。
+
+## 5. Go / No-go
+
+- **DS Go**：D1 或 D2 过工程门槛；D3 无残余=0 误标 → 外部有效性测量贡献。
+- **vLLM Go**：稳定 local/e2e 分离或相对 \(M_0\) 显著残差，且至少 L2-a/b 一致，留出方向正确。
+- **总 Go**：须 vLLM Go。仅 DS Go 时论文定位为双层测量，不宣称机制创新已成立。
+
+当前结论：不以 5.0 的双负载主张发表。封存的 DeepSeek 确认性里，立即停读并放本地槽在两档都缩短了旁观者槽等待；端到端差为正，但只有中负载跨过 10% 工程门槛，高负载相对 8.6%。新窗口 8100–8132 的高负载差约为 0，区间含 0。本机 vLLM 四组说明本地槽可以在引擎 running 已经为 0 时继续挡住下一条请求，但 abort 计数没有增加，KV 没有被这次采样记下。没有稳定的 local/e2e 反转，也不能归因于服务端回收。明细见 [v5.1-结果与定位.md](../v5.1/弃用-结果与定位.md)。
+
+## 6. 复现
+
+```powershell
+python -m uv sync --extra dev
+python -m uv run pytest tests/test_v50.py -q
+python -m uv run python scripts/run_v50_l0.py
+python -m uv run python scripts/analyze_v50.py
+# DS / vLLM：见 docs/档案/v5.0/开发文档.md
+```
+
+协议：`docs/档案/v5.0/弃用-协议.md`。4.0 PLAS 勘误：`docs/档案/v5.0/弃用-PLAS记账勘误.md`。

@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: astral-sh/setup-uv@v5
+      - name: runtime tests
+        run: uv run pytest packages/runtime/tests -q
+      - name: import the runtime package by itself
+        run: uv run --with-editable ./packages/runtime python -c "import epochgate_runtime; from epochgate_runtime.events import load_schema; load_schema()"
+      - name: offline demo
+        run: |
+          uv run egctl demo --scenario stale-write --offline --data-dir /tmp/eg-demo
+          uv run egctl demo --scenario stale-write --offline --data-dir /tmp/eg-demo
+          uv run egctl demo --scenario crash-recovery --offline --data-dir /tmp/eg-demo
+          uv run egctl runs list --data-dir /tmp/eg-demo
+
+  containers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: astral-sh/setup-uv@v5
+      - name: pull the task image
+        run: docker pull python:3.10-slim
+      - name: container integration
+        run: uv run pytest packages/runtime/tests/test_security_boundary.py packages/runtime/tests/test_linux_task.py packages/runtime/tests/test_measurements.py -q
+
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: sealed research contracts
+        run: uv run pytest tests/eg2 tests/test_eg2_contracts.py -q

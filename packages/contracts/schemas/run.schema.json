@@ -1,0 +1,15 @@
+{
+  "title": "Run",
+  "type": "object",
+  "required": ["schema_version", "run_id", "phase", "fencing_token", "state_version", "eligible"],
+  "properties": {
+    "schema_version": {"const": "runtime.v1"},
+    "run_id": {"type": "string"},
+    "session_id": {"type": "string"},
+    "phase": {"type": "string"},
+    "fencing_token": {"type": "integer"},
+    "state_version": {"type": "integer"},
+    "eligible": {"type": "boolean"}
+  },
+  "additionalProperties": false
+}

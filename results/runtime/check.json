@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "revoked_action_not_applied",
+      "passed": true,
+      "detail": "rejected"
+    },
+    {
+      "name": "duplicate_effect_replayed",
+      "passed": true,
+      "detail": "replayed"
+    },
+    {
+      "name": "late_output_rejected",
+      "passed": true,
+      "detail": "rejected"
+    },
+    {
+      "name": "unacked_cancel_is_not_release",
+      "passed": true,
+      "detail": "unknown"
+    },
+    {
+      "name": "slot_release_is_not_gpu_reclaim",
+      "passed": true,
+      "detail": "reconciled"
+    },
+    {
+      "name": "unknown_effect_not_retried",
+      "passed": true,
+      "detail": "unknown"
+    },
+    {
+      "name": "backpressure_rejects_overflow",
+      "passed": true,
+      "detail": "{'completed': 4, 'rejected': 2, 'deadline_misses': 2, 'wait_p50': 0.5, 'wait_p95': 1.0}"
+    }
+  ],
+  "executor": {
+    "completed": 4,
+    "rejected": 2,
+    "deadline_misses": 2,
+    "wait_p50": 0.5,
+    "wait_p95": 1.0
+  },
+  "measurement": "local slot pool with scripted service time; not a GPU or vLLM measurement",
+  "f2p_12907": {
+    "scoring_chain_present": true,
+    "discriminating": false,
+    "repair_demonstrated": false,
+    "reason": "基线上的 FAIL_TO_PASS 没有失败，这组测试还不能区分错误实现和修复。",
+    "instance_id": "astropy__astropy-12907",
+    "session_id": "eg-m1r-651c9e378414",
+    "pytest_summary": "11 passed in 0.21s",
+    "patch_files": [
+      "probe.txt"
+    ]
+  }
+}

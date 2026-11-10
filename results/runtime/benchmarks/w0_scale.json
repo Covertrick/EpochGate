@@ -1,0 +1,150 @@
+{
+  "workload": "W0_scale",
+  "levels": [
+    {
+      "workload": "W0_real_process",
+      "concurrency": 1,
+      "repeats": 3,
+      "sleep_seconds": 0.05,
+      "arms": [
+        {
+          "arm": "B0",
+          "samples_seconds": [
+            0.09197950002271682,
+            0.11192830000072718,
+            0.07693039998412132
+          ],
+          "median_seconds": 0.09197950002271682
+        },
+        {
+          "arm": "B1",
+          "samples_seconds": [
+            0.07345419999910519,
+            0.09711500001139939,
+            0.1328306999639608
+          ],
+          "median_seconds": 0.09711500001139939
+        },
+        {
+          "arm": "B2",
+          "samples_seconds": [
+            0.07510110002476722,
+            0.074872899975162,
+            0.08204210002440959
+          ],
+          "median_seconds": 0.07510110002476722
+        }
+      ],
+      "measurement": "local process sleep plus control-plane work; not a model or GPU measurement"
+    },
+    {
+      "workload": "W0_real_process",
+      "concurrency": 2,
+      "repeats": 3,
+      "sleep_seconds": 0.05,
+      "arms": [
+        {
+          "arm": "B0",
+          "samples_seconds": [
+            0.07463370001642033,
+            0.07492630003252998,
+            0.07781819999217987
+          ],
+          "median_seconds": 0.07492630003252998
+        },
+        {
+          "arm": "B1",
+          "samples_seconds": [
+            0.07766380003886297,
+            0.08986699994420633,
+            0.13628060003975406
+          ],
+          "median_seconds": 0.08986699994420633
+        },
+        {
+          "arm": "B2",
+          "samples_seconds": [
+            0.07576509995851666,
+            0.07802680000895634,
+            0.0867255000048317
+          ],
+          "median_seconds": 0.07802680000895634
+        }
+      ],
+      "measurement": "local process sleep plus control-plane work; not a model or GPU measurement"
+    },
+    {
+      "workload": "W0_real_process",
+      "concurrency": 4,
+      "repeats": 3,
+      "sleep_seconds": 0.05,
+      "arms": [
+        {
+          "arm": "B0",
+          "samples_seconds": [
+            0.09038269997108728,
+            0.08232520002638921,
+            0.08274189999792725
+          ],
+          "median_seconds": 0.08274189999792725
+        },
+        {
+          "arm": "B1",
+          "samples_seconds": [
+            0.08294180000666529,
+            0.08334799995645881,
+            0.08270890003768727
+          ],
+          "median_seconds": 0.08294180000666529
+        },
+        {
+          "arm": "B2",
+          "samples_seconds": [
+            0.08245530002750456,
+            0.07893499999772757,
+            0.0956414999673143
+          ],
+          "median_seconds": 0.08245530002750456
+        }
+      ],
+      "measurement": "local process sleep plus control-plane work; not a model or GPU measurement"
+    },
+    {
+      "workload": "W0_real_process",
+      "concurrency": 8,
+      "repeats": 3,
+      "sleep_seconds": 0.05,
+      "arms": [
+        {
+          "arm": "B0",
+          "samples_seconds": [
+            0.1800121000269428,
+            0.08598869998240843,
+            0.2309549999772571
+          ],
+          "median_seconds": 0.1800121000269428
+        },
+        {
+          "arm": "B1",
+          "samples_seconds": [
+            0.08565319998888299,
+            0.08828920003725216,
+            0.08991479995893314
+          ],
+          "median_seconds": 0.08828920003725216
+        },
+        {
+          "arm": "B2",
+          "samples_seconds": [
+            0.08913650002796203,
+            0.08976130001246929,
+            0.08904330001678318
+          ],
+          "median_seconds": 0.08913650002796203
+        }
+      ],
+      "measurement": "local process sleep plus control-plane work; not a model or GPU measurement"
+    }
+  ],
+  "measurement": "real local processes; not online agents, not a GPU measurement"
+}

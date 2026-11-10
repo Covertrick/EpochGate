@@ -1,0 +1,8 @@
+{
+  "base_fail_to_pass_failed": true,
+  "gold_fail_to_pass_passed": true,
+  "probe_fail_to_pass_passed": false,
+  "probe_marked_repaired": false,
+  "discriminating": true,
+  "runner": "python_subprocess"
+}

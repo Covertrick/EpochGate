@@ -1,0 +1,13 @@
+{
+  "title": "Attempt",
+  "type": "object",
+  "required": ["schema_version", "attempt_id", "run_id", "fencing_token"],
+  "properties": {
+    "schema_version": {"const": "runtime.v1"},
+    "attempt_id": {"type": "string"},
+    "run_id": {"type": "string"},
+    "session_id": {"type": "string"},
+    "fencing_token": {"type": "integer"}
+  },
+  "additionalProperties": false
+}

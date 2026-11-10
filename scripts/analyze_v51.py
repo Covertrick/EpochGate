@@ -19,7 +19,7 @@ from epochgate.v51_audit import load_jsonl
 PROTOCOL = Path("results/experiments/v5_1/protocol/v51_protocol.json")
 TRACES = Path("results/experiments/v5_1/ds/replicate/traces.jsonl")
 OUT = Path("results/experiments/v5_1/reports/v51_replicate.json")
-MD = Path("docs/测试记录/v5.1-复现.md")
+MD = Path("docs/档案/v5.1/弃用-复现.md")
 
 
 def _fmt(value: float | None, digits: int = 3) -> str:

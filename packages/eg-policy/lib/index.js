@@ -1,3 +1,4 @@
+// This guard can refuse a tool early. It does not authorize publication.
 const name = "eg-policy";
 const inject = ["tools"];
 const ALLOWED = new Set(["eg_read", "eg_write", "eg_bash"]);

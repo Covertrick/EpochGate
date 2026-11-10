@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RuntimeEvent",
+  "type": "object",
+  "required": ["schema_version", "event_id", "run_id", "attempt_id", "effect_id", "epoch", "event_type", "timestamp", "ledger_sequence"],
+  "properties": {
+    "schema_version": {"const": "runtime.v1"},
+    "event_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "attempt_id": {"type": ["string", "null"]},
+    "effect_id": {"type": ["string", "null"]},
+    "epoch": {"type": ["integer", "null"]},
+    "event_type": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "minLength": 1},
+    "ledger_sequence": {"type": "integer"}
+  },
+  "additionalProperties": false
+}
