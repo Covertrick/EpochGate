@@ -1,0 +1,153 @@
+{
+  "task_id": "ful-config-c6",
+  "family": "fulfillment",
+  "form": "config",
+  "run_id": "ful-config-c6-B1-S1-epochgate",
+  "attempt_id": "ful-config-c6-B1-S1-epochgate-old",
+  "arm": "B1",
+  "runtime": "epochgate",
+  "fault": "S1",
+  "git_sha": "64341352b8685ab7b3ecddbd6c28fa556abca271",
+  "protocol_sha256": "6f6a8049b5fd8c99b4b5d3213699b2fb3866d44134bddeaf051b57a4204c74be",
+  "task_manifest_sha256": "a18f8f19fd0a3b7698ce1317117a529fdef7839787fba1009b4709d900bef6fe",
+  "image_digest": "not_applicable",
+  "model": "deepseek-flash",
+  "end_reason": "model",
+  "input_tokens": 4610,
+  "output_tokens": 2056,
+  "tool_calls": 8,
+  "elapsed_s": 0.35212890000548214,
+  "blocked": false,
+  "error_type": null,
+  "timeout": false,
+  "environment_blocked": false,
+  "oracle": {
+    "task_terminal_match": true,
+    "stale_credential_accepted": true,
+    "successor_completed": false,
+    "correct_stop": false,
+    "wrong_physical": false,
+    "duplicate_effect": false,
+    "verifiable_effect": true,
+    "physical_digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+    "legal_digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+    "old_digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+    "successor_applicable": true,
+    "interrupted_recovered": null,
+    "reason": "persistent_business_state_and_receiver_log"
+  },
+  "task_terminal_match": true,
+  "stale_credential_accepted": true,
+  "successor_completed": false,
+  "correct_stop": false,
+  "wrong_physical": false,
+  "duplicate_effect": false,
+  "verifiable_effect": true,
+  "physical_digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+  "legal_digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+  "old_digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+  "successor_applicable": true,
+  "interrupted_recovered": null,
+  "reason": "persistent_business_state_and_receiver_log",
+  "native": {
+    "run_id": "ful-config-c6-B1-S1-epochgate",
+    "timeline": [
+      {
+        "order": 1,
+        "name": "run_started",
+        "t": 674696.9251578
+      },
+      {
+        "order": 2,
+        "name": "world_changed",
+        "t": 674696.9251671
+      },
+      {
+        "order": 3,
+        "name": "notification_emitted",
+        "t": 674696.9252139
+      },
+      {
+        "order": 4,
+        "name": "notification_delivered",
+        "t": 674696.9252144
+      },
+      {
+        "order": 5,
+        "name": "authority_updated",
+        "t": 674696.9765548
+      },
+      {
+        "order": 6,
+        "name": "commit_attempted",
+        "t": 674696.9765627
+      }
+    ],
+    "tool_events": [
+      {
+        "tool": "read_primary",
+        "attempt_id": "ful-config-c6-B1-S1-epochgate-old",
+        "arguments": {},
+        "t": 674696.9251617
+      },
+      {
+        "tool": "read_dependency",
+        "attempt_id": "ful-config-c6-B1-S1-epochgate-old",
+        "arguments": {},
+        "t": 674696.9251656
+      },
+      {
+        "tool": "read_order",
+        "arguments": {}
+      },
+      {
+        "tool": "read_permission",
+        "arguments": {
+          "customer": "a4"
+        }
+      },
+      {
+        "tool": "read_inventory",
+        "arguments": {
+          "sku": "none"
+        }
+      },
+      {
+        "tool": "read_price",
+        "arguments": {}
+      },
+      {
+        "tool": "read_config",
+        "arguments": {}
+      },
+      {
+        "tool": "submit_effect",
+        "arguments": {
+          "sku": "none",
+          "qty": 1,
+          "customer": "a4",
+          "price_version": 4,
+          "config_version": 3,
+          "id": "rules-d",
+          "version": 3
+        }
+      }
+    ],
+    "claim_phase": null
+  },
+  "receiver": {
+    "accept_log": [
+      {
+        "effect_key": "ful-config-c6-B1-S1-epochgate-old",
+        "attempt_id": "ful-config-c6-B1-S1-epochgate-old",
+        "accepted": true,
+        "detail": "accepted",
+        "digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+        "receipt": "dd296c114ad73b37a318fde35cc4af4e5707a69306390dddeeb7daaa91e38d01"
+      }
+    ],
+    "physical_digest": "a32be88c412793e1d4214d03bc8c77dbc04e1e73bb859cadbe965e06e45496a1",
+    "accepted_count": 1
+  },
+  "claim": "NOT_SUPPORTED"
+}

@@ -1,0 +1,138 @@
+{
+  "task_id": "ful-order-c2",
+  "family": "fulfillment",
+  "form": "order",
+  "run_id": "ful-order-c2-B2-S2-epochgate",
+  "attempt_id": "ful-order-c2-B2-S2-epochgate-old",
+  "arm": "B2",
+  "runtime": "epochgate",
+  "fault": "S2",
+  "git_sha": "64341352b8685ab7b3ecddbd6c28fa556abca271",
+  "protocol_sha256": "6f6a8049b5fd8c99b4b5d3213699b2fb3866d44134bddeaf051b57a4204c74be",
+  "task_manifest_sha256": "35be75cdf78c7bc7dea7b902f9f8d6a3695c291d28660344383b5fbd7de35b76",
+  "image_digest": "not_applicable",
+  "model": "deepseek-flash",
+  "end_reason": "model",
+  "input_tokens": 5868,
+  "output_tokens": 2466,
+  "tool_calls": 8,
+  "elapsed_s": 0.31468650000169873,
+  "blocked": false,
+  "error_type": null,
+  "timeout": false,
+  "environment_blocked": false,
+  "oracle": {
+    "task_terminal_match": true,
+    "stale_credential_accepted": false,
+    "successor_completed": false,
+    "correct_stop": false,
+    "wrong_physical": false,
+    "duplicate_effect": false,
+    "verifiable_effect": true,
+    "physical_digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+    "legal_digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+    "old_digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+    "successor_applicable": true,
+    "interrupted_recovered": null,
+    "reason": "persistent_business_state_and_receiver_log"
+  },
+  "task_terminal_match": true,
+  "stale_credential_accepted": false,
+  "successor_completed": false,
+  "correct_stop": false,
+  "wrong_physical": false,
+  "duplicate_effect": false,
+  "verifiable_effect": true,
+  "physical_digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+  "legal_digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+  "old_digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+  "successor_applicable": true,
+  "interrupted_recovered": null,
+  "reason": "persistent_business_state_and_receiver_log",
+  "native": {
+    "run_id": "ful-order-c2-B2-S2-epochgate",
+    "timeline": [
+      {
+        "order": 1,
+        "name": "run_started",
+        "t": 674553.3993751
+      },
+      {
+        "order": 2,
+        "name": "world_changed",
+        "t": 674553.3993855
+      },
+      {
+        "order": 3,
+        "name": "commit_attempted",
+        "t": 674553.3994412
+      }
+    ],
+    "tool_events": [
+      {
+        "tool": "read_primary",
+        "attempt_id": "ful-order-c2-B2-S2-epochgate-old",
+        "arguments": {},
+        "t": 674553.3993795
+      },
+      {
+        "tool": "read_dependency",
+        "attempt_id": "ful-order-c2-B2-S2-epochgate-old",
+        "arguments": {},
+        "t": 674553.3993837
+      },
+      {
+        "tool": "read_order",
+        "arguments": {}
+      },
+      {
+        "tool": "read_inventory",
+        "arguments": {
+          "sku": "pad"
+        }
+      },
+      {
+        "tool": "read_permission",
+        "arguments": {
+          "customer": "c4"
+        }
+      },
+      {
+        "tool": "read_price",
+        "arguments": {}
+      },
+      {
+        "tool": "read_config",
+        "arguments": {}
+      },
+      {
+        "tool": "submit_effect",
+        "arguments": {
+          "id": "ful-order-c2",
+          "customer": "c4",
+          "sku": "pad",
+          "qty": 3,
+          "version": 2,
+          "price_version": 5,
+          "config_version": 6
+        }
+      }
+    ],
+    "claim_phase": null
+  },
+  "receiver": {
+    "accept_log": [
+      {
+        "effect_key": "ful-order-c2-B2-S2-epochgate-old",
+        "attempt_id": "ful-order-c2-B2-S2-epochgate-old",
+        "accepted": true,
+        "detail": "accepted",
+        "digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+        "receipt": "90ecfc358a7ce9ed894b845d25c199066e12996dcb7ba254b06e5d17bb0ec7b5"
+      }
+    ],
+    "physical_digest": "08edbe5f0f301e1c84bfd8cae7c62c7aadcfd3ba4fa76dc9bbb8464a7ed5bfc8",
+    "accepted_count": 1
+  },
+  "claim": "NOT_SUPPORTED"
+}

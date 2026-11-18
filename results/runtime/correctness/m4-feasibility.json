@@ -1,0 +1,18 @@
+{
+  "candidates": [
+    {
+      "task_id": "code-1",
+      "repo": "https://github.com/pallets/markupsafe.git",
+      "clone": "depth 1",
+      "test_command": "pytest tests/test_escape.py -q",
+      "test_result": "24 passed",
+      "feasible": false,
+      "entered_matrix": false,
+      "blocked": true,
+      "reason": "浅克隆的当前版本独立测试通过，没有初始失败测试，不能进入 48 或 144，也不计为模型失败。"
+    }
+  ],
+  "entered": 0,
+  "blocked": 1,
+  "note": "其余 7 个候选使用同一仓库，没有单独的失败基线，因此没有重复克隆。"
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "dedicated_revoke_versus_supersede",
+  "in_matrix": false,
+  "rows": [
+    {
+      "authority": "supersede",
+      "arm": "B2",
+      "successor_applicable": true,
+      "successor_completed": true,
+      "correct_stop": false,
+      "stale_credential_accepted": false,
+      "in_matrix": false
+    },
+    {
+      "authority": "supersede",
+      "arm": "B3",
+      "successor_applicable": true,
+      "successor_completed": true,
+      "correct_stop": false,
+      "stale_credential_accepted": false,
+      "in_matrix": false
+    },
+    {
+      "authority": "revoke",
+      "arm": "B2",
+      "successor_applicable": false,
+      "successor_completed": false,
+      "correct_stop": true,
+      "stale_credential_accepted": false,
+      "in_matrix": false
+    },
+    {
+      "authority": "revoke",
+      "arm": "B3",
+      "successor_applicable": false,
+      "successor_completed": false,
+      "correct_stop": true,
+      "stale_credential_accepted": false,
+      "in_matrix": false
+    }
+  ]
+}

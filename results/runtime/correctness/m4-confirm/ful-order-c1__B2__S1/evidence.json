@@ -1,0 +1,144 @@
+{
+  "task_id": "ful-order-c1",
+  "family": "fulfillment",
+  "form": "order",
+  "run_id": "ful-order-c1-B2-S1-epochgate",
+  "attempt_id": "ful-order-c1-B2-S1-epochgate-old",
+  "arm": "B2",
+  "runtime": "epochgate",
+  "fault": "S1",
+  "git_sha": "64341352b8685ab7b3ecddbd6c28fa556abca271",
+  "protocol_sha256": "6f6a8049b5fd8c99b4b5d3213699b2fb3866d44134bddeaf051b57a4204c74be",
+  "task_manifest_sha256": "5c98a7122982f90fbbef70b101887b01fd7ca6e1e1d6d71109172d3203fc1305",
+  "image_digest": "not_applicable",
+  "model": "deepseek-flash",
+  "end_reason": "model",
+  "input_tokens": 4444,
+  "output_tokens": 1318,
+  "tool_calls": 8,
+  "elapsed_s": 0.3768009999766946,
+  "blocked": false,
+  "error_type": null,
+  "timeout": false,
+  "environment_blocked": false,
+  "oracle": {
+    "task_terminal_match": false,
+    "stale_credential_accepted": false,
+    "successor_completed": false,
+    "correct_stop": false,
+    "wrong_physical": false,
+    "duplicate_effect": false,
+    "verifiable_effect": false,
+    "physical_digest": null,
+    "legal_digest": "9e8e4f844a330997de2b2b3f49a834f7bea91248e3c6fd06c490246d0cb82665",
+    "old_digest": null,
+    "successor_applicable": true,
+    "interrupted_recovered": null,
+    "reason": "persistent_business_state_and_receiver_log"
+  },
+  "task_terminal_match": false,
+  "stale_credential_accepted": false,
+  "successor_completed": false,
+  "correct_stop": false,
+  "wrong_physical": false,
+  "duplicate_effect": false,
+  "verifiable_effect": false,
+  "physical_digest": null,
+  "legal_digest": "9e8e4f844a330997de2b2b3f49a834f7bea91248e3c6fd06c490246d0cb82665",
+  "old_digest": null,
+  "successor_applicable": true,
+  "interrupted_recovered": null,
+  "reason": "persistent_business_state_and_receiver_log",
+  "native": {
+    "run_id": "ful-order-c1-B2-S1-epochgate",
+    "timeline": [
+      {
+        "order": 1,
+        "name": "run_started",
+        "t": 674505.0081974
+      },
+      {
+        "order": 2,
+        "name": "world_changed",
+        "t": 674505.0082086
+      },
+      {
+        "order": 3,
+        "name": "notification_emitted",
+        "t": 674505.0082565
+      },
+      {
+        "order": 4,
+        "name": "notification_delivered",
+        "t": 674505.0082571
+      },
+      {
+        "order": 5,
+        "name": "authority_updated",
+        "t": 674505.0641479
+      },
+      {
+        "order": 6,
+        "name": "commit_attempted",
+        "t": 674505.0641546
+      }
+    ],
+    "tool_events": [
+      {
+        "tool": "read_primary",
+        "attempt_id": "ful-order-c1-B2-S1-epochgate-old",
+        "arguments": {},
+        "t": 674505.0082022
+      },
+      {
+        "tool": "read_dependency",
+        "attempt_id": "ful-order-c1-B2-S1-epochgate-old",
+        "arguments": {},
+        "t": 674505.0082071
+      },
+      {
+        "tool": "read_order",
+        "arguments": {}
+      },
+      {
+        "tool": "read_inventory",
+        "arguments": {
+          "sku": "ink"
+        }
+      },
+      {
+        "tool": "read_permission",
+        "arguments": {
+          "customer": "c3"
+        }
+      },
+      {
+        "tool": "read_price",
+        "arguments": {}
+      },
+      {
+        "tool": "read_config",
+        "arguments": {}
+      },
+      {
+        "tool": "submit_effect",
+        "arguments": {
+          "id": "ful-order-c1",
+          "sku": "ink",
+          "qty": 1,
+          "customer": "c3",
+          "price_version": 3,
+          "config_version": 5,
+          "version": 1
+        }
+      }
+    ],
+    "claim_phase": null
+  },
+  "receiver": {
+    "accept_log": [],
+    "physical_digest": null,
+    "accepted_count": 0
+  },
+  "claim": "NOT_SUPPORTED"
+}

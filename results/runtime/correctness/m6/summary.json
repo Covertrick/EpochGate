@@ -1,0 +1,54 @@
+{
+  "role": "confirm_rows_are_the_only_formal_candidates",
+  "pilot_n": 20,
+  "confirm_n": 52,
+  "h4_same_terminal_different_safety": 0.4,
+  "h5": {
+    "n": 5,
+    "mean": 1.0,
+    "low": 1.0,
+    "high": 1.0,
+    "half_width": 0.0
+  },
+  "h6": {
+    "n": 4,
+    "mean": 1.0,
+    "low": 1.0,
+    "high": 1.0,
+    "half_width": 0.0
+  },
+  "h7_observable_coverage": 0.75,
+  "h8": {
+    "D0": {
+      "n": 20,
+      "abstention_rate": 1.0,
+      "false_confirmation_rate": 0.0,
+      "coverage": 0.0
+    },
+    "D1": {
+      "n": 20,
+      "abstention_rate": 1.0,
+      "false_confirmation_rate": 0.0,
+      "coverage": 0.0
+    },
+    "D1+": {
+      "n": 20,
+      "abstention_rate": 0.3,
+      "false_confirmation_rate": 0.0,
+      "coverage": 0.7
+    },
+    "D2": {
+      "n": 20,
+      "abstention_rate": 0.3,
+      "false_confirmation_rate": 0.0,
+      "coverage": 0.7
+    }
+  },
+  "b2_s1_stale_upper": 0.4507197283469412,
+  "zero_failures_are_not_perfect_reliability": true,
+  "decision": "GO",
+  "reasons": [
+    "H5 达到精度目标，且 M5 没有修改 LangGraph 内核"
+  ],
+  "manuscript": "精度和迁移条件满足，仍不在本轮改冻结稿"
+}
