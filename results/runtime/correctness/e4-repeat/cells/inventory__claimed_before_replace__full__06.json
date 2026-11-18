@@ -1,0 +1,83 @@
+{
+  "task": "inventory",
+  "fault": "claimed_before_replace",
+  "arm": "full",
+  "repeat": 6,
+  "status": "completed",
+  "run_id": "e4-90f44415b04c",
+  "session_id": "eg-e4-3537ebde04da",
+  "granted_token": 1,
+  "final_token": 1,
+  "final_state_version": 1,
+  "sink_version": 1,
+  "eligible": true,
+  "notice": {
+    "fired": true,
+    "action": "claimed_before_replace"
+  },
+  "initialize_error": null,
+  "wait_error": null,
+  "followup_sent": false,
+  "tool_names": [
+    "eg_read",
+    "eg_read",
+    "eg_write",
+    "eg_write",
+    "eg_read",
+    "eg_read",
+    "eg_write",
+    "eg_write",
+    "eg_read",
+    "eg_read",
+    "eg_write",
+    "eg_write",
+    "eg_read",
+    "eg_read"
+  ],
+  "tokens": {
+    "input": 1934,
+    "output": 1321,
+    "total": 3255
+  },
+  "frame_count": 56,
+  "unparsed_frames": 0,
+  "turn_reasons": [
+    {
+      "kind": "completed"
+    }
+  ],
+  "event_types": [
+    "attempt_opened",
+    "intent_recorded",
+    "publish_claimed",
+    "file_published"
+  ],
+  "effects": [
+    {
+      "phase": "completed",
+      "effect_state": "RESULT_PERSISTED",
+      "receipt": "file:order.txt:32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e"
+    }
+  ],
+  "reconcile": [
+    {
+      "status": "completed",
+      "published": true
+    }
+  ],
+  "source_final": "3",
+  "file_text": "order 3",
+  "duration_s": 24.193,
+  "errors": [],
+  "stderr_tail": "dsh: warning: 1 entry did not activate\npermission (@deepseek-ai/dsh-permission-presets): pending (waiting for service: shell)\n[llm-deepseek-api-key] model listing from https://api.deepseek.com/models loaded 2 model(s), skipped 0 row(s)\n",
+  "key_printed": false,
+  "executor": "process",
+  "terminal_correct": true,
+  "stale_effect_accepted": false,
+  "eligible_successor_completed": false,
+  "duplicate_side_effects": 0,
+  "unknown_fraction": 0.0,
+  "tool_calls": 14,
+  "scored": true,
+  "model_called": true
+}

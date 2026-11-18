@@ -1,0 +1,356 @@
+{
+  "kind": "smoke",
+  "not_a_confirmatory_experiment": true,
+  "rounds": 1,
+  "cells": 12,
+  "passed": true,
+  "git_head": "847165bebf85b6e01bf19521e0c006937c363872",
+  "docker_available": false,
+  "docker_note": "未测",
+  "protocol": {
+    "commit_only": "门后 admit 一次。admit 与写入之间没有第二次校验，也没有 fencing。",
+    "direct": "不检查资格。",
+    "full_claimed_before_replace": "Claim 后、替换前返回，再调用 recover_claimed_publish。",
+    "commit_only_label": "受限对照，不是完整的 commit-time authorization。"
+  },
+  "groups": {
+    "approval|permission_revoked|direct": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 1,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "approval|permission_revoked|commit_only": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 0,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "approval|permission_revoked|full": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 0,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|state_change|direct": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 1,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|state_change|commit_only": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 1,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|state_change|full": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 1,
+      "stale_effect": 0,
+      "successor_completed": 1,
+      "task_success_wilson95": [
+        0.2065,
+        1.0
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|missing_notice|direct": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 1,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|missing_notice|commit_only": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 1,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|missing_notice|full": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 0,
+      "stale_effect": 1,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.0,
+        0.7935
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|claimed_before_replace|direct": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 1,
+      "stale_effect": 0,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.2065,
+        1.0
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|claimed_before_replace|commit_only": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 1,
+      "stale_effect": 0,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.2065,
+        1.0
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    },
+    "inventory|claimed_before_replace|full": {
+      "n": 1,
+      "passed": 1,
+      "task_success": 1,
+      "stale_effect": 0,
+      "successor_completed": 0,
+      "task_success_wilson95": [
+        0.2065,
+        1.0
+      ],
+      "passed_wilson95": [
+        0.2065,
+        1.0
+      ]
+    }
+  },
+  "cells_judged": [
+    {
+      "task": "approval",
+      "fault": "permission_revoked",
+      "arm": "direct",
+      "repeat": 0,
+      "passed": true,
+      "reason": "direct may still write after a permanent revoke",
+      "task_success": false,
+      "stale_effect": true,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "approval",
+      "fault": "permission_revoked",
+      "arm": "commit_only",
+      "repeat": 0,
+      "passed": true,
+      "reason": "commit-only must withhold after a permanent revoke",
+      "task_success": false,
+      "stale_effect": false,
+      "successor_completed": false,
+      "file_present": false,
+      "status": "completed"
+    },
+    {
+      "task": "approval",
+      "fault": "permission_revoked",
+      "arm": "full",
+      "repeat": 0,
+      "passed": true,
+      "reason": "full must withhold after a permanent revoke",
+      "task_success": false,
+      "stale_effect": false,
+      "successor_completed": false,
+      "file_present": false,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "state_change",
+      "arm": "direct",
+      "repeat": 0,
+      "passed": true,
+      "reason": "direct may write the value it read before supersede",
+      "task_success": false,
+      "stale_effect": true,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "state_change",
+      "arm": "commit_only",
+      "repeat": 0,
+      "passed": true,
+      "reason": "commit-only may still write the old value; admit is not fencing",
+      "task_success": false,
+      "stale_effect": true,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "state_change",
+      "arm": "full",
+      "repeat": 0,
+      "passed": true,
+      "reason": "full must reject the old token and let the successor finish",
+      "task_success": true,
+      "stale_effect": false,
+      "successor_completed": true,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "missing_notice",
+      "arm": "direct",
+      "repeat": 0,
+      "passed": true,
+      "reason": "no arm is notified, so the old value is written",
+      "task_success": false,
+      "stale_effect": true,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "missing_notice",
+      "arm": "commit_only",
+      "repeat": 0,
+      "passed": true,
+      "reason": "no arm is notified, so the old value is written",
+      "task_success": false,
+      "stale_effect": true,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "missing_notice",
+      "arm": "full",
+      "repeat": 0,
+      "passed": true,
+      "reason": "no arm is notified, so the old value is written",
+      "task_success": false,
+      "stale_effect": true,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "claimed_before_replace",
+      "arm": "direct",
+      "repeat": 0,
+      "passed": true,
+      "reason": "direct writes without a claim",
+      "task_success": true,
+      "stale_effect": false,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "claimed_before_replace",
+      "arm": "commit_only",
+      "repeat": 0,
+      "passed": true,
+      "reason": "commit-only writes when eligibility remains",
+      "task_success": true,
+      "stale_effect": false,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    },
+    {
+      "task": "inventory",
+      "fault": "claimed_before_replace",
+      "arm": "full",
+      "repeat": 0,
+      "passed": true,
+      "reason": "full recovers the claimed publish before replace",
+      "task_success": true,
+      "stale_effect": false,
+      "successor_completed": false,
+      "file_present": true,
+      "status": "completed"
+    }
+  ]
+}

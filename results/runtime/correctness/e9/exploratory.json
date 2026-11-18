@@ -1,0 +1,1575 @@
+{
+  "instance": "exploratory",
+  "role": "exploratory",
+  "protocol": "docs/开发文档/补实验协议.md",
+  "same_frozen_snapshot": true,
+  "shared_row": false,
+  "note": "每个格子从同一份冻结快照复制账本。提交时不重新领取凭证。同一行不能被多个机制各接受一次。",
+  "cells": [
+    {
+      "study": "supersede",
+      "mechanism": "B0",
+      "notice": "delivered",
+      "attempt": "exploratory-supersede-B0-delivered",
+      "frozen": {
+        "attempt": "exploratory-supersede-B0-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671250.7478602
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671250.7484429
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671250.7484446
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671250.7951558
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671250.795159
+        }
+      ],
+      "decision": "none",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": true,
+      "stale_credential_accepted": true,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B0",
+      "notice": "missing",
+      "attempt": "exploratory-supersede-B0-missing",
+      "frozen": {
+        "attempt": "exploratory-supersede-B0-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671251.0918359
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671251.0923719
+        }
+      ],
+      "decision": "none",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B0",
+      "notice": "delayed",
+      "attempt": "exploratory-supersede-B0-delayed",
+      "frozen": {
+        "attempt": "exploratory-supersede-B0-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671251.3501804
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671251.3505955
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671251.3505966
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671251.3512225
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671251.3960467
+        }
+      ],
+      "decision": "none",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B1",
+      "notice": "delivered",
+      "attempt": "exploratory-supersede-B1-delivered",
+      "frozen": {
+        "attempt": "exploratory-supersede-B1-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671251.699385
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671251.6998501
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671251.6998517
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671251.7474431
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671251.7474451
+        }
+      ],
+      "decision": "admit",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": true,
+      "stale_credential_accepted": true,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B1",
+      "notice": "missing",
+      "attempt": "exploratory-supersede-B1-missing",
+      "frozen": {
+        "attempt": "exploratory-supersede-B1-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671252.0516054
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671252.0520241
+        }
+      ],
+      "decision": "admit",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B1",
+      "notice": "delayed",
+      "attempt": "exploratory-supersede-B1-delayed",
+      "frozen": {
+        "attempt": "exploratory-supersede-B1-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671252.3012178
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671252.3018232
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671252.3018246
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671252.302203
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671252.3483878
+        }
+      ],
+      "decision": "admit",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": true,
+      "stale_credential_accepted": true,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": true,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B2_nonatomic",
+      "notice": "delivered",
+      "attempt": "exploratory-supersede-B2_nonatomic-delivered",
+      "frozen": {
+        "attempt": "exploratory-supersede-B2_nonatomic-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671252.6539913
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671252.6544435
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671252.6544449
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671252.700343
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671252.7003447
+        }
+      ],
+      "decision": "check_then_write",
+      "old_accepted": false,
+      "stale_at_decision": true,
+      "stale_at_write": true,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B2_nonatomic",
+      "notice": "missing",
+      "attempt": "exploratory-supersede-B2_nonatomic-missing",
+      "frozen": {
+        "attempt": "exploratory-supersede-B2_nonatomic-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671253.0062496
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671253.0069528
+        }
+      ],
+      "decision": "check_then_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B2_nonatomic",
+      "notice": "delayed",
+      "attempt": "exploratory-supersede-B2_nonatomic-delayed",
+      "frozen": {
+        "attempt": "exploratory-supersede-B2_nonatomic-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671253.2633194
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671253.2637736
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671253.2637883
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671253.2641815
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671253.3089365
+        }
+      ],
+      "decision": "check_then_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": true,
+      "stale_credential_accepted": true,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": true,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B2_strong",
+      "notice": "delivered",
+      "attempt": "exploratory-supersede-B2_strong-delivered",
+      "frozen": {
+        "attempt": "exploratory-supersede-B2_strong-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671253.6177582
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671253.6181873
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671253.6181884
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671253.6637949
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671253.6637969
+        }
+      ],
+      "decision": "immediate_check_and_write",
+      "old_accepted": false,
+      "stale_at_decision": true,
+      "stale_at_write": true,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B2_strong",
+      "notice": "missing",
+      "attempt": "exploratory-supersede-B2_strong-missing",
+      "frozen": {
+        "attempt": "exploratory-supersede-B2_strong-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671253.9666194
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671253.967555
+        }
+      ],
+      "decision": "immediate_check_and_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B2_strong",
+      "notice": "delayed",
+      "attempt": "exploratory-supersede-B2_strong-delayed",
+      "frozen": {
+        "attempt": "exploratory-supersede-B2_strong-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671254.2244198
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671254.2250302
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671254.2250317
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671254.226365
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671254.2731684
+        }
+      ],
+      "decision": "immediate_check_and_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B3",
+      "notice": "delivered",
+      "attempt": "exploratory-supersede-B3-delivered",
+      "frozen": {
+        "attempt": "exploratory-supersede-B3-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671254.5732995
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671254.574004
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671254.5740057
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671254.6222243
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671254.6222266
+        }
+      ],
+      "decision": "claim_publish",
+      "old_accepted": false,
+      "stale_at_decision": true,
+      "stale_at_write": true,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B3",
+      "notice": "missing",
+      "attempt": "exploratory-supersede-B3-missing",
+      "frozen": {
+        "attempt": "exploratory-supersede-B3-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671254.9442237
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671254.9446723
+        }
+      ],
+      "decision": "claim_publish",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "supersede",
+      "mechanism": "B3",
+      "notice": "delayed",
+      "attempt": "exploratory-supersede-B3-delayed",
+      "frozen": {
+        "attempt": "exploratory-supersede-B3-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671255.2527112
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671255.2532315
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671255.253233
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671255.3093936
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671255.3548511
+        }
+      ],
+      "decision": "claim_publish",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": true,
+      "task_terminal_match": true,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B0",
+      "notice": "delivered",
+      "attempt": "exploratory-revoke-B0-delivered",
+      "frozen": {
+        "attempt": "exploratory-revoke-B0-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671255.6609809
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671255.6614277
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671255.6614289
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671255.6849824
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671255.6849848
+        }
+      ],
+      "decision": "none",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": true,
+      "stale_credential_accepted": true,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B0",
+      "notice": "missing",
+      "attempt": "exploratory-revoke-B0-missing",
+      "frozen": {
+        "attempt": "exploratory-revoke-B0-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671255.9419616
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671255.9426915
+        }
+      ],
+      "decision": "none",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B0",
+      "notice": "delayed",
+      "attempt": "exploratory-revoke-B0-delayed",
+      "frozen": {
+        "attempt": "exploratory-revoke-B0-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671256.2043505
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671256.2048472
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671256.2048486
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671256.2061293
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671256.2298042
+        }
+      ],
+      "decision": "none",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B1",
+      "notice": "delivered",
+      "attempt": "exploratory-revoke-B1-delivered",
+      "frozen": {
+        "attempt": "exploratory-revoke-B1-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671256.5434107
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671256.5438572
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671256.5438584
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671256.5678232
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671256.5678254
+        }
+      ],
+      "decision": "admit",
+      "old_accepted": false,
+      "stale_at_decision": true,
+      "stale_at_write": true,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": false,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B1",
+      "notice": "missing",
+      "attempt": "exploratory-revoke-B1-missing",
+      "frozen": {
+        "attempt": "exploratory-revoke-B1-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671256.8176788
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671256.8185486
+        }
+      ],
+      "decision": "admit",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B1",
+      "notice": "delayed",
+      "attempt": "exploratory-revoke-B1-delayed",
+      "frozen": {
+        "attempt": "exploratory-revoke-B1-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671257.0753509
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671257.0758486
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671257.0758499
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671257.0761895
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671257.1000482
+        }
+      ],
+      "decision": "admit",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": true,
+      "stale_credential_accepted": true,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": true,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B2_nonatomic",
+      "notice": "delivered",
+      "attempt": "exploratory-revoke-B2_nonatomic-delivered",
+      "frozen": {
+        "attempt": "exploratory-revoke-B2_nonatomic-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671257.3594333
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671257.3601143
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671257.3601158
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671257.3834377
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671257.38344
+        }
+      ],
+      "decision": "check_then_write",
+      "old_accepted": false,
+      "stale_at_decision": true,
+      "stale_at_write": true,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": false,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B2_nonatomic",
+      "notice": "missing",
+      "attempt": "exploratory-revoke-B2_nonatomic-missing",
+      "frozen": {
+        "attempt": "exploratory-revoke-B2_nonatomic-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671257.6302433
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671257.6307329
+        }
+      ],
+      "decision": "check_then_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B2_nonatomic",
+      "notice": "delayed",
+      "attempt": "exploratory-revoke-B2_nonatomic-delayed",
+      "frozen": {
+        "attempt": "exploratory-revoke-B2_nonatomic-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671257.88696
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671257.8874379
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671257.8874393
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671257.8877884
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671257.9120579
+        }
+      ],
+      "decision": "check_then_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": true,
+      "stale_credential_accepted": true,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": true,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B2_strong",
+      "notice": "delivered",
+      "attempt": "exploratory-revoke-B2_strong-delivered",
+      "frozen": {
+        "attempt": "exploratory-revoke-B2_strong-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671258.1666532
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671258.1671404
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671258.1671418
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671258.2107248
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671258.2107268
+        }
+      ],
+      "decision": "immediate_check_and_write",
+      "old_accepted": false,
+      "stale_at_decision": true,
+      "stale_at_write": true,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": false,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B2_strong",
+      "notice": "missing",
+      "attempt": "exploratory-revoke-B2_strong-missing",
+      "frozen": {
+        "attempt": "exploratory-revoke-B2_strong-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671258.4640619
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671258.4645314
+        }
+      ],
+      "decision": "immediate_check_and_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B2_strong",
+      "notice": "delayed",
+      "attempt": "exploratory-revoke-B2_strong-delayed",
+      "frozen": {
+        "attempt": "exploratory-revoke-B2_strong-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671258.7236738
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671258.7241909
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671258.7241922
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671258.7248799
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671258.7476278
+        }
+      ],
+      "decision": "immediate_check_and_write",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B3",
+      "notice": "delivered",
+      "attempt": "exploratory-revoke-B3-delivered",
+      "frozen": {
+        "attempt": "exploratory-revoke-B3-delivered",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671259.0067745
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671259.0073275
+        },
+        {
+          "order": 3,
+          "name": "notification_delivered",
+          "t": 671259.0073289
+        },
+        {
+          "order": 4,
+          "name": "authority_updated",
+          "t": 671259.03024
+        },
+        {
+          "order": 5,
+          "name": "commit_attempted",
+          "t": 671259.030242
+        }
+      ],
+      "decision": "claim_publish",
+      "old_accepted": false,
+      "stale_at_decision": true,
+      "stale_at_write": true,
+      "stale_credential_accepted": false,
+      "world_stale_payload": false,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": false,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B3",
+      "notice": "missing",
+      "attempt": "exploratory-revoke-B3-missing",
+      "frozen": {
+        "attempt": "exploratory-revoke-B3-missing",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671259.3032844
+        },
+        {
+          "order": 2,
+          "name": "commit_attempted",
+          "t": 671259.3036662
+        }
+      ],
+      "decision": "claim_publish",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 1,
+      "eligible": true,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    },
+    {
+      "study": "revoke",
+      "mechanism": "B3",
+      "notice": "delayed",
+      "attempt": "exploratory-revoke-B3-delayed",
+      "frozen": {
+        "attempt": "exploratory-revoke-B3-delayed",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "timeline": [
+        {
+          "order": 1,
+          "name": "world_changed",
+          "t": 671259.6167379
+        },
+        {
+          "order": 2,
+          "name": "notification_emitted",
+          "t": 671259.6174022
+        },
+        {
+          "order": 3,
+          "name": "commit_attempted",
+          "t": 671259.6174039
+        },
+        {
+          "order": 4,
+          "name": "notification_delivered",
+          "t": 671259.6687691
+        },
+        {
+          "order": 5,
+          "name": "authority_updated",
+          "t": 671259.691312
+        }
+      ],
+      "decision": "claim_publish",
+      "old_accepted": true,
+      "stale_at_decision": false,
+      "stale_at_write": false,
+      "stale_credential_accepted": false,
+      "world_stale_payload": true,
+      "successor_completed": false,
+      "task_terminal_match": false,
+      "file_present": true,
+      "final_token": 2,
+      "eligible": false,
+      "split_decision": false,
+      "layer": "mechanism_notice"
+    }
+  ],
+  "ablations": [
+    {
+      "name": "full_minus_version",
+      "attempt": "exploratory-full_minus_version",
+      "frozen": {
+        "attempt": "exploratory-full_minus_version",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "layer": "full_ablation",
+      "inconstructable": false,
+      "old_accepted": true,
+      "stale_credential_accepted": true
+    },
+    {
+      "name": "full_minus_receipt",
+      "attempt": "exploratory-full_minus_receipt",
+      "frozen": {
+        "attempt": "exploratory-full_minus_receipt",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "layer": "full_ablation",
+      "inconstructable": false,
+      "old_accepted": true,
+      "receipt": null,
+      "phase": "started",
+      "file_present": true
+    },
+    {
+      "name": "full_minus_recovery",
+      "attempt": "exploratory-full_minus_recovery",
+      "frozen": {
+        "attempt": "exploratory-full_minus_recovery",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "layer": "full_ablation",
+      "inconstructable": false,
+      "old_accepted": false,
+      "status": "crashed_before_replace",
+      "file_present": false,
+      "recovered": false,
+      "phase": "started"
+    },
+    {
+      "name": "full_revoke_after_claim",
+      "attempt": "exploratory-full_revoke_after_claim",
+      "frozen": {
+        "attempt": "exploratory-full_revoke_after_claim",
+        "token": 1,
+        "version": 1,
+        "payload": "order 3\n",
+        "issued_before_world_change": true
+      },
+      "layer": "full_ablation",
+      "inconstructable": false,
+      "claim_status": "crashed_before_replace",
+      "recovered": true,
+      "file_bytes": "order 3\n",
+      "note": "决定点之后的撤销不撤回已授权发布"
+    }
+  ],
+  "h1_composition": {
+    "pairs": 22,
+    "examples": [
+      {
+        "study": "supersede",
+        "notice": "delivered",
+        "left": "B0",
+        "right": "B2_nonatomic"
+      },
+      {
+        "study": "supersede",
+        "notice": "delivered",
+        "left": "B0",
+        "right": "B2_strong"
+      },
+      {
+        "study": "supersede",
+        "notice": "delivered",
+        "left": "B0",
+        "right": "B3"
+      },
+      {
+        "study": "supersede",
+        "notice": "delayed",
+        "left": "B0",
+        "right": "B1"
+      },
+      {
+        "study": "supersede",
+        "notice": "delayed",
+        "left": "B0",
+        "right": "B2_nonatomic"
+      },
+      {
+        "study": "supersede",
+        "notice": "delivered",
+        "left": "B1",
+        "right": "B2_nonatomic"
+      },
+      {
+        "study": "supersede",
+        "notice": "delivered",
+        "left": "B1",
+        "right": "B2_strong"
+      },
+      {
+        "study": "supersede",
+        "notice": "delivered",
+        "left": "B1",
+        "right": "B3"
+      }
+    ]
+  },
+  "h2_stale_difference_b1_minus_b2_strong": 1,
+  "missing_notice_still_accepts_frozen": true,
+  "inconstructable": []
+}

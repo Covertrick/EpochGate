@@ -1,7 +1,7 @@
 """给调用方使用的控制面接口。
 
 这里不暴露 SQLite 事务、内部锁或容器里的发布用户。
-文件发布仍走 ``publish_file``，资格判断仍走 RunLedger。
+文件发布走封存字节的 ``publish_frozen_file``。按路径替换的 ``publish_file`` 只留作历史复现。
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from epochgate_runtime.files import publish_file
+from epochgate_runtime.files import publish_frozen_file
 from epochgate_runtime.ledger import RunLedger
 from epochgate_runtime.sink import EffectSink
 
@@ -97,7 +97,7 @@ class Runtime:
         staging.parent.mkdir(parents=True, exist_ok=True)
         staging.write_bytes(payload)
         relative = Path(attempt.resource).name
-        return publish_file(
+        return publish_frozen_file(
             self.ledger,
             workspace=run_workspace,
             run_id=attempt.run_id,

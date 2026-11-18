@@ -19,7 +19,7 @@ import uuid
 from pathlib import Path
 from urllib.request import Request, urlopen
 
-from epochgate_runtime.files import reconcile_file
+from epochgate_runtime.files import reconcile_file, recover_claimed_publish
 from epochgate_runtime.ledger import RunLedger
 from epochgate_runtime.sandbox import docker_available
 from epochgate_runtime.service import ControlServer
@@ -153,40 +153,45 @@ def tool_names(frames: list[dict]) -> list[str]:
     return found
 
 
+def _usage_tuple(usage: dict) -> tuple[int, int]:
+    return (
+        int(usage.get("input_tokens") or usage.get("prompt_tokens") or usage.get("inputTokens") or 0),
+        int(usage.get("output_tokens") or usage.get("completion_tokens") or usage.get("outputTokens") or 0),
+    )
+
+
 def token_usage(frames: list[dict]) -> dict[str, int] | None:
-    steps: list[tuple[int, int, int]] = []
+    """每个顶层帧只取第一份 usage，嵌套副本不计。total 只用 input 与 output 之和。"""
+    steps: list[tuple[int, int]] = []
 
-    def take(node: dict) -> None:
-        usage = node.get("usage")
-        if not isinstance(usage, dict):
-            return
-        item = (
-            int(usage.get("input_tokens") or usage.get("prompt_tokens") or usage.get("inputTokens") or 0),
-            int(usage.get("output_tokens") or usage.get("completion_tokens") or usage.get("outputTokens") or 0),
-            int(usage.get("total_tokens") or usage.get("totalTokens") or 0),
-        )
-        if steps and steps[-1] == item:
-            return
-        steps.append(item)
-
-    def walk(node: object) -> None:
+    def first_usage(node: object) -> tuple[int, int] | None:
         if isinstance(node, dict):
-            take(node)
-            for value in node.values():
-                walk(value)
+            usage = node.get("usage")
+            if isinstance(usage, dict):
+                return _usage_tuple(usage)
+            for key, value in node.items():
+                if key == "usage":
+                    continue
+                found = first_usage(value)
+                if found is not None:
+                    return found
         elif isinstance(node, list):
             for item in node:
-                walk(item)
+                found = first_usage(item)
+                if found is not None:
+                    return found
+        return None
 
     for frame in frames:
-        walk(frame)
+        found = first_usage(frame)
+        if found is None or (steps and steps[-1] == found):
+            continue
+        steps.append(found)
     if not steps:
         return None
-    return {
-        "input": sum(item[0] for item in steps),
-        "output": sum(item[1] for item in steps),
-        "total": sum(item[2] or (item[0] + item[1]) for item in steps),
-    }
+    incoming = sum(item[0] for item in steps)
+    outgoing = sum(item[1] for item in steps)
+    return {"input": incoming, "output": outgoing, "total": incoming + outgoing}
 
 
 def cell_id(task: str, fault: str, arm: str, repeat: int) -> str:
@@ -311,7 +316,7 @@ def run_process_cell(task: str, fault: str, arm: str, repeat: int, key: str, nod
     gate = workspace / "publish.gate"
     ledger_path = workspace / "ledger.sqlite"
     sink_path = workspace / "sink.sqlite"
-    crash = fault == "receipt_loss" and arm == "full"
+    crash = arm == "full" and fault in {"receipt_loss", "claimed_before_replace"}
     previous_crash = os.environ.get("EG_CRASH_AFTER_CLAIM")
     if crash:
         os.environ["EG_CRASH_AFTER_CLAIM"] = "1"
@@ -334,7 +339,7 @@ def run_process_cell(task: str, fault: str, arm: str, repeat: int, key: str, nod
         while time.time() < deadline:
             if ready.is_file():
                 try:
-                    if task == "inventory" and fault != "receipt_loss":
+                    if task == "inventory" and fault not in {"receipt_loss", "claimed_before_replace"}:
                         (workspace / "stock.txt").write_text("0\n", encoding="utf-8")
                     if task == "approval" and fault in {"permission_revoked", "version_mismatch"}:
                         (workspace / "rules.txt").write_text("DENY\n", encoding="utf-8")
@@ -345,7 +350,8 @@ def run_process_cell(task: str, fault: str, arm: str, repeat: int, key: str, nod
                     elif arm == "full" and fault in {"version_mismatch", "stale_credential"}:
                         state = ledger.supersede(run_id)
                         notice["response"] = {"fencing_token": state.fencing_token, "sink_unaligned": True}
-                    elif arm == "full" and fault in {"permission_revoked", "publish_failure"}:
+                    elif fault == "permission_revoked" or (arm == "full" and fault == "publish_failure"):
+                        # 永久撤销对三臂都在开门时注入。Direct 不查资格，仍可能写入。
                         notice["response"] = post(server.base_url + f"/runs/{run_id}/revoke", {})
                     notice["fired"] = True
                 except Exception as exc:  # noqa: BLE001
@@ -361,6 +367,8 @@ def run_process_cell(task: str, fault: str, arm: str, repeat: int, key: str, nod
     child_env["DEEPSEEK_API_KEY"] = key
     child_env.pop("EPOCHGATE_API_KEY", None)
     child_env.pop("DS_API_KEY", None)
+    # .env 里的 DEEPSEEK_BASE_URL 是 OpenAI 兼容根路径。这个客户端要的是 Anthropic Messages 根，沿用它自己的默认值。
+    child_env.pop("DEEPSEEK_BASE_URL", None)
     child_env.pop("EG_CRASH_AFTER_CLAIM", None)
     child_env["DSH_HOME"] = str(DSH_HOME)
     child_env["EG_CONTROL_URL"] = server.base_url
@@ -466,7 +474,18 @@ def run_process_cell(task: str, fault: str, arm: str, repeat: int, key: str, nod
     reconciles = []
     if crash:
         for row in effects:
-            if row.get("phase") != "completed":
+            if row.get("phase") == "completed":
+                continue
+            if fault == "claimed_before_replace":
+                reconciles.append(recover_claimed_publish(
+                    ledger,
+                    workspace=workspace,
+                    run_id=run_id,
+                    idempotency_key=row["idempotency_key"],
+                    relative_path=target_name,
+                    staging_path=workspace / ".eg-staging" / row["idempotency_key"],
+                ))
+            else:
                 reconciles.append(reconcile_file(
                     ledger,
                     workspace=workspace,
@@ -474,6 +493,8 @@ def run_process_cell(task: str, fault: str, arm: str, repeat: int, key: str, nod
                     idempotency_key=row["idempotency_key"],
                     relative_path=target_name,
                 ))
+        effects = ledger.effects_for_run(run_id)
+        events = [item["event_type"] for item in ledger.events(run_id)]
     run = ledger.get_run(run_id)
     duration = time.perf_counter() - started
     record = {
@@ -495,6 +516,15 @@ def run_process_cell(task: str, fault: str, arm: str, repeat: int, key: str, nod
         "followup_sent": bool(follow),
         "tool_names": tool_names(frames),
         "tokens": token_usage(frames),
+        "frame_count": len(frames),
+        "unparsed_frames": sum(1 for frame in frames if "unparsed" in frame),
+        "turn_reasons": [
+            data.get("reason")
+            for frame in frames
+            if isinstance((event := (frame.get("params") or {}).get("event")), dict)
+            and event.get("type") == "turn/end"
+            and isinstance((data := event.get("data")), dict)
+        ],
         "event_types": events,
         "effects": [
             {

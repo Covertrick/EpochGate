@@ -1,0 +1,99 @@
+{
+  "wsl_distro": "eg-alpine",
+  "engine_host": "Docker Desktop, Linux containers",
+  "image": {
+    "image": "python:3.10-slim",
+    "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+    "repo_digests": [
+      "python@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d"
+    ],
+    "engine": "29.6.2 linux"
+  },
+  "boundary": {
+    "boundary": {
+      "privileged": false,
+      "network_none": true,
+      "mount_count": 0,
+      "docker_socket_visible": false
+    },
+    "tool_can_write_workspace": false,
+    "tool_can_write_scratch": true,
+    "signals": {
+      "ignored_term": true,
+      "killed": true
+    },
+    "base_value_passes": false,
+    "gold_value_passes": true
+  },
+  "container_read_race": {
+    "execution": "container",
+    "docker": true,
+    "kernel_toctou": false,
+    "image": "python:3.10-slim",
+    "cases": [
+      {
+        "publisher": "publish_container",
+        "mutation": "replace",
+        "mutation_after": "read_staging_bytes",
+        "status": "completed",
+        "published": true,
+        "hashed_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "published_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "workspace_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "published_bytes_match_hashed_bytes": true,
+        "staging_after_sha256": "1a215dc7d11915c4c2d5d021eea1a42dfc6a386edc43de5a602f4ace0bf343f1",
+        "receipt_verified": true
+      },
+      {
+        "publisher": "publish_container",
+        "mutation": "truncate",
+        "mutation_after": "read_staging_bytes",
+        "status": "completed",
+        "published": true,
+        "hashed_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "published_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "workspace_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "published_bytes_match_hashed_bytes": true,
+        "staging_after_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "receipt_verified": true
+      }
+    ]
+  },
+  "host_read_race": {
+    "execution": "host_publish_file",
+    "kernel_toctou": false,
+    "claim": "host publish_file hashes the path, then os.replace. A change after the hash is not published as a verified receipt.",
+    "cases": [
+      {
+        "publisher": "publish_file",
+        "mutation": "replace",
+        "mutation_after": "sha256_read",
+        "hashed_bytes": "hashed-bytes-v1",
+        "hashed_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "mutated_sha256": "1a215dc7d11915c4c2d5d021eea1a42dfc6a386edc43de5a602f4ace0bf343f1",
+        "status": "unknown",
+        "published": false,
+        "target_present": true,
+        "target_sha256": "1a215dc7d11915c4c2d5d021eea1a42dfc6a386edc43de5a602f4ace0bf343f1",
+        "published_bytes_match_hashed_bytes": false,
+        "effect_state": "OUTCOME_UNKNOWN",
+        "receipt": null
+      },
+      {
+        "publisher": "publish_file",
+        "mutation": "truncate",
+        "mutation_after": "sha256_read",
+        "hashed_bytes": "hashed-bytes-v1",
+        "hashed_sha256": "050d3aac3ac80d43bcadb8c6c34420ad6cef6d61a59b06141604e7c085e165fb",
+        "mutated_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "status": "unknown",
+        "published": false,
+        "target_present": true,
+        "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "published_bytes_match_hashed_bytes": false,
+        "effect_state": "OUTCOME_UNKNOWN",
+        "receipt": null
+      }
+    ]
+  }
+}

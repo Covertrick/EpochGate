@@ -6,6 +6,7 @@ import { defineTool } from "@deepseek-ai/dsh-tools";
 import { stageInContainer } from "./container-stage.js";
 import { admit, finishCommand, publishContainer, publishFile, reserve, startCommand } from "./control-client.js";
 import { commandRefused, refusedPath } from "./path-guard.js";
+import { publishRestricted } from "./restricted-publish.js";
 
 const name = "eg-workspace";
 const inject = ["tools"];
@@ -170,15 +171,17 @@ function apply(ctx) {
         if (full.toLowerCase() !== root.toLowerCase() && !full.toLowerCase().startsWith(prefix.toLowerCase())) {
           throw new Error("path refused");
         }
-        if (controlArm() === "commit_only") {
-          const base = controlBase();
-          if (!base) throw new Error("control required");
-          const admission = await admit(base, process.env.EG_RUN_ID || "");
-          if (!admission.allowed) return { status: "withheld", published: false, arm: "commit_only" };
-        }
-        await holdPublish();
-        writeFileSync(full, content);
-        return { status: 0, stdout: "", stderr: "", published: true, arm: controlArm() };
+        const arm = controlArm();
+        return publishRestricted({
+          arm,
+          hold: () => holdPublish(),
+          admit: async () => {
+            const base = controlBase();
+            if (!base) throw new Error("control required");
+            return admit(base, process.env.EG_RUN_ID || "");
+          },
+          write: () => writeFileSync(full, content),
+        });
       }
       const gate = await authorize("eg_write", { path });
       if (process.env.EG_EXECUTOR === "process") {

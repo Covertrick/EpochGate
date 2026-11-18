@@ -10,7 +10,7 @@ from typing import Any
 from urllib.parse import urlparse
 
 from epochgate_runtime.ledger import RunLedger
-from epochgate_runtime.files import publish_file
+from epochgate_runtime.files import publish_frozen_file
 from epochgate_runtime.sandbox import publish_container
 from epochgate_runtime.recovery import reconcile
 from epochgate_runtime.sink import EffectSink
@@ -159,7 +159,7 @@ class ControlServer:
                 staging_path=str(body["staging_path"]),
             )
         if path == "/effects/publish-file":
-            return publish_file(
+            return publish_frozen_file(
                 self.ledger,
                 workspace=self.workspace,
                 run_id=str(body["run_id"]),

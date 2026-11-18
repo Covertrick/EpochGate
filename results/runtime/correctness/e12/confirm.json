@@ -1,0 +1,83 @@
+{
+  "levels": {
+    "D0": {
+      "n": 35,
+      "macro_f1": 0.0,
+      "abstention_rate": 1.0,
+      "false_confirmation_rate": 0.0,
+      "evidence_calibrated_accuracy": 1.0,
+      "labeled_recall": 0.0,
+      "fields": 1
+    },
+    "D1": {
+      "n": 35,
+      "macro_f1": 0.0,
+      "abstention_rate": 1.0,
+      "false_confirmation_rate": 0.0,
+      "evidence_calibrated_accuracy": 1.0,
+      "labeled_recall": 0.0,
+      "fields": 3
+    },
+    "D1+": {
+      "n": 35,
+      "macro_f1": 0.5952380952380952,
+      "abstention_rate": 0.37142857142857144,
+      "false_confirmation_rate": 0.0,
+      "evidence_calibrated_accuracy": 0.9142857142857143,
+      "labeled_recall": 0.76,
+      "fields": 6
+    },
+    "D2": {
+      "n": 35,
+      "macro_f1": 0.7619047619047619,
+      "abstention_rate": 0.34285714285714286,
+      "false_confirmation_rate": 0.0,
+      "evidence_calibrated_accuracy": 0.9142857142857143,
+      "labeled_recall": 0.8,
+      "fields": 9
+    }
+  },
+  "d2_minus_d1_plus_macro_f1": 0.16666666666666663,
+  "contribution": "故障实证评估",
+  "holdout": [
+    {
+      "source": "e9",
+      "mechanism": "B2_nonatomic",
+      "notice": "delayed",
+      "oracle": "stale_admitted",
+      "d2": "abstain"
+    },
+    {
+      "source": "e9",
+      "mechanism": "B2_nonatomic",
+      "notice": "delayed",
+      "oracle": "stale_admitted",
+      "d2": "stale_admitted"
+    },
+    {
+      "source": "protocol-case",
+      "mechanism": "B0",
+      "notice": null,
+      "oracle": "effect_happened_unprovable",
+      "d2": "abstain"
+    },
+    {
+      "source": "e10",
+      "mechanism": "H0",
+      "notice": null,
+      "oracle": "other",
+      "d2": "abstain"
+    },
+    {
+      "source": "e10",
+      "mechanism": "H1",
+      "notice": null,
+      "oracle": "other",
+      "d2": "abstain"
+    }
+  ],
+  "unprovable_effect_abstains": true,
+  "e9": "results\\runtime\\correctness\\e9\\confirm.json",
+  "e10": "results\\runtime\\correctness\\e10\\confirm.json",
+  "protocol": "docs/开发文档/补实验协议.md"
+}

@@ -449,7 +449,7 @@ class RunLedger:
                     "SELECT pending_sink_epoch FROM runs WHERE run_id = ?",
                     (run_id,),
                 ).fetchone()
-                if current is None or int(current[0]) != target:
+                if current is None or current[0] is None or int(current[0]) != target:
                     continue
                 self._conn.execute(
                     "UPDATE runs SET pending_sink_epoch = NULL WHERE run_id = ? AND pending_sink_epoch = ?",
@@ -511,12 +511,12 @@ class RunLedger:
 
     def effect_row(self, idempotency_key: str) -> dict[str, Any] | None:
         row = self._conn.execute(
-            "SELECT phase, effect_state, receipt, result FROM effects WHERE idempotency_key = ?",
+            "SELECT phase, effect_state, receipt, result, run_id FROM effects WHERE idempotency_key = ?",
             (idempotency_key,),
         ).fetchone()
         if row is None:
             return None
-        return {"phase": row[0], "effect_state": row[1], "receipt": row[2], "result": row[3]}
+        return {"phase": row[0], "effect_state": row[1], "receipt": row[2], "result": row[3], "run_id": row[4]}
 
     def record_intent(self, run_id: str, idempotency_key: str, fencing_token: int, state_version: int, *, effect_id: str, arguments_hash: str, tool_name: str = "") -> dict[str, Any]:
         with self._lock:
@@ -642,7 +642,15 @@ class RunLedger:
             self._conn.commit()
         self._conn.execute("BEGIN IMMEDIATE")
 
-    def claim_publish(self, run_id: str, idempotency_key: str, fencing_token: int, digest: str) -> dict[str, Any]:
+    def claim_publish(
+        self,
+        run_id: str,
+        idempotency_key: str,
+        fencing_token: int,
+        digest: str,
+        *,
+        check_version: bool = True,
+    ) -> dict[str, Any]:
         with self._lock:
             self._begin_immediate()
             try:
@@ -650,8 +658,20 @@ class RunLedger:
                 existing = self.effect_row(idempotency_key)
                 if existing is not None and existing["phase"] == "completed":
                     self._conn.commit()
+                    if existing["result"] != digest:
+                        return {"status": "conflict", "claimed": False, "receipt": existing["receipt"]}
                     return {"status": "replayed", "claimed": False, "receipt": existing["receipt"]}
-                if not state.eligible or fencing_token != state.fencing_token:
+                if existing is not None and existing["result"] not in (None, digest):
+                    self._conn.commit()
+                    return {"status": "conflict", "claimed": False, "digest": existing["result"]}
+                if existing is not None and existing["phase"] == "unknown":
+                    self._conn.commit()
+                    return {"status": "unknown", "claimed": False}
+                if existing is not None and existing["phase"] == "started" and existing["result"] == digest:
+                    self._conn.commit()
+                    return {"status": "claimed", "claimed": True, "digest": digest}
+                version_rejected = check_version and fencing_token != state.fencing_token
+                if not state.eligible or version_rejected:
                     self._event_locked(run_id, "result_withheld", {"idempotency_key": idempotency_key})
                     return {"status": "rejected", "claimed": False}
                 self._conn.execute(
@@ -688,6 +708,8 @@ class RunLedger:
                     return {"status": "missing", "published": False}
                 if existing["phase"] == "completed":
                     self._conn.commit()
+                    if existing["result"] != digest:
+                        return {"status": "conflict", "published": False, "receipt": existing["receipt"]}
                     return {"status": "replayed", "published": False, "receipt": existing["receipt"]}
                 if existing["result"] != digest:
                     self._conn.execute(
@@ -696,7 +718,15 @@ class RunLedger:
                     )
                     self._event_locked(run_id, "outcome_unknown", {"idempotency_key": idempotency_key, "path": path})
                     return {"status": "unknown", "published": False}
-                self._store_receipt_locked(idempotency_key, run_id, 0, receipt)
+                self._conn.execute(
+                    """
+                    UPDATE effects
+                    SET phase = 'completed', effect_state = 'RESULT_PERSISTED', receipt = ?
+                    WHERE idempotency_key = ?
+                    """,
+                    (receipt, idempotency_key),
+                )
+                self._conn.commit()
                 self._event_locked(
                     run_id,
                     "file_published",
@@ -836,7 +866,38 @@ class RunLedger:
         )
         self._conn.commit()
 
-    def _event_locked(self, run_id: str, event_type: str, payload: dict[str, Any]) -> None:
+    def stage_effect_open(self, idempotency_key: str, *, phase: str, effect_state: str, receipt: str | None = None) -> None:
+        """在已经打开的写事务里改效果行，不提交。"""
+        if receipt is None:
+            self._conn.execute(
+                "UPDATE effects SET phase = ?, effect_state = ? WHERE idempotency_key = ?",
+                (phase, effect_state, idempotency_key),
+            )
+            return
+        self._conn.execute(
+            """
+            UPDATE effects
+            SET phase = ?, effect_state = ?, receipt = ?
+            WHERE idempotency_key = ?
+            """,
+            (phase, effect_state, receipt, idempotency_key),
+        )
+
+    def with_immediate(self, fn: Callable[[], Any]) -> Any:
+        """把一次协作式恢复的检查、替换和回执放进同一把写事务。"""
+        with self._lock:
+            self._begin_immediate()
+            try:
+                result = fn()
+            except Exception:
+                if self._conn.in_transaction:
+                    self._conn.rollback()
+                raise
+            if self._conn.in_transaction:
+                self._conn.commit()
+            return result
+
+    def _event_open(self, run_id: str, event_type: str, payload: dict[str, Any]) -> None:
         self._conn.execute(
             """
             INSERT INTO runtime_events (run_id, attempt_id, event_type, causation_id, payload, recorded_at)
@@ -844,6 +905,9 @@ class RunLedger:
             """,
             (run_id, event_type, json.dumps(payload, sort_keys=True), time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())),
         )
+
+    def _event_locked(self, run_id: str, event_type: str, payload: dict[str, Any]) -> None:
+        self._event_open(run_id, event_type, payload)
         self._conn.commit()
 
 

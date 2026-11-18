@@ -1,0 +1,317 @@
+{
+  "instance": "exploratory",
+  "role": "exploratory",
+  "protocol": "docs/开发文档/补实验协议.md",
+  "rows": [
+    {
+      "publisher": "H0",
+      "fault": "staging_replace",
+      "environment": "host",
+      "status": "unknown",
+      "physical_payload_matches_claim": false,
+      "receipt_matches_physical_effect": false,
+      "unintended_overwrite": false,
+      "unknown_outcome": true,
+      "recoverable_claim": false,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": null,
+        "process_crash_recoverable": null,
+        "power_loss_persistent": null
+      }
+    },
+    {
+      "publisher": "H0",
+      "fault": "staging_truncate",
+      "environment": "host",
+      "status": "unknown",
+      "physical_payload_matches_claim": false,
+      "receipt_matches_physical_effect": false,
+      "unintended_overwrite": false,
+      "unknown_outcome": true,
+      "recoverable_claim": false,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": null,
+        "process_crash_recoverable": null,
+        "power_loss_persistent": null
+      }
+    },
+    {
+      "publisher": "H0",
+      "fault": "digest_conflict",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": null,
+        "process_crash_recoverable": null,
+        "power_loss_persistent": null
+      },
+      "second_status": "replayed",
+      "digest_compared": false,
+      "conflict_kept_first": true,
+      "notes": [
+        "H0 在第二次发布时看到已完成的键就返回 replayed，不再比较新的摘要。这是历史路径。"
+      ]
+    },
+    {
+      "publisher": "H0",
+      "fault": "revoke_after_claim",
+      "environment": "host",
+      "status": "不适用",
+      "process_crash_recoverable": false,
+      "power_loss_persistent": null,
+      "notes": [
+        "H0 没有封存文件。崩溃之后不能从私有副本恢复，这项不记成发布成功。"
+      ]
+    },
+    {
+      "publisher": "H0",
+      "fault": "receipt_loss",
+      "environment": "host",
+      "status": "不适用",
+      "process_crash_recoverable": false,
+      "power_loss_persistent": null,
+      "notes": [
+        "H0 没有封存文件。崩溃之后不能从私有副本恢复，这项不记成发布成功。"
+      ]
+    },
+    {
+      "publisher": "H0",
+      "fault": "two_recoverers",
+      "environment": "host",
+      "status": "不适用",
+      "process_crash_recoverable": false,
+      "power_loss_persistent": null,
+      "notes": [
+        "H0 没有封存文件。崩溃之后不能从私有副本恢复，这项不记成发布成功。"
+      ]
+    },
+    {
+      "publisher": "H0",
+      "fault": "external_target",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": true,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": null,
+        "process_crash_recoverable": null,
+        "power_loss_persistent": null
+      }
+    },
+    {
+      "publisher": "H1",
+      "fault": "staging_replace",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": true,
+        "process_crash_recoverable": true,
+        "power_loss_persistent": null
+      },
+      "power_loss": "未测"
+    },
+    {
+      "publisher": "H1",
+      "fault": "staging_truncate",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": true,
+        "process_crash_recoverable": true,
+        "power_loss_persistent": null
+      },
+      "power_loss": "未测"
+    },
+    {
+      "publisher": "H1",
+      "fault": "digest_conflict",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": true,
+        "process_crash_recoverable": true,
+        "power_loss_persistent": null
+      },
+      "second_status": "conflict",
+      "conflict_kept_first": true
+    },
+    {
+      "publisher": "H1",
+      "fault": "revoke_after_claim",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": null,
+        "process_crash_recoverable": null,
+        "power_loss_persistent": null
+      },
+      "power_loss": "未测"
+    },
+    {
+      "publisher": "H1",
+      "fault": "receipt_loss",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": null,
+        "process_crash_recoverable": null,
+        "power_loss_persistent": null
+      },
+      "power_loss": "未测"
+    },
+    {
+      "publisher": "H1",
+      "fault": "two_recoverers",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": true,
+        "process_crash_recoverable": true,
+        "power_loss_persistent": null
+      },
+      "recover_statuses": [
+        "completed",
+        "replayed"
+      ],
+      "power_loss": "未测"
+    },
+    {
+      "publisher": "H1",
+      "fault": "external_target",
+      "environment": "host",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": true,
+      "unknown_outcome": false,
+      "recoverable_claim": true,
+      "duplicate_effect": false,
+      "prior_version_checked": false,
+      "durability": {
+        "atomic_replace": true,
+        "process_crash_recoverable": true,
+        "power_loss_persistent": null
+      },
+      "power_loss": "未测"
+    },
+    {
+      "publisher": "H2",
+      "fault": "staging_replace",
+      "environment": "container",
+      "status": "completed",
+      "reason": null,
+      "physical_payload_matches_claim": true,
+      "receipt_matches_physical_effect": true,
+      "unintended_overwrite": false,
+      "unknown_outcome": false,
+      "environment_difference": "发布进程在容器内，字节来自一次读取后的内存，不是宿主私有文件"
+    },
+    {
+      "publisher": "H2",
+      "fault": "staging_truncate",
+      "environment": "container",
+      "status": "completed",
+      "physical_payload_matches_claim": true,
+      "unknown_outcome": false
+    },
+    {
+      "publisher": "H2",
+      "fault": "digest_conflict",
+      "environment": "container",
+      "status": "replayed",
+      "conflict_kept_first": true,
+      "physical_payload_matches_claim": true
+    },
+    {
+      "publisher": "H2",
+      "fault": "external_target",
+      "environment": "container",
+      "status": "环境差异",
+      "tool_could_create_target": false,
+      "note": "容器工作区对工具用户不可写时，这一格不是快照方式的胜利"
+    },
+    {
+      "publisher": "H2",
+      "fault": "revoke_after_claim",
+      "environment": "container",
+      "status": "未测",
+      "environment_difference": "容器发布函数没有与 H1 相同的崩溃钩子。不把这项缺失记成快照优势。"
+    },
+    {
+      "publisher": "H2",
+      "fault": "receipt_loss",
+      "environment": "container",
+      "status": "未测",
+      "environment_difference": "容器发布函数没有与 H1 相同的崩溃钩子。不把这项缺失记成快照优势。"
+    },
+    {
+      "publisher": "H2",
+      "fault": "two_recoverers",
+      "environment": "container",
+      "status": "未测",
+      "environment_difference": "容器发布函数没有与 H1 相同的崩溃钩子。不把这项缺失记成快照优势。"
+    }
+  ],
+  "h3_h0_mismatches": 2,
+  "h3_h1_mismatches": 0,
+  "power_loss": "未测",
+  "target_precondition": "故障开始时目标不存在；external_target 在提交前由外部写入者创建目标，且不核对预期旧版本"
+}
