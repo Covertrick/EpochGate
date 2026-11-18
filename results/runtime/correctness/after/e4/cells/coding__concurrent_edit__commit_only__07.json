@@ -1,0 +1,52 @@
+{
+  "task": "coding",
+  "fault": "concurrent_edit",
+  "arm": "commit_only",
+  "repeat": 7,
+  "status": "completed",
+  "run_id": "e4-5430ba03e8cb",
+  "session_id": "eg-e4-b19823acfd80",
+  "granted_token": 1,
+  "final_token": 1,
+  "final_state_version": 1,
+  "sink_version": 1,
+  "eligible": true,
+  "notice": {
+    "fired": true,
+    "action": "concurrent_edit"
+  },
+  "initialize_error": null,
+  "wait_error": null,
+  "followup_sent": false,
+  "tool_names": [
+    "eg_read",
+    "eg_read",
+    "eg_write",
+    "eg_write"
+  ],
+  "tokens": {
+    "input": 907,
+    "output": 191,
+    "total": 18378
+  },
+  "event_types": [
+    "attempt_opened"
+  ],
+  "effects": [],
+  "reconcile": [],
+  "source_final": "2",
+  "file_text": "def value():\n    return 1",
+  "duration_s": 8.676,
+  "errors": [],
+  "stderr_tail": "dsh: warning: 1 entry did not activate\npermission (@deepseek-ai/dsh-permission-presets): pending (waiting for service: shell)\n[llm-deepseek-api-key] model listing from https://api.deepseek.com/models loaded 2 model(s), skipped 0 row(s)\n",
+  "key_printed": false,
+  "executor": "process",
+  "terminal_correct": false,
+  "stale_effect_accepted": true,
+  "eligible_successor_completed": false,
+  "duplicate_side_effects": 1,
+  "unknown_fraction": 0.0,
+  "tool_calls": 4,
+  "scored": true,
+  "model_called": true
+}

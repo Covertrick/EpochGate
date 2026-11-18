@@ -176,6 +176,7 @@ function apply(ctx) {
           const admission = await admit(base, process.env.EG_RUN_ID || "");
           if (!admission.allowed) return { status: "withheld", published: false, arm: "commit_only" };
         }
+        await holdPublish();
         writeFileSync(full, content);
         return { status: 0, stdout: "", stderr: "", published: true, arm: controlArm() };
       }

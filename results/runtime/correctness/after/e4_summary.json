@@ -1,7 +1,375 @@
 {
   "cells": 360,
-  "blocked": 360,
-  "completed": 0,
-  "scored": 0,
-  "reason": "dsh binary missing: D:\\Checkout\\EpochGate\\infrastructure\\dsh-profiles\\research\\node_modules\\@deepseek-ai\\dsh\\lib\\bin.js; node is not on PATH; docker is not available for the coding task"
+  "completed": 360,
+  "blocked": 0,
+  "error": 0,
+  "scored": 360,
+  "model_called": 360,
+  "docker_available": false,
+  "node": "C:\\Users\\Administrator\\.epochgate-tools\\node-v24.13.0-win-x64\\node.exe",
+  "groups": {
+    "approval|permission_revoked|commit_only": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.529
+    },
+    "approval|permission_revoked|direct": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.288
+    },
+    "approval|permission_revoked|full": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 12,
+      "duration_s_p50": 17.384
+    },
+    "approval|receipt_loss|commit_only": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.559
+    },
+    "approval|receipt_loss|direct": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.525
+    },
+    "approval|receipt_loss|full": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 1.0,
+      "tool_calls_p50": 12,
+      "duration_s_p50": 15.831
+    },
+    "approval|retry|commit_only": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 30,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 6,
+      "duration_s_p50": 7.448
+    },
+    "approval|retry|direct": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 30,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 6,
+      "duration_s_p50": 7.307
+    },
+    "approval|retry|full": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 6,
+      "duration_s_p50": 8.001
+    },
+    "approval|version_mismatch|commit_only": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.79
+    },
+    "approval|version_mismatch|direct": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.219
+    },
+    "approval|version_mismatch|full": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 10,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 8,
+      "duration_s_p50": 9.035
+    },
+    "coding|concurrent_edit|commit_only": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.706
+    },
+    "coding|concurrent_edit|direct": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.168
+    },
+    "coding|concurrent_edit|full": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 10,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 8,
+      "duration_s_p50": 8.833
+    },
+    "coding|publish_failure|commit_only": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.693
+    },
+    "coding|publish_failure|direct": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.683
+    },
+    "coding|publish_failure|full": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 12,
+      "duration_s_p50": 17.454
+    },
+    "coding|receipt_loss|commit_only": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.635
+    },
+    "coding|receipt_loss|direct": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.467
+    },
+    "coding|receipt_loss|full": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 18,
+      "duration_s_p50": 17.225
+    },
+    "coding|stale_credential|commit_only": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.663
+    },
+    "coding|stale_credential|direct": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.527
+    },
+    "coding|stale_credential|full": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 10,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 8,
+      "duration_s_p50": 8.624
+    },
+    "inventory|missing_notice|commit_only": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.524
+    },
+    "inventory|missing_notice|direct": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.401
+    },
+    "inventory|missing_notice|full": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.537
+    },
+    "inventory|receipt_loss|commit_only": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.441
+    },
+    "inventory|receipt_loss|direct": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.391
+    },
+    "inventory|receipt_loss|full": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 1.0,
+      "tool_calls_p50": 16,
+      "duration_s_p50": 18.959
+    },
+    "inventory|state_change|commit_only": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.332
+    },
+    "inventory|state_change|direct": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.466
+    },
+    "inventory|state_change|full": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 10,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 8,
+      "duration_s_p50": 8.762
+    },
+    "inventory|version_mismatch|commit_only": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.807
+    },
+    "inventory|version_mismatch|direct": {
+      "n": 10,
+      "terminal_correct": 0,
+      "stale_effect_accepted": 10,
+      "eligible_successor_completed": 0,
+      "duplicate_side_effects": 10,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 4,
+      "duration_s_p50": 6.525
+    },
+    "inventory|version_mismatch|full": {
+      "n": 10,
+      "terminal_correct": 10,
+      "stale_effect_accepted": 0,
+      "eligible_successor_completed": 10,
+      "duplicate_side_effects": 0,
+      "unknown_fraction_mean": 0.0,
+      "tool_calls_p50": 8,
+      "duration_s_p50": 9.262
+    }
+  },
+  "terminal_correct": 180,
+  "stale_effect_accepted": 130,
+  "eligible_successor_completed": 50
 }

@@ -46,6 +46,8 @@ def publish_file(
     if claim["status"] != "claimed":
         staging_path.unlink(missing_ok=True)
         return {"published": False, "status": "withheld", "sha256": digest}
+    if os.environ.get("EG_CRASH_AFTER_CLAIM") == "1":
+        return {"published": False, "status": "crashed_before_receipt", "sha256": digest}
     target.parent.mkdir(parents=True, exist_ok=True)
     os.replace(staging_path, target)
     if _sha256(target) != digest:

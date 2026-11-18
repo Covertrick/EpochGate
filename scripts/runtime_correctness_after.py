@@ -810,6 +810,11 @@ def e8() -> dict[str, Any]:
 
 
 def e4() -> dict[str, Any]:
+    summary_path = OUT / "e4_summary.json"
+    if summary_path.is_file():
+        existing = json.loads(summary_path.read_text(encoding="utf-8"))
+        if existing.get("scored") or existing.get("completed"):
+            return existing
     dsh = ROOT / "infrastructure" / "dsh-profiles" / "research" / "node_modules" / "@deepseek-ai" / "dsh" / "lib" / "bin.js"
     node = shutil_which("node")
     reasons = []
