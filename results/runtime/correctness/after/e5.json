@@ -1,0 +1,39 @@
+{
+  "same_payload": "replayed",
+  "different_payload": "conflict",
+  "restart_conflict": "conflict",
+  "stored_payload": "alpha",
+  "accepts": 1,
+  "receipt_loss": {
+    "exit": 86,
+    "reconcile": "confirmed_from_sink",
+    "conflict": "conflict",
+    "payload": "payload",
+    "accepts": 1
+  },
+  "http_drop": {
+    "http": null,
+    "error": "RemoteDisconnected"
+  },
+  "http_replay": {
+    "http": 200,
+    "body": {
+      "status": "replayed",
+      "payload": "once"
+    }
+  },
+  "http_conflict": {
+    "http": 200,
+    "body": {
+      "status": "conflict",
+      "payload": "once"
+    }
+  },
+  "http_unavailable": {
+    "http": null,
+    "error": "HTTPError"
+  },
+  "sealed_external": "unknown",
+  "external_retry": "unknown",
+  "boundary": "本地 HTTP 只说明响应丢失、冲突和不可查询时不能自动重试。不是任意 HTTP 服务的 exactly-once。"
+}

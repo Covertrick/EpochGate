@@ -1,0 +1,22 @@
+{
+  "before_claim": {
+    "published": false,
+    "file_exists": false
+  },
+  "after_claim_revoke_still_publishes": {
+    "claim": "claimed",
+    "published": true,
+    "bytes": "order 3",
+    "events": [
+      "intent_recorded",
+      "publish_claimed",
+      "file_published"
+    ]
+  },
+  "after_replace_before_receipt": {
+    "first": "completed",
+    "second": "replayed",
+    "bytes": "order 3"
+  },
+  "note": "Claim 提交是决定点。Claim 后的撤销不撤回已经决定的发布。TerminateProcess 见 E6，不是断电。"
+}

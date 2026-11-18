@@ -19,9 +19,11 @@ def pid_alive(pid: int) -> bool:
             ["tasklist", "/FI", f"PID eq {pid}", "/NH"],
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             check=False,
         )
-        return str(pid) in completed.stdout
+        return str(pid) in (completed.stdout or "")
     completed = subprocess.run(["ps", "-p", str(pid)], capture_output=True, check=False)
     return completed.returncode == 0
 

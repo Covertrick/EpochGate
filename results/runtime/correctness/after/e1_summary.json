@@ -1,0 +1,26 @@
+{
+  "trials_per_scenario": 100,
+  "revoke_then_commit_rejected": 100,
+  "commit_then_revoke_kept": 100,
+  "dual_supersede_lost_updates": 0,
+  "dual_supersede_final_tokens": [
+    3
+  ],
+  "same_key_single_accept": 100,
+  "different_keys_both_completed": 100,
+  "aligned_successor_completed": 100,
+  "random_commit_wins": 64,
+  "random_revoke_wins": 36,
+  "supersede_latency": {
+    "n": 100,
+    "p50": 0.01784129999577999,
+    "p95": 0.01904989965260029,
+    "p99": 0.0810982002876699
+  },
+  "random_commit_latency": {
+    "n": 100,
+    "p50": 0.006433200091123581,
+    "p95": 0.021328399889171124,
+    "p99": 0.033166199922561646
+  }
+}

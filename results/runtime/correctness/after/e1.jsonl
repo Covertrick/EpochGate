@@ -1,0 +1,700 @@
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002320599742233753, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021538003347814083, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021656998433172703, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.001992099918425083, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0020747999660670757, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.00225639995187521, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002598999999463558, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002087600063532591, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023161997087299824, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021588997915387154, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023672999814152718, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0020153000950813293, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021150000393390656, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025543998926877975, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002069199923425913, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002195499837398529, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002058600075542927, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002189100254327059, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002400099765509367, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0020469999872148037, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.00214669993147254, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0019926000386476517, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0024250000715255737, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002298200037330389, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0024615000002086163, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0019751996733248234, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002293699886649847, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0019838004373013973, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021840999834239483, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021151998080313206, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025885002687573433, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023910999298095703, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.001986399758607149, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002067099791020155, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0024180999025702477, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002400900237262249, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002026400063186884, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002170800231397152, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002584700006991625, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.001984900329262018, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002057999838143587, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0024620001204311848, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002172100357711315, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002010699827224016, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0024617998860776424, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0020351996645331383, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0020420001819729805, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002239000052213669, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002058800309896469, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002018400002270937, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002403200138360262, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002119299955666065, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021993000991642475, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002034500241279602, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021182000637054443, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0020282999612390995, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0020465999841690063, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023067002184689045, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002013599965721369, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0026015001349151134, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025078002363443375, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0026142001152038574, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0027406997978687286, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025690002366900444, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002541900146752596, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025402000173926353, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.00271320017054677, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0026596998795866966, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.003124999813735485, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0026498003862798214, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002486499957740307, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.003024099860340357, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002632400020956993, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0027624997310340405, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002625799737870693, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025810999795794487, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002708700019866228, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025924998335540295, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.003029900137335062, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002627700101584196, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0031771999783813953, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025818999856710434, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002767799887806177, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002570800017565489, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002660199999809265, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025777998380362988, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002624599728733301, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0028535001911222935, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002736699767410755, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002792899962514639, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002601000014692545, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002598599996417761, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.00257090013474226, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002778900321573019, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025403997860848904, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.003221900202333927, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025265999138355255, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002829999662935734, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0025436999276280403, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "revoke_then_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0029045999981462955, "final_token": 2}
+{"scenario": "commit_then_revoke", "first": "completed", "second": "rejected", "accepts": 1, "receipt_kept": true}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01853210013359785}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006206899881362915}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.0069598001427948475}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006453200243413448}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.0186064001172781}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.017306600231677294}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01648320024833083}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006239099893718958}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017555400263518095}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006703400053083897}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.011922200210392475}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.021328399889171124}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017453699838370085}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006706300191581249}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.014237700030207634}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0065437001176178455}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01807590015232563}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006623600143939257}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.009165700059384108}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.007094300352036953}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.007465300150215626}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0022998997010290623}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017332900315523148}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006098099984228611}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.011088799685239792}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006374400109052658}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01711839996278286}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006240700371563435}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.013855800032615662}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006310300435870886}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01758380001410842}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0066154999658465385}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.011534999590367079}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.017788900062441826}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01624789973720908}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.01856679981574416}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01842730026692152}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002350099850445986}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01725739985704422}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0029659001156687737}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.013464900199323893}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0076256003230810165}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.009176000021398067}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0031057000160217285}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017869799863547087}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0064662001095712185}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.011878000106662512}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.01780760008841753}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01814589975401759}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006576200015842915}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01755880005657673}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0027896002866327763}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01711420016363263}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0069414000026881695}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.011048899963498116}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006749200168997049}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01841800007969141}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.00693880021572113}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01774080004543066}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0076744998805224895}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017506500240415335}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006553300190716982}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01823329972103238}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.018278700299561024}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01784129999577999}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.022038700059056282}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01842939993366599}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006876499857753515}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01841749995946884}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006826499942690134}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01787020033225417}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0061957999132573605}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017547599971294403}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006483499892055988}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01820449996739626}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0069010998122394085}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.005480699706822634}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.00554249994456768}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018401000183075666}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.02288790000602603}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018311199732124805}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0031478996388614178}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.00822580000385642}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.018339899834245443}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018514799885451794}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.01659390004351735}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.013485599774867296}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0173335000872612}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018611999694257975}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006195500027388334}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01849240018054843}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006314899772405624}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01804869994521141}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.007619599811732769}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017319099977612495}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006773999892175198}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01857650000602007}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023741000331938267}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017825100105255842}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006049399729818106}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.18866970017552376}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006277400068938732}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017655400093644857}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.01619740016758442}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01886230008676648}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.008134100120514631}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01798459980636835}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023232996463775635}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017759100068360567}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021955999545753}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.009670500177890062}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006404200103133917}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017512399703264236}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0022240998223423958}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.020592699758708477}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002195199951529503}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018567000050097704}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.00348319998010993}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.013560099992901087}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0061471001245081425}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018223700113594532}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006399599835276604}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01746169989928603}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006276299711316824}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01892040017992258}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006041799671947956}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017928299959748983}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.017966799903661013}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01822090009227395}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.01791719999164343}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.015577699989080429}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006138499826192856}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017457100097090006}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0062732999213039875}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018625099677592516}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.007150200195610523}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.007442300207912922}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.00234550004824996}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018549699801951647}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002288899850100279}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.019190500024706125}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006355700083076954}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018182999920099974}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006471300031989813}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01930809998884797}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.00604210002347827}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018304800149053335}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.005929499864578247}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018524599727243185}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0067170001566410065}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01838270016014576}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002365199849009514}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018231600057333708}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.005901599768549204}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018240100238472223}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.007701799739152193}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018319400027394295}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0024374998174607754}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01829139981418848}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.022280899807810783}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01904989965260029}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002247000113129616}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017343000043183565}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006849499884992838}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017018800135701895}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0021021999418735504}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018314899876713753}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.005979099776595831}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018121100030839443}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.016974400263279676}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01836490025743842}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0065977000631392}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018505200278013945}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006653499789535999}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017767999786883593}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006433200091123581}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01771260006353259}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006734900176525116}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.019022499676793814}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006311800330877304}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.018503299914300442}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023893998004496098}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.0810982002876699}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.016776100266724825}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01768429996445775}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.00814359961077571}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01843099994584918}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.006028300151228905}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.009198400191962719}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.033166199922561646}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01716780010610819}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.0023094997741281986}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01765589974820614}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.005983399692922831}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017438700422644615}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.0063599999994039536}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.017365800216794014}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "rejected", "accepts": 0, "elapsed_s": 0.002352700103074312}
+{"scenario": "dual_supersede", "oks": 2, "final_token": 3, "lost_updates": 0, "elapsed_s": 0.01878250017762184}
+{"scenario": "same_key", "statuses": ["completed", "replayed"], "accepts": 1}
+{"scenario": "different_keys", "statuses": ["completed", "completed"], "accepts": 2}
+{"scenario": "aligned_successor", "statuses": ["completed", "rejected"], "accepts": 1, "final_version": 2}
+{"scenario": "random_revoke_commit", "status": "completed", "accepts": 1, "elapsed_s": 0.03485759999603033}

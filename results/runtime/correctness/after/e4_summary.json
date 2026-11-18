@@ -1,0 +1,7 @@
+{
+  "cells": 360,
+  "blocked": 360,
+  "completed": 0,
+  "scored": 0,
+  "reason": "dsh binary missing: D:\\Checkout\\EpochGate\\infrastructure\\dsh-profiles\\research\\node_modules\\@deepseek-ai\\dsh\\lib\\bin.js; node is not on PATH; docker is not available for the coding task"
+}

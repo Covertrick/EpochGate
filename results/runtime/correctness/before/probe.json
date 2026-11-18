@@ -1,0 +1,104 @@
+{
+  "git": "7ac72ddc7b562d411ce9e6febb1d426174fb4c36",
+  "recorded_at": "2026-11-18T09:32:03Z",
+  "label": "before",
+  "t1": {
+    "published": true,
+    "status": "completed",
+    "file_bytes": "order 3",
+    "sha256": "32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+    "receipt": "file:order.txt:32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+    "run_token": 2,
+    "eligible": false,
+    "events": [
+      "intent_recorded",
+      "file_published"
+    ],
+    "revoke_before_claim": {
+      "published": false,
+      "status": "withheld",
+      "sha256": "32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e"
+    },
+    "other_exists": false
+  },
+  "t2": {
+    "unaligned_commits": [
+      {
+        "status": "rejected",
+        "reason": null,
+        "elapsed_s": 0.002216100227087736,
+        "accepts": 0,
+        "sink_version": 1,
+        "payload": null
+      },
+      {
+        "status": "rejected",
+        "reason": "version",
+        "elapsed_s": 0.004626300185918808,
+        "accepts": 0,
+        "sink_version": 1,
+        "payload": null
+      }
+    ],
+    "concurrent_supersede_final_tokens": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "t3": {
+    "created": {
+      "run_id": "run",
+      "fencing_token": 1,
+      "state_version": 1
+    },
+    "moved": {
+      "phase": "running",
+      "fencing_token": 2,
+      "state_version": 2,
+      "eligible": true
+    },
+    "restart_token": 2,
+    "restart_version": 2,
+    "sink_version": 1,
+    "old": {
+      "status": "rejected",
+      "applied": false,
+      "sink_accepted": false
+    },
+    "successor": {
+      "status": "rejected",
+      "applied": false,
+      "sink_accepted": false,
+      "reason": "version"
+    },
+    "accepts": 0
+  },
+  "t4": {
+    "exit_code": 86,
+    "first": {
+      "decision": "confirmed_from_sink",
+      "retried": false,
+      "receipt": "bef1032a83b94e460ad05809e0f71dfbb8224ed3b63fa3b654055417cd6bfdef"
+    },
+    "second": {
+      "decision": "replay",
+      "retried": false,
+      "receipt": "bef1032a83b94e460ad05809e0f71dfbb8224ed3b63fa3b654055417cd6bfdef"
+    },
+    "accepts_k": 1,
+    "stored_payload": "payload",
+    "other": "accepted",
+    "different_payload": "replayed",
+    "payload_after_different": "payload"
+  }
+}

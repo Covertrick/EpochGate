@@ -35,22 +35,54 @@ class EffectSink:
             )
             """
         )
+        self._conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS sink_epoch (
+                id INTEGER PRIMARY KEY CHECK (id = 1),
+                version INTEGER NOT NULL
+            )
+            """
+        )
+        self._conn.execute("INSERT OR IGNORE INTO sink_epoch (id, version) VALUES (1, 1)")
         self._conn.commit()
+        self._version = self._stored_version()
 
     def close(self) -> None:
         self._conn.close()
 
+    def _stored_version(self) -> int:
+        row = self._conn.execute("SELECT version FROM sink_epoch WHERE id = 1").fetchone()
+        return 1 if row is None else int(row[0])
+
+    def advance_to(self, target: int) -> int:
+        """把版本镜像推进到账本写下的 pending。不接纳效果，也不把版本改小。"""
+        with self._lock:
+            current = self._stored_version()
+            if target > current:
+                self._conn.execute("UPDATE sink_epoch SET version = ? WHERE id = 1", (target,))
+                self._conn.commit()
+                current = target
+            self._version = current
+            return current
+
     def bump(self) -> None:
         with self._lock:
-            self._version += 1
+            current = self._stored_version() + 1
+            self._conn.execute("UPDATE sink_epoch SET version = ? WHERE id = 1", (current,))
+            self._conn.commit()
+            self._version = current
 
     def accept(self, key: str, *, expected_version: int, payload: str) -> dict[str, Any]:
         with self._lock:
+            self._version = self._stored_version()
             row = self._conn.execute(
-                "SELECT receipt FROM accepted WHERE idempotency_key = ?",
+                "SELECT receipt, payload FROM accepted WHERE idempotency_key = ?",
                 (key,),
             ).fetchone()
             if row is not None:
+                if row[1] != payload:
+                    self._log(key, 0, "conflict")
+                    return {"status": "conflict", "applied": False, "receipt": row[0], "reason": "payload"}
                 self._log(key, 0, "replay")
                 return {"status": "replayed", "applied": False, "receipt": row[0]}
             if expected_version != self._version:

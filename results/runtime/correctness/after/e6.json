@@ -1,0 +1,20 @@
+{
+  "controlled_exit": {
+    "exit": 86,
+    "decision": "confirmed_from_sink",
+    "accepts": 1,
+    "kind": "SystemExit"
+  },
+  "forced_termination": {
+    "kind": "TerminateProcess",
+    "not_power_loss": true,
+    "sink_accepts": 1,
+    "ledger_phase_before_reconcile": null,
+    "reconcile": "confirmed_from_sink",
+    "accepts_after": 1
+  },
+  "uncommitted_rollback": {
+    "fencing_token": 1,
+    "kind": "uncommitted sqlite transaction rolled back by process death"
+  }
+}

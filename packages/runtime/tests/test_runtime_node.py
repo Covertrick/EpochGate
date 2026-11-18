@@ -1,7 +1,10 @@
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
+
+import pytest
 
 from epochgate_runtime.ledger import RunLedger
 from epochgate_runtime.service import ControlServer
@@ -9,6 +12,8 @@ from epochgate_runtime.sink import EffectSink
 
 
 def test_node_client_reserves_and_sees_revoke(tmp_path: Path):
+    if shutil.which("node") is None:
+        pytest.skip("node is not on PATH")
     ledger = RunLedger(tmp_path / "ledger.sqlite")
     sink = EffectSink(tmp_path / "sink.sqlite")
     server = ControlServer(ledger, sink, tmp_path)

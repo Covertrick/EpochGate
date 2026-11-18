@@ -348,6 +348,9 @@ class RunLedger:
         cancel_columns = {row[1] for row in self._conn.execute("PRAGMA table_info(cancels)")}
         if "resource_observation" not in cancel_columns:
             self._conn.execute("ALTER TABLE cancels ADD COLUMN resource_observation TEXT DEFAULT 'not_observable'")
+        run_columns = {row[1] for row in self._conn.execute("PRAGMA table_info(runs)")}
+        if "pending_sink_epoch" not in run_columns:
+            self._conn.execute("ALTER TABLE runs ADD COLUMN pending_sink_epoch INTEGER")
         self._conn.execute(
             """
             CREATE TABLE IF NOT EXISTS schema_meta (
@@ -395,24 +398,67 @@ class RunLedger:
         """作废当前 fencing token，并留下一个仍可提交的新 token。
 
         这和 ``revoke`` 不同。``revoke`` 会取消资格。这里的 Run 继续处于 running。
-        传入 sink 时，在同一把锁里把接收器版本和 Run 的 state_version 一起推进。
+        传入 sink 时，账本事务写下 ``pending_sink_epoch``，再把接收器镜像推进到该值。
+        两个数据库不是同一个事务。镜像没写上时，pending 留着，下次打开再补，且不接纳效果。
         不传 sink 时只推进 Run，接收器版本保持原值。
         """
         with self._lock:
-            state = self.get_run(run_id)
-            if state.phase != "running" or not state.eligible:
-                raise ControlError("successor requires an eligible running run")
-            state.fencing_token += 1
-            state.state_version += 1
-            if sink is not None:
-                sink.bump()
-            self._save_phase(state)
-            self._event_locked(
-                run_id,
-                "eligibility_superseded",
-                {"fencing_token": state.fencing_token, "state_version": state.state_version, "sink_aligned": sink is not None},
-            )
-            return self.get_run(run_id)
+            self._begin_immediate()
+            try:
+                aligned = 1 if sink is not None else 0
+                cursor = self._conn.execute(
+                    """
+                    UPDATE runs
+                    SET fencing_token = fencing_token + 1,
+                        state_version = state_version + 1,
+                        pending_sink_epoch = CASE WHEN ? = 1 THEN state_version + 1 ELSE pending_sink_epoch END
+                    WHERE run_id = ? AND phase = 'running' AND eligible = 1
+                    """,
+                    (aligned, run_id),
+                )
+                if cursor.rowcount != 1:
+                    self._conn.rollback()
+                    raise ControlError("successor requires an eligible running run")
+                state = self.get_run(run_id)
+                self._event_locked(
+                    run_id,
+                    "eligibility_superseded",
+                    {"fencing_token": state.fencing_token, "state_version": state.state_version, "sink_aligned": sink is not None},
+                )
+            except Exception:
+                if self._conn.in_transaction:
+                    self._conn.rollback()
+                raise
+        if sink is not None:
+            self.repair_sink(sink)
+        return self.get_run(run_id)
+
+    def repair_sink(self, sink: Any) -> list[str]:
+        """账本是版本权威。只把落后的接收器镜像补到 pending，不接纳新效果。"""
+        with self._lock:
+            rows = self._conn.execute(
+                "SELECT run_id, pending_sink_epoch FROM runs WHERE pending_sink_epoch IS NOT NULL"
+            ).fetchall()
+        repaired: list[str] = []
+        for run_id, pending in rows:
+            target = int(pending)
+            if int(sink.advance_to(target)) < target:
+                continue
+            with self._lock:
+                current = self._conn.execute(
+                    "SELECT pending_sink_epoch FROM runs WHERE run_id = ?",
+                    (run_id,),
+                ).fetchone()
+                if current is None or int(current[0]) != target:
+                    continue
+                self._conn.execute(
+                    "UPDATE runs SET pending_sink_epoch = NULL WHERE run_id = ? AND pending_sink_epoch = ?",
+                    (run_id, target),
+                )
+                self._conn.commit()
+            self.append_event(run_id, "sink_epoch_repaired", {"pending_sink_epoch": target})
+            repaired.append(run_id)
+        return repaired
 
     def append_event(self, run_id: str, event_type: str, payload: dict[str, Any], *, attempt_id: str | None = None, causation_id: int | None = None) -> int:
         with self._lock:
@@ -621,7 +667,11 @@ class RunLedger:
                     """,
                     (idempotency_key, run_id, fencing_token, digest, digest),
                 )
-                self._conn.commit()
+                self._event_locked(
+                    run_id,
+                    "publish_claimed",
+                    {"idempotency_key": idempotency_key, "sha256": digest, "fencing_token": fencing_token},
+                )
                 return {"status": "claimed", "claimed": True, "digest": digest}
             except Exception:
                 if self._conn.in_transaction:
@@ -660,6 +710,7 @@ class RunLedger:
 
     def commit_authorized(self, run_id: str, *, idempotency_key: str, fencing_token: int, state_version: int, sink: Any, payload: str) -> dict[str, Any]:
         """写事务里核对 fencing token，再写入可控制的 sink。"""
+        self.repair_sink(sink)
         with self._lock:
             self._begin_immediate()
             try:
@@ -703,27 +754,37 @@ class RunLedger:
         with self._lock:
             self._begin_immediate()
             try:
-                return self._revoke_with_sink_locked(run_id, sink)
+                self._revoke_with_sink_locked(run_id, sink)
             except Exception:
                 if self._conn.in_transaction:
                     self._conn.rollback()
                 raise
+        self.repair_sink(sink)
+        return self.get_run(run_id)
 
     def _revoke_with_sink_locked(self, run_id: str, sink: Any) -> RunState:
             state = self.get_run(run_id)
             if state.phase == "committed":
                 self._conn.commit()
                 return state
-            state.eligible = False
-            state.fencing_token += 1
-            state.state_version += 1
+            self._conn.execute(
+                """
+                UPDATE runs
+                SET eligible = 0,
+                    fencing_token = fencing_token + 1,
+                    state_version = state_version + 1,
+                    pending_sink_epoch = state_version + 1
+                WHERE run_id = ? AND phase != 'committed'
+                """,
+                (run_id,),
+            )
+            state = self.get_run(run_id)
             if state.phase == "created":
                 state.phase = "running"
             if state.phase in {"running", "checkpointed"}:
                 state.phase = transition(state.phase, "cancel_requested")
             state.cancel.eligibility_revoked = True
-            sink.bump()
-            self._save_phase(state)
+            self._conn.execute("UPDATE runs SET phase = ? WHERE run_id = ?", (state.phase, run_id))
             self._write_cancel(state)
             self._event_locked(run_id, "eligibility_revoked", {"fencing_token": state.fencing_token})
             return self.get_run(run_id)

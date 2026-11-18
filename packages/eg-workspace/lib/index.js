@@ -52,6 +52,12 @@ function controlBase() {
   return process.env.EG_CONTROL_URL || "";
 }
 
+function controlArm() {
+  const arm = process.env.EG_CONTROL_ARM || "full";
+  if (arm === "direct" || arm === "commit_only" || arm === "full") return arm;
+  throw new Error("unknown control arm");
+}
+
 function requireControl(sideEffect) {
   if (controlBase()) return;
   if (process.env.EG_REQUIRE_CONTROL === "1" && sideEffect) {
@@ -155,8 +161,25 @@ function apply(ctx) {
     output,
     async execute(args) {
       const path = String(args.path || "");
-      const gate = await authorize("eg_write", { path });
       const content = String(args.content ?? "");
+      if (process.env.EG_EXECUTOR === "process" && controlArm() !== "full") {
+        if (refusedPath(path)) throw new Error("path refused");
+        const root = processWorkspace();
+        const full = resolve(root, path);
+        const prefix = root.endsWith("\\") || root.endsWith("/") ? root : root + "\\";
+        if (full.toLowerCase() !== root.toLowerCase() && !full.toLowerCase().startsWith(prefix.toLowerCase())) {
+          throw new Error("path refused");
+        }
+        if (controlArm() === "commit_only") {
+          const base = controlBase();
+          if (!base) throw new Error("control required");
+          const admission = await admit(base, process.env.EG_RUN_ID || "");
+          if (!admission.allowed) return { status: "withheld", published: false, arm: "commit_only" };
+        }
+        writeFileSync(full, content);
+        return { status: 0, stdout: "", stderr: "", published: true, arm: controlArm() };
+      }
+      const gate = await authorize("eg_write", { path });
       if (process.env.EG_EXECUTOR === "process") {
         if (refusedPath(path)) throw new Error("path refused");
         const root = processWorkspace();

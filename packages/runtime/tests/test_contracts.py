@@ -1,4 +1,5 @@
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -41,6 +42,8 @@ def test_ledger_export_matches_runtime_v1():
 
 
 def test_node_checker_uses_the_same_schema_file():
+    if shutil.which("node") is None:
+        pytest.skip("node is not on PATH")
     text = schema_path().read_text(encoding="utf-8")
     assert json.loads(text)["required"] == load_schema()["required"]
     completed = subprocess.run(

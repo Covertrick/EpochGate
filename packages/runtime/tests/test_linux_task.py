@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -37,6 +38,8 @@ def repo_root() -> Path:
 
 
 def test_container_stage_argv_has_no_shell_redirect():
+    if shutil.which("node") is None:
+        pytest.skip("node is not on PATH")
     completed = subprocess.run(
         ["node", "--test", "packages/eg-workspace/tests/container-stage.test.js"],
         cwd=repo_root(),

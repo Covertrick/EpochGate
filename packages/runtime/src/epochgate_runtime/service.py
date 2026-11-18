@@ -87,6 +87,7 @@ class ControlServer:
         return f"http://{host}:{port}"
 
     def start(self) -> None:
+        self.ledger.repair_sink(self.sink)
         self.thread.start()
 
     def stop(self) -> None:

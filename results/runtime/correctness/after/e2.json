@@ -1,0 +1,23 @@
+{
+  "normal_aligned": {
+    "stale_rejection_rate": 1.0,
+    "eligible_successor_completion_rate": 1.0
+  },
+  "normal_unaligned_successor_rejected": true,
+  "restart_control_service": {
+    "stale_rejection_rate": 1.0,
+    "eligible_successor_completion_rate": 1.0
+  },
+  "restart_sink_version": 2,
+  "crash_during_version_advance": {
+    "stale_rejection_rate": 1.0,
+    "eligible_successor_completion_rate": 1.0
+  },
+  "accepts_during_failed_mirror": 0,
+  "concurrent_version_advance": {
+    "trials": 20,
+    "lost_updates": 0,
+    "stale_rejection_rate": 1.0,
+    "eligible_successor_completion_rate": 1.0
+  }
+}
