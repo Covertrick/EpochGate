@@ -1,0 +1,7 @@
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -1,3 +1,4 @@
++# probe
+ from __future__ import annotations
+ 
+ import collections.abc as cabc

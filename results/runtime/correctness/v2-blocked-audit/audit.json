@@ -1,0 +1,1107 @@
+{
+  "sources_read_only": {
+    "m4-pilot": "C:\\Project\\EpochGate\\results\\runtime\\correctness\\m4-pilot\\summary.json",
+    "m4-confirm": "C:\\Project\\EpochGate\\results\\runtime\\correctness\\m4-confirm\\summary.json",
+    "m5": "C:\\Project\\EpochGate\\results\\runtime\\correctness\\m5\\summary.json"
+  },
+  "batches": [
+    {
+      "batch": "m4-pilot",
+      "assigned": 24,
+      "blocked": 4,
+      "labels": {
+        "OUTCOME_UNKNOWN": 4
+      },
+      "arm_assigned": {
+        "B0": 6,
+        "B1": 6,
+        "B2": 6,
+        "B3": 6
+      },
+      "arm_blocked": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 1,
+        "B3": 1
+      },
+      "fault_assigned": {
+        "S1": 8,
+        "S2": 8,
+        "S3": 8
+      },
+      "fault_blocked": {
+        "S2": 4
+      },
+      "clusters": [
+        {
+          "task_id": "ful-order-p1",
+          "fault": "S2",
+          "n": 4,
+          "blocked": 4,
+          "arms": [
+            "B0",
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "all_arms_blocked": true
+        }
+      ],
+      "cells": [
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-pilot",
+          "index": 0,
+          "task_id": "ful-order-p1",
+          "family": "fulfillment",
+          "arm": "B0",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-pilot",
+          "index": 1,
+          "task_id": "ful-order-p1",
+          "family": "fulfillment",
+          "arm": "B1",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-pilot",
+          "index": 2,
+          "task_id": "ful-order-p1",
+          "family": "fulfillment",
+          "arm": "B2",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-pilot",
+          "index": 3,
+          "task_id": "ful-order-p1",
+          "family": "fulfillment",
+          "arm": "B3",
+          "fault": "S2",
+          "runtime": "epochgate"
+        }
+      ],
+      "coding_family_note": null
+    },
+    {
+      "batch": "m4-confirm",
+      "assigned": 72,
+      "blocked": 20,
+      "labels": {
+        "OUTCOME_UNKNOWN": 20
+      },
+      "arm_assigned": {
+        "B0": 18,
+        "B1": 18,
+        "B2": 18,
+        "B3": 18
+      },
+      "arm_blocked": {
+        "B0": 5,
+        "B1": 5,
+        "B2": 5,
+        "B3": 5
+      },
+      "fault_assigned": {
+        "S1": 24,
+        "S2": 24,
+        "S3": 24
+      },
+      "fault_blocked": {
+        "S2": 8,
+        "S3": 8,
+        "S1": 4
+      },
+      "clusters": [
+        {
+          "task_id": "ful-config-c4",
+          "fault": "S2",
+          "n": 4,
+          "blocked": 4,
+          "arms": [
+            "B0",
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "all_arms_blocked": true
+        },
+        {
+          "task_id": "ful-config-c5",
+          "fault": "S1",
+          "n": 4,
+          "blocked": 4,
+          "arms": [
+            "B0",
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "all_arms_blocked": true
+        },
+        {
+          "task_id": "ful-order-c1",
+          "fault": "S2",
+          "n": 4,
+          "blocked": 4,
+          "arms": [
+            "B0",
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "all_arms_blocked": true
+        },
+        {
+          "task_id": "ful-order-c2",
+          "fault": "S3",
+          "n": 4,
+          "blocked": 4,
+          "arms": [
+            "B0",
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "all_arms_blocked": true
+        },
+        {
+          "task_id": "ful-order-c3",
+          "fault": "S3",
+          "n": 4,
+          "blocked": 4,
+          "arms": [
+            "B0",
+            "B1",
+            "B2",
+            "B3"
+          ],
+          "all_arms_blocked": true
+        }
+      ],
+      "cells": [
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 0,
+          "task_id": "ful-order-c1",
+          "family": "fulfillment",
+          "arm": "B0",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 1,
+          "task_id": "ful-order-c1",
+          "family": "fulfillment",
+          "arm": "B1",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 2,
+          "task_id": "ful-order-c1",
+          "family": "fulfillment",
+          "arm": "B2",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 3,
+          "task_id": "ful-order-c1",
+          "family": "fulfillment",
+          "arm": "B3",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 4,
+          "task_id": "ful-order-c2",
+          "family": "fulfillment",
+          "arm": "B0",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 5,
+          "task_id": "ful-order-c2",
+          "family": "fulfillment",
+          "arm": "B1",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 6,
+          "task_id": "ful-order-c2",
+          "family": "fulfillment",
+          "arm": "B2",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 7,
+          "task_id": "ful-order-c2",
+          "family": "fulfillment",
+          "arm": "B3",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 8,
+          "task_id": "ful-order-c3",
+          "family": "fulfillment",
+          "arm": "B0",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 9,
+          "task_id": "ful-order-c3",
+          "family": "fulfillment",
+          "arm": "B1",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 10,
+          "task_id": "ful-order-c3",
+          "family": "fulfillment",
+          "arm": "B2",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 11,
+          "task_id": "ful-order-c3",
+          "family": "fulfillment",
+          "arm": "B3",
+          "fault": "S3",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 12,
+          "task_id": "ful-config-c4",
+          "family": "fulfillment",
+          "arm": "B0",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 13,
+          "task_id": "ful-config-c4",
+          "family": "fulfillment",
+          "arm": "B1",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 14,
+          "task_id": "ful-config-c4",
+          "family": "fulfillment",
+          "arm": "B2",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 15,
+          "task_id": "ful-config-c4",
+          "family": "fulfillment",
+          "arm": "B3",
+          "fault": "S2",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 16,
+          "task_id": "ful-config-c5",
+          "family": "fulfillment",
+          "arm": "B0",
+          "fault": "S1",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 17,
+          "task_id": "ful-config-c5",
+          "family": "fulfillment",
+          "arm": "B1",
+          "fault": "S1",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 18,
+          "task_id": "ful-config-c5",
+          "family": "fulfillment",
+          "arm": "B2",
+          "fault": "S1",
+          "runtime": "epochgate"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": "model_unavailable",
+            "model": "deepseek-flash",
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "end_reason",
+              "error_type",
+              "family",
+              "fault",
+              "model",
+              "protocol_sha256",
+              "runtime",
+              "task_id",
+              "task_terminal_match"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m4-confirm",
+          "index": 19,
+          "task_id": "ful-config-c5",
+          "family": "fulfillment",
+          "arm": "B3",
+          "fault": "S1",
+          "runtime": "epochgate"
+        }
+      ],
+      "coding_family_note": null
+    },
+    {
+      "batch": "m5",
+      "assigned": 24,
+      "blocked": 6,
+      "labels": {
+        "OUTCOME_UNKNOWN": 6
+      },
+      "arm_assigned": {
+        "R0": 12,
+        "R1": 12
+      },
+      "arm_blocked": {
+        "R0": 3,
+        "R1": 3
+      },
+      "fault_assigned": {
+        "notice_missing": 6,
+        "notice_delivered": 6,
+        "response_lost": 6,
+        "interrupt_resume": 6
+      },
+      "fault_blocked": {
+        "notice_delivered": 2,
+        "response_lost": 2,
+        "interrupt_resume": 2
+      },
+      "clusters": [
+        {
+          "task_id": "ful-config-m3",
+          "fault": "interrupt_resume",
+          "n": 2,
+          "blocked": 2,
+          "arms": [
+            "R0",
+            "R1"
+          ],
+          "all_arms_blocked": true
+        },
+        {
+          "task_id": "ful-config-m3",
+          "fault": "notice_delivered",
+          "n": 2,
+          "blocked": 2,
+          "arms": [
+            "R0",
+            "R1"
+          ],
+          "all_arms_blocked": true
+        },
+        {
+          "task_id": "ful-config-m3",
+          "fault": "response_lost",
+          "n": 2,
+          "blocked": 2,
+          "arms": [
+            "R0",
+            "R1"
+          ],
+          "all_arms_blocked": true
+        }
+      ],
+      "cells": [
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": null,
+            "model": null,
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "claim",
+              "error_type",
+              "family",
+              "fault",
+              "runtime",
+              "task_id"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m5",
+          "index": 0,
+          "task_id": "ful-config-m3",
+          "family": "fulfillment",
+          "arm": "R0",
+          "fault": "notice_delivered",
+          "runtime": "langgraph"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": null,
+            "model": null,
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "claim",
+              "error_type",
+              "family",
+              "fault",
+              "runtime",
+              "task_id"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m5",
+          "index": 1,
+          "task_id": "ful-config-m3",
+          "family": "fulfillment",
+          "arm": "R1",
+          "fault": "notice_delivered",
+          "runtime": "langgraph"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": null,
+            "model": null,
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "claim",
+              "error_type",
+              "family",
+              "fault",
+              "runtime",
+              "task_id"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m5",
+          "index": 2,
+          "task_id": "ful-config-m3",
+          "family": "fulfillment",
+          "arm": "R0",
+          "fault": "response_lost",
+          "runtime": "langgraph"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": null,
+            "model": null,
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "claim",
+              "error_type",
+              "family",
+              "fault",
+              "runtime",
+              "task_id"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m5",
+          "index": 3,
+          "task_id": "ful-config-m3",
+          "family": "fulfillment",
+          "arm": "R1",
+          "fault": "response_lost",
+          "runtime": "langgraph"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": null,
+            "model": null,
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "claim",
+              "error_type",
+              "family",
+              "fault",
+              "runtime",
+              "task_id"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m5",
+          "index": 4,
+          "task_id": "ful-config-m3",
+          "family": "fulfillment",
+          "arm": "R0",
+          "fault": "interrupt_resume",
+          "runtime": "langgraph"
+        },
+        {
+          "label": "OUTCOME_UNKNOWN",
+          "reason": "该格只保存了 model_no_effect。没有工具事件、模型原文或 finish_reason，不能区分未行动、正确弃权或工具失败。",
+          "evidence": {
+            "error_type": "model_no_effect",
+            "end_reason": null,
+            "model": null,
+            "stored_fields": [
+              "arm",
+              "blocked",
+              "claim",
+              "error_type",
+              "family",
+              "fault",
+              "runtime",
+              "task_id"
+            ],
+            "transcript_stored": false
+          },
+          "batch": "m5",
+          "index": 5,
+          "task_id": "ful-config-m3",
+          "family": "fulfillment",
+          "arm": "R1",
+          "fault": "interrupt_resume",
+          "runtime": "langgraph"
+        }
+      ],
+      "coding_family_note": {
+        "family": "coding",
+        "blocked": true,
+        "error_type": "feasibility_failed",
+        "reason": "没有通过可行性检查的真实仓库进入本轮，不计为模型失败"
+      }
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "status": "FROZEN",
+  "protocol_sha256": "4d268b74fa1c92475d7612ed135cef67e7c19618d15e14e422d3a087395acb6d",
+  "pilot": [
+    "code-click-2247b35e",
+    "code-click-8abb77a8"
+  ],
+  "confirm": [
+    "code-click-ac0e297e",
+    "code-click-dd149eb3",
+    "code-more-itertools-08dca284",
+    "code-more-itertools-0fcdde9c"
+  ],
+  "tasks": [
+    {
+      "task_id": "code-click-2247b35e",
+      "family": "coding",
+      "form": "coding",
+      "repo": "click",
+      "base": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+      "fix": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+      "tests": [
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "test_patch": "diff --git a/tests/test_testing.py b/tests/test_testing.py\nindex 870d95c..c85683f 100644\n--- a/tests/test_testing.py\n+++ b/tests/test_testing.py\n@@ -89,6 +89,50 @@ def test_echo_stdin_prompts():\n     assert result.output == \"Foo: one\\nBar: two\\nfoo=one, bar=two\\n\"\n \n \n+@pytest.mark.parametrize(\n+    (\"data\", \"echo\", \"read\"),\n+    [\n+        pytest.param(\"bar\\n\\x04\", \"bar\\n^D\\n\", b\"bar\\n\", id=\"eot-ends-input\"),\n+        pytest.param(\"bar\\n\\x1a\", \"bar\\n^Z\\n\", b\"bar\\n\", id=\"sub-ends-input\"),\n+        pytest.param(\"\\x04\", \"^D\\n\", b\"\", id=\"eot-alone\"),\n+        pytest.param(\"bar\\x04baz\\n\", \"bar^D\\nbaz\\n\", b\"barbaz\\n\", id=\"eot-mid-chunk\"),\n+        pytest.param(\"bar\\n\", \"bar\\n\", b\"bar\\n\", id=\"no-control-byte\"),\n+    ],\n+)\n+def test_echo_stdin_control_bytes(data, echo, read):\n+    \"\"\"A control byte of `<stdin>` is echoed to `<stdout>` in caret notation and\n+    removed from the command.\n+    \"\"\"\n+\n+    @click.command()\n+    def test():\n+        click.echo(repr(_get_binary_stream(\"stdin\").read()))\n+\n+    result = CliRunner(echo_stdin=True).invoke(test, input=data)\n+    assert not result.exception\n+    assert result.output == f\"{echo}{read!r}\\n\"\n+\n+\n+@pytest.mark.parametrize(\n+    \"read_lines\",\n+    [\n+        pytest.param(lambda: list(sys.stdin), id=\"text\"),\n+        pytest.param(lambda: list(_get_binary_stream(\"stdin\")), id=\"binary\"),\n+        pytest.param(lambda: _get_binary_stream(\"stdin\").readlines(), id=\"readlines\"),\n+    ],\n+)\n+def test_echo_stdin_control_byte_is_not_a_line(read_lines):\n+    \"\"\"A control byte that ends `<stdin>` is not handed over as a last line.\"\"\"\n+\n+    @click.command()\n+    def test():\n+        click.echo(len(read_lines()))\n+\n+    result = CliRunner(echo_stdin=True).invoke(test, input=\"bar\\nbaz\\n\\x04\")\n+    assert not result.exception\n+    assert result.output == \"bar\\nbaz\\n^D\\n2\\n\"\n+\n+\n def test_runner_with_stream():\n     @click.command()\n     def test():\n",
+      "source_patch_sha256": "bff49cb3b3877c1c6d095d42e3406a022ead735e2a7e8222e85677cd5fa4f1f1",
+      "relative": "patch.diff",
+      "constraints": [
+        "workspace_version",
+        "hidden_tests"
+      ],
+      "event": {
+        "set": {
+          "version": 2
+        }
+      },
+      "initial": {
+        "version": 1
+      },
+      "successor_applicable": true,
+      "s2_mode": "missing",
+      "phase_pool": "pilot"
+    },
+    {
+      "task_id": "code-click-8abb77a8",
+      "family": "coding",
+      "form": "coding",
+      "repo": "click",
+      "base": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "fix": "a46a95c733d0ed72f63cd2915f2bc4a09a7179f9",
+      "tests": [
+        "tests/test_compat.py",
+        "tests/test_formatting.py"
+      ],
+      "sources": [
+        "src/click/_textwrap.py",
+        "src/click/formatting.py"
+      ],
+      "test_patch": "diff --git a/tests/test_compat.py b/tests/test_compat.py\nindex cd74332..64859c9 100644\n--- a/tests/test_compat.py\n+++ b/tests/test_compat.py\n@@ -9,7 +9,6 @@ import click\n from click._compat import _ansi_re\n from click._compat import strip_ansi\n from click._compat import term_len\n-from click._textwrap import _truncate_visible\n \n ESC = \"\\033\"\n \n@@ -246,25 +245,3 @@ def test_ansi_re_matches_whole_sequence(seq):\n     assert m is not None\n     assert m.start() == 0\n     assert m.end() == len(seq)\n-\n-\n-@pytest.mark.parametrize(\n-    (\"text\", \"n\", \"expected\"),\n-    [\n-        # No escapes: behaves like a plain prefix slice.\n-        (\"abcdef\", 3, \"abc\"),\n-        (\"abc\", 10, \"abc\"),\n-        (\"abc\", 0, \"\"),\n-        (\"abc\", -1, \"\"),\n-        # A leading escape is kept and does not count toward the budget.\n-        (f\"{ESC}[31mabcdef{ESC}[0m\", 3, f\"{ESC}[31mabc\"),\n-        # A colon true-color escape stays intact; the cut lands after 3 chars.\n-        (f\"{ESC}[38:2:1:2:3mabcdef\", 3, f\"{ESC}[38:2:1:2:3mabc\"),\n-        # A trailing escape past the cut is not pulled in.\n-        (f\"{ESC}[31mabc{ESC}[0m\", 3, f\"{ESC}[31mabc\"),\n-    ],\n-)\n-def test_truncate_visible(text, n, expected):\n-    out = _truncate_visible(text, n)\n-    assert out == expected\n-    assert term_len(out) <= max(n, 0)\ndiff --git a/tests/test_formatting.py b/tests/test_formatting.py\nindex 5d70c6b..4b0d5e2 100644\n--- a/tests/test_formatting.py\n+++ b/tests/test_formatting.py\n@@ -1,3 +1,5 @@\n+import threading\n+\n import pytest\n \n import click\n@@ -437,12 +439,12 @@ def test_help_formatter_write_text():\n     (\"body\", \"width\", \"initial_indent\"),\n     [\n         # Styled ``initial_indent`` must be measured by visible width, so the\n-        # ``Usage:`` prefix shouldn't push ``[OPTIONS]`` to the second line.\n+        # ``Usage:`` prefix shouldn't push ``CITY`` to the second line.\n         # Regression for the asymmetry between ``HelpFormatter.write_usage``\n         # (which sized the prefix with ``term_len``) and ``wrap_text``\n         # (which previously used raw ``len``).\n         pytest.param(\n-            \"[OPTIONS]\",\n+            \"[OPTIONS] CITY\",\n             30,\n             \"\\x1b[38;2;38;139;210m\\x1b[1mUsage:\\x1b[0m \",\n             id=\"styled-initial-indent-does-not-break-body\",\n@@ -455,14 +457,6 @@ def test_help_formatter_write_text():\n             \"\",\n             id=\"styled-body-wraps-on-visible-width\",\n         ),\n-        # ``_handle_long_word`` cuts a styled token between visible\n-        # characters; the ANSI escape sequence must not be split.\n-        pytest.param(\n-            \"\\x1b[31mabcdefghij\\x1b[0m\",\n-            5,\n-            \"\",\n-            id=\"styled-long-word-breaks-on-visible-width\",\n-        ),\n         # Colon-delimited true-color (ISO 8613-6) escapes are excluded from the\n         # width budget too.\n         pytest.param(\n@@ -485,9 +479,9 @@ def test_wrap_text_visible_width(body, width, initial_indent):\n     \"\"\"``wrap_text`` of styled input produces the same line layout as\n     ``wrap_text`` of the ANSI-stripped input.\n \n-    ANSI escape bytes must not count toward the width budget, regardless\n-    of whether they appear in the body, in ``initial_indent``, or when a\n-    styled token has to be broken in the middle.\n+    ANSI escape bytes must not count toward the width budget, whether they\n+    appear in the body or in ``initial_indent``. Wrapping moves or drops\n+    whitespace only: every escape sequence survives, in order.\n     \"\"\"\n     styled = click.formatting.wrap_text(\n         body, width=width, initial_indent=initial_indent\n@@ -498,20 +492,84 @@ def test_wrap_text_visible_width(body, width, initial_indent):\n \n     styled_visible = [strip_ansi(line) for line in styled.splitlines()]\n     assert styled_visible == plain.splitlines()\n+    assert \"\".join(styled.split()) == \"\".join((initial_indent + body).split())\n+\n+\n+@pytest.mark.parametrize(\n+    (\"text\", \"width\", \"expected\"),\n+    [\n+        # A line breaks between words, never after a hyphen inside one.\n+        pytest.param(\n+            \"Add --avoid-motorways to stay on country roads.\",\n+            20,\n+            [\"Add\", \"--avoid-motorways to\", \"stay on country\", \"roads.\"],\n+            id=\"hyphenated-word\",\n+        ),\n+        # A word wider than the line is not cut: it goes on a line of its own.\n+        pytest.param(\n+            \"Visit Llanfairpwllgwyngyll in Wales.\",\n+            10,\n+            [\"Visit\", \"Llanfairpwllgwyngyll\", \"in Wales.\"],\n+            id=\"long-word\",\n+        ),\n+        # A styled word wider than the line stays whole with its escape\n+        # sequences.\n+        pytest.param(\n+            \"Visit \\x1b[31mLlanfairpwllgwyngyll\\x1b[0m in Wales.\",\n+            10,\n+            [\"Visit\", \"\\x1b[31mLlanfairpwllgwyngyll\\x1b[0m\", \"in Wales.\"],\n+            id=\"styled-long-word\",\n+        ),\n+    ],\n+)\n+def test_wrap_text_keeps_words_whole(text, width, expected):\n+    \"\"\"``wrap_text`` breaks lines between words only.\"\"\"\n+    assert click.formatting.wrap_text(text, width).splitlines() == expected\n \n \n-def test_write_usage_styled_prefix_keeps_options_on_one_line():\n+def test_wrap_text_rejects_width_below_one():\n+    \"\"\"``wrap_text`` raises an error for a width that leaves no room for text.\"\"\"\n+    with pytest.raises(ValueError, match=\"invalid width 0\"):\n+        click.formatting.wrap_text(\"Rain in Paris.\", 0)\n+\n+\n+@pytest.mark.parametrize(\n+    (\"wrap\", \"expected\"),\n+    [\n+        pytest.param(\n+            lambda: click.formatting.wrap_text(\n+                \" rain\", 5, initial_indent=\" \" * 8, subsequent_indent=\" \" * 8\n+            ),\n+            \"        rain\",\n+            id=\"wrap_text\",\n+        ),\n+    ],\n+)\n+def test_wrap_under_indent_wider_than_width_returns(wrap, expected):\n+    \"\"\"Text that starts with a space wraps under an indent wider than the width.\"\"\"\n+    result = []\n+    # The standard library's TextWrapper loops forever on this input with\n+    # ``break_long_words=True``, on Python 3.10 to 3.16. Run the call in a thread,\n+    # so a regression fails the test instead of an infinite loop.\n+    thread = threading.Thread(target=lambda: result.append(wrap()), daemon=True)\n+    thread.start()\n+    thread.join(timeout=5)\n+    assert not thread.is_alive(), \"wrapping did not return\"\n+    assert result == [expected]\n+\n+\n+def test_write_usage_styled_prefix_keeps_arguments_on_one_line():\n     \"\"\"End-to-end: a downstream-styled ``Usage:`` prefix should not split\n-    ``[OPTIONS]`` across two lines.\n+    the arguments across two lines.\n     \"\"\"\n     styled_prefix = \"\\x1b[38;2;38;139;210m\\x1b[1mUsage:\\x1b[0m \"\n \n     formatter = click.HelpFormatter(width=40)\n-    formatter.write_usage(\"cli\", \"[OPTIONS]\", prefix=styled_prefix)\n+    formatter.write_usage(\"cli\", \"[OPTIONS] CITY\", prefix=styled_prefix)\n     rendered = formatter.getvalue()\n \n     visible = strip_ansi(rendered)\n-    assert visible == \"Usage: cli [OPTIONS]\\n\"\n+    assert visible == \"Usage: cli [OPTIONS] CITY\\n\"\n \n \n @pytest.mark.parametrize(\n@@ -600,6 +658,77 @@ def test_help_formatter_write_usage_without_args_styled_prefix():\n     assert \"\\x1b[\" in rendered\n \n \n+@pytest.mark.parametrize(\n+    (\"width\", \"args\", \"expected\"),\n+    [\n+        # A line breaks between option names, never after a hyphen inside one.\n+        pytest.param(\n+            65,\n+            \"--max-daily-temperature --min-nightly-temperature --wind-speed-unit\"\n+            \" --rain-gauge-location --cloud-cover-percentage --sea-level-pressure\"\n+            \" --snow-depth-threshold --dew-point-offset\",\n+            [\n+                \"Usage: forecast --max-daily-temperature --min-nightly-temperature\",\n+                \"                --wind-speed-unit --rain-gauge-location\",\n+                \"                --cloud-cover-percentage --sea-level-pressure\",\n+                \"                --snow-depth-threshold --dew-point-offset\",\n+            ],\n+            id=\"hyphenated-options\",\n+        ),\n+        # An argument wider than the line is written whole on its own line,\n+        # instead of being cut at a hyphen or between two letters.\n+        pytest.param(\n+            40,\n+            \"[OPTIONS] --minimum-nightly-temperature CITY\",\n+            [\n+                \"Usage: forecast [OPTIONS]\",\n+                \"                --minimum-nightly-temperature\",\n+                \"                CITY\",\n+            ],\n+            id=\"argument-wider-than-line\",\n+        ),\n+        # When the arguments go below the program name, each one stays whole\n+        # too.\n+        pytest.param(\n+            16,\n+            \"[OPTIONS] --minimum-nightly-temperature CITY\",\n+            [\n+                \"Usage: forecast\",\n+                \"           [OPTIONS]\",\n+                \"           --minimum-nightly-temperature\",\n+                \"           CITY\",\n+            ],\n+            id=\"arguments-below-program-name\",\n+        ),\n+    ],\n+)\n+def test_help_formatter_write_usage_keeps_arguments_whole(width, args, expected):\n+    \"\"\"``HelpFormatter.write_usage`` breaks lines between arguments only.\"\"\"\n+    f = click.HelpFormatter(width=width)\n+    f.write_usage(\"forecast\", args)\n+    # Only line breaks are checked: the program name line can end with a space.\n+    assert [line.rstrip() for line in f.getvalue().splitlines()] == expected\n+\n+\n+@pytest.mark.parametrize(\n+    \"write\",\n+    [\n+        pytest.param(lambda f, text: f.write_usage(\"forecast\", text), id=\"write_usage\"),\n+        pytest.param(lambda f, text: f.write_text(text), id=\"write_text\"),\n+        pytest.param(lambda f, text: f.write_dl([(\"--city\", text)]), id=\"write_dl\"),\n+    ],\n+)\n+def test_help_formatter_keeps_words_whole(write):\n+    \"\"\"Each ``HelpFormatter`` method that wraps text breaks lines between\n+    words only.\n+    \"\"\"\n+    words = \"Add --avoid-motorways to visit Llanfairpwllgwyngyll by bus.\".split()\n+    f = click.HelpFormatter(width=15)\n+    write(f, \" \".join(words))\n+    # The usage line and the definition list put a term before the words.\n+    assert f.getvalue().split()[-len(words) :] == words\n+\n+\n @pytest.mark.parametrize(\n     (\"command_kwargs\", \"expected_usage_line\"),\n     [\n",
+      "source_patch_sha256": "99dc8c66159bfb81b70083f78cf1b73cb2e474d03929023401db2350216f07aa",
+      "relative": "patch.diff",
+      "constraints": [
+        "workspace_version",
+        "hidden_tests"
+      ],
+      "event": {
+        "set": {
+          "version": 2
+        }
+      },
+      "initial": {
+        "version": 1
+      },
+      "successor_applicable": true,
+      "s2_mode": "missing",
+      "phase_pool": "pilot"
+    },
+    {
+      "task_id": "code-click-ac0e297e",
+      "family": "coding",
+      "form": "coding",
+      "repo": "click",
+      "base": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+      "fix": "90a2973f85fffc4d8a20effb2bcdff3f394c5e62",
+      "tests": [
+        "tests/test_termui.py",
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "test_patch": "diff --git a/tests/test_termui.py b/tests/test_termui.py\nindex 1825b19..95dfa0e 100644\n--- a/tests/test_termui.py\n+++ b/tests/test_termui.py\n@@ -1221,13 +1221,24 @@ def test_tempfile_pager_accepts_text(monkeypatch, capfd, page):\n \n @pytest.mark.skipif(shutil.which(\"cat\") is None, reason=\"cat not available\")\n @pytest.mark.parametrize(\n-    (\"color\", \"expected\"),\n+    (\"color\", \"context_settings\", \"expected\"),\n     [\n-        pytest.param(False, \"hello\\n\", id=\"strip ansi\"),\n-        pytest.param(True, click.style(\"hello\", fg=\"red\") + \"\\n\", id=\"preserve ansi\"),\n+        pytest.param(False, None, \"hello\\n\", id=\"strip ansi\"),\n+        pytest.param(\n+            True, None, click.style(\"hello\", fg=\"red\") + \"\\n\", id=\"preserve ansi\"\n+        ),\n+        # Without a ``color`` argument, the pager follows the context.\n+        pytest.param(\n+            None,\n+            {\"color\": True},\n+            click.style(\"hello\", fg=\"red\") + \"\\n\",\n+            id=\"context preserves ansi\",\n+        ),\n     ],\n )\n-def test_tempfile_pager_handles_ansi(monkeypatch, capfd, color, expected):\n+def test_tempfile_pager_handles_ansi(\n+    monkeypatch, capfd, runner, color, context_settings, expected\n+):\n     \"\"\"The temp file backend honors ``color`` like the pipe backend does.\n \n     Regression: a binary temp file got no ANSI-stripping wrapper, so ``color``\n@@ -1235,7 +1246,12 @@ def test_tempfile_pager_handles_ansi(monkeypatch, capfd, color, expected):\n     \"\"\"\n     _force_tempfile_pager(monkeypatch)\n \n-    click.echo_via_pager(click.style(\"hello\", fg=\"red\"), color=color)\n+    @click.command()\n+    def cli():\n+        click.echo_via_pager(click.style(\"hello\", fg=\"red\"), color=color)\n+\n+    result = runner.invoke(cli, context_settings=context_settings)\n+    assert not result.exception\n \n     out, err = capfd.readouterr()\n     assert err == \"\"\n@@ -1395,40 +1411,25 @@ def test_confirmation_prompt(runner, prompt, input, default, expect):\n \n \n @pytest.mark.parametrize(\n-    (\"call\", \"user_input\", \"color\", \"expect\"),\n+    (\"call\", \"user_input\", \"label\", \"end\"),\n     [\n-        pytest.param(\n-            lambda: click.confirm(click.style(\"Hello World!\", fg=\"green\")),\n-            \"y\",\n-            False,\n-            \"Hello World! [y/N]: y\\n\",\n-            id=\"confirm-no-color\",\n-        ),\n-        pytest.param(\n-            lambda: click.confirm(click.style(\"Hello World!\", fg=\"green\")),\n-            \"y\",\n-            True,\n-            \"\\x1b[32mHello World!\\x1b[0m [y/N]: y\\n\",\n-            id=\"confirm-color\",\n-        ),\n-        pytest.param(\n-            lambda: click.prompt(click.style(\"Name\", fg=\"green\")),\n-            \"Bob\",\n-            False,\n-            \"Name: Bob\\n\",\n-            id=\"prompt-no-color\",\n-        ),\n-        pytest.param(\n-            lambda: click.prompt(click.style(\"Name\", fg=\"green\")),\n-            \"Bob\",\n-            True,\n-            \"\\x1b[32mName\\x1b[0m: Bob\\n\",\n-            id=\"prompt-color\",\n-        ),\n+        pytest.param(click.confirm, \"y\", \"Hello World!\", \" [y/N]: y\\n\", id=\"confirm\"),\n+        pytest.param(click.prompt, \"Bob\", \"Name\", \": Bob\\n\", id=\"prompt\"),\n+    ],\n+)\n+@pytest.mark.parametrize(\n+    (\"color\", \"context_settings\", \"styled\"),\n+    [\n+        # Without a context color, the color of the runner decides.\n+        pytest.param(False, None, False, id=\"no-color\"),\n+        pytest.param(True, None, True, id=\"color\"),\n+        # A context color overrides the color of the runner, as for ``echo``.\n+        pytest.param(False, {\"color\": True}, True, id=\"context-color\"),\n+        pytest.param(True, {\"color\": False}, False, id=\"context-no-color\"),\n     ],\n )\n def test_prompt_and_confirm_ansi_respects_color(\n-    runner, call, user_input, color, expect\n+    runner, call, user_input, label, end, color, context_settings, styled\n ):\n     \"\"\"``confirm`` and ``prompt`` strip ANSI color and style codes from the\n     prompt when color is disabled and keep them when it is enabled, like\n@@ -1438,10 +1439,13 @@ def test_prompt_and_confirm_ansi_respects_color(\n \n     @click.command()\n     def cli():\n-        call()\n+        call(click.style(label, fg=\"green\"))\n \n-    result = runner.invoke(cli, input=user_input, color=color)\n-    assert result.output == expect\n+    result = runner.invoke(\n+        cli, input=user_input, color=color, context_settings=context_settings\n+    )\n+    prompt = click.style(label, fg=\"green\") if styled else label\n+    assert result.output == f\"{prompt}{end}\"\n \n \n def test_false_show_default_cause_no_default_display_in_prompt(runner):\ndiff --git a/tests/test_testing.py b/tests/test_testing.py\nindex c85683f..ebe95d7 100644\n--- a/tests/test_testing.py\n+++ b/tests/test_testing.py\n@@ -473,6 +473,92 @@ def test_command_standalone_mode_returns_value():\n     assert result.exit_code == 0\n \n \n+@pytest.mark.parametrize(\n+    (\"runner_color\", \"context_settings\", \"context_color\", \"styled\"),\n+    [\n+        # Without a ``color`` setting, the context has no color of its own, and\n+        # the ``color`` of the runner decides.\n+        (False, None, None, False),\n+        (True, None, None, True),\n+        (False, {}, None, False),\n+        (True, {}, None, True),\n+        (False, {\"color\": None}, None, False),\n+        (True, {\"color\": None}, None, True),\n+        # A ``color`` setting reaches the context, where it overrides the\n+        # ``color`` of the runner.\n+        (False, {\"color\": True}, True, True),\n+        (True, {\"color\": True}, True, True),\n+        (False, {\"color\": False}, False, False),\n+        (True, {\"color\": False}, False, False),\n+    ],\n+)\n+def test_context_settings_color(runner_color, context_settings, context_color, styled):\n+    \"\"\"``color`` names a parameter of ``invoke()`` and a context setting.\n+    ``context_settings`` carries the second one, which ``extra`` cannot.\n+    \"\"\"\n+\n+    @click.command()\n+    @click.pass_context\n+    def cli(ctx):\n+        click.secho(\"hello world\", fg=\"blue\")\n+        return ctx.color\n+\n+    runner = CliRunner()\n+    result = runner.invoke(\n+        cli,\n+        color=runner_color,\n+        context_settings=context_settings,\n+        standalone_mode=False,\n+    )\n+    assert not result.exception\n+    assert result.return_value is context_color\n+    expected = click.style(\"hello world\", fg=\"blue\") if styled else \"hello world\"\n+    assert result.output == f\"{expected}\\n\"\n+\n+\n+@pytest.mark.parametrize(\"terminal_width\", [100, None])\n+def test_context_settings_override_command(terminal_width):\n+    \"\"\"Settings given to ``invoke()`` take precedence over the ones the command\n+    declares, for that invocation only.\n+    \"\"\"\n+\n+    @click.command(context_settings={\"terminal_width\": 60, \"max_content_width\": 70})\n+    @click.pass_context\n+    def cli(ctx):\n+        return ctx.terminal_width, ctx.max_content_width\n+\n+    runner = CliRunner()\n+\n+    result = runner.invoke(\n+        cli, context_settings={\"terminal_width\": terminal_width}, standalone_mode=False\n+    )\n+    assert result.return_value == (terminal_width, 70)\n+\n+    result = runner.invoke(cli, standalone_mode=False)\n+    assert result.return_value == (60, 70)\n+    assert cli.context_settings == {\"terminal_width\": 60, \"max_content_width\": 70}\n+\n+\n+def test_context_settings_duplicates_extra():\n+    \"\"\"A setting given in both ``extra`` and ``context_settings`` fails like a\n+    keyword argument given twice.\n+    \"\"\"\n+\n+    @click.command()\n+    def cli():\n+        pass\n+\n+    runner = CliRunner()\n+\n+    with pytest.raises(TypeError, match=\"multiple values for keyword argument 'obj'\"):\n+        runner.invoke(\n+            cli,\n+            obj=\"extra\",\n+            context_settings={\"obj\": \"settings\"},\n+            catch_exceptions=False,\n+        )\n+\n+\n def test_file_stdin_attrs(runner):\n     @click.command()\n     @click.argument(\"f\", type=click.File())\n",
+      "source_patch_sha256": "dd718a86397d69cc519027544be1c7576415ec390469a617b32c076928c3f485",
+      "relative": "patch.diff",
+      "constraints": [
+        "workspace_version",
+        "hidden_tests"
+      ],
+      "event": {
+        "set": {
+          "version": 2
+        }
+      },
+      "initial": {
+        "version": 1
+      },
+      "successor_applicable": true,
+      "s2_mode": "missing",
+      "phase_pool": "confirm"
+    },
+    {
+      "task_id": "code-click-dd149eb3",
+      "family": "coding",
+      "form": "coding",
+      "repo": "click",
+      "base": "dd149eb3129d887a22202c3fafa5ceb0e0d7018d",
+      "fix": "fdb65f4809719580436acb067410cec64433e5de",
+      "tests": [
+        "tests/test_termui.py",
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "test_patch": "diff --git a/tests/test_termui.py b/tests/test_termui.py\nindex e4e0d6c..aff5c83 100644\n--- a/tests/test_termui.py\n+++ b/tests/test_termui.py\n@@ -1218,13 +1218,24 @@ def test_tempfile_pager_accepts_text(monkeypatch, capfd, page):\n \n @pytest.mark.skipif(shutil.which(\"cat\") is None, reason=\"cat not available\")\n @pytest.mark.parametrize(\n-    (\"color\", \"expected\"),\n+    (\"color\", \"context_settings\", \"expected\"),\n     [\n-        pytest.param(False, \"hello\\n\", id=\"strip ansi\"),\n-        pytest.param(True, click.style(\"hello\", fg=\"red\") + \"\\n\", id=\"preserve ansi\"),\n+        pytest.param(False, None, \"hello\\n\", id=\"strip ansi\"),\n+        pytest.param(\n+            True, None, click.style(\"hello\", fg=\"red\") + \"\\n\", id=\"preserve ansi\"\n+        ),\n+        # Without a ``color`` argument, the pager follows the context.\n+        pytest.param(\n+            None,\n+            {\"color\": True},\n+            click.style(\"hello\", fg=\"red\") + \"\\n\",\n+            id=\"context preserves ansi\",\n+        ),\n     ],\n )\n-def test_tempfile_pager_handles_ansi(monkeypatch, capfd, color, expected):\n+def test_tempfile_pager_handles_ansi(\n+    monkeypatch, capfd, runner, color, context_settings, expected\n+):\n     \"\"\"The temp file backend honors ``color`` like the pipe backend does.\n \n     Regression: a binary temp file got no ANSI-stripping wrapper, so ``color``\n@@ -1232,7 +1243,12 @@ def test_tempfile_pager_handles_ansi(monkeypatch, capfd, color, expected):\n     \"\"\"\n     _force_tempfile_pager(monkeypatch)\n \n-    click.echo_via_pager(click.style(\"hello\", fg=\"red\"), color=color)\n+    @click.command()\n+    def cli():\n+        click.echo_via_pager(click.style(\"hello\", fg=\"red\"), color=color)\n+\n+    result = runner.invoke(cli, context_settings=context_settings)\n+    assert not result.exception\n \n     out, err = capfd.readouterr()\n     assert err == \"\"\n@@ -1392,40 +1408,25 @@ def test_confirmation_prompt(runner, prompt, input, default, expect):\n \n \n @pytest.mark.parametrize(\n-    (\"call\", \"user_input\", \"color\", \"expect\"),\n+    (\"call\", \"user_input\", \"label\", \"end\"),\n     [\n-        pytest.param(\n-            lambda: click.confirm(click.style(\"Hello World!\", fg=\"green\")),\n-            \"y\",\n-            False,\n-            \"Hello World! [y/N]: y\\n\",\n-            id=\"confirm-no-color\",\n-        ),\n-        pytest.param(\n-            lambda: click.confirm(click.style(\"Hello World!\", fg=\"green\")),\n-            \"y\",\n-            True,\n-            \"\\x1b[32mHello World!\\x1b[0m [y/N]: y\\n\",\n-            id=\"confirm-color\",\n-        ),\n-        pytest.param(\n-            lambda: click.prompt(click.style(\"Name\", fg=\"green\")),\n-            \"Bob\",\n-            False,\n-            \"Name: Bob\\n\",\n-            id=\"prompt-no-color\",\n-        ),\n-        pytest.param(\n-            lambda: click.prompt(click.style(\"Name\", fg=\"green\")),\n-            \"Bob\",\n-            True,\n-            \"\\x1b[32mName\\x1b[0m: Bob\\n\",\n-            id=\"prompt-color\",\n-        ),\n+        pytest.param(click.confirm, \"y\", \"Hello World!\", \" [y/N]: y\\n\", id=\"confirm\"),\n+        pytest.param(click.prompt, \"Bob\", \"Name\", \": Bob\\n\", id=\"prompt\"),\n+    ],\n+)\n+@pytest.mark.parametrize(\n+    (\"color\", \"context_settings\", \"styled\"),\n+    [\n+        # Without a context color, the color of the runner decides.\n+        pytest.param(False, None, False, id=\"no-color\"),\n+        pytest.param(True, None, True, id=\"color\"),\n+        # A context color overrides the color of the runner, as for ``echo``.\n+        pytest.param(False, {\"color\": True}, True, id=\"context-color\"),\n+        pytest.param(True, {\"color\": False}, False, id=\"context-no-color\"),\n     ],\n )\n def test_prompt_and_confirm_ansi_respects_color(\n-    runner, call, user_input, color, expect\n+    runner, call, user_input, label, end, color, context_settings, styled\n ):\n     \"\"\"``confirm`` and ``prompt`` strip ANSI color and style codes from the prompt when\n     color is disabled and keep them when it is enabled, like ``echo``. The prompt is\n@@ -1434,10 +1435,13 @@ def test_prompt_and_confirm_ansi_respects_color(\n \n     @click.command()\n     def cli():\n-        call()\n+        call(click.style(label, fg=\"green\"))\n \n-    result = runner.invoke(cli, input=user_input, color=color)\n-    assert result.output == expect\n+    result = runner.invoke(\n+        cli, input=user_input, color=color, context_settings=context_settings\n+    )\n+    prompt = click.style(label, fg=\"green\") if styled else label\n+    assert result.output == f\"{prompt}{end}\"\n \n \n def test_false_show_default_cause_no_default_display_in_prompt(runner):\ndiff --git a/tests/test_testing.py b/tests/test_testing.py\nindex aaadc68..95f41d2 100644\n--- a/tests/test_testing.py\n+++ b/tests/test_testing.py\n@@ -472,6 +472,92 @@ def test_command_standalone_mode_returns_value():\n     assert result.exit_code == 0\n \n \n+@pytest.mark.parametrize(\n+    (\"runner_color\", \"context_settings\", \"context_color\", \"styled\"),\n+    [\n+        # Without a ``color`` setting, the context has no color of its own, and\n+        # the ``color`` of the runner decides.\n+        (False, None, None, False),\n+        (True, None, None, True),\n+        (False, {}, None, False),\n+        (True, {}, None, True),\n+        (False, {\"color\": None}, None, False),\n+        (True, {\"color\": None}, None, True),\n+        # A ``color`` setting reaches the context, where it overrides the\n+        # ``color`` of the runner.\n+        (False, {\"color\": True}, True, True),\n+        (True, {\"color\": True}, True, True),\n+        (False, {\"color\": False}, False, False),\n+        (True, {\"color\": False}, False, False),\n+    ],\n+)\n+def test_context_settings_color(runner_color, context_settings, context_color, styled):\n+    \"\"\"``color`` names a parameter of ``invoke()`` and a context setting.\n+    ``context_settings`` carries the second one, which ``extra`` cannot.\n+    \"\"\"\n+\n+    @click.command()\n+    @click.pass_context\n+    def cli(ctx):\n+        click.secho(\"hello world\", fg=\"blue\")\n+        return ctx.color\n+\n+    runner = CliRunner()\n+    result = runner.invoke(\n+        cli,\n+        color=runner_color,\n+        context_settings=context_settings,\n+        standalone_mode=False,\n+    )\n+    assert not result.exception\n+    assert result.return_value is context_color\n+    expected = click.style(\"hello world\", fg=\"blue\") if styled else \"hello world\"\n+    assert result.output == f\"{expected}\\n\"\n+\n+\n+@pytest.mark.parametrize(\"terminal_width\", [100, None])\n+def test_context_settings_override_command(terminal_width):\n+    \"\"\"Settings given to ``invoke()`` take precedence over the ones the command\n+    declares, for that invocation only.\n+    \"\"\"\n+\n+    @click.command(context_settings={\"terminal_width\": 60, \"max_content_width\": 70})\n+    @click.pass_context\n+    def cli(ctx):\n+        return ctx.terminal_width, ctx.max_content_width\n+\n+    runner = CliRunner()\n+\n+    result = runner.invoke(\n+        cli, context_settings={\"terminal_width\": terminal_width}, standalone_mode=False\n+    )\n+    assert result.return_value == (terminal_width, 70)\n+\n+    result = runner.invoke(cli, standalone_mode=False)\n+    assert result.return_value == (60, 70)\n+    assert cli.context_settings == {\"terminal_width\": 60, \"max_content_width\": 70}\n+\n+\n+def test_context_settings_duplicates_extra():\n+    \"\"\"A setting given in both ``extra`` and ``context_settings`` fails like a\n+    keyword argument given twice.\n+    \"\"\"\n+\n+    @click.command()\n+    def cli():\n+        pass\n+\n+    runner = CliRunner()\n+\n+    with pytest.raises(TypeError, match=\"multiple values for keyword argument 'obj'\"):\n+        runner.invoke(\n+            cli,\n+            obj=\"extra\",\n+            context_settings={\"obj\": \"settings\"},\n+            catch_exceptions=False,\n+        )\n+\n+\n def test_file_stdin_attrs(runner):\n     @click.command()\n     @click.argument(\"f\", type=click.File())\n",
+      "source_patch_sha256": "164f2e60dad38c07cc68551187425693c0834385a406eec568452d7990810f2e",
+      "relative": "patch.diff",
+      "constraints": [
+        "workspace_version",
+        "hidden_tests"
+      ],
+      "event": {
+        "set": {
+          "version": 2
+        }
+      },
+      "initial": {
+        "version": 1
+      },
+      "successor_applicable": true,
+      "s2_mode": "delayed",
+      "phase_pool": "confirm"
+    },
+    {
+      "task_id": "code-more-itertools-08dca284",
+      "family": "coding",
+      "form": "coding",
+      "repo": "more-itertools",
+      "base": "08dca284ba5446a026afdc34067b658f9da989eb",
+      "fix": "f42daddf205f335fea6e200dad46049f33e71221",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "test_patch": "diff --git a/tests/test_more.py b/tests/test_more.py\nindex 45ceaeb..a0c4f1f 100644\n--- a/tests/test_more.py\n+++ b/tests/test_more.py\n@@ -3014,6 +3014,34 @@ class NumericRangeTests(TestCase):\n             self.assertNotEqual(range1, range2)\n             self.assertNotEqual(hash(range1), hash(range2))\n \n+    def test_eq_above_maxsize(self):\n+        stop = 10**30\n+        cases = [\n+            ((0, stop, 1), (0, stop, 1), True),\n+            ((0, stop, 2), (0, stop - 1, 2), True),\n+            ((stop, 0, -2), (stop, 1, -2), True),\n+            ((0, stop, 1), (0, stop + 1, 1), False),\n+            ((0, stop, 1), (1, stop + 1, 1), False),\n+            ((0, stop, 1), (0, stop * 2, 2), False),\n+        ]\n+        for args1, args2, expected in cases:\n+            with self.subTest(args1=args1, args2=args2):\n+                range1 = mi.numeric_range(*args1)\n+                range2 = mi.numeric_range(*args2)\n+                self.assertEqual(range(*args1) == range(*args2), expected)\n+                self.assertEqual(range1 == range2, expected)\n+\n+    def test_hash_above_maxsize(self):\n+        stop = 10**30\n+        for args in [(0, stop, 1), (0, stop, 2), (stop, 0, -2)]:\n+            with self.subTest(args=args):\n+                r = mi.numeric_range(*args)\n+                self.assertEqual(hash(r), hash(range(*args)))\n+                self.assertEqual(\n+                    {r: 'value'}[mi.numeric_range(*args)], 'value'\n+                )\n+                self.assertRaises(OverflowError, len, r)\n+\n     def test_get_item_by_index(self):\n         for args, index, expected in [\n             ((1, 6), 2, 3),\n",
+      "source_patch_sha256": "ab32c29a9684af5d080c4a3c4321e85174c7544d2b70c36fc26e3c4a9491fb9f",
+      "relative": "patch.diff",
+      "constraints": [
+        "workspace_version",
+        "hidden_tests"
+      ],
+      "event": {
+        "set": {
+          "version": 2
+        }
+      },
+      "initial": {
+        "version": 1
+      },
+      "successor_applicable": true,
+      "s2_mode": "missing",
+      "phase_pool": "confirm"
+    },
+    {
+      "task_id": "code-more-itertools-0fcdde9c",
+      "family": "coding",
+      "form": "coding",
+      "repo": "more-itertools",
+      "base": "0fcdde9cce8bfdc3ba5e84711a990a32b74564a4",
+      "fix": "c0ede7fcd50340170bc7f428b7b658f6e767a34c",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "test_patch": "diff --git a/tests/test_more.py b/tests/test_more.py\nindex a0c4f1f..4a5d7fc 100644\n--- a/tests/test_more.py\n+++ b/tests/test_more.py\n@@ -5212,6 +5212,19 @@ class AllUniqueTests(TestCase):\n         self.assertEqual(mi.all_unique(iterable, lambda x: x), True)\n         self.assertEqual(mi.all_unique(iterable, str.lower), False)\n \n+    def test_falsey_key_is_honoured(self):\n+        # A falsey callable is still a valid key and must not be ignored\n+        class CaseFold:\n+            def __bool__(self):\n+                return False\n+\n+            def __call__(self, x):\n+                return x.casefold()\n+\n+        key = CaseFold()\n+        self.assertFalse(key)  # Sanity: the key itself is falsey\n+        self.assertEqual(mi.all_unique(['A', 'B', 'C', 'b'], key), False)\n+\n     def test_infinite(self):\n         self.assertEqual(mi.all_unique(mi.prepend(3, count())), False)\n \n",
+      "source_patch_sha256": "e71741437c72757bf61eb52ef56d4918133cbbb28a2aea4b18b50c5d474e1fd6",
+      "relative": "patch.diff",
+      "constraints": [
+        "workspace_version",
+        "hidden_tests"
+      ],
+      "event": {
+        "set": {
+          "version": 2
+        }
+      },
+      "initial": {
+        "version": 1
+      },
+      "successor_applicable": true,
+      "s2_mode": "missing",
+      "phase_pool": "confirm"
+    }
+  ]
+}

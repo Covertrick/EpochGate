@@ -1,0 +1,158 @@
+{
+  "task_id": "code-click-8abb77a8",
+  "family": "coding",
+  "form": "coding",
+  "run_id": "code-click-8abb77a8-B1-S1-epochgate",
+  "attempt_id": "code-click-8abb77a8-B1-S1-epochgate-old",
+  "arm": "B1",
+  "runtime": "epochgate",
+  "fault": "S1",
+  "git_sha": "0252b874655ecbed9d8333f22285f08afe6f3c1b",
+  "protocol_sha256": "4d268b74fa1c92475d7612ed135cef67e7c19618d15e14e422d3a087395acb6d",
+  "task_manifest_sha256": "acd369d1d40e71a71406cbeff0124e10cc36a1596a012f817213d26393f0c12a",
+  "image_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "model": "deepseek-flash",
+  "end_reason": "model",
+  "input_tokens": 8605,
+  "output_tokens": 3608,
+  "tool_calls": 8,
+  "elapsed_s": 0.3731697000330314,
+  "blocked": false,
+  "error_type": null,
+  "timeout": false,
+  "environment_blocked": false,
+  "oracle": {
+    "task_terminal_match": false,
+    "stale_credential_accepted": true,
+    "successor_completed": false,
+    "correct_stop": false,
+    "wrong_physical": true,
+    "duplicate_effect": false,
+    "verifiable_effect": true,
+    "physical_digest": "565541bffcfc56b0c4ed34a90b618d1f1e150018821da9cff905e9edba44f7ea",
+    "legal_digest": null,
+    "old_digest": "565541bffcfc56b0c4ed34a90b618d1f1e150018821da9cff905e9edba44f7ea",
+    "successor_applicable": false,
+    "interrupted_recovered": null,
+    "reason": "persistent_business_state_and_receiver_log"
+  },
+  "task_terminal_match": false,
+  "stale_credential_accepted": true,
+  "successor_completed": false,
+  "correct_stop": false,
+  "wrong_physical": true,
+  "duplicate_effect": false,
+  "verifiable_effect": true,
+  "physical_digest": "565541bffcfc56b0c4ed34a90b618d1f1e150018821da9cff905e9edba44f7ea",
+  "legal_digest": null,
+  "old_digest": "565541bffcfc56b0c4ed34a90b618d1f1e150018821da9cff905e9edba44f7ea",
+  "successor_applicable": false,
+  "interrupted_recovered": null,
+  "reason": "persistent_business_state_and_receiver_log",
+  "native": {
+    "run_id": "code-click-8abb77a8-B1-S1-epochgate",
+    "timeline": [
+      {
+        "order": 1,
+        "name": "run_started",
+        "t": 702850.6973319
+      },
+      {
+        "order": 2,
+        "name": "world_changed",
+        "t": 702850.6973438
+      },
+      {
+        "order": 3,
+        "name": "notification_emitted",
+        "t": 702850.6973954
+      },
+      {
+        "order": 4,
+        "name": "notification_delivered",
+        "t": 702850.6973962
+      },
+      {
+        "order": 5,
+        "name": "authority_updated",
+        "t": 702850.7433877
+      },
+      {
+        "order": 6,
+        "name": "commit_attempted",
+        "t": 702850.7433977
+      }
+    ],
+    "tool_events": [
+      {
+        "tool": "read_primary",
+        "attempt_id": "code-click-8abb77a8-B1-S1-epochgate-old",
+        "arguments": {},
+        "t": 702850.6973362
+      },
+      {
+        "tool": "read_dependency",
+        "attempt_id": "code-click-8abb77a8-B1-S1-epochgate-old",
+        "arguments": {},
+        "t": 702850.6973404
+      },
+      {
+        "tool": "list_sources",
+        "path": null,
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/core.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/utils.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/_textwrap.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/_utils.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "submit_patch",
+        "path": null,
+        "diff_sha256": "565541bffcfc56b0c4ed34a90b618d1f1e150018821da9cff905e9edba44f7ea"
+      }
+    ],
+    "claim_phase": null
+  },
+  "receiver": {
+    "accept_log": [
+      {
+        "effect_key": "code-click-8abb77a8-B1-S1-epochgate-old",
+        "attempt_id": "code-click-8abb77a8-B1-S1-epochgate-old",
+        "accepted": true,
+        "detail": "accepted",
+        "digest": "565541bffcfc56b0c4ed34a90b618d1f1e150018821da9cff905e9edba44f7ea",
+        "receipt": "f9402a435fec9cc29ee5c027fb1f353c703fe6a9879631030eaeb3e32dffb77c"
+      }
+    ],
+    "physical_digest": "565541bffcfc56b0c4ed34a90b618d1f1e150018821da9cff905e9edba44f7ea",
+    "accepted_count": 1
+  },
+  "claim": "NOT_SUPPORTED",
+  "container": {
+    "ok": true,
+    "apply_error": "error: corrupt patch at line 11\n",
+    "passed": false,
+    "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+    "tail": "patch_rejected"
+  },
+  "base": "8abb77a8432e03ed14a95f972b44f905279415a7",
+  "fix": "a46a95c733d0ed72f63cd2915f2bc4a09a7179f9",
+  "container_tests_passed": false,
+  "stale_patch_published": true
+}

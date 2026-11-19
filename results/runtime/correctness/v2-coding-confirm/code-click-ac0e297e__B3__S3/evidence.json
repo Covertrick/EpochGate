@@ -1,0 +1,149 @@
+{
+  "task_id": "code-click-ac0e297e",
+  "family": "coding",
+  "form": "coding",
+  "run_id": "code-click-ac0e297e-B3-S3-epochgate",
+  "attempt_id": "code-click-ac0e297e-B3-S3-epochgate-old",
+  "arm": "B3",
+  "runtime": "epochgate",
+  "fault": "S3",
+  "git_sha": "0252b874655ecbed9d8333f22285f08afe6f3c1b",
+  "protocol_sha256": "4d268b74fa1c92475d7612ed135cef67e7c19618d15e14e422d3a087395acb6d",
+  "task_manifest_sha256": "f9167f26ef610c7db99ed9ca8f95ede6a6a5f57314a16f465906070778354e8d",
+  "image_digest": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "model": "deepseek-flash",
+  "end_reason": "model",
+  "input_tokens": 5948,
+  "output_tokens": 4120,
+  "tool_calls": 8,
+  "elapsed_s": 0.39837299997452646,
+  "blocked": false,
+  "error_type": null,
+  "timeout": false,
+  "environment_blocked": false,
+  "oracle": {
+    "task_terminal_match": false,
+    "stale_credential_accepted": false,
+    "successor_completed": false,
+    "correct_stop": false,
+    "wrong_physical": true,
+    "duplicate_effect": false,
+    "verifiable_effect": true,
+    "physical_digest": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101",
+    "legal_digest": null,
+    "old_digest": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101",
+    "successor_applicable": false,
+    "interrupted_recovered": true,
+    "reason": "persistent_business_state_and_receiver_log"
+  },
+  "task_terminal_match": false,
+  "stale_credential_accepted": false,
+  "successor_completed": false,
+  "correct_stop": false,
+  "wrong_physical": true,
+  "duplicate_effect": false,
+  "verifiable_effect": true,
+  "physical_digest": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101",
+  "legal_digest": null,
+  "old_digest": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101",
+  "successor_applicable": false,
+  "interrupted_recovered": true,
+  "reason": "persistent_business_state_and_receiver_log",
+  "native": {
+    "run_id": "code-click-ac0e297e-B3-S3-epochgate",
+    "timeline": [
+      {
+        "order": 1,
+        "name": "run_started",
+        "t": 703123.5007239
+      },
+      {
+        "order": 2,
+        "name": "world_changed",
+        "t": 703123.5007347
+      },
+      {
+        "order": 3,
+        "name": "commit_attempted",
+        "t": 703123.5008508
+      }
+    ],
+    "tool_events": [
+      {
+        "tool": "read_primary",
+        "attempt_id": "code-click-ac0e297e-B3-S3-epochgate-old",
+        "arguments": {},
+        "t": 703123.5007282
+      },
+      {
+        "tool": "read_dependency",
+        "attempt_id": "code-click-ac0e297e-B3-S3-epochgate-old",
+        "arguments": {},
+        "t": 703123.5007327
+      },
+      {
+        "tool": "list_sources",
+        "path": null,
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/core.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/__init__.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/_utils.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "read_file",
+        "path": "src/click/decorators.py",
+        "diff_sha256": null
+      },
+      {
+        "tool": "submit_patch",
+        "path": null,
+        "diff_sha256": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101"
+      }
+    ],
+    "claim_phase": "claimed"
+  },
+  "receiver": {
+    "accept_log": [
+      {
+        "effect_key": "code-click-ac0e297e-B3-S3-epochgate-old",
+        "attempt_id": "code-click-ac0e297e-B3-S3-epochgate-old",
+        "accepted": true,
+        "detail": "accepted",
+        "digest": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101",
+        "receipt": "8911236c7325e969dffa46a3035ab5dc336046aa419629d854f2f4b4b2674336"
+      }
+    ],
+    "physical_digest": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101",
+    "accepted_count": 1
+  },
+  "claim": {
+    "status": "claimed",
+    "digest": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101",
+    "effect_key": "code-click-ac0e297e-B3-S3-epochgate-old",
+    "attempt_id": "code-click-ac0e297e-B3-S3-epochgate-old",
+    "payload_sha256": "30cd70e5b5b8a02c10a41f84fc707da3b1dca6509712afcc80d5c6d9587d0101"
+  },
+  "container": {
+    "ok": true,
+    "passed": false,
+    "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+    "tail": "FAILED tests/test_testing.py::test_context_settings_override_command[100] - a...\nFAILED tests/test_testing.py::test_context_settings_override_command[None] - ...\nFAILED tests/test_testing.py::test_context_settings_duplicates_extra - Assert...\n24 failed, 305 passed, 24 skipped in 2.03s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv",
+    "returncode": 1
+  },
+  "base": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+  "fix": "90a2973f85fffc4d8a20effb2bcdff3f394c5e62",
+  "container_tests_passed": false,
+  "stale_patch_published": false
+}

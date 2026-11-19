@@ -1,0 +1,1523 @@
+{
+  "image": "python:3.10-slim",
+  "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "image_matches_protocol": true,
+  "window": 12,
+  "repos": [
+    "click",
+    "h11",
+    "itsdangerous",
+    "markupsafe",
+    "more-itertools",
+    "packaging"
+  ],
+  "candidates": [
+    {
+      "repo": "click",
+      "base": "e38188e9e205005d5af5f9e59df51904c984586a",
+      "fix": "08b803cf32ceb2ae6a772c62d5da42757a897d44",
+      "tests": [
+        "tests/test_arguments.py",
+        "tests/test_deprecations.py",
+        "tests/test_options.py",
+        "tests/test_utils/test_sentinel.py"
+      ],
+      "sources": [
+        "src/click/_compat.py",
+        "src/click/_termui_impl.py",
+        "src/click/_utils.py",
+        "src/click/core.py",
+        "src/click/utils.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 4,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    from .core import Argument as Argument\nsrc/click/core.py:24: in <module>\n    from . import types\nsrc/click/types.py:250: in <module>\n    class FuncParamTypeInfoDict(ParamTypeInfoDict, t.Generic[_ValueT_contra, _ValueT_co]):\n/usr/local/lib/python3.10/typing.py:2348: in __new__\n    raise TypeError('cannot inherit from both a TypedDict type '\nE   TypeError: cannot inherit from both a TypedDict type and a non-TypedDict base class"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "click",
+      "base": "884772088134d701385458a99bb6da0a5bb80d42",
+      "fix": "34e513b402804d0ab489b586ab3d7eb90a261bda",
+      "tests": [
+        "tests/test_utils/test_sentinel.py"
+      ],
+      "sources": [
+        "src/click/_utils.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 4,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    from .core import Argument as Argument\nsrc/click/core.py:24: in <module>\n    from . import types\nsrc/click/types.py:250: in <module>\n    class FuncParamTypeInfoDict(ParamTypeInfoDict, t.Generic[_ValueT_contra, _ValueT_co]):\n/usr/local/lib/python3.10/typing.py:2348: in __new__\n    raise TypeError('cannot inherit from both a TypedDict type '\nE   TypeError: cannot inherit from both a TypedDict type and a non-TypedDict base class"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "click",
+      "base": "e38188e9e205005d5af5f9e59df51904c984586a",
+      "fix": "884772088134d701385458a99bb6da0a5bb80d42",
+      "tests": [
+        "tests/test_arguments.py",
+        "tests/test_deprecations.py",
+        "tests/test_options.py"
+      ],
+      "sources": [
+        "src/click/_compat.py",
+        "src/click/_termui_impl.py",
+        "src/click/core.py",
+        "src/click/utils.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 4,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    from .core import Argument as Argument\nsrc/click/core.py:24: in <module>\n    from . import types\nsrc/click/types.py:250: in <module>\n    class FuncParamTypeInfoDict(ParamTypeInfoDict, t.Generic[_ValueT_contra, _ValueT_co]):\n/usr/local/lib/python3.10/typing.py:2348: in __new__\n    raise TypeError('cannot inherit from both a TypedDict type '\nE   TypeError: cannot inherit from both a TypedDict type and a non-TypedDict base class"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "click",
+      "base": "8d0cd41bb5c36b792cc3a22d2c668472b8b9b079",
+      "fix": "e38188e9e205005d5af5f9e59df51904c984586a",
+      "tests": [
+        "tests/test_basic.py",
+        "tests/test_options.py",
+        "tests/typing/typing_aliased_group.py",
+        "tests/typing/typing_confirmation_option.py",
+        "tests/typing/typing_edit.py",
+        "tests/typing/typing_group_kw_options.py",
+        "tests/typing/typing_help_option.py",
+        "tests/typing/typing_options.py",
+        "tests/typing/typing_password_option.py",
+        "tests/typing/typing_path.py",
+        "tests/typing/typing_progressbar.py",
+        "tests/typing/typing_prompt.py",
+        "tests/typing/typing_simple_example.py",
+        "tests/typing/typing_version_option.py"
+      ],
+      "sources": [
+        "src/click/core.py",
+        "src/click/decorators.py",
+        "src/click/types.py",
+        "src/click/utils.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "ERROR tests/typing/typing_progressbar.py\nERROR tests/typing/typing_prompt.py\nERROR tests/typing/typing_simple_example.py\nERROR tests/typing/typing_version_option.py\n!!!!!!!!!!!!!!!!!!! Interrupted: 13 errors during collection !!!!!!!!!!!!!!!!!!!\n13 errors in 1.77s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "click",
+      "base": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "fix": "a46a95c733d0ed72f63cd2915f2bc4a09a7179f9",
+      "tests": [
+        "tests/test_compat.py",
+        "tests/test_formatting.py"
+      ],
+      "sources": [
+        "src/click/_textwrap.py",
+        "src/click/formatting.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_formatting.py::test_help_formatter_write_usage_keeps_arguments_whole[argument-wider-than-line]\nFAILED tests/test_formatting.py::test_help_formatter_write_usage_keeps_arguments_whole[arguments-below-program-name]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_usage]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_text]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_dl]\n10 failed, 205 passed in 6.69s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 33%]\n........................................................................ [ 66%]\n.......................................................................  [100%]\n215 passed in 1.20s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "click",
+      "base": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "fix": "a2b9b2f29580aa253fdbc210718f047a1e98b916",
+      "tests": [
+        "tests/test_basic.py",
+        "tests/test_options.py",
+        "tests/typing/typing_aliased_group.py",
+        "tests/typing/typing_confirmation_option.py",
+        "tests/typing/typing_edit.py",
+        "tests/typing/typing_group_kw_options.py",
+        "tests/typing/typing_help_option.py",
+        "tests/typing/typing_options.py",
+        "tests/typing/typing_password_option.py",
+        "tests/typing/typing_path.py",
+        "tests/typing/typing_progressbar.py",
+        "tests/typing/typing_prompt.py",
+        "tests/typing/typing_simple_example.py",
+        "tests/typing/typing_version_option.py"
+      ],
+      "sources": [
+        "src/click/core.py",
+        "src/click/decorators.py",
+        "src/click/types.py",
+        "src/click/utils.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "ERROR tests/typing/typing_progressbar.py\nERROR tests/typing/typing_prompt.py\nERROR tests/typing/typing_simple_example.py\nERROR tests/typing/typing_version_option.py\n!!!!!!!!!!!!!!!!!!! Interrupted: 13 errors during collection !!!!!!!!!!!!!!!!!!!\n13 errors in 2.18s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "click",
+      "base": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "fix": "7996a89c5a4ce1c451e2e1c9c5a00eb0c844d4ce",
+      "tests": [
+        "tests/test_compat.py",
+        "tests/test_formatting.py"
+      ],
+      "sources": [
+        "src/click/_textwrap.py",
+        "src/click/formatting.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_formatting.py::test_help_formatter_write_usage_keeps_arguments_whole[argument-wider-than-line]\nFAILED tests/test_formatting.py::test_help_formatter_write_usage_keeps_arguments_whole[arguments-below-program-name]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_usage]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_text]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_dl]\n10 failed, 205 passed in 6.91s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 33%]\n........................................................................ [ 66%]\n.......................................................................  [100%]\n215 passed in 1.16s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "click",
+      "base": "dd149eb3129d887a22202c3fafa5ceb0e0d7018d",
+      "fix": "fdb65f4809719580436acb067410cec64433e5de",
+      "tests": [
+        "tests/test_termui.py",
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_testing.py::test_context_settings_color[False-context_settings8-False-False]\nFAILED tests/test_testing.py::test_context_settings_color[True-context_settings9-False-False]\nFAILED tests/test_testing.py::test_context_settings_override_command[100] - a...\nFAILED tests/test_testing.py::test_context_settings_override_command[None] - ...\nFAILED tests/test_testing.py::test_context_settings_duplicates_extra - Assert...\n24 failed, 305 passed, 24 skipped in 2.55s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................ssssssssssssssss [ 20%]\nsssss..................ss............................................... [ 40%]\n........................................................................ [ 61%]\n........................................................................ [ 81%]\n.....................................................s...........        [100%]\n329 passed, 24 skipped in 2.55s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "click",
+      "base": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+      "fix": "dd149eb3129d887a22202c3fafa5ceb0e0d7018d",
+      "tests": [
+        "tests/test_abort_interrupt.py",
+        "tests/test_arguments.py",
+        "tests/test_basic.py",
+        "tests/test_commands.py",
+        "tests/test_context.py",
+        "tests/test_defaults.py",
+        "tests/test_formatting.py",
+        "tests/test_options.py",
+        "tests/test_stream_lifecycle.py",
+        "tests/test_termui.py",
+        "tests/test_testing.py",
+        "tests/test_types/test_File.py",
+        "tests/test_types/test_convert_type.py",
+        "tests/test_utils/test_echo.py",
+        "tests/test_utils/test_echo_via_pager.py",
+        "tests/test_utils/test_prompt.py",
+        "tests/test_utils/test_style.py"
+      ],
+      "sources": [
+        "src/click/_termui_impl.py",
+        "src/click/core.py",
+        "src/click/decorators.py",
+        "src/click/shell_completion.py",
+        "src/click/testing.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test8- less]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test8- less ]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test9-less]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test9- less]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test9- less ]\n34 failed, 2087 passed, 24 skipped, 31000 deselected in 18.72s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test8- less]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test8- less ]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test9-less]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test9- less]\nFAILED tests/test_utils/test_echo_via_pager.py::test_echo_via_pager[test9- less ]\n24 failed, 2097 passed, 24 skipped, 31000 deselected in 16.26s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "fix_did_not_pass"
+    },
+    {
+      "repo": "click",
+      "base": "57d9ac6c2cf793217c7d7b5386281539f17d701c",
+      "fix": "831a687bc823391fa9897536081e0f81b0f7057b",
+      "tests": [
+        "tests/test_arguments.py",
+        "tests/test_deprecations.py",
+        "tests/test_options.py",
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/core.py",
+        "src/click/testing.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    raise PackageNotFoundError(name)\nE   importlib.metadata.PackageNotFoundError: No package metadata was found for click\n=========================== short test summary info ============================\nERROR tests/test_deprecations.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 1.62s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "click",
+      "base": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+      "fix": "90a2973f85fffc4d8a20effb2bcdff3f394c5e62",
+      "tests": [
+        "tests/test_termui.py",
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_testing.py::test_context_settings_color[False-context_settings8-False-False]\nFAILED tests/test_testing.py::test_context_settings_color[True-context_settings9-False-False]\nFAILED tests/test_testing.py::test_context_settings_override_command[100] - a...\nFAILED tests/test_testing.py::test_context_settings_override_command[None] - ...\nFAILED tests/test_testing.py::test_context_settings_duplicates_extra - Assert...\n24 failed, 305 passed, 24 skipped in 2.37s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................ssssssssssssssss [ 20%]\nsssss..................ss............................................... [ 40%]\n........................................................................ [ 61%]\n........................................................................ [ 81%]\n.....................................................s...........        [100%]\n329 passed, 24 skipped in 2.23s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "click",
+      "base": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+      "fix": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+      "tests": [
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_testing.py::test_echo_stdin_control_bytes[eot-alone] - asse...\nFAILED tests/test_testing.py::test_echo_stdin_control_bytes[eot-mid-chunk] - ...\nFAILED tests/test_testing.py::test_echo_stdin_control_byte_is_not_a_line[text]\nFAILED tests/test_testing.py::test_echo_stdin_control_byte_is_not_a_line[binary]\nFAILED tests/test_testing.py::test_echo_stdin_control_byte_is_not_a_line[readlines]\n7 failed, 45 passed, 1 skipped in 0.64s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".........................................s...........                    [100%]\n52 passed, 1 skipped in 0.70s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "itsdangerous",
+      "base": "117218e006641644a038772e557a3ae6cb1448a1",
+      "fix": "4dffa1963f896a0a311dec3c14f003a5f382c446",
+      "tests": [
+        "tests/test_itsdangerous/test_serializer.py"
+      ],
+      "sources": [
+        "src/itsdangerous/serializer.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".........................................                                [100%]\n41 passed in 0.76s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "itsdangerous",
+      "base": "117218e006641644a038772e557a3ae6cb1448a1",
+      "fix": "7edfa12ed562c5d5e9d6faa06812e42f02efb0e0",
+      "tests": [
+        "tests/test_itsdangerous/test_serializer.py"
+      ],
+      "sources": [
+        "src/itsdangerous/serializer.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".........................................                                [100%]\n41 passed in 0.85s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "itsdangerous",
+      "base": "93ae366874bbd4f69d90495c45b2cd336387496c",
+      "fix": "2f69e841d2a979c616a55b226e444694f5d9c962",
+      "tests": [
+        "tests/test_itsdangerous/test_serializer.py"
+      ],
+      "sources": [
+        "src/itsdangerous/signer.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    from itsdangerous.signer import _lazy_sha1\nE   ImportError: cannot import name '_lazy_sha1' from 'itsdangerous.signer' (/src/src/itsdangerous/signer.py)\n=========================== short test summary info ============================\nERROR tests/test_itsdangerous/test_serializer.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.75s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "itsdangerous",
+      "base": "93ae366874bbd4f69d90495c45b2cd336387496c",
+      "fix": "7f4dcf83a07bb3d53f4e0e65ef1b43327b4cca90",
+      "tests": [
+        "tests/test_itsdangerous/test_serializer.py"
+      ],
+      "sources": [
+        "src/itsdangerous/signer.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    from itsdangerous.signer import _lazy_sha1\nE   ImportError: cannot import name '_lazy_sha1' from 'itsdangerous.signer' (/src/src/itsdangerous/signer.py)\n=========================== short test summary info ============================\nERROR tests/test_itsdangerous/test_serializer.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.74s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "itsdangerous",
+      "base": "7c6286ed2125c87662eeb102b32fb3d68611a5d6",
+      "fix": "05c805fce50a058ecc72ecbb91d02c98dc4a82ac",
+      "tests": [
+        "tests/test_itsdangerous/test_serializer.py"
+      ],
+      "sources": [
+        "docs/conf.py",
+        "src/itsdangerous/timed.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".........................................                                [100%]\n41 passed in 0.87s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "itsdangerous",
+      "base": "7c6286ed2125c87662eeb102b32fb3d68611a5d6",
+      "fix": "9a25d989cd65c4991c2c8ac46ef55e0e8dfe49ab",
+      "tests": [
+        "tests/test_itsdangerous/test_serializer.py"
+      ],
+      "sources": [
+        "docs/conf.py",
+        "src/itsdangerous/timed.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".........................................                                [100%]\n41 passed in 0.70s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "markupsafe",
+      "base": "de440417ca200b451f0ac06070d0795acb0faa68",
+      "fix": "42703532bfa7731731015902d17ebc1790a2d4d0",
+      "tests": [
+        "tests/test_ext_init.py"
+      ],
+      "sources": [
+        "src/markupsafe/__init__.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "ss                                                                       [100%]\n2 skipped in 0.10s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "0fcdde9cce8bfdc3ba5e84711a990a32b74564a4",
+      "fix": "c0ede7fcd50340170bc7f428b7b658f6e767a34c",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "=================================== FAILURES ===================================\nE   AssertionError: True != False\n/usr/local/lib/python3.10/unittest/case.py:838: AssertionError: True != False\n=========================== short test summary info ============================\nFAILED tests/test_more.py::AllUniqueTests::test_falsey_key_is_honoured - Asse...\n1 failed, 626 passed, 11327 subtests passed in 49.82s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "............................................................................................................ [ 54%]\n.................................................................................................................................. [ 75%]\n............................ [ 79%]\n................................................................................................................ [ 97%]\n.............. [100%]\n627 passed, 11327 subtests passed in 48.67s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "172bcb3c5c7f22f24da608d13fa25d1576248067",
+      "fix": "c5a8876c9de994e1feaeaf3c221a1921d9c7eef5",
+      "tests": [
+        "tests/test_more.py",
+        "tests/test_recipes.py"
+      ],
+      "sources": [
+        "more_itertools/__init__.py",
+        "more_itertools/more.py",
+        "more_itertools/recipes.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "SUBFAILED(args=(0, 1000000000000000000000000000000, 1)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(1000000000000000000000000000000, 0, -2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nFAILED tests/test_more.py::ChunkedEvenTests::test_negative_chunk_size - Asser...\nFAILED tests/test_more.py::ChunkedEvenTests::test_zero_chunk_size - ValueErro...\n13 failed, 768 passed, 21194 subtests passed in 59.33s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "................................................................................................................................ [ 61%]\n............................ [ 64%]\n................................................................................................................ [ 79%]\n......................................................................................................................................... [ 97%]\n......................                                                          [100%]\n772 passed, 21203 subtests passed in 64.36s (0:01:04)\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "08dca284ba5446a026afdc34067b658f9da989eb",
+      "fix": "f42daddf205f335fea6e200dad46049f33e71221",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "\nSUBFAILED(args1=(0, 1000000000000000000000000000000, 1), args2=(0, 2000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_eq_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 1)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(1000000000000000000000000000000, 0, -2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\n9 failed, 626 passed, 11318 subtests passed in 53.13s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "............................................................................................................ [ 54%]\n.................................................................................................................................. [ 75%]\n............................ [ 80%]\n.................................................... [ 88%]\n......................................................................... [100%]\n626 passed, 11327 subtests passed in 53.85s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "08dca284ba5446a026afdc34067b658f9da989eb",
+      "fix": "c629214760c78c0a2235e896d335cccfb3a64466",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "\nSUBFAILED(args1=(0, 1000000000000000000000000000000, 1), args2=(0, 2000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_eq_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 1)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(1000000000000000000000000000000, 0, -2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\n9 failed, 626 passed, 11318 subtests passed in 51.31s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "............................................................................................................ [ 54%]\n.................................................................................................................................. [ 75%]\n............................ [ 80%]\n.................................................... [ 88%]\n......................................................................... [100%]\n626 passed, 11327 subtests passed in 45.44s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "20c4ee5c63f8f8c35a37aee3b69d95cd2450c09a",
+      "fix": "08dca284ba5446a026afdc34067b658f9da989eb",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "E   ValueError: Step for islice() must be a positive integer or None.\n/src/more_itertools/more.py:4648: ValueError: Step for islice() must be a positive integer or None.\n=========================== short test summary info ============================\nFAILED tests/test_more.py::ChunkedEvenTests::test_negative_chunk_size - Asser...\nFAILED tests/test_more.py::ChunkedEvenTests::test_zero_chunk_size - ValueErro...\n2 failed, 622 passed, 11318 subtests passed in 52.39s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".................................... [ 67%]\n............................................................ [ 77%]\n....................... [ 80%]\n......................................................... [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 55.81s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "4aeb4338ae1407d8da9723e86da99efeb446f719",
+      "fix": "69dbc3392928afe1cc892a387bf0e721522f21c2",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "E   AssertionError: source read past reverse-slice boundary\n/src/tests/test_more.py:356: AssertionError: source read past reverse-slice boundary\n=========================== short test summary info ============================\nFAILED tests/test_more.py::PeekableTests::test_slicing_negative_step_omitted_stop\nFAILED tests/test_more.py::PeekableTests::test_slicing_negative_step_omitted_stop_read_bound\n2 failed, 620 passed, 11318 subtests passed in 52.90s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".................................. [ 62%]\n.................................... [ 67%]\n............................................................ [ 77%]\n................................................................................ [ 90%]\n............................................................             [100%]\n622 passed, 11318 subtests passed in 54.04s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "4aeb4338ae1407d8da9723e86da99efeb446f719",
+      "fix": "fbd55137fe47b44f55190c3714c75f1b21bf834d",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "E   ValueError: Step for islice() must be a positive integer or None.\n/src/more_itertools/more.py:4638: ValueError: Step for islice() must be a positive integer or None.\n=========================== short test summary info ============================\nFAILED tests/test_more.py::ChunkedEvenTests::test_negative_chunk_size - Asser...\nFAILED tests/test_more.py::ChunkedEvenTests::test_zero_chunk_size - ValueErro...\n2 failed, 620 passed, 11318 subtests passed in 47.58s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "....................................................................................................................................................... [ 62%]\n.................................... [ 67%]\n............................................................ [ 77%]\n................................................................................ [ 90%]\n............................................................             [100%]\n622 passed, 11318 subtests passed in 50.99s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "e6ce1b0f65a57c459fc5004ad84158447b65b0ac",
+      "fix": "a00e2b34c7a3cc895aa7df117d16222da8316b08",
+      "tests": [
+        "tests/test_recipes.py"
+      ],
+      "sources": [
+        "more_itertools/__init__.py",
+        "more_itertools/recipes.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "....................................................................................................... [ 71%]\n...................... [ 86%]\n....................                                                            [100%]\n145 passed, 9876 subtests passed in 14.52s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "b21ec4ee8e139ebe297e2221980a694bebb69523",
+      "fix": "737c261c21271e1a6eb949f7d188297bebe8b125",
+      "tests": [
+        "tests/test_recipes.py"
+      ],
+      "sources": [
+        "more_itertools/__init__.py",
+        "more_itertools/recipes.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "....................................................................................................... [ 71%]\n...................... [ 86%]\n....................                                                            [100%]\n145 passed, 9876 subtests passed in 14.13s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "b21ec4ee8e139ebe297e2221980a694bebb69523",
+      "fix": "e6ce1b0f65a57c459fc5004ad84158447b65b0ac",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "=================================== FAILURES ===================================\nE   AssertionError: 100 != 6\n/usr/local/lib/python3.10/unittest/case.py:838: AssertionError: 100 != 6\n=========================== short test summary info ============================\nFAILED tests/test_more.py::PeekableTests::test_slicing_negative_step_omitted_stop\n1 failed, 620 passed, 11318 subtests passed in 47.18s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".................................. [ 62%]\n.................................... [ 67%]\n............................................................ [ 77%]\n................................................................................ [ 90%]\n...........................................................              [100%]\n621 passed, 11318 subtests passed in 49.04s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "0ab351d380cccb5b6989ca437cf92aa8fdfafe81",
+      "fix": "98562cab0718e79404bb64bdd355541c90c6bdcb",
+      "tests": [
+        "tests/test_recipes.py"
+      ],
+      "sources": [
+        "more_itertools/recipes.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "....................................................................................................... [ 71%]\n...................... [ 86%]\n....................                                                            [100%]\n145 passed, 9876 subtests passed in 17.11s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "4e2c3414eff309842beaa86be17273821f4a51cc",
+      "fix": "0ab351d380cccb5b6989ca437cf92aa8fdfafe81",
+      "tests": [
+        "tests/test_recipes.py"
+      ],
+      "sources": [
+        "more_itertools/recipes.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "............................................................................................................................. [ 85%]\n......................                                                          [100%]\n147 passed, 9876 subtests passed in 15.55s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "packaging",
+      "base": "dec6213e562b69ffb680d5b9a82a899fafe4dc02",
+      "fix": "f91ea7931fa551eb498ca2cdf5644dbbf20bcbc6",
+      "tests": [
+        "tests/test_markers.py",
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/markers.py",
+        "src/packaging/requirements.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "/src/tests/test_requirements.py:418: AttributeError: 'LocatedError' object has no attribute 'filename'\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1380: copy.replace() requires Python 3.13\nFAILED tests/test_markers.py::TestMarker::test_invalid_marker_defers_argument_formatting\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_subclass_can_initialize_context\n2 failed, 7921 passed, 1 skipped in 28.88s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 99%]\n........................................................................ [ 99%]\n...s                                                                     [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1380: copy.replace() requires Python 3.13\n7923 passed, 1 skipped in 29.94s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "f1c57155f97329b1723b3c088dd664f9294f3d25",
+      "fix": "2a23b52ea95a064fb0183523d542486dfc2f86a7",
+      "tests": [
+        "tests/test_direct_url.py",
+        "tests/test_pylock.py"
+      ],
+      "sources": [
+        "noxfile.py",
+        "tasks/pickle_compat.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    import tomli_w\nE   ModuleNotFoundError: No module named 'tomli_w'\n=========================== short test summary info ============================\nERROR tests/test_pylock.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.80s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "packaging",
+      "base": "0efe21aa398df645c259ee31e54a8a4400b1fc6b",
+      "fix": "f1c57155f97329b1723b3c088dd664f9294f3d25",
+      "tests": [
+        "tests/test_direct_url.py",
+        "tests/test_pylock.py"
+      ],
+      "sources": [
+        "src/packaging/_structures.py",
+        "src/packaging/direct_url.py",
+        "src/packaging/pylock.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    import tomli_w\nE   ModuleNotFoundError: No module named 'tomli_w'\n=========================== short test summary info ============================\nERROR tests/test_pylock.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.83s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "packaging",
+      "base": "46167dcdb1c8ae42c2dd72d3fdb91564be65a0db",
+      "fix": "0efe21aa398df645c259ee31e54a8a4400b1fc6b",
+      "tests": [
+        "tests/test_markers.py",
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/markers.py",
+        "src/packaging/requirements.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_markers.py::TestMarker::test_invalid_marker_manual_construction\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_syntax_details\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_details_absent_for_non_syntax_error\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_details_pickle\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_manual_construction\n6 failed, 7915 passed, 1 skipped in 28.73s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 99%]\n........................................................................ [ 99%]\n.s                                                                       [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1366: copy.replace() requires Python 3.13\n7921 passed, 1 skipped in 28.47s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "ecf963ad0dccf246d1e774c7ede599241e9205b0",
+      "fix": "46167dcdb1c8ae42c2dd72d3fdb91564be65a0db",
+      "tests": [
+        "tests/test_ranges.py"
+      ],
+      "sources": [
+        "src/packaging/ranges.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[3-ClassStateRange-ClassStateRange]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[4-StaticStateRange-constraint]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[4-ClassStateRange-ClassStateRange]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[5-StaticStateRange-constraint]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[5-ClassStateRange-ClassStateRange]\n338 failed, 1271 passed in 7.12s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 85%]\n........................................................................ [ 89%]\n........................................................................ [ 93%]\n........................................................................ [ 98%]\n.........................                                                [100%]\n1609 passed in 6.25s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "72475e5f85c951804ac3273f13e0541edb1ec512",
+      "fix": "72f951fde68ca849f2ad5f2db819ba26fae7d76d",
+      "tests": [
+        "tests/test_tokenizer.py"
+      ],
+      "sources": [
+        "src/packaging/_parser.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "...................                                                      [100%]\n19 passed in 0.32s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "packaging",
+      "base": "154b7c8759cf9e601a43a5fbea09406fae4a19e0",
+      "fix": "1a62128470d7489b8ad7c643d3a3e6ba02f90711",
+      "tests": [
+        "tests/test_specifiers.py"
+      ],
+      "sources": [
+        "src/packaging/specifiers.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    import pretend\nE   ModuleNotFoundError: No module named 'pretend'\n=========================== short test summary info ============================\nERROR tests/test_specifiers.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.79s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "packaging",
+      "base": "5a7d3386d2777180a381eb947f21293124ce8df5",
+      "fix": "154b7c8759cf9e601a43a5fbea09406fae4a19e0",
+      "tests": [
+        "tests/property/test_specifier_fast_match.py",
+        "tests/test_specifiers.py"
+      ],
+      "sources": [
+        "src/packaging/_ranges.py",
+        "src/packaging/specifiers.py",
+        "src/packaging/version.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "E   ModuleNotFoundError: No module named 'pretend'\n=========================== short test summary info ============================\nERROR tests/property/test_specifier_fast_match.py\nERROR tests/test_specifiers.py\n!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!!\n2 errors in 1.20s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "packaging",
+      "base": "a00861f4cb12f5705a95e277862cdcd7387abfde",
+      "fix": "5a7d3386d2777180a381eb947f21293124ce8df5",
+      "tests": [
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/_parser.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "y:1331: copy.replace() requires Python 3.13\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[===arbitrarystring,>= 1]\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[===arbitrarystring, >=1]\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[ (===arbitrarystring,>= 1)]\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[===arbitrarystring,>= 1 ; python_version >= '3']\n4 failed, 5407 passed, 1 skipped in 20.00s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 98%]\n........................................................................ [ 99%]\n...........s                                                             [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1331: copy.replace() requires Python 3.13\n5411 passed, 1 skipped in 19.25s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "7f97c257563e57a85627bb7e2d6b165ccee67fbf",
+      "fix": "4d7875f85e64aa9d56fe69af5eb017e796659fd1",
+      "tests": [
+        "tests/test_markers.py",
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/_parser.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 2,
+        "verdict": "unreadable",
+        "failed": false,
+        "passed": false,
+        "tail": "    from packaging._parser import (\nE   ImportError: cannot import name '_MAX_MARKER_NESTING' from 'packaging._parser' (/src/src/packaging/_parser.py)\n=========================== short test summary info ============================\nERROR tests/test_markers.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 1.20s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "container_result_unreadable"
+    },
+    {
+      "repo": "packaging",
+      "base": "8b564133a5add5c6117d656329c202c000fa2d14",
+      "fix": "a48d678b3cf6a8bb26abc1a0d91830a25257f420",
+      "tests": [
+        "tests/test_licenses.py"
+      ],
+      "sources": [
+        "src/packaging/licenses/__init__.py"
+      ],
+      "feasible": false,
+      "before": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "...........................................................              [100%]\n59 passed in 0.62s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "hidden_test_did_not_fail"
+    },
+    {
+      "repo": "packaging",
+      "base": "8e21512a575ff7cab33e15f77d5f67f278271f07",
+      "fix": "8efde605cc2666f4ab75e028b578b395ba288401",
+      "tests": [
+        "tests/test_dependency_groups.py"
+      ],
+      "sources": [
+        "src/packaging/dependency_groups.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "=========================== short test summary info ============================\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[group1-Group1-group1]\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[group1-GROUP1-group1]\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[a.b-A_B-a-b]\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[a_b-A.B-a-b]\n4 failed, 46 passed in 0.66s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "..................................................                       [100%]\n50 passed in 0.61s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    }
+  ],
+  "feasible": [
+    {
+      "repo": "click",
+      "base": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+      "fix": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+      "tests": [
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_testing.py::test_echo_stdin_control_bytes[eot-alone] - asse...\nFAILED tests/test_testing.py::test_echo_stdin_control_bytes[eot-mid-chunk] - ...\nFAILED tests/test_testing.py::test_echo_stdin_control_byte_is_not_a_line[text]\nFAILED tests/test_testing.py::test_echo_stdin_control_byte_is_not_a_line[binary]\nFAILED tests/test_testing.py::test_echo_stdin_control_byte_is_not_a_line[readlines]\n7 failed, 45 passed, 1 skipped in 0.64s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".........................................s...........                    [100%]\n52 passed, 1 skipped in 0.70s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "click",
+      "base": "8abb77a8432e03ed14a95f972b44f905279415a7",
+      "fix": "a46a95c733d0ed72f63cd2915f2bc4a09a7179f9",
+      "tests": [
+        "tests/test_compat.py",
+        "tests/test_formatting.py"
+      ],
+      "sources": [
+        "src/click/_textwrap.py",
+        "src/click/formatting.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_formatting.py::test_help_formatter_write_usage_keeps_arguments_whole[argument-wider-than-line]\nFAILED tests/test_formatting.py::test_help_formatter_write_usage_keeps_arguments_whole[arguments-below-program-name]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_usage]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_text]\nFAILED tests/test_formatting.py::test_help_formatter_keeps_words_whole[write_dl]\n10 failed, 205 passed in 6.69s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 33%]\n........................................................................ [ 66%]\n.......................................................................  [100%]\n215 passed in 1.20s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "click",
+      "base": "ac0e297ec2d7d78455a7d18ce306996e668c4a85",
+      "fix": "90a2973f85fffc4d8a20effb2bcdff3f394c5e62",
+      "tests": [
+        "tests/test_termui.py",
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_testing.py::test_context_settings_color[False-context_settings8-False-False]\nFAILED tests/test_testing.py::test_context_settings_color[True-context_settings9-False-False]\nFAILED tests/test_testing.py::test_context_settings_override_command[100] - a...\nFAILED tests/test_testing.py::test_context_settings_override_command[None] - ...\nFAILED tests/test_testing.py::test_context_settings_duplicates_extra - Assert...\n24 failed, 305 passed, 24 skipped in 2.37s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................ssssssssssssssss [ 20%]\nsssss..................ss............................................... [ 40%]\n........................................................................ [ 61%]\n........................................................................ [ 81%]\n.....................................................s...........        [100%]\n329 passed, 24 skipped in 2.23s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "click",
+      "base": "dd149eb3129d887a22202c3fafa5ceb0e0d7018d",
+      "fix": "fdb65f4809719580436acb067410cec64433e5de",
+      "tests": [
+        "tests/test_termui.py",
+        "tests/test_testing.py"
+      ],
+      "sources": [
+        "src/click/testing.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_testing.py::test_context_settings_color[False-context_settings8-False-False]\nFAILED tests/test_testing.py::test_context_settings_color[True-context_settings9-False-False]\nFAILED tests/test_testing.py::test_context_settings_override_command[100] - a...\nFAILED tests/test_testing.py::test_context_settings_override_command[None] - ...\nFAILED tests/test_testing.py::test_context_settings_duplicates_extra - Assert...\n24 failed, 305 passed, 24 skipped in 2.55s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................ssssssssssssssss [ 20%]\nsssss..................ss............................................... [ 40%]\n........................................................................ [ 61%]\n........................................................................ [ 81%]\n.....................................................s...........        [100%]\n329 passed, 24 skipped in 2.55s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "08dca284ba5446a026afdc34067b658f9da989eb",
+      "fix": "f42daddf205f335fea6e200dad46049f33e71221",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "\nSUBFAILED(args1=(0, 1000000000000000000000000000000, 1), args2=(0, 2000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_eq_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 1)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(1000000000000000000000000000000, 0, -2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\n9 failed, 626 passed, 11318 subtests passed in 53.13s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "............................................................................................................ [ 54%]\n.................................................................................................................................. [ 75%]\n............................ [ 80%]\n.................................................... [ 88%]\n......................................................................... [100%]\n626 passed, 11327 subtests passed in 53.85s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "0fcdde9cce8bfdc3ba5e84711a990a32b74564a4",
+      "fix": "c0ede7fcd50340170bc7f428b7b658f6e767a34c",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "=================================== FAILURES ===================================\nE   AssertionError: True != False\n/usr/local/lib/python3.10/unittest/case.py:838: AssertionError: True != False\n=========================== short test summary info ============================\nFAILED tests/test_more.py::AllUniqueTests::test_falsey_key_is_honoured - Asse...\n1 failed, 626 passed, 11327 subtests passed in 49.82s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "............................................................................................................ [ 54%]\n.................................................................................................................................. [ 75%]\n............................ [ 79%]\n................................................................................................................ [ 97%]\n.............. [100%]\n627 passed, 11327 subtests passed in 48.67s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "172bcb3c5c7f22f24da608d13fa25d1576248067",
+      "fix": "c5a8876c9de994e1feaeaf3c221a1921d9c7eef5",
+      "tests": [
+        "tests/test_more.py",
+        "tests/test_recipes.py"
+      ],
+      "sources": [
+        "more_itertools/__init__.py",
+        "more_itertools/more.py",
+        "more_itertools/recipes.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "SUBFAILED(args=(0, 1000000000000000000000000000000, 1)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(0, 1000000000000000000000000000000, 2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nSUBFAILED(args=(1000000000000000000000000000000, 0, -2)) tests/test_more.py::NumericRangeTests::test_hash_above_maxsize\nFAILED tests/test_more.py::ChunkedEvenTests::test_negative_chunk_size - Asser...\nFAILED tests/test_more.py::ChunkedEvenTests::test_zero_chunk_size - ValueErro...\n13 failed, 768 passed, 21194 subtests passed in 59.33s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "................................................................................................................................ [ 61%]\n............................ [ 64%]\n................................................................................................................ [ 79%]\n......................................................................................................................................... [ 97%]\n......................                                                          [100%]\n772 passed, 21203 subtests passed in 64.36s (0:01:04)\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "20c4ee5c63f8f8c35a37aee3b69d95cd2450c09a",
+      "fix": "08dca284ba5446a026afdc34067b658f9da989eb",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "E   ValueError: Step for islice() must be a positive integer or None.\n/src/more_itertools/more.py:4648: ValueError: Step for islice() must be a positive integer or None.\n=========================== short test summary info ============================\nFAILED tests/test_more.py::ChunkedEvenTests::test_negative_chunk_size - Asser...\nFAILED tests/test_more.py::ChunkedEvenTests::test_zero_chunk_size - ValueErro...\n2 failed, 622 passed, 11318 subtests passed in 52.39s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".................................... [ 67%]\n............................................................ [ 77%]\n....................... [ 80%]\n......................................................... [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 55.81s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "4aeb4338ae1407d8da9723e86da99efeb446f719",
+      "fix": "69dbc3392928afe1cc892a387bf0e721522f21c2",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "E   AssertionError: source read past reverse-slice boundary\n/src/tests/test_more.py:356: AssertionError: source read past reverse-slice boundary\n=========================== short test summary info ============================\nFAILED tests/test_more.py::PeekableTests::test_slicing_negative_step_omitted_stop\nFAILED tests/test_more.py::PeekableTests::test_slicing_negative_step_omitted_stop_read_bound\n2 failed, 620 passed, 11318 subtests passed in 52.90s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".................................. [ 62%]\n.................................... [ 67%]\n............................................................ [ 77%]\n................................................................................ [ 90%]\n............................................................             [100%]\n622 passed, 11318 subtests passed in 54.04s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "more-itertools",
+      "base": "b21ec4ee8e139ebe297e2221980a694bebb69523",
+      "fix": "e6ce1b0f65a57c459fc5004ad84158447b65b0ac",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "=================================== FAILURES ===================================\nE   AssertionError: 100 != 6\n/usr/local/lib/python3.10/unittest/case.py:838: AssertionError: 100 != 6\n=========================== short test summary info ============================\nFAILED tests/test_more.py::PeekableTests::test_slicing_negative_step_omitted_stop\n1 failed, 620 passed, 11318 subtests passed in 47.18s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": ".................................. [ 62%]\n.................................... [ 67%]\n............................................................ [ 77%]\n................................................................................ [ 90%]\n...........................................................              [100%]\n621 passed, 11318 subtests passed in 49.04s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "46167dcdb1c8ae42c2dd72d3fdb91564be65a0db",
+      "fix": "0efe21aa398df645c259ee31e54a8a4400b1fc6b",
+      "tests": [
+        "tests/test_markers.py",
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/markers.py",
+        "src/packaging/requirements.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_markers.py::TestMarker::test_invalid_marker_manual_construction\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_syntax_details\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_details_absent_for_non_syntax_error\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_details_pickle\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_manual_construction\n6 failed, 7915 passed, 1 skipped in 28.73s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 99%]\n........................................................................ [ 99%]\n.s                                                                       [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1366: copy.replace() requires Python 3.13\n7921 passed, 1 skipped in 28.47s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "8e21512a575ff7cab33e15f77d5f67f278271f07",
+      "fix": "8efde605cc2666f4ab75e028b578b395ba288401",
+      "tests": [
+        "tests/test_dependency_groups.py"
+      ],
+      "sources": [
+        "src/packaging/dependency_groups.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "=========================== short test summary info ============================\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[group1-Group1-group1]\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[group1-GROUP1-group1]\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[a.b-A_B-a-b]\nFAILED tests/test_dependency_groups.py::test_cyclic_include_self_with_unnormalized_spelling[a_b-A.B-a-b]\n4 failed, 46 passed in 0.66s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "..................................................                       [100%]\n50 passed in 0.61s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "a00861f4cb12f5705a95e277862cdcd7387abfde",
+      "fix": "5a7d3386d2777180a381eb947f21293124ce8df5",
+      "tests": [
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/_parser.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "y:1331: copy.replace() requires Python 3.13\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[===arbitrarystring,>= 1]\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[===arbitrarystring, >=1]\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[ (===arbitrarystring,>= 1)]\nFAILED tests/test_requirements.py::TestRequirementParsing::test_nonempty_arbitrary_version[===arbitrarystring,>= 1 ; python_version >= '3']\n4 failed, 5407 passed, 1 skipped in 20.00s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 98%]\n........................................................................ [ 99%]\n...........s                                                             [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1331: copy.replace() requires Python 3.13\n5411 passed, 1 skipped in 19.25s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "dec6213e562b69ffb680d5b9a82a899fafe4dc02",
+      "fix": "f91ea7931fa551eb498ca2cdf5644dbbf20bcbc6",
+      "tests": [
+        "tests/test_markers.py",
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/markers.py",
+        "src/packaging/requirements.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "/src/tests/test_requirements.py:418: AttributeError: 'LocatedError' object has no attribute 'filename'\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1380: copy.replace() requires Python 3.13\nFAILED tests/test_markers.py::TestMarker::test_invalid_marker_defers_argument_formatting\nFAILED tests/test_requirements.py::TestRequirementParsing::test_error_subclass_can_initialize_context\n2 failed, 7921 passed, 1 skipped in 28.88s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 99%]\n........................................................................ [ 99%]\n...s                                                                     [100%]\n=========================== short test summary info ============================\nSKIPPED [1] tests/test_requirements.py:1380: copy.replace() requires Python 3.13\n7923 passed, 1 skipped in 29.94s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    },
+    {
+      "repo": "packaging",
+      "base": "ecf963ad0dccf246d1e774c7ede599241e9205b0",
+      "fix": "46167dcdb1c8ae42c2dd72d3fdb91564be65a0db",
+      "tests": [
+        "tests/test_ranges.py"
+      ],
+      "sources": [
+        "src/packaging/ranges.py"
+      ],
+      "feasible": true,
+      "before": {
+        "returncode": 1,
+        "verdict": "failed",
+        "failed": true,
+        "passed": false,
+        "tail": "FAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[3-ClassStateRange-ClassStateRange]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[4-StaticStateRange-constraint]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[4-ClassStateRange-ClassStateRange]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[5-StaticStateRange-constraint]\nFAILED tests/test_ranges.py::test_copy_and_pickle_bind_getstate[5-ClassStateRange-ClassStateRange]\n338 failed, 1271 passed in 7.12s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "after": {
+        "returncode": 0,
+        "verdict": "passed",
+        "failed": false,
+        "passed": true,
+        "tail": "........................................................................ [ 85%]\n........................................................................ [ 89%]\n........................................................................ [ 93%]\n........................................................................ [ 98%]\n.........................                                                [100%]\n1609 passed in 6.25s\n\nWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv"
+      },
+      "reason": "base_fails_fix_passes"
+    }
+  ],
+  "duplicate_bases_removed": 3,
+  "status": "READY"
+}

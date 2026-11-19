@@ -1,0 +1,10 @@
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -51,7 +51,7 @@
+ # Reserved storage name of the automatic help option. No user parameter is
+ # expected to claim it.
+-_HELP_OPTION_STORAGE_NAME = "_click_default_help"
++_HELP_OPTION_STORAGE_NAME = "_click_default_help"
+ 
+ 
+ def _complete_visible_commands(

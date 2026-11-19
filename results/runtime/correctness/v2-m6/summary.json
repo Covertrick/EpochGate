@@ -1,0 +1,167 @@
+{
+  "historical": {
+    "historical_decision_unchanged": "GO",
+    "assigned_s1": 24,
+    "assigned_s1_blocked": 4,
+    "conditional_h5_pairs": [
+      {
+        "task_id": "ful-config-c4",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      },
+      {
+        "task_id": "ful-config-c6",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      },
+      {
+        "task_id": "ful-order-c1",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      },
+      {
+        "task_id": "ful-order-c2",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      },
+      {
+        "task_id": "ful-order-c3",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      }
+    ],
+    "h5_exact": {
+      "n": 5,
+      "successes": 5,
+      "low": 0.4781762498950185,
+      "high": 1.0,
+      "half_width": 0.26091187505249075,
+      "degenerate_bootstrap": true
+    },
+    "h5_mcnemar": {
+      "b": 5,
+      "c": 0,
+      "pvalue": 0.0625,
+      "note": "双侧精确 McNemar"
+    },
+    "h5_b1": {
+      "n": 5,
+      "successes": 5,
+      "low": 0.4781762498950185,
+      "high": 1.0,
+      "half_width": 0.26091187505249075
+    },
+    "h5_b2": {
+      "n": 5,
+      "successes": 0,
+      "low": 0.0,
+      "high": 0.5218237501049814,
+      "half_width": 0.2609118750524907
+    },
+    "h5_b2_zero_upper": 0.4507197283469412,
+    "conditional_h6_pairs": [
+      {
+        "task_id": "ful-config-c4",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      },
+      {
+        "task_id": "ful-config-c5",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      },
+      {
+        "task_id": "ful-config-c6",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      },
+      {
+        "task_id": "ful-order-c1",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      }
+    ],
+    "h6_exact": {
+      "n": 4,
+      "successes": 4,
+      "low": 0.3976353643835253,
+      "high": 1.0,
+      "half_width": 0.30118231780823734,
+      "degenerate_bootstrap": true
+    },
+    "h6_mcnemar": {
+      "b": 4,
+      "c": 0,
+      "pvalue": 0.125,
+      "note": "双侧精确 McNemar"
+    },
+    "zero_width_bootstrap_is_not_cross_task_precision": true
+  },
+  "coding_pilot": {
+    "present": true,
+    "status": "SCORED",
+    "assigned": 24,
+    "blocked": 20,
+    "labels": {
+      "MODEL_DID_NOT_ACT": 16,
+      "CORRECT_ABSTENTION": 4
+    },
+    "container_passed": 0,
+    "stale_published": 2,
+    "h5": [
+      {
+        "task_id": "code-click-8abb77a8",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      }
+    ],
+    "h6": []
+  },
+  "coding_confirm": {
+    "present": true,
+    "status": "SCORED",
+    "assigned": 48,
+    "blocked": 36,
+    "labels": {
+      "MODEL_DID_NOT_ACT": 36
+    },
+    "container_passed": 0,
+    "stale_published": 2,
+    "h5": [
+      {
+        "task_id": "code-click-dd149eb3",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      }
+    ],
+    "h6": [
+      {
+        "task_id": "code-click-ac0e297e",
+        "left": true,
+        "right": false,
+        "diff": 1.0
+      }
+    ]
+  },
+  "precision_rule": "确认配对少于 8，或正差比例的 Clopper-Pearson 半宽不小于 0.25，则 PRECISION_NOT_MET，不加样本。",
+  "coding_confirm_precision": {
+    "n": 1,
+    "successes": 1,
+    "low": 0.025,
+    "high": 1.0,
+    "half_width": 0.4875,
+    "degenerate_bootstrap": true
+  },
+  "precision_status": "PRECISION_NOT_MET"
+}
