@@ -1,0 +1,73 @@
+{
+  "git_sha": "b6dd92b491f5235b89a649132e63a889df598316",
+  "worktree_dirty": true,
+  "reproducible_commit": false,
+  "note": "工作区有未提交文件时，不把 HEAD 说成这轮的复现点。",
+  "model": "deepseek-flash",
+  "temperature": 0,
+  "max_tokens": 8000,
+  "budget": {
+    "turns": 24,
+    "tools": 40,
+    "seconds": 420
+  },
+  "image": "python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "entries": {
+    "verify-offline": "scripts/verify_offline.py",
+    "verify-container": "scripts/verify_container.py",
+    "run-model-evaluation": "scripts/run_model_evaluation.py"
+  },
+  "batches": [
+    {
+      "id": "v3-rescore",
+      "dir": "results/runtime/correctness/v3-coding/rescore",
+      "authoritative_for": "hidden tests",
+      "add_to_other_batches": false
+    },
+    {
+      "id": "v3-traces",
+      "dir": "results/runtime/correctness/v3-coding",
+      "authoritative_for": "original traces, including docker_unavailable",
+      "add_to_other_batches": false
+    },
+    {
+      "id": "v4-dev",
+      "dir": "results/runtime/correctness/v4-coding/dev",
+      "authoritative_for": "v4 development gate",
+      "add_to_other_batches": false
+    },
+    {
+      "id": "v4b",
+      "dir": "results/runtime/correctness/v4b-coding",
+      "authoritative_for": "V2 and V3 on the three development tasks",
+      "add_to_other_batches": false
+    },
+    {
+      "id": "e4-after",
+      "dir": "results/runtime/correctness/after/e4",
+      "authoritative_for": "old model cells",
+      "add_to_other_batches": false
+    },
+    {
+      "id": "e4-repeat",
+      "dir": "results/runtime/correctness/e4-repeat",
+      "authoritative_for": "new 120 cells",
+      "add_to_other_batches": false
+    }
+  ],
+  "hashes": {
+    "coding_v4": "d0ae6ed89f21fb2169bebcf6992ae787feff121e36e755dbd57ee2920685d23c",
+    "coding_v4b": "3106c153c0d5810e3ffd6b19a2330bb6b2c4585bce42b9147422c0746eda6546",
+    "v4_protocol": "5cc69185ceb1c4634da5a7070b7a606d05c87be6b2dd93cc3e9415fc3699d160",
+    "frozen_tasks": "92f6bd7ab2225359e781b7419c08e6c8cdc96f3324265472580081c7c1d12d42"
+  },
+  "cannot_rebuild": [
+    "v3 runner was not in commit b6dd92b until those files are committed",
+    "no complete pip lock for the v3 model run",
+    "batches use different versions and fault mixes",
+    "some model_no_effect cells have no tool trace",
+    "historical token totals cannot be reconstructed from later logs",
+    "some model batches did not run in a container",
+    "M5 receiver behavior belongs to the external receiver, not to LangGraph"
+  ]
+}

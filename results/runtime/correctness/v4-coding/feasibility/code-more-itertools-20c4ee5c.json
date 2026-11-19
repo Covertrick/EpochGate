@@ -1,0 +1,51 @@
+{
+  "task_id": "code-more-itertools-20c4ee5c",
+  "base_hidden_passed": false,
+  "gold_hidden_passed": true,
+  "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "toolchain": {
+    "search": true,
+    "read": true,
+    "edit": true,
+    "public_test_path_exists": true
+  },
+  "data_isolation": true,
+  "version_comment": {
+    "import_relevant": true,
+    "successor_hidden_passed": true,
+    "successor_sha256": "5b322bec2c1d2cd574c7d3f8f4bf8f7d018ef095f8f8810c212ac088140c188b",
+    "tail": "..................................................................................................................... [ 56%]\n.................................. [ 61%]\n.................................... [ 67%]\n............................................................ [ 77%]\n....................... [ 80%]\n......................................................... [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 21.14s",
+    "apply_error": null,
+    "legal_successor": true
+  },
+  "semantic_raise": {
+    "hunk": {
+      "path": "more_itertools/more.py",
+      "line": 4637
+    },
+    "parse_ok": true,
+    "import_ok": true,
+    "import_tail": "",
+    "successor_sha256": "82f4c8f09c38f82a1dfd99bb6f34b18d526d2c259d0b0eeb81e2514214a96a5c",
+    "concurrent_sha256": "d530af408fda9beddf0ad96d474999c61d69934435875884a885f22a8b745257",
+    "successor": {
+      "ok": true,
+      "passed": true,
+      "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+      "returncode": 0,
+      "tail": "..................................................................................................................... [ 56%]\n.................................. [ 61%]\n.................................... [ 67%]\n............................................................ [ 77%]\n....................... [ 80%]\n......................................................... [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 19.77s",
+      "tree_sha256": "124f7707118d17d1b3d1bd060456cede42f3fd5a45d6cda58b1350278a351855"
+    },
+    "old_patch_on_mutated": {
+      "ok": true,
+      "passed": false,
+      "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+      "apply_error": "warning: more_itertools/more.py has type 100644, expected 100755\nerror: patch failed: more_itertools/more.py:4637\nerror: more_itertools/more.py: patch does not apply\n",
+      "tail": "patch_rejected",
+      "tree_sha256": "1f354e780a5b084d5af0c9011c21ad90311bf6af80b9616b4ac67957fbcc08d1"
+    },
+    "invalid": false,
+    "reason": null
+  },
+  "ready_for_model": true
+}

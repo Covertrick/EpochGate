@@ -1,0 +1,85 @@
+{
+  "confirm_started": true,
+  "scorable_patches": 2,
+  "agent_successors": [
+    "BUDGET_EXCEEDED",
+    "HIDDEN_PASSED",
+    "HIDDEN_PASSED"
+  ],
+  "agent_successor_not_demonstrated": false,
+  "rows": [
+    {
+      "task_id": "code-more-itertools-172bcb3c",
+      "initial_label": "BUDGET_EXCEEDED",
+      "initial_hidden_passed": false,
+      "old_patch_still_passes_on_comment": false,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      },
+      "agent_successor_label": "BUDGET_EXCEEDED",
+      "agent_successor_passed": false,
+      "semantic_invalid": true,
+      "semantic_agent_label": "INVALID_FAULT",
+      "version_legal_successor": true,
+      "unnecessary_rejection_v1": false
+    },
+    {
+      "task_id": "code-more-itertools-20c4ee5c",
+      "initial_label": "HIDDEN_PASSED",
+      "initial_hidden_passed": true,
+      "old_patch_still_passes_on_comment": true,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      },
+      "agent_successor_label": "HIDDEN_PASSED",
+      "agent_successor_passed": true,
+      "semantic_invalid": false,
+      "semantic_agent_label": "HIDDEN_PASSED",
+      "version_legal_successor": true,
+      "unnecessary_rejection_v1": true
+    },
+    {
+      "task_id": "code-more-itertools-4aeb4338",
+      "initial_label": "HIDDEN_PASSED",
+      "initial_hidden_passed": true,
+      "old_patch_still_passes_on_comment": true,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      },
+      "agent_successor_label": "HIDDEN_PASSED",
+      "agent_successor_passed": true,
+      "semantic_invalid": true,
+      "semantic_agent_label": "INVALID_FAULT",
+      "version_legal_successor": true,
+      "unnecessary_rejection_v1": true
+    }
+  ],
+  "confirm_process": "the first process died while fetching packaging blobs; confirm() was started again after those objects were local. The dev rows were not rerun."
+}

@@ -1,0 +1,11 @@
+{
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python": "3.15.2",
+  "executable": "D:\\Checkout\\EpochGate\\.venv\\Scripts\\python.exe",
+  "uv": "uv 0.13.6 (329bf9448 2026-10-26 x86_64-pc-windows-msvc)",
+  "image": "python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "pip_freeze_sha256": "cf18c0c492392a08055ddf6613365b2d6db7624e53bbde0e1733a487fffb43ce",
+  "pip_freeze_lines": 51,
+  "note": "The freeze text is not copied here. Re-run this script in the same environment to compare the hash. API keys are not recorded."
+}

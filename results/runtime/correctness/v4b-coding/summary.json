@@ -1,0 +1,142 @@
+{
+  "model_called": false,
+  "confirm_tasks_used": false,
+  "rows": [
+    {
+      "task_id": "code-more-itertools-172bcb3c",
+      "kind": "V2",
+      "invalid": false,
+      "patch_rejected": true,
+      "old_tail": "patch_rejected",
+      "content_invalid": false,
+      "content_still_valid": false,
+      "legal_successor_passed": true,
+      "successor_tail": "...................................................................................................... [ 97%]\n......................                                                          [100%]\n772 passed, 21203 subtests passed in 27.34s",
+      "old_hidden_passed": false,
+      "arms": {},
+      "unsafe_admission": {},
+      "unnecessary_rejection": {},
+      "successor_accepted": {}
+    },
+    {
+      "task_id": "code-more-itertools-172bcb3c",
+      "kind": "V3",
+      "invalid": true,
+      "reason": "hunk_not_inside_function"
+    },
+    {
+      "task_id": "code-more-itertools-20c4ee5c",
+      "kind": "V2",
+      "invalid": false,
+      "patch_rejected": true,
+      "old_tail": "patch_rejected",
+      "content_invalid": false,
+      "content_still_valid": false,
+      "legal_successor_passed": true,
+      "successor_tail": "............. [ 77%]\n....................... [ 80%]\n......................................................... [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 20.49s",
+      "old_hidden_passed": false,
+      "arms": {},
+      "unsafe_admission": {},
+      "unnecessary_rejection": {},
+      "successor_accepted": {}
+    },
+    {
+      "task_id": "code-more-itertools-20c4ee5c",
+      "kind": "V3",
+      "invalid": false,
+      "patch_rejected": false,
+      "old_tail": "e - RuntimeError: ep...\nFAILED tests/test_more.py::ChunkedEvenTests::test_negative_chunk_size - Runti...\nFAILED tests/test_more.py::ChunkedEvenTests::test_zero_chunk_size - RuntimeEr...\n10 failed, 614 passed, 11318 subtests passed in 21.06s",
+      "content_invalid": true,
+      "content_still_valid": false,
+      "legal_successor_passed": true,
+      "successor_tail": "............. [ 77%]\n....................... [ 80%]\n......................................................... [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 20.55s",
+      "old_hidden_passed": false,
+      "arms": {
+        "B1": {
+          "stale_credential_accepted": true,
+          "successor_effect_accepted": false
+        },
+        "B2": {
+          "stale_credential_accepted": false,
+          "successor_effect_accepted": true
+        },
+        "B3": {
+          "stale_credential_accepted": false,
+          "successor_effect_accepted": true
+        }
+      },
+      "unsafe_admission": {
+        "B1": true,
+        "B2": false,
+        "B3": false
+      },
+      "unnecessary_rejection": {
+        "B1": false,
+        "B2": false,
+        "B3": false
+      },
+      "successor_accepted": {
+        "B1": false,
+        "B2": true,
+        "B3": true
+      }
+    },
+    {
+      "task_id": "code-more-itertools-4aeb4338",
+      "kind": "V2",
+      "invalid": false,
+      "patch_rejected": true,
+      "old_tail": "patch_rejected",
+      "content_invalid": false,
+      "content_still_valid": false,
+      "legal_successor_passed": true,
+      "successor_tail": "..................... [ 77%]\n................................................................................ [ 90%]\n............................................................             [100%]\n622 passed, 11318 subtests passed in 17.34s",
+      "old_hidden_passed": false,
+      "arms": {},
+      "unsafe_admission": {},
+      "unnecessary_rejection": {},
+      "successor_accepted": {}
+    },
+    {
+      "task_id": "code-more-itertools-4aeb4338",
+      "kind": "V3",
+      "invalid": false,
+      "patch_rejected": false,
+      "old_tail": "omitted_stop\nFAILED tests/test_more.py::PeekableTests::test_slicing_negative_step_omitted_stop_read_bound\nFAILED tests/test_more.py::PeekableTests::test_slicing_reset - RuntimeError: ...\n6 failed, 616 passed, 11318 subtests passed in 19.99s",
+      "content_invalid": true,
+      "content_still_valid": false,
+      "legal_successor_passed": true,
+      "successor_tail": "..................... [ 77%]\n................................................................................ [ 90%]\n............................................................             [100%]\n622 passed, 11318 subtests passed in 19.88s",
+      "old_hidden_passed": false,
+      "arms": {
+        "B1": {
+          "stale_credential_accepted": true,
+          "successor_effect_accepted": false
+        },
+        "B2": {
+          "stale_credential_accepted": false,
+          "successor_effect_accepted": true
+        },
+        "B3": {
+          "stale_credential_accepted": false,
+          "successor_effect_accepted": true
+        }
+      },
+      "unsafe_admission": {
+        "B1": true,
+        "B2": false,
+        "B3": false
+      },
+      "unnecessary_rejection": {
+        "B1": false,
+        "B2": false,
+        "B3": false
+      },
+      "successor_accepted": {
+        "B1": false,
+        "B2": true,
+        "B3": true
+      }
+    }
+  ]
+}

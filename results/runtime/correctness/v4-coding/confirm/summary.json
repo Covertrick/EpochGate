@@ -1,0 +1,119 @@
+{
+  "rows": [
+    {
+      "task_id": "code-more-itertools-b21ec4ee",
+      "initial_label": "HIDDEN_PASSED",
+      "initial_hidden_passed": true,
+      "agent_successor_label": "HIDDEN_PASSED",
+      "agent_successor_passed": true,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      }
+    },
+    {
+      "task_id": "code-packaging-46167dcd",
+      "initial_label": "HIDDEN_PASSED",
+      "initial_hidden_passed": true,
+      "agent_successor_label": "HIDDEN_PASSED",
+      "agent_successor_passed": true,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      }
+    },
+    {
+      "task_id": "code-packaging-8e21512a",
+      "initial_label": "HIDDEN_PASSED",
+      "initial_hidden_passed": true,
+      "agent_successor_label": "HIDDEN_PASSED",
+      "agent_successor_passed": true,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      }
+    },
+    {
+      "task_id": "code-packaging-a00861f4",
+      "initial_label": "HIDDEN_PASSED",
+      "initial_hidden_passed": true,
+      "agent_successor_label": "BUDGET_EXCEEDED",
+      "agent_successor_passed": false,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      }
+    },
+    {
+      "task_id": "code-packaging-dec6213e",
+      "initial_label": "BUDGET_EXCEEDED",
+      "initial_hidden_passed": false,
+      "agent_successor_label": "BUDGET_EXCEEDED",
+      "agent_successor_passed": false,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      }
+    },
+    {
+      "task_id": "code-packaging-ecf963ad",
+      "initial_label": "BUDGET_EXCEEDED",
+      "initial_hidden_passed": false,
+      "agent_successor_label": "BUDGET_EXCEEDED",
+      "agent_successor_passed": false,
+      "mechanism_v1": {
+        "B2": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        },
+        "B3": {
+          "old_attempt_rejected": true,
+          "successor_effect_accepted": true,
+          "stale_credential_accepted": false
+        }
+      }
+    }
+  ],
+  "denominator": 6
+}

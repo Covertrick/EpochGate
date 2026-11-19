@@ -1,0 +1,14 @@
+diff --git a/more_itertools/more.py b/more_itertools/more.py
+--- a/more_itertools/more.py
++++ b/more_itertools/more.py
+@@ -461,7 +461,9 @@
+ 
+         # If either the start or stop index is negative, we'll need to cache
+         # the rest of the iterable in order to slice from the right side.
+-        if (start < 0) or (stop < 0):
++        # An omitted stop with a negative step, however, does not require
++        # caching past the start index.
++        if (start < 0) or (stop < 0 and index.stop is not None):
+             self._cache.extend(self._it)
+         # Otherwise we'll need to find the rightmost index and cache to that
+         # point.

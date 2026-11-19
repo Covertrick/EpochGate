@@ -1,0 +1,337 @@
+{
+  "summary": {
+    "traces": 19,
+    "tasks": 9,
+    "symptom_extracted": 9,
+    "saw_hidden_test_source": 0,
+    "saw_assertion_expectation": 5,
+    "saw_exception_or_failure_text": 9,
+    "quoted_overlap": 5,
+    "label": "FIXED_FAILURE_FEEDBACK",
+    "not_strict_hidden_evaluation": true,
+    "historical_results_kept": true
+  },
+  "rows": [
+    {
+      "phase": "confirm",
+      "kind": "agent-successor",
+      "task_id": "code-more-itertools-b21ec4ee",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "initial",
+      "task_id": "code-more-itertools-b21ec4ee",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "agent-successor",
+      "task_id": "code-packaging-46167dcd",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "InvalidMarker",
+        "message",
+        "InvalidRequirement"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "initial",
+      "task_id": "code-packaging-46167dcd",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "InvalidMarker",
+        "message",
+        "InvalidRequirement"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "agent-successor",
+      "task_id": "code-packaging-8e21512a",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [
+        " for "
+      ],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "initial",
+      "task_id": "code-packaging-8e21512a",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [
+        " for "
+      ],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "agent-successor",
+      "task_id": "code-packaging-a00861f4",
+      "label": "BUDGET_EXCEEDED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "initial",
+      "task_id": "code-packaging-a00861f4",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "agent-successor",
+      "task_id": "code-packaging-dec6213e",
+      "label": "BUDGET_EXCEEDED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "Message",
+        "text",
+        "LocatedError",
+        "filename"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "initial",
+      "task_id": "code-packaging-dec6213e",
+      "label": "BUDGET_EXCEEDED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "Message",
+        "text",
+        "LocatedError",
+        "filename"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "agent-successor",
+      "task_id": "code-packaging-ecf963ad",
+      "label": "BUDGET_EXCEEDED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "VersionRange"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "confirm",
+      "kind": "initial",
+      "task_id": "code-packaging-ecf963ad",
+      "label": "BUDGET_EXCEEDED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": false,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "VersionRange"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "dev",
+      "kind": "agent-successor",
+      "task_id": "code-more-itertools-172bcb3c",
+      "label": "BUDGET_EXCEEDED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "n must be at least 0"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "dev",
+      "kind": "initial",
+      "task_id": "code-more-itertools-172bcb3c",
+      "label": "BUDGET_EXCEEDED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "n must be at least 0"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "dev",
+      "kind": "agent-successor",
+      "task_id": "code-more-itertools-20c4ee5c",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "n must be at least 0"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "dev",
+      "kind": "initial",
+      "task_id": "code-more-itertools-20c4ee5c",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "n must be at least 0"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "dev",
+      "kind": "semantic-successor",
+      "task_id": "code-more-itertools-20c4ee5c",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [
+        "n must be at least 0"
+      ],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "dev",
+      "kind": "agent-successor",
+      "task_id": "code-more-itertools-4aeb4338",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    },
+    {
+      "phase": "dev",
+      "kind": "initial",
+      "task_id": "code-more-itertools-4aeb4338",
+      "label": "HIDDEN_PASSED",
+      "symptom_status": "extracted",
+      "saw_hidden_test_source": false,
+      "saw_assertion_expectation": true,
+      "saw_exception_or_failure_text": true,
+      "quoted_strings_also_in_hidden_patch": [],
+      "commit_message_quotes_hidden_patch": [],
+      "protocol_allows_failure_lines": true,
+      "task_text_source": "git log -1 of the fix commit, not a rewrite of the hidden test",
+      "symptom_source": "visible_symptom applies test_patch on base and keeps pytest E lines"
+    }
+  ]
+}

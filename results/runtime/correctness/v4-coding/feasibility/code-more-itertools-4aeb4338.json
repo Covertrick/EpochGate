@@ -1,0 +1,51 @@
+{
+  "task_id": "code-more-itertools-4aeb4338",
+  "base_hidden_passed": false,
+  "gold_hidden_passed": true,
+  "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "toolchain": {
+    "search": true,
+    "read": true,
+    "edit": true,
+    "public_test_path_exists": true
+  },
+  "data_isolation": true,
+  "version_comment": {
+    "import_relevant": true,
+    "successor_hidden_passed": true,
+    "successor_sha256": "515611af63757ba44cc5fb03d2f3ac0a472592d0839305cc8d6c208b6345b06d",
+    "tail": "............................................................................................................. [ 37%]\n..................................................................................................................... [ 56%]\n.................................. [ 62%]\n.................................... [ 67%]\n............................................................ [ 77%]\n................................................................................ [ 90%]\n............................................................             [100%]\n622 passed, 11318 subtests passed in 17.93s",
+    "apply_error": null,
+    "legal_successor": true
+  },
+  "semantic_raise": {
+    "hunk": {
+      "path": "more_itertools/more.py",
+      "line": 461
+    },
+    "parse_ok": false,
+    "import_ok": false,
+    "import_tail": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/src/more_itertools/__init__.py\", line 3, in <module>\n    from .more import *  # noqa\n  File \"/src/more_itertools/more.py\", line 464\n    if (start < 0) or (stop < 0):\nIndentationError: unexpected indent\n",
+    "successor_sha256": "6f4440941c918210c3000613d4b12e4bce7ffc22c8b50c206d4aa759f69f6f31",
+    "concurrent_sha256": "3a7ae4e1008f292efffb3b7ca955b6fc49fdc79fe7ed024cfdc8ed95a8e823e5",
+    "successor": {
+      "ok": true,
+      "passed": true,
+      "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+      "returncode": 0,
+      "tail": "............................................................................................................. [ 37%]\n..................................................................................................................... [ 56%]\n.................................. [ 62%]\n.................................... [ 67%]\n............................................................ [ 77%]\n................................................................................ [ 90%]\n............................................................             [100%]\n622 passed, 11318 subtests passed in 16.47s",
+      "tree_sha256": "9049ae950048f8bb375451dafcbff7977a647a9e9f9f5e1930113960141305a4"
+    },
+    "old_patch_on_mutated": {
+      "ok": true,
+      "passed": false,
+      "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+      "apply_error": "warning: more_itertools/more.py has type 100644, expected 100755\nerror: patch failed: more_itertools/more.py:461\nerror: more_itertools/more.py: patch does not apply\n",
+      "tail": "patch_rejected",
+      "tree_sha256": "acca36f8e66c1845356aabb274d505efae79cb7d80ffcef6ac03d8782add0284"
+    },
+    "invalid": true,
+    "reason": "unparseable_or_unimportable_or_no_legal_successor"
+  },
+  "ready_for_model": true
+}

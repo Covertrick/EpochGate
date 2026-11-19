@@ -1,0 +1,20 @@
+diff --git a/more_itertools/more.py b/more_itertools/more.py
+--- a/more_itertools/more.py
++++ b/more_itertools/more.py
+@@ -459,9 +459,15 @@
+         else:
+             raise ValueError('slice step cannot be zero')
+ 
++        # A negative step with an omitted stop reverses the iterable all the
++        # way to its beginning. Since that boundary does not depend on the
++        # length of the iterable, only the items up to ``start`` need to be
++        # cached (see gh-1322).
++        reverse_to_start = (step < 0) and (index.stop is None) and (start >= 0)
++
+         # If either the start or stop index is negative, we'll need to cache
+         # the rest of the iterable in order to slice from the right side.
+-        if (start < 0) or (stop < 0):
++        if ((start < 0) or (stop < 0)) and not reverse_to_start:
+             self._cache.extend(self._it)
+         # Otherwise we'll need to find the rightmost index and cache to that
+         # point.

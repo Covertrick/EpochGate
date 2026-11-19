@@ -1,0 +1,213 @@
+diff --git a/more_itertools/__init__.py b/more_itertools/__init__.py
+--- a/more_itertools/__init__.py
++++ b/more_itertools/__init__.py
+@@ -3,5 +3,5 @@
+ from .more import *  # noqa
+ from .recipes import *  # noqa
+ 
+-__version__ = '11.1.0'
++__version__ = '11.2.1'
+ # epochgate-concurrent workspace version 2
+diff --git a/more_itertools/more.py b/more_itertools/more.py
+--- a/more_itertools/more.py
++++ b/more_itertools/more.py
+@@ -461,12 +461,24 @@
+ 
+         # If either the start or stop index is negative, we'll need to cache
+         # the rest of the iterable in order to slice from the right side.
+-        if (start < 0) or (stop < 0):
++        # When step < 0 and stop is None, the slice stops at index 0 rather than
++        # indexing from the right, so only items up to start must be cached.
++        has_negative_index = (
++            (index.start is not None and index.start < 0)
++            or (index.stop is not None and index.stop < 0)
++            or (step < 0 and index.start is None)
++        )
++        if has_negative_index:
+             self._cache.extend(self._it)
+         # Otherwise we'll need to find the rightmost index and cache to that
+         # point.
+         else:
+-            n = min(max(start, stop) + 1, maxsize)
++            rightmost = (
++                start
++                if (step < 0 and index.stop is None)
++                else max(start, stop)
++            )
++            n = min(rightmost + 1, maxsize)
+             cache_len = len(self._cache)
+             if n >= cache_len:
+                 self._cache.extend(islice(self._it, n - cache_len))
+@@ -1310,10 +1322,8 @@
+     is large).
+ 
+     """
+-    for xs in zip_longest(*iterables, fillvalue=_marker):
+-        for x in xs:
+-            if x is not _marker:
+-                yield x
++    i = flatten(zip_longest(*iterables, fillvalue=_marker))
++    return filter(partial(is_not, _marker), i)
+ 
+ 
+ def interleave_evenly(iterables, lengths=None):
+@@ -2366,8 +2376,8 @@
+         if self is other:
+             return True
+ 
+-        len_self = len(self)
+-        if len_self != len(other):
++        len_self = self._len
++        if len_self != other._len:
+             return False
+ 
+         if not len_self:
+@@ -2401,7 +2411,7 @@
+         # numeric_range hashing is intended to mirror the built-in range object's
+         # hashing.
+         # https://github.com/python/cpython/blob/f5c4880151b609e0a0a0b05c292d36b18038c061/Objects/rangeobject.c#L570
+-        len_self = len(self)
++        len_self = self._len
+         if not len_self:
+             return hash((len_self, None, None))
+         if len_self == 1:
+@@ -3568,6 +3578,11 @@
+     ['ab', 'c']
+     ['b', 'ac']
+     ['a', 'b', 'c']
++
++    An empty *iterable* yields no partitions.
++
++    >>> list(set_partitions([]))
++    []
+ 
+     """
+     L = list(iterable)
+@@ -4338,7 +4353,7 @@
+         >>> nth_permutation('ghijk', 2, 5)
+         ('h', 'i')
+ 
+-    ``ValueError`` will be raised If *r* is negative.
++    ``ValueError`` will be raised if *r* is negative.
+     ``IndexError`` will be raised if the given *index* is invalid.
+     """
+     pool = list(iterable)
+@@ -4376,7 +4391,7 @@
+         >>> nth_combination_with_replacement(range(5), 3, 5)
+         (0, 1, 1)
+ 
+-    ``ValueError`` will be raised If *r* is negative.
++    ``ValueError`` will be raised if *r* is negative.
+     ``IndexError`` will be raised if the given *index* is invalid.
+     """
+     pool = tuple(iterable)
+@@ -4627,6 +4642,11 @@
+     [[1, 2, 3], [4, 5, 6], [7]]
+ 
+     """
++    if n < 0:
++        raise ValueError('n must be at least 0')
++    if n == 0:
++        return
++
+     iterator = iter(iterable)
+ 
+     # Initialize a buffer to process the chunks while keeping
+@@ -5089,6 +5109,8 @@
+     columns.
+     Also accepts ``*args`` and ``**kwargs`` that are passed to ``func``.
+ 
++    *ys* must not be empty; if it is, ``ValueError`` is raised.
++
+     Multiplication table:
+ 
+     >>> from operator import mul
+diff --git a/more_itertools/recipes.py b/more_itertools/recipes.py
+--- a/more_itertools/recipes.py
++++ b/more_itertools/recipes.py
+@@ -152,9 +152,6 @@
+     ['E', 'F', 'G']
+ 
+     """
+-    if n < 0:
+-        raise ValueError('n must be at least 0')
+-
+     try:
+         size = len(iterable)
+     except TypeError:
+@@ -247,6 +244,8 @@
+ 
+     >>> quantify([True, False, True])
+     2
++    >>> quantify(range(100, 200), pred=lambda x: x<120)
++    20
+ 
+     """
+     return sum(map(pred, iterable))
+@@ -435,11 +434,13 @@
+     true_queue = deque()
+ 
+     def gen(queue):
++        append_false = false_queue.append
++        append_true = true_queue.append
+         while True:
+             while queue:
+                 yield queue.popleft()
+             for value in iterator:
+-                (true_queue if pred(value) else false_queue).append(value)
++                (append_true if pred(value) else append_false)(value)
+                 break
+             else:
+                 return
+@@ -546,19 +547,15 @@
+     Like ``iter(function, sentinel)``, but uses an exception instead of a sentinel
+     to end the loop.
+ 
+-        >>> l = [0, 1, 2]
+-        >>> list(iter_except(l.pop, IndexError))
+-        [2, 1, 0]
+-
+-    Multiple exceptions can be specified as a stopping condition:
+-
+-        >>> l = [1, 2, 3, '...', 4, 5, 6]
+-        >>> list(iter_except(lambda: 1 + l.pop(), (IndexError, TypeError)))
+-        [7, 6, 5]
+-        >>> list(iter_except(lambda: 1 + l.pop(), (IndexError, TypeError)))
+-        [4, 3, 2]
+-        >>> list(iter_except(lambda: 1 + l.pop(), (IndexError, TypeError)))
+-        []
++    Examples:
++        iter_except(functools.partial(heappop, h), IndexError)   # priority queue iterator
++        iter_except(d.popitem, KeyError)                         # non-blocking dict iterator
++        iter_except(d.popleft, IndexError)                       # non-blocking deque iterator
++        iter_except(q.get_nowait, Queue.Empty)                   # loop over a producer Queue
++        iter_except(s.pop, KeyError)                             # non-blocking set iterator
++
++    Multiple exceptions can be specified as a stopping condition, for example
++    ``(IndexError, TypeError)``.
+ 
+     """
+     with suppress(exception):
+@@ -670,7 +667,7 @@
+         >>> nth_combination(range(5), 3, 5)
+         (0, 3, 4)
+ 
+-    ``ValueError`` will be raised If *r* is negative.
++    ``ValueError`` will be raised if *r* is negative.
+     ``IndexError`` will be raised if the given *index* is invalid.
+     """
+     pool = tuple(iterable)
+@@ -896,13 +893,6 @@
+ 
+     """
+     seq_index = getattr(iterable, 'index', None)
+-    if seq_index is None and (start < 0 or (stop is not None and stop < 0)):
+-        # islice() rejects negative indices, but the fast path (below) accepts
+-        # them with the usual from-the-end semantics. Materialize so that both
+-        # paths agree for negative *start* / *stop*.
+-        iterable = tuple(iterable)
+-        seq_index = iterable.index
+-
+     if seq_index is None:
+         # Slow path for general iterables
+         iterator = islice(iterable, start, stop)

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import time
 from pathlib import Path
 from typing import Any
 
@@ -60,8 +61,14 @@ def publish_file(
     return ledger.complete_claimed_publish(run_id, idempotency_key, digest, receipt, path=relative_path)
 
 
+def _pause(point: str) -> None:
+    if os.environ.get("EPOCHGATE_PAUSE_AT") == point:
+        time.sleep(30)
+
+
 def _seal_private(directory: Path, name: str, payload: bytes) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
+    _pause("after_private_create")
     private = directory / name
     with private.open("wb") as handle:
         handle.write(payload)
@@ -104,6 +111,7 @@ def publish_frozen_file(
     if claim["status"] != "claimed":
         return {"published": False, "status": "withheld", "sha256": digest, "durability": durability}
     private = _seal_private(workspace / ".eg-private", idempotency_key, payload)
+    _pause("after_private_write")
     if hashlib.sha256(private.read_bytes()).hexdigest() != digest:
         ledger.mark_effect_state(idempotency_key, "OUTCOME_UNKNOWN")
         return {"published": False, "status": "unknown", "sha256": digest, "durability": durability}
@@ -117,6 +125,7 @@ def publish_frozen_file(
     prior_existed = target.is_file()
     target.parent.mkdir(parents=True, exist_ok=True)
     os.replace(private, target)
+    _pause("after_replace")
     if crash_point == "after_replace":
         return {
             "published": False,
@@ -147,6 +156,7 @@ def publish_frozen_file(
         }
     receipt = f"file:{relative_path}:{digest}"
     completed = ledger.complete_claimed_publish(run_id, idempotency_key, digest, receipt, path=relative_path)
+    _pause("after_receipt")
     completed.update({
         "sha256": digest,
         "prior_version_checked": False,

@@ -1,0 +1,12 @@
+diff --git a/src/packaging/dependency_groups.py b/src/packaging/dependency_groups.py
+--- a/src/packaging/dependency_groups.py
++++ b/src/packaging/dependency_groups.py
+@@ -194,7 +194,7 @@
+                 if include_group in stack:
+                     errors.error(
+                         CyclicDependencyGroup(
+-                            requested_group, group, item.include_group
++                            requested_group, group, include_group
+                         )
+                     )
+                 elif include_group not in visited:

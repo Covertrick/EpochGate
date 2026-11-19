@@ -1,0 +1,34 @@
+{
+  "new_model_run": false,
+  "claim_recovery_equivalent": false,
+  "portability_claim": "lowered",
+  "portability_note": "Coding remains a historical-patch smoke. Do not claim the method has migrated to a second agent runtime.",
+  "faults_observed": [
+    "interrupt_resume",
+    "notice_delivered",
+    "notice_missing",
+    "response_lost"
+  ],
+  "arms_by_owner": {
+    "langgraph_native": [
+      "R0"
+    ],
+    "external_receiver": [
+      "R1"
+    ],
+    "absent": [
+      "R0",
+      "R1"
+    ]
+  },
+  "r1_idempotency_owner": "external_receiver",
+  "r0_claim": "NOT_SUPPORTED",
+  "fulfillment_rows": 24,
+  "fulfillment_blocked": 6,
+  "coding_status": "PORTABILITY_LIMITED",
+  "coding_reason": "冒烟使用历史修复补丁驱动 LangGraph 公开 API。没有模型工具轨迹，因此不能记成完整的跨 Runtime 编码验证。容器评分单独附在 scorer_check。",
+  "sources": [
+    "results/runtime/correctness/m5/summary.json",
+    "results/runtime/correctness/v2-m5-coding/summary.json"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "model_called": false,
+  "injected_raise_unchanged": true,
+  "note": "B2 and B3 reject a stale token before this historical diff is consulted. Their v4b safety column is the version check. This file only checks whether one real later edit leaves the old patch valid.",
+  "rows": [
+    {
+      "task_id": "code-more-itertools-172bcb3c",
+      "found": true,
+      "commit": "0fcdde9cce8bfdc3ba5e84711a990a32b74564a4",
+      "patch_rejected": true,
+      "old_patch_hidden_passed": false,
+      "tail": "patch_rejected"
+    },
+    {
+      "task_id": "code-more-itertools-20c4ee5c",
+      "found": true,
+      "commit": "0fcdde9cce8bfdc3ba5e84711a990a32b74564a4",
+      "patch_rejected": false,
+      "old_patch_hidden_passed": true,
+      "tail": "................................................. [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 23.55s"
+    }
+  ]
+}

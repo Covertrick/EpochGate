@@ -1,0 +1,64 @@
+{
+  "protocol": "docs/研究/统计协议.md",
+  "batches_added_together": false,
+  "hypotheses_on_this_batch": {
+    "H-A": "v4b applicable invalid-content cells only. See v4b.b1_accept_b2_reject. Not pooled with historical pairs.",
+    "H-B": "v4 used S1, notice delivered. It does not re-estimate interrupt recovery. Recovery evidence stays in the final regression tests.",
+    "H-C": "Development and confirmation successor passes are reported as separate populations."
+  },
+  "confirm_read_before_protocol": false,
+  "feasibility_ready": true,
+  "populations_dev": {
+    "all_assigned": 3,
+    "effect_produced": 2,
+    "initial_labels": [
+      "BUDGET_EXCEEDED",
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED"
+    ],
+    "agent_successor_labels": [
+      "BUDGET_EXCEEDED",
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED"
+    ],
+    "agent_successor_not_demonstrated": false,
+    "confirm_started": true,
+    "unnecessary_rejection_v1": 2,
+    "semantic_invalid": 2
+  },
+  "populations_confirm": {
+    "all_assigned": 6,
+    "effect_produced": 4,
+    "initial_hidden_passed": 4,
+    "agent_successor_passed": 3,
+    "initial_labels": [
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED",
+      "BUDGET_EXCEEDED",
+      "BUDGET_EXCEEDED"
+    ],
+    "agent_successor_labels": [
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED",
+      "BUDGET_EXCEEDED",
+      "BUDGET_EXCEEDED",
+      "BUDGET_EXCEEDED"
+    ],
+    "mechanism_old_rejected_b2_b3": true,
+    "note": "Separate from the development population. Not added to v3 or to the development rows."
+  },
+  "v4b": {
+    "rows": 6,
+    "invalid": 1,
+    "patch_rejected": 3,
+    "content_invalid_applicable": 2,
+    "b1_accept_b2_reject": 2,
+    "note": "Two discordant pairs are not six. The protocol's p=0.03125 illustration does not apply. These pairs are not added to historical H5."
+  },
+  "confirm_summary_present": true,
+  "confirm_environment": null,
+  "interpretation": "Six confirmation tasks, even if all succeed, are not a cross-project conclusion. A missing confirm summary means the dev gate did not start it or the run has not finished."
+}

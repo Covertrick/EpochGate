@@ -1,0 +1,130 @@
+{
+  "git_head": "b6dd92b491f5235b89a649132e63a889df598316",
+  "worktree_dirty": true,
+  "reproducible_commit": false,
+  "note": "归档提交完成之前，不把这份清单里的 git_head 说成复现点。v3 运行器身份仍以 artifact 的两个 SHA-256 为准。",
+  "v3_artifact": "results/runtime/correctness/v3-coding/artifact/",
+  "image": "python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "files": [
+    {
+      "path": "packages/runtime/src/epochgate_runtime/ledger.py",
+      "sha256": "eb819acb5a74e953e85d9c0393fe214d5d8cb57586c1657ce8c8e42f4d81bf2b",
+      "bytes": 48696
+    },
+    {
+      "path": "packages/runtime/src/epochgate_runtime/sink.py",
+      "sha256": "7dd6db33c01a005252c7fa837d68ce4cfeb69a57a2c417b2dfdefea029ea4e4c",
+      "bytes": 4990
+    },
+    {
+      "path": "packages/runtime/src/epochgate_runtime/files.py",
+      "sha256": "fbfe8f1d0380e471fc9cb4940c7c794d1067028a3f5068d1d81e3f459c151407",
+      "bytes": 14998
+    },
+    {
+      "path": "packages/runtime/pyproject.toml",
+      "sha256": "2473193b54d68c09a7c7e5f3f7c4cdc62df5f5b376b987e8c49c842ebd1f7998",
+      "bytes": 724
+    },
+    {
+      "path": "scripts/reliability_contract.py",
+      "sha256": "060c757cb158cf580f3c08ffdcec178e511b7f4b4423980792c8c4a598101f39",
+      "bytes": 12440
+    },
+    {
+      "path": "scripts/m4_matrix.py",
+      "sha256": "82c6e975f03e5c06906d98a9d9f6e985f23c431e4ad3ab317809835461c895af",
+      "bytes": 17250
+    },
+    {
+      "path": "scripts/m5_langgraph.py",
+      "sha256": "9473ca82f07a4ffcb9b78c019f901bc2225648d5184f64b805b377e49abdf5b1",
+      "bytes": 6904
+    },
+    {
+      "path": "scripts/coding_v3.py",
+      "sha256": "1667b0c0f8f9453424601b58e75182aa58aea97a11b59f753b749c502e8affcb",
+      "bytes": 38204
+    },
+    {
+      "path": "scripts/coding_v3_rescore.py",
+      "sha256": "84bc3f13fd54648ef5fc9a12c87b0aaa041774686bde78d5ddd0858772b0643e",
+      "bytes": 10354
+    },
+    {
+      "path": "scripts/coding_v4.py",
+      "sha256": "ba72b1303ea7d09c366e2e40c25c2d59a732bea448862b5ed4edc28bf49cf1f0",
+      "bytes": 22078
+    },
+    {
+      "path": "scripts/coding_v4_feasibility.py",
+      "sha256": "c00f53dd733e3f418a7a3b08bd9c9450d419879426b3b60052433655f8e1c7cf",
+      "bytes": 9207
+    },
+    {
+      "path": "scripts/coding_v4b.py",
+      "sha256": "8a61ae84209e9aa738f12d500fe4a81c323bacdfc0807cee84f8acb20d1d3778",
+      "bytes": 7439
+    },
+    {
+      "path": "scripts/coding_v4_isolated.py",
+      "sha256": "e0cdef5965688a90692080a624aed15ba424ad3c0e99d5dc576e97a5181eb1cf",
+      "bytes": 6979
+    },
+    {
+      "path": "scripts/outbox_baseline.py",
+      "sha256": "40a6b51a42970fa057f208a8ee4b65203a86d1bf84f84304a815f69f9b9f6705",
+      "bytes": 2971
+    },
+    {
+      "path": "packages/runtime/tests/test_publish_process_kill.py",
+      "sha256": "6b90d768c236c5ff63d2e20fb4330c9314fd3d5c9bcaf1e4c9ef3cc4ea0eff94",
+      "bytes": 2055
+    },
+    {
+      "path": "docs/开发文档/Coding-v4协议.md",
+      "sha256": "5cc69185ceb1c4634da5a7070b7a606d05c87be6b2dd93cc3e9415fc3699d160",
+      "bytes": 5784
+    },
+    {
+      "path": "docs/开发文档/Coding-v4b-语义冲突协议.md",
+      "sha256": "c3ee8a2d9c1574f5480229f68be881a2549965b9e8b0f2b11052026fad3974d0",
+      "bytes": 1909
+    },
+    {
+      "path": "docs/开发文档/Coding-v4c-隔离协议.md",
+      "sha256": "c4f4ab563019773338bfbb55049a51285cce44fc15909605540e2311646ba851",
+      "bytes": 1280
+    },
+    {
+      "path": "docs/研究/执行语义与保证边界.md",
+      "sha256": "5a12fd252dc8b0a9d71d6a6ac168e6b9fa4ff988d84cc48dce316682a47e596c",
+      "bytes": 5305
+    },
+    {
+      "path": "docs/研究/Novelty-and-Related-Work.md",
+      "sha256": "3a906ecba07214c3b4ae7d170aa0649a9161a5416b454349a950a29a10829b3f",
+      "bytes": 8960
+    },
+    {
+      "path": "docs/研究/统计协议.md",
+      "sha256": "4aaa5b0c318ae49b2099499904049caae9a9f49463ec9290fe553d35baba8670",
+      "bytes": 3192
+    },
+    {
+      "path": "results/runtime/correctness/v4-coding/frozen-tasks.json",
+      "sha256": "92f6bd7ab2225359e781b7419c08e6c8cdc96f3324265472580081c7c1d12d42",
+      "bytes": 3500
+    },
+    {
+      "path": "results/runtime/correctness/v3-coding/freeze.json",
+      "sha256": "7e903a9b61730f5141859dcc3fb2874254638fb0a8fa8e857714e8092091c9c0",
+      "bytes": 572
+    },
+    {
+      "path": "results/runtime/correctness/v2-coding-pool/manifest.json",
+      "sha256": "5c0a021ffb994bb52ada96f588b080e71967d00a64af4fe46025df285e57a83c",
+      "bytes": 37498
+    }
+  ]
+}

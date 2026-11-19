@@ -1,0 +1,23 @@
+{
+  "ran_at": "2026-11-19",
+  "command": "python -m uv run pytest -q packages/runtime/tests/test_publish_process_kill.py packages/runtime/tests/test_cbc_runtime_probe.py packages/runtime/tests/test_publish_contract.py packages/runtime/tests/test_fault_recovery.py --tb=line",
+  "result": "31 passed",
+  "power_loss": "unmeasured",
+  "h2_container_crash_hooks": "unmeasured",
+  "h2_note": "publish_container still has no crash hook. The three cells in the E10 note stay unmeasured. H0 and H1 numbers were not rewritten.",
+  "d1_d4_snapshot": "docs/开发文档/Runtime-正确性缺陷清单.md remains the 7ac72dd snapshot. These probes passed on the current tree.",
+  "faults": {
+    "concurrent_supersede": "test_t2_concurrent_supersede_increments_twice passed",
+    "revoke_race": "test_t1_revoke_before_claim_withholds_file, test_t1_revoke_between_claim_and_replace_still_publishes, test_revoke_after_claim_still_allows_recovery passed",
+    "sink_not_synced": "test_t3_restart_keeps_run_version_and_resets_sink_version, test_unaligned_sink_rejects_until_the_mirror_catches_up, test_d2_crash_during_mirror_repairs_without_accepting passed",
+    "same_key_same_payload": "test_retry_replays_completed_effect, test_t2_same_key_across_processes_accepts_once, test_repeated_file_and_sink_recovery_do_not_apply_twice passed",
+    "same_key_different_payload": "test_t4 payload conflict assertion and test_completed_claim_rejects_a_different_digest passed",
+    "claim_before_publish": "test_claimed_before_replace_recovers_the_authorized_publish passed",
+    "publish_before_receipt": "test_receipt_lost_after_replace_restores_the_receipt_once, test_d1_kill_after_replace_reconciles_once, test_staging_unavailable_stays_unknown passed",
+    "two_recoverers": "test_two_cooperative_recoverers_publish_once passed",
+    "staging_replace_or_truncate": "test_stranger_bytes_do_not_complete_a_claim passed in the 31-test run. test_host_publish_file_does_not_verify_bytes_replaced_after_the_hash passed separately: replace and truncate stay unknown and do not match the hashed bytes.",
+    "external_write": "test_external_writer_is_outside_the_publisher_lock passed. Risk remains.",
+    "notice_missing": "No new detector. Evidence stays in the E4 and E9 cells.",
+    "process_kill_points": "test_process_kill_at_four_publish_points passed for after_private_create, after_private_write, after_replace, after_receipt. Outcomes are unknown, completed, completed, replayed."
+  }
+}

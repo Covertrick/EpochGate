@@ -1,0 +1,10 @@
+{
+  "same_key_same_payload": "accepted",
+  "replay": "replayed",
+  "different_payload": "conflict",
+  "stale_token": "rejected",
+  "fresh_token": "accepted",
+  "claim_to_bytes": false,
+  "notice_missing_inferred": false,
+  "external_exactly_once": false
+}

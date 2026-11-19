@@ -1,0 +1,51 @@
+{
+  "task_id": "code-more-itertools-172bcb3c",
+  "base_hidden_passed": false,
+  "gold_hidden_passed": true,
+  "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+  "toolchain": {
+    "search": true,
+    "read": true,
+    "edit": true,
+    "public_test_path_exists": true
+  },
+  "data_isolation": true,
+  "version_comment": {
+    "import_relevant": true,
+    "successor_hidden_passed": true,
+    "successor_sha256": "0995ead562a8cf774b3b00aaaed9df23b8e65d38d23ebe8f9a26bf5236aec5b4",
+    "tail": "........................................................................................................... [ 30%]\n............................................................................................................ [ 44%]\n.................................................................................................................................. [ 61%]\n............................ [ 64%]\n................................................................................................................ [ 79%]\n......................................................................................................................................... [ 97%]\n......................                                                          [100%]\n772 passed, 21203 subtests passed in 27.47s",
+    "apply_error": null,
+    "legal_successor": true
+  },
+  "semantic_raise": {
+    "hunk": {
+      "path": "more_itertools/__init__.py",
+      "line": 3
+    },
+    "parse_ok": true,
+    "import_ok": false,
+    "import_tail": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/src/more_itertools/__init__.py\", line 3, in <module>\n    raise RuntimeError(\"epochgate-semantic-conflict\")\nRuntimeError: epochgate-semantic-conflict\n",
+    "successor_sha256": "fd0a3e32de73a3ca8ccaa8b898682d0b25cef8cf5de7b83dc9a63c05049fc283",
+    "concurrent_sha256": "b425baa33b12faa5479809c79eb5621e2f4bf6e9b27db582e66bd1bec489c5de",
+    "successor": {
+      "ok": true,
+      "passed": true,
+      "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+      "returncode": 0,
+      "tail": "........................................................................................................... [ 30%]\n............................................................................................................ [ 44%]\n.................................................................................................................................. [ 61%]\n............................ [ 64%]\n................................................................................................................ [ 79%]\n......................................................................................................................................... [ 97%]\n......................                                                          [100%]\n772 passed, 21203 subtests passed in 26.83s",
+      "tree_sha256": "6ef6f5b3cdb7272debb8f5e6fcdf9bc9740850e3e113ea30af46ab2006c130ba"
+    },
+    "old_patch_on_mutated": {
+      "ok": true,
+      "passed": false,
+      "image_id": "sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
+      "apply_error": "error: patch failed: more_itertools/__init__.py:3\nerror: more_itertools/__init__.py: patch does not apply\nwarning: more_itertools/more.py has type 100644, expected 100755\n",
+      "tail": "patch_rejected",
+      "tree_sha256": "7a27d1a42f70438ed916d44402028dfb09d9f5b95d6e5f48fbd8071a53875eec"
+    },
+    "invalid": true,
+    "reason": "unparseable_or_unimportable_or_no_legal_successor"
+  },
+  "ready_for_model": true
+}

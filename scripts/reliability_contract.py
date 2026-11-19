@@ -189,10 +189,12 @@ def commit_effect(ctx: RunContext, arm: str, *, effect_key: str, attempt_id: str
         decision = ctx.receiver.accept(effect_key=effect_key, attempt_id=attempt_id, payload=payload)
         return {**decision, "recovery": "NOT_SUPPORTED", "token_was_stale": token_was_stale}
     if arm == "B2":
-        fresh = bool(state.eligible) and state.fencing_token == ctx.frozen_token
-        if not fresh:
-            return {"status": "rejected", "applied": False, "recovery": "NOT_SUPPORTED", "token_was_stale": True}
-        decision = ctx.receiver.accept(effect_key=effect_key, attempt_id=attempt_id, payload=payload)
+        with ctx.ledger._lock:
+            current = ctx.ledger.get_run(ctx.run_id)
+            fresh = bool(current.eligible) and current.fencing_token == ctx.frozen_token
+            if not fresh:
+                return {"status": "rejected", "applied": False, "recovery": "NOT_SUPPORTED", "token_was_stale": True}
+            decision = ctx.receiver.accept(effect_key=effect_key, attempt_id=attempt_id, payload=payload)
         if ctx.notice_mode == "delayed":
             ctx.mark("notification_delivered")
             move_authority(ctx)

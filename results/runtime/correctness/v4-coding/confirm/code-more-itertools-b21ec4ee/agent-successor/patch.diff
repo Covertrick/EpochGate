@@ -1,0 +1,15 @@
+diff --git a/more_itertools/more.py b/more_itertools/more.py
+--- a/more_itertools/more.py
++++ b/more_itertools/more.py
+@@ -456,6 +456,11 @@
+         elif step < 0:
+             start = -1 if (index.start is None) else index.start
+             stop = (-maxsize - 1) if (index.stop is None) else index.stop
++            if (index.stop is None) and (start >= 0):
++                # An omitted stop with a negative step means the slice ends at
++                # the beginning of the peekable, so only the items up to the
++                # start index need to be cached.
++                stop = start
+         else:
+             raise ValueError('slice step cannot be zero')
+ 

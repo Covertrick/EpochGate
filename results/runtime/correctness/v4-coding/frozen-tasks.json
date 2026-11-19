@@ -1,0 +1,132 @@
+{
+  "dev": [
+    {
+      "task_id": "code-more-itertools-172bcb3c",
+      "repo": "more-itertools",
+      "base": "172bcb3c5c7f22f24da608d13fa25d1576248067",
+      "fix": "c5a8876c9de994e1feaeaf3c221a1921d9c7eef5",
+      "tests": [
+        "tests/test_more.py",
+        "tests/test_recipes.py"
+      ],
+      "sources": [
+        "more_itertools/__init__.py",
+        "more_itertools/more.py",
+        "more_itertools/recipes.py"
+      ]
+    },
+    {
+      "task_id": "code-more-itertools-20c4ee5c",
+      "repo": "more-itertools",
+      "base": "20c4ee5c63f8f8c35a37aee3b69d95cd2450c09a",
+      "fix": "08dca284ba5446a026afdc34067b658f9da989eb",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ]
+    },
+    {
+      "task_id": "code-more-itertools-4aeb4338",
+      "repo": "more-itertools",
+      "base": "4aeb4338ae1407d8da9723e86da99efeb446f719",
+      "fix": "69dbc3392928afe1cc892a387bf0e721522f21c2",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ]
+    }
+  ],
+  "confirm": [
+    {
+      "task_id": "code-more-itertools-b21ec4ee",
+      "repo": "more-itertools",
+      "base": "b21ec4ee8e139ebe297e2221980a694bebb69523",
+      "fix": "e6ce1b0f65a57c459fc5004ad84158447b65b0ac",
+      "tests": [
+        "tests/test_more.py"
+      ],
+      "sources": [
+        "more_itertools/more.py"
+      ]
+    },
+    {
+      "task_id": "code-packaging-46167dcd",
+      "repo": "packaging",
+      "base": "46167dcdb1c8ae42c2dd72d3fdb91564be65a0db",
+      "fix": "0efe21aa398df645c259ee31e54a8a4400b1fc6b",
+      "tests": [
+        "tests/test_markers.py",
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/markers.py",
+        "src/packaging/requirements.py"
+      ]
+    },
+    {
+      "task_id": "code-packaging-8e21512a",
+      "repo": "packaging",
+      "base": "8e21512a575ff7cab33e15f77d5f67f278271f07",
+      "fix": "8efde605cc2666f4ab75e028b578b395ba288401",
+      "tests": [
+        "tests/test_dependency_groups.py"
+      ],
+      "sources": [
+        "src/packaging/dependency_groups.py"
+      ]
+    },
+    {
+      "task_id": "code-packaging-a00861f4",
+      "repo": "packaging",
+      "base": "a00861f4cb12f5705a95e277862cdcd7387abfde",
+      "fix": "5a7d3386d2777180a381eb947f21293124ce8df5",
+      "tests": [
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/_parser.py"
+      ]
+    },
+    {
+      "task_id": "code-packaging-dec6213e",
+      "repo": "packaging",
+      "base": "dec6213e562b69ffb680d5b9a82a899fafe4dc02",
+      "fix": "f91ea7931fa551eb498ca2cdf5644dbbf20bcbc6",
+      "tests": [
+        "tests/test_markers.py",
+        "tests/test_requirements.py"
+      ],
+      "sources": [
+        "src/packaging/markers.py",
+        "src/packaging/requirements.py"
+      ]
+    },
+    {
+      "task_id": "code-packaging-ecf963ad",
+      "repo": "packaging",
+      "base": "ecf963ad0dccf246d1e774c7ede599241e9205b0",
+      "fix": "46167dcdb1c8ae42c2dd72d3fdb91564be65a0db",
+      "tests": [
+        "tests/test_ranges.py"
+      ],
+      "sources": [
+        "src/packaging/ranges.py"
+      ]
+    }
+  ],
+  "requested_confirm": 8,
+  "available_after_dev": 6,
+  "pool_exhausted": true,
+  "excluded_v3": [
+    "code-click-2247b35e",
+    "code-click-8abb77a8",
+    "code-click-ac0e297e",
+    "code-click-dd149eb3",
+    "code-more-itertools-08dca284",
+    "code-more-itertools-0fcdde9c"
+  ]
+}
