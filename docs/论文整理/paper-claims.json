@@ -1,0 +1,84 @@
+{
+  "claims": [
+    {
+      "id": "C1",
+      "statement": "任务终态不能代替执行安全和合法进展。",
+      "support": ["e4_old_360"],
+      "counterexample": "三臂终态正确都是 60/120。",
+      "raw": "results/runtime/correctness/after/e4/cells",
+      "script": "scripts/paper_ledger.py",
+      "allowed": "在这 360 格里，终态正确率相同，过期写入和合法后继不同。",
+      "forbidden": "总体任务成功率提高；把 120 格加进 360。"
+    },
+    {
+      "id": "C2",
+      "statement": "通知、一次准入、版本检查和 Claim 恢复保护不同边界。",
+      "support": ["e4_old_360", "final-regression"],
+      "counterexample": "commit_only 的过期写入仍是 60/120。",
+      "raw": "results/runtime/correctness/after/e4/cells",
+      "script": "scripts/reliability_contract.py",
+      "allowed": "一次准入不包含 fencing，也不包含 Claim 恢复。",
+      "forbidden": "把 B2 写成已经做了 B3 的恢复。"
+    },
+    {
+      "id": "C3",
+      "statement": "凭证过期不等于内容失效。",
+      "support": ["v4b-historical", "v4 V1"],
+      "counterexample": "0fcdde9c 上 20c4ee5c 的旧黄金补丁仍通过隐藏测试。",
+      "raw": "results/runtime/correctness/v4b-historical/summary.json",
+      "script": "scripts/v4b_historical_sensitivity.py",
+      "allowed": "版本检查会拒绝一份仍然有效的旧补丁，这是保守拒绝。",
+      "forbidden": "拒绝即避免了错误发布。"
+    },
+    {
+      "id": "C4",
+      "statement": "不必要拒绝的进展代价和合法后继可以分开计。",
+      "support": ["v4 descriptive", "v4b"],
+      "counterexample": "内容真的失效的格子不能算进不必要拒绝。",
+      "raw": "results/runtime/correctness/v4-coding/descriptive.json",
+      "script": "scripts/describe_populations.py",
+      "allowed": "V1 注释树上旧补丁仍通过，记为不必要拒绝。",
+      "forbidden": "把无效注入算进同一分母。"
+    },
+    {
+      "id": "C5",
+      "statement": "Claim、物理效果、收据和 UNKNOWN 要分开核验。",
+      "support": ["final-regression"],
+      "counterexample": "缺文件不证明一切效果都没发生；缺收据不证明字节没落地。",
+      "raw": "results/runtime/correctness/final-regression/summary.json",
+      "script": "packages/runtime/tests/test_publish_process_kill.py",
+      "allowed": "四个进程杀死点的恢复词是 Effect Not Applied、Effect Applied、Effect Unknown。",
+      "forbidden": "掉电已测；UNKNOWN 等于未发生。"
+    },
+    {
+      "id": "C6",
+      "statement": "冻结已核验字节针对的是暂存之后的载荷不一致。",
+      "support": ["宿主截断测试"],
+      "counterexample": "外部写入仍可能在哈希之后覆盖。",
+      "raw": "packages/runtime/tests",
+      "script": "packages/runtime/src/epochgate_runtime/files.py",
+      "allowed": "发布前把已哈希的字节封进私有文件再替换。",
+      "forbidden": "任意外部写入的 exactly-once。"
+    },
+    {
+      "id": "C7",
+      "statement": "控制面持久化和并发有具体成本，但不能用回归耗时冒充 E7/E8。",
+      "support": ["E7/E8 历史记录"],
+      "counterexample": "final-regression 的 31 项不是成本实验。",
+      "raw": "docs/开发文档/正确性修复与补充实验.md",
+      "script": "历史成本脚本",
+      "allowed": "引用当时的 E7/E8 记录，并标明配置。",
+      "forbidden": "用本轮回归秒数替换 E7/E8。"
+    },
+    {
+      "id": "C8",
+      "statement": "现有证据不够支撑一般性的跨 Runtime 优势。",
+      "support": ["m5", "langgraph-boundary", "outbox"],
+      "counterexample": "同库一行上 Outbox 与版本检查结果相同。",
+      "raw": "results/runtime/correctness/langgraph-boundary/summary.json",
+      "script": "scripts/langgraph_boundary.py",
+      "allowed": "编码迁移未完成；同库对照只覆盖一行事务。",
+      "forbidden": "Full 普遍优于事务执行或 LangGraph。"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "e4_old_360": {
+    "n": 360,
+    "by_arm": {
+      "commit_only": {
+        "n": 120,
+        "terminal_correct": 60,
+        "stale_effect_accepted": 60,
+        "eligible_successor_completed": 0,
+        "scored": 120
+      },
+      "direct": {
+        "n": 120,
+        "terminal_correct": 60,
+        "stale_effect_accepted": 60,
+        "eligible_successor_completed": 0,
+        "scored": 120
+      },
+      "full": {
+        "n": 120,
+        "terminal_correct": 60,
+        "stale_effect_accepted": 10,
+        "eligible_successor_completed": 50,
+        "scored": 120
+      }
+    }
+  },
+  "e4_repeat_directory": {
+    "n": 120,
+    "by_arm": {
+      "commit_only": {
+        "n": 40,
+        "terminal_correct": 10,
+        "stale_effect_accepted": 20,
+        "eligible_successor_completed": 0,
+        "scored": 40
+      },
+      "direct": {
+        "n": 40,
+        "terminal_correct": 10,
+        "stale_effect_accepted": 30,
+        "eligible_successor_completed": 0,
+        "scored": 40
+      },
+      "full": {
+        "n": 40,
+        "terminal_correct": 20,
+        "stale_effect_accepted": 10,
+        "eligible_successor_completed": 10,
+        "scored": 40
+      }
+    }
+  },
+  "e4_repeat_summary_cells": 120,
+  "e4_repeat_summary_matches_directory": true,
+  "v3_rescore": {
+    "assigned_confirm": 4,
+    "patches_scored": 5,
+    "hidden_passed": 2,
+    "budget_exceeded": [
+      "code-click-ac0e297e"
+    ],
+    "git_note": "runner was not in b6dd92b; identity is the artifact sha256"
+  },
+  "v4_dev": {
+    "assigned": 3,
+    "scorable": 2,
+    "successor_labels": [
+      "BUDGET_EXCEEDED",
+      "HIDDEN_PASSED",
+      "HIDDEN_PASSED"
+    ],
+    "confirm_started": true
+  },
+  "v4_confirm": {
+    "denominator": 6,
+    "initial_passed": 4,
+    "successor_passed": 3,
+    "feedback": "FIXED_FAILURE_FEEDBACK",
+    "tasks_with_failure_lines": 9,
+    "tasks_with_assertion": 5
+  },
+  "v4c": {
+    "denominator": 6,
+    "initial_hidden_passed": 4,
+    "agent_successor_passed": 4,
+    "git_sha": "c5fd4603739019c44736844ccc0da77d87a70098",
+    "not_added_to_v4": true
+  },
+  "v4b": {
+    "rows": 6,
+    "invalid": 1,
+    "patch_rejected": 3,
+    "content_invalid": 2
+  },
+  "v4b_historical": [
+    {
+      "task_id": "code-more-itertools-172bcb3c",
+      "found": true,
+      "commit": "0fcdde9cce8bfdc3ba5e84711a990a32b74564a4",
+      "patch_rejected": true,
+      "old_patch_hidden_passed": false,
+      "tail": "patch_rejected"
+    },
+    {
+      "task_id": "code-more-itertools-20c4ee5c",
+      "found": true,
+      "commit": "0fcdde9cce8bfdc3ba5e84711a990a32b74564a4",
+      "patch_rejected": false,
+      "old_patch_hidden_passed": true,
+      "tail": "................................................. [ 90%]\n..............................................................           [100%]\n624 passed, 11318 subtests passed in 23.55s"
+    }
+  ],
+  "m5": {
+    "n": 24,
+    "blocked": 6,
+    "coding_blocked": true
+  },
+  "m6": {
+    "decision": "GO",
+    "pairs": {
+      "b": 5,
+      "c": 0,
+      "pvalue": 0.0625,
+      "note": "双侧精确 McNemar"
+    },
+    "precision": "PRECISION_NOT_MET",
+    "degenerate_bootstrap": true
+  },
+  "outbox": {
+    "same_key_same_payload": "accepted",
+    "replay": "replayed",
+    "different_payload": "conflict",
+    "stale_token": "rejected",
+    "fresh_token": "accepted",
+    "claim_to_bytes": false,
+    "notice_missing_inferred": false,
+    "external_exactly_once": false
+  },
+  "regression": {
+    "result": "31 passed",
+    "power_loss": "unmeasured",
+    "h2": "unmeasured"
+  },
+  "m4_confirm_dirs": 53
+}
