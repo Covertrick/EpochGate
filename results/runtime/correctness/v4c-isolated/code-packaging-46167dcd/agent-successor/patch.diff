@@ -1,0 +1,135 @@
+diff --git a/src/packaging/_tokenizer.py b/src/packaging/_tokenizer.py
+--- a/src/packaging/_tokenizer.py
++++ b/src/packaging/_tokenizer.py
+@@ -16,6 +16,16 @@
+     name: str
+     text: str
+     position: int
++
++
++def _format_syntax_error(
++    message: str,
++    source: str,
++    span: tuple[int, int],
++) -> str:
++    """Format a syntax error message with the offending source and a marker."""
++    marker = " " * span[0] + "~" * (span[1] - span[0]) + "^"
++    return f"{message}\n    {source}\n    {marker}"
+ 
+ 
+ class ParserSyntaxError(Exception):
+@@ -35,8 +45,7 @@
+         super().__init__()
+ 
+     def __str__(self) -> str:
+-        marker = " " * self.span[0] + "~" * (self.span[1] - self.span[0]) + "^"
+-        return f"{self.message}\n    {self.source}\n    {marker}"
++        return _format_syntax_error(self.message, self.source, self.span)
+ 
+ 
+ DEFAULT_RULES: dict[str, re.Pattern[str]] = {
+diff --git a/src/packaging/markers.py b/src/packaging/markers.py
+--- a/src/packaging/markers.py
++++ b/src/packaging/markers.py
+@@ -23,7 +23,7 @@
+ 
+ from ._parser import MarkerAtom, MarkerList, MarkerLogical, Op, Value, Variable
+ from ._parser import parse_marker as _parse_marker
+-from ._tokenizer import ParserSyntaxError
++from ._tokenizer import ParserSyntaxError, _format_syntax_error
+ from .specifiers import InvalidSpecifier, Specifier
+ from .utils import canonicalize_name
+ 
+@@ -73,7 +73,29 @@
+ 
+     This error indicates that the given marker string does not conform to the
+     :ref:`specification of dependency specifiers <pypug:dependency-specifiers>`.
+-    """
++
++    .. versionchanged:: 26.5
++        Added the :attr:`message`, :attr:`source`, and :attr:`span` attributes,
++        which carry the details of the syntax error (if known), so that the
++        internal parser exception does not need to be inspected.
++    """
++
++    def __init__(
++        self,
++        message: str,
++        source: str | None = None,
++        span: tuple[int, int] | None = None,
++    ) -> None:
++        self.message: str = message
++        """The error message, without the offending source text."""
++        self.source: str | None = source
++        """The source text that failed to parse, or ``None`` if unknown."""
++        self.span: tuple[int, int] | None = span
++        """The ``(start, end)`` offsets of the offending text, or ``None``."""
++        if source is not None and span is not None:
++            super().__init__(_format_syntax_error(message, source, span))
++        else:
++            super().__init__(message)
+ 
+ 
+ class UndefinedComparison(ValueError):
+@@ -546,7 +568,7 @@
+             #     ]
+             # ]
+         except ParserSyntaxError as e:
+-            raise InvalidMarker(str(e)) from e
++            raise InvalidMarker(e.message, source=e.source, span=e.span) from e
+ 
+     @classmethod
+     def _from_markers(cls, markers: MarkerList) -> Marker:
+diff --git a/src/packaging/requirements.py b/src/packaging/requirements.py
+--- a/src/packaging/requirements.py
++++ b/src/packaging/requirements.py
+@@ -18,7 +18,7 @@
+ from typing import TYPE_CHECKING, Any
+ 
+ from ._parser import parse_requirement as _parse_requirement
+-from ._tokenizer import ParserSyntaxError
++from ._tokenizer import ParserSyntaxError, _format_syntax_error
+ from .markers import Marker, _normalize_extra_values
+ from .specifiers import InvalidSpecifier, SpecifierSet
+ from .utils import canonicalize_name
+@@ -49,7 +49,29 @@
+     does not conform to the specification. Users should refer to PEP 508.
+ 
+     .. versionadded:: 16.1
++
++    .. versionchanged:: 26.5
++        Added the :attr:`message`, :attr:`source`, and :attr:`span` attributes,
++        which carry the details of the syntax error (if known), so that the
++        internal parser exception does not need to be inspected.
+     """
++
++    def __init__(
++        self,
++        message: str,
++        source: str | None = None,
++        span: tuple[int, int] | None = None,
++    ) -> None:
++        self.message: str = message
++        """The error message, without the offending source text."""
++        self.source: str | None = source
++        """The source text that failed to parse, or ``None`` if unknown."""
++        self.span: tuple[int, int] | None = span
++        """The ``(start, end)`` offsets of the offending text, or ``None``."""
++        if source is not None and span is not None:
++            super().__init__(_format_syntax_error(message, source, span))
++        else:
++            super().__init__(message)
+ 
+ 
+ class Requirement:
+@@ -114,7 +136,9 @@
+         try:
+             parsed = _parse_requirement(requirement_string)
+         except ParserSyntaxError as e:
+-            raise InvalidRequirement(str(e)) from e
++            raise InvalidRequirement(
++                e.message, source=e.source, span=e.span
++            ) from e
+ 
+         self.name: str = parsed.name
+         """The name of the requirement."""

@@ -1,0 +1,23 @@
+diff --git a/src/packaging/dependency_groups.py b/src/packaging/dependency_groups.py
+--- a/src/packaging/dependency_groups.py
++++ b/src/packaging/dependency_groups.py
+@@ -54,7 +54,7 @@
+         self.group = group
+         self.include_group = include_group
+ 
+-        if include_group == group:
++        if _normalize_name(include_group) == _normalize_name(group):
+             reason = f"{group} includes itself"
+         else:
+             reason = f"{include_group} -> {group}, {group} -> {include_group}"
+@@ -193,9 +193,7 @@
+                 include_group = _normalize_name(item.include_group)
+                 if include_group in stack:
+                     errors.error(
+-                        CyclicDependencyGroup(
+-                            requested_group, group, item.include_group
+-                        )
++                        CyclicDependencyGroup(requested_group, group, include_group)
+                     )
+                 elif include_group not in visited:
+                     self._validate(

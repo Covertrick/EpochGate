@@ -1,0 +1,39 @@
+diff --git a/more_itertools/more.py b/more_itertools/more.py
+--- a/more_itertools/more.py
++++ b/more_itertools/more.py
+@@ -366,6 +366,14 @@
+     remaining items in the source iterator, which may require significant
+     storage.
+ 
++    Slices with a negative step and an omitted stop only cache the items up to
++    the start index, so they can be used on infinite iterators:
++
++        >>> from itertools import count
++        >>> p = peekable(count())
++        >>> p[4::-1]
++        [4, 3, 2, 1, 0]
++
+     To check whether a peekable is exhausted, check its truth value:
+ 
+         >>> p = peekable(['a', 'b'])
+@@ -455,7 +463,19 @@
+             stop = maxsize if (index.stop is None) else index.stop
+         elif step < 0:
+             start = -1 if (index.start is None) else index.start
+-            stop = (-maxsize - 1) if (index.stop is None) else index.stop
++            if index.stop is None:
++                if start < 0:
++                    # The slice runs backwards all the way from the right side
++                    # of the iterable, so everything is needed.
++                    stop = -maxsize - 1
++                else:
++                    # The slice runs backwards from ``start`` to the front of
++                    # the iterable, so only the items up to and including that
++                    # index are needed.  Treating ``stop`` as 0 keeps the
++                    # cache limited to the first ``start + 1`` items.
++                    stop = 0
++            else:
++                stop = index.stop
+         else:
+             raise ValueError('slice step cannot be zero')
+ 

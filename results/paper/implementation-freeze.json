@@ -1,8 +1,8 @@
 {
-  "git_head": "b6dd92b491f5235b89a649132e63a889df598316",
+  "git_head": "c5fd4603739019c44736844ccc0da77d87a70098",
   "worktree_dirty": true,
-  "reproducible_commit": false,
-  "note": "归档提交完成之前，不把这份清单里的 git_head 说成复现点。v3 运行器身份仍以 artifact 的两个 SHA-256 为准。",
+  "reproducible_commit": true,
+  "note": "代码与 v4 固定失败反馈结果的复现点是 c5fd460。v4c 使用同一运行器，只撤下隐藏测试失败行，summary.git_sha 也指向这个提交。v3 运行器身份仍以 artifact 的两个 SHA-256 为准。",
   "v3_artifact": "results/runtime/correctness/v3-coding/artifact/",
   "image": "python:3.10-slim@sha256:6ff506466f8b1e981719b468cc0023b8ef000b983cdec0eafe119d01f379e31d",
   "files": [

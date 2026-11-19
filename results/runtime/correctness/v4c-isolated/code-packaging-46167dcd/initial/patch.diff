@@ -1,0 +1,160 @@
+diff --git a/src/packaging/_tokenizer.py b/src/packaging/_tokenizer.py
+--- a/src/packaging/_tokenizer.py
++++ b/src/packaging/_tokenizer.py
+@@ -16,6 +16,41 @@
+     name: str
+     text: str
+     position: int
++
++
++def _format_syntax_error(message: str, source: str, span: tuple[int, int]) -> str:
++    """Render an error message with the offending source and a span marker."""
++    marker = " " * span[0] + "~" * (span[1] - span[0]) + "^"
++    return f"{message}\n    {source}\n    {marker}"
++
++
++class _DetailedSyntaxError(ValueError):
++    """Base class for errors that expose details of a failed parse.
++
++    :attr:`message`, :attr:`source`, and :attr:`span` mirror the attributes of
++    :class:`ParserSyntaxError`, so they can be inspected on the public errors
++    without reaching for ``__cause__``. ``source`` and ``span`` are ``None``
++    when the error does not come from parsing text, for example when a
++    requirement's specifier is rejected while being interpreted.
++    """
++
++    def __init__(
++        self,
++        message: str,
++        *,
++        source: str | None = None,
++        span: tuple[int, int] | None = None,
++    ) -> None:
++        self.message = message
++        self.source = source
++        self.span = span
++
++        super().__init__(message)
++
++    def __str__(self) -> str:
++        if self.source is None or self.span is None:
++            return self.message
++        return _format_syntax_error(self.message, self.source, self.span)
+ 
+ 
+ class ParserSyntaxError(Exception):
+@@ -35,8 +70,7 @@
+         super().__init__()
+ 
+     def __str__(self) -> str:
+-        marker = " " * self.span[0] + "~" * (self.span[1] - self.span[0]) + "^"
+-        return f"{self.message}\n    {self.source}\n    {marker}"
++        return _format_syntax_error(self.message, self.source, self.span)
+ 
+ 
+ DEFAULT_RULES: dict[str, re.Pattern[str]] = {
+diff --git a/src/packaging/markers.py b/src/packaging/markers.py
+--- a/src/packaging/markers.py
++++ b/src/packaging/markers.py
+@@ -23,7 +23,7 @@
+ 
+ from ._parser import MarkerAtom, MarkerList, MarkerLogical, Op, Value, Variable
+ from ._parser import parse_marker as _parse_marker
+-from ._tokenizer import ParserSyntaxError
++from ._tokenizer import ParserSyntaxError, _DetailedSyntaxError
+ from .specifiers import InvalidSpecifier, Specifier
+ from .utils import canonicalize_name
+ 
+@@ -68,11 +68,29 @@
+ }
+ 
+ 
+-class InvalidMarker(ValueError):
++class InvalidMarker(_DetailedSyntaxError):
+     """Raised when attempting to create a :class:`Marker` from invalid input.
+ 
+     This error indicates that the given marker string does not conform to the
+     :ref:`specification of dependency specifiers <pypug:dependency-specifiers>`.
++
++    .. versionchanged:: 26.4
++
++        Added the :attr:`message`, :attr:`source`, and :attr:`span` attributes,
++        which are copied from the internal parser error, so the ``__cause__``
++        no longer needs to be inspected.
++    """
++
++    message: str
++    """A description of the problem, without the source and span rendering."""
++
++    source: str | None
++    """The string that failed to parse, or ``None`` for a non-parsing error."""
++
++    span: tuple[int, int] | None
++    """
++    The ``(start, end)`` character offsets of the problem in :attr:`source`,
++    or ``None`` for a non-parsing error.
+     """
+ 
+ 
+@@ -546,7 +564,7 @@
+             #     ]
+             # ]
+         except ParserSyntaxError as e:
+-            raise InvalidMarker(str(e)) from e
++            raise InvalidMarker(e.message, source=e.source, span=e.span) from e
+ 
+     @classmethod
+     def _from_markers(cls, markers: MarkerList) -> Marker:
+diff --git a/src/packaging/requirements.py b/src/packaging/requirements.py
+--- a/src/packaging/requirements.py
++++ b/src/packaging/requirements.py
+@@ -18,7 +18,7 @@
+ from typing import TYPE_CHECKING, Any
+ 
+ from ._parser import parse_requirement as _parse_requirement
+-from ._tokenizer import ParserSyntaxError
++from ._tokenizer import ParserSyntaxError, _DetailedSyntaxError
+ from .markers import Marker, _normalize_extra_values
+ from .specifiers import InvalidSpecifier, SpecifierSet
+ from .utils import canonicalize_name
+@@ -43,12 +43,30 @@
+ _UNSET: Any = object() if sys.version_info < (3, 15) else builtins.sentinel("_UNSET")  # type: ignore[attr-defined]
+ 
+ 
+-class InvalidRequirement(ValueError):
++class InvalidRequirement(_DetailedSyntaxError):
+     """
+     Raised when attempting to create a :class:`Requirement` with a string that
+     does not conform to the specification. Users should refer to PEP 508.
+ 
+     .. versionadded:: 16.1
++
++    .. versionchanged:: 26.4
++
++        Added the :attr:`message`, :attr:`source`, and :attr:`span` attributes,
++        which are copied from the internal parser error, so the ``__cause__``
++        no longer needs to be inspected.
++    """
++
++    message: str
++    """A description of the problem, without the source and span rendering."""
++
++    source: str | None
++    """The string that failed to parse, or ``None`` for a non-parsing error."""
++
++    span: tuple[int, int] | None
++    """
++    The ``(start, end)`` character offsets of the problem in :attr:`source`,
++    or ``None`` for a non-parsing error.
+     """
+ 
+ 
+@@ -114,7 +132,7 @@
+         try:
+             parsed = _parse_requirement(requirement_string)
+         except ParserSyntaxError as e:
+-            raise InvalidRequirement(str(e)) from e
++            raise InvalidRequirement(e.message, source=e.source, span=e.span) from e
+ 
+         self.name: str = parsed.name
+         """The name of the requirement."""

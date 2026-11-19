@@ -21,7 +21,7 @@
 | Coding v4 | `docs/开发文档/Coding-v4协议.md` | `scripts/coding_v4.py`、`scripts/coding_v4_feasibility.py` | `results/runtime/correctness/v4-coding/` | `dev/gate.json`、`confirm/summary.json`、`docs/开发文档/v4提示泄漏审计.md` | 已跑完。失败行来自隐藏测试。通过数保留，不叫严格隐藏评测 |
 | Coding v4b | `docs/开发文档/Coding-v4b-语义冲突协议.md` | `scripts/coding_v4b.py` | `results/runtime/correctness/v4b-coding/summary.json` | `docs/开发文档/结论范围.md` | 注入式故障。安全列是版本检查的直接结果 |
 | v4b 历史变更 | 同上 | `scripts/v4b_historical_sensitivity.py` | `results/runtime/correctness/v4b-historical/summary.json` | 同上 | 真实后续提交的敏感性，不调用模型 |
-| Coding v4c | `docs/开发文档/Coding-v4c-隔离协议.md` | `scripts/coding_v4_isolated.py` | `results/runtime/correctness/v4c-isolated/` | 同上 | 严格隔离确认。不与 v4 的通过数相加 |
+| Coding v4c | `docs/开发文档/Coding-v4c-隔离协议.md` | `scripts/coding_v4_isolated.py` | `results/runtime/correctness/v4c-isolated/summary.json` | 同上 | 已跑完。初始 4/6，后继 4/6。不与 v4 相加 |
 | Outbox 对照 | `docs/开发文档/Outbox对照边界.md` | `scripts/outbox_baseline.py` | `results/runtime/correctness/outbox-baseline/summary.json` | 同上 | 同库事务基线。只比较版本和幂等，不覆盖文件发布 |
 | 缺陷清单 | `docs/开发文档/Runtime-正确性缺陷清单.md` | `packages/runtime/tests/test_cbc_runtime_probe.py` | `results/runtime/correctness/final-regression/summary.json` | 清单正文不改 | 清单是 `7ac72dd` 的快照。探针在当前树上通过 |
 
