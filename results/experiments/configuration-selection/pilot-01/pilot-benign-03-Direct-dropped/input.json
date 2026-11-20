@@ -1,0 +1,19 @@
+{
+  "ack_required_if_withheld": false,
+  "arm": "Direct",
+  "condition": "dropped",
+  "id": "pilot-benign-03",
+  "initial_stock": 10,
+  "notice": {
+    "eligible": true,
+    "event_id": "pilot-benign-03:notice",
+    "generation": 2,
+    "stock": 7
+  },
+  "proposal_sha256": "f3fc28dfd7cdee2655541fc294c8e31783ea9404d8fe642f7b5c6c46a450c58d",
+  "run_id": "pilot-benign-03:Direct:dropped",
+  "stratum": "benign",
+  "target_permits_reservation": true,
+  "target_stock": 7,
+  "units": 5
+}

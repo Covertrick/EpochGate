@@ -1,0 +1,7 @@
+{
+  "arm": "claim",
+  "changed": true,
+  "id": "archived-before_commit-1-claim",
+  "payload": "archived",
+  "window": "before_commit"
+}

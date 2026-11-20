@@ -1,0 +1,543 @@
+{
+  "verdict": "PHENOMENON_SUPPORTED_NO_NEW_SCHEDULING_GAIN",
+  "cells": 27,
+  "errors": [],
+  "final_flags": 0,
+  "authorization_dedup_receipt_flags": 0,
+  "hidden_counterexamples": 4,
+  "controls": {
+    "fenced": true,
+    "legal_late": true
+  },
+  "equal_budget_detection": {
+    "sqlite": {
+      "ordinary": 0,
+      "paired": 2,
+      "strong_existing": 2
+    },
+    "sqlite_fenced": {
+      "ordinary": 0,
+      "paired": 0,
+      "strong_existing": 0
+    },
+    "file": {
+      "ordinary": 0,
+      "paired": 2,
+      "strong_existing": 2
+    }
+  },
+  "rows": [
+    {
+      "id": "sqlite-inventory-before_check",
+      "arm": "sqlite",
+      "fixture": "inventory",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-inventory-check_commit_gap",
+      "arm": "sqlite",
+      "fixture": "inventory",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": true,
+      "invalid_effects": [
+        "old"
+      ],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-inventory-after_commit",
+      "arm": "sqlite",
+      "fixture": "inventory",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-routing-before_check",
+      "arm": "sqlite",
+      "fixture": "routing",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-routing-check_commit_gap",
+      "arm": "sqlite",
+      "fixture": "routing",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": true,
+      "invalid_effects": [
+        "old"
+      ],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-routing-after_commit",
+      "arm": "sqlite",
+      "fixture": "routing",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-irrelevant_update-before_check",
+      "arm": "sqlite",
+      "fixture": "irrelevant_update",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-irrelevant_update-check_commit_gap",
+      "arm": "sqlite",
+      "fixture": "irrelevant_update",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite-irrelevant_update-after_commit",
+      "arm": "sqlite",
+      "fixture": "irrelevant_update",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite_fenced-inventory-before_check",
+      "arm": "sqlite_fenced",
+      "fixture": "inventory",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite_fenced-inventory-check_commit_gap",
+      "arm": "sqlite_fenced",
+      "fixture": "inventory",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": "WORLD_VERSION_MISMATCH"
+    },
+    {
+      "id": "sqlite_fenced-inventory-after_commit",
+      "arm": "sqlite_fenced",
+      "fixture": "inventory",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite_fenced-routing-before_check",
+      "arm": "sqlite_fenced",
+      "fixture": "routing",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite_fenced-routing-check_commit_gap",
+      "arm": "sqlite_fenced",
+      "fixture": "routing",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": "WORLD_VERSION_MISMATCH"
+    },
+    {
+      "id": "sqlite_fenced-routing-after_commit",
+      "arm": "sqlite_fenced",
+      "fixture": "routing",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite_fenced-irrelevant_update-before_check",
+      "arm": "sqlite_fenced",
+      "fixture": "irrelevant_update",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "sqlite_fenced-irrelevant_update-check_commit_gap",
+      "arm": "sqlite_fenced",
+      "fixture": "irrelevant_update",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": "WORLD_VERSION_MISMATCH"
+    },
+    {
+      "id": "sqlite_fenced-irrelevant_update-after_commit",
+      "arm": "sqlite_fenced",
+      "fixture": "irrelevant_update",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "file-inventory-before_check",
+      "arm": "file",
+      "fixture": "inventory",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "file-inventory-check_commit_gap",
+      "arm": "file",
+      "fixture": "inventory",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": true,
+      "invalid_effects": [
+        "old"
+      ],
+      "old_rejection": null
+    },
+    {
+      "id": "file-inventory-after_commit",
+      "arm": "file",
+      "fixture": "inventory",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "file-routing-before_check",
+      "arm": "file",
+      "fixture": "routing",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "file-routing-check_commit_gap",
+      "arm": "file",
+      "fixture": "routing",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": true,
+      "invalid_effects": [
+        "old"
+      ],
+      "old_rejection": null
+    },
+    {
+      "id": "file-routing-after_commit",
+      "arm": "file",
+      "fixture": "routing",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "file-irrelevant_update-before_check",
+      "arm": "file",
+      "fixture": "irrelevant_update",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "file-irrelevant_update-check_commit_gap",
+      "arm": "file",
+      "fixture": "irrelevant_update",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    },
+    {
+      "id": "file-irrelevant_update-after_commit",
+      "arm": "file",
+      "fixture": "irrelevant_update",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      },
+      "effects": [
+        "old",
+        "successor"
+      ],
+      "final_match": true,
+      "baseline_flags": false,
+      "historical_flags": false,
+      "invalid_effects": [],
+      "old_rejection": null
+    }
+  ]
+}

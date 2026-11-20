@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results" / "runtime" / "correctness" / "v2-blocked-audit"
-DOC = ROOT / "docs" / "开发文档" / "M4-M6-v2-blocked审计.md"
+DOC = ROOT / "docs" / "实验" / "M4-M6-v2-blocked审计.md"
 
 SOURCES = {
     "m4-pilot": ROOT / "results" / "runtime" / "correctness" / "m4-pilot" / "summary.json",

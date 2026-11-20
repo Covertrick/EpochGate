@@ -1,16 +1,36 @@
 # EpochGate
 
-**面向 LLM Agent 的可靠工具执行。**
+**给 LLM Agent 的工具执行加一层可对账的控制面。**
 
-按当前状态核对执行资格，用 fencing 提交副作用，并处理崩溃恢复和取消。用于 DeepSeek Harness。
+单机 Python + SQLite。执行资格用 fencing token，副作用用幂等键和 receipt，崩溃后用 EffectSink 对账恢复。离线可跑，不需要 API key。
 
-Python 3.12 · SQLite · TypeScript · Docker · DeepSeek Harness
+`Python 3.12` · `SQLite` · `TypeScript` · `Docker` · `DeepSeek Harness`
 
-| 50 | 4 | 20 |
+> **English:** A single-node control plane for reliable tool execution in LLM agents — fencing tokens for eligibility, idempotent effects with receipts, and crash recovery by sink reconciliation. Offline demos, no API key required.
+
+## 技术栈
+
+| 层 | 选型 | 作用 |
 | --- | --- | --- |
-| 控制面测试通过（2026-11-10，78.50 秒） | 崩溃检查点，退出码 86 | 每种提交各重复的次数 |
+| 语言 | Python 3.12 | 控制面、账本、恢复、实验脚本 |
+| 存储 | SQLite，`BEGIN IMMEDIATE` 事务 | `RunLedger` 与 `EffectSink`，单机权威 |
+| 控制服务 | Python 标准库 `ThreadingHTTPServer` | 本地 HTTP，无 Web 框架依赖 |
+| Agent 集成 | DSH 0.2.2-rc.1 + TypeScript 插件（`eg-workspace` / `eg-policy` / `eg-observability`） | 对话循环、工具调用、准入 |
+| CLI | Typer（`egctl`） | `doctor` / `demo` / `runs` / `effects` |
+| 执行隔离 | Docker `python:3.10-slim`、`--network none`、`no-new-privileges`、256MB | 工具进程 |
+| 测试 | pytest + hypothesis | 控制面不变量与负例 |
+| 打包 | uv workspace + hatchling | `epochgate` 与 `epochgate-runtime` 两个包 |
 
-离线命令不调用模型。下面是一次真实运行的终端输出：旧 token 被拒绝，新 token 写入并核对 receipt。
+## 60 秒演示
+
+```powershell
+uv run egctl doctor
+uv run egctl demo --scenario stale-write --offline
+uv run egctl demo --scenario crash-recovery --offline
+uv run egctl runs list
+```
+
+真实输出：
 
 ```text
 Run                  demo-09573d69d47e
@@ -31,9 +51,11 @@ Duplicate accepts    0
 Recovery verified
 ```
 
-报告写在 `.epochgate/runs/<run-id>/report.html`。
+报告写到 `.epochgate/runs/<run-id>/report.html`。
 
-## 为什么需要 EpochGate
+> 本机已装好环境时，也可以直接用 `.venv\Scripts\egctl.exe`（Windows）。
+
+## 它解决什么问题
 
 工具按拿到资格时的世界执行。之后状态会变，进程可能还活着，文件或外部系统也可能已经写过。
 
@@ -46,107 +68,124 @@ Recovery verified
 
 ![状态已通知之后，旧 token 被拒绝，新 token 提交并核对 receipt](docs/assets/eligibility-flow.png)
 
-旧 token 被拒绝，要先有一次可信的 `supersede` 或等价的状态重验。没有通知时，旧 token 仍会发布。新 token 能提交，还要求 Run 版本和 EffectSink 的提交前提一致。只推进 Run、不推进 sink 时，新 token 也会被拒绝。规则在 [协议](docs/现行/论文/协议.md)。
+关键边界：**没有可信通知时，旧 token 仍会发布。** 受测保证是“相关状态变化已经进入控制面的资格状态之后，过期凭证可以被拒绝、合法后继可以完成”，不是“有 fencing token 就挡住一切过期效果”。
 
-## 快速开始
+## 三个可复核的结果
 
-在仓库里：
+| 问题 | 做法 | 结果 |
+| --- | --- | --- |
+| 过期工具提交 | fencing token + SQLite 事务 + 受控 Publisher | 离线 Demo：Attempt #1 `REVOKED`，Attempt #2 `COMMITTED`，重复接受 0 |
+| 效果落地后崩溃 | 幂等键、receipt、EffectSink 对账 | 四个检查点各 3 次，退出码 86，接受次数 0、0、1、1；恢复 `confirmed_from_sink`，再读一次是 `replay` |
+| 取消不等于完成 | 资格、进程退出、槽位释放分开 | 8 次短进程都退出并释放槽位，0.712–1.084 秒；孙进程还活着时槽位不释放 |
 
-```powershell
-uv run egctl doctor
-uv run egctl demo --scenario stale-write --offline
-uv run egctl demo --scenario crash-recovery --offline
-uv run egctl runs list
-uv run egctl runs inspect <run-id>
-```
-
-`<run-id>` 用 `runs list` 打出来的那一列。`runs inspect` 会打印时间线，并写出 `report.json` 和 `report.html`。`effects verify <run-id>` 核对 receipt。每次 Demo 使用新的 Run ID，不用删 SQLite。
-
-只装控制面：`uv tool install ./packages/runtime`，然后直接用 `egctl`。
-
-接 DSH 时开两个终端。第一个：
-
-```powershell
-uv run egctl serve
-```
-
-它打印 `http://127.0.0.1:8765`。第二个：
-
-```powershell
-$env:EG_CONTROL_URL = "http://127.0.0.1:8765"
-$env:EG_REQUIRE_CONTROL = "1"
-
-uv run egctl demo --scenario coding --model deepseek-flash
-```
-
-没有密钥时第二条会停下来，不会发请求。插件说明在 [接入](docs/现行/使用/接入.md)。
-
-```python
-from epochgate_runtime import Runtime
-
-runtime = Runtime.open(".epochgate/epochgate.db")
-attempt = runtime.reserve(
-    run_id="example-001",
-    resource="workspace/main.py",
-)
-runtime.close()
-```
-
-`reserve` 只申请资格。文件仍由控制面核对 token 和 SHA-256。
+控制面测试：`pytest -q` → **203 passed**；1 项多进程用例在本机 Windows 沙箱下因命名管道权限失败（`WinError 5`），不是代码问题。CI 在 [ci.yml](.github/workflows/ci.yml)。
 
 ## 架构
 
-![代理层、控制面和执行面](docs/assets/architecture.png)
+```mermaid
+flowchart TB
+    subgraph A["代理层"]
+        DSH["DSH 对话循环"] --> PL["TypeScript 插件"]
+    end
 
-提交从插件进入 Control Service，Publisher 核对 token 和摘要后把 receipt 交回插件。取消从 Scheduler 的 Lease 出发，进程退出之后才释放槽位。DSH 管对话。插件通过 HTTP 读回资格，自己不建第二本账。`eg_read` 只准入。写和命令才占资格。`eg-policy` 能提前拒绝 `.env`、gold 和 `git push`，不能授权发布。Publisher 先把暂存字节读进内存，再以 uid 1001 写入 `/workspace`。工具用户 uid 1000 只能写 `/scratch`。
+    subgraph C["控制面 · epochgate-runtime"]
+        API["控制服务 HTTP"]
+        EL["资格与 fencing"]
+        SCH["调度与租约"]
+        EFF["效果与 receipt"]
+        REC["恢复对账"]
+        LED[("RunLedger · SQLite")]
+        API --> EL
+        API --> SCH
+        API --> EFF
+        EL --> LED
+        SCH --> LED
+        EFF --> LED
+        REC --> LED
+    end
 
-SQLite 的 `BEGIN IMMEDIATE` 把资格检查串行化。它不包含文件系统。文件发布在事务里核对 token 和摘要，跨过数据库和磁盘的崩溃窗口靠受控发布和恢复对账补上同一次 claim，或者停在 `OUTCOME_UNKNOWN`。
+    subgraph X["执行面"]
+        EXE["进程 / 容器执行器"]
+        STG["暂存"]
+        PUB["受控发布"]
+        SINK[("EffectSink")]
+        EXE --> STG --> PUB --> SINK
+    end
 
-| 层 | 选择 |
+    PL -->|"准入 / 预留"| API
+    API -->|"receipt"| PL
+    SCH -->|"启动"| EXE
+    EXE -->|"进程已退出"| SCH
+    PUB -->|"核对 token + 摘要"| EL
+    REC -->|"对账"| SINK
+```
+
+提交从插件进入控制服务，Publisher 核对 token 和摘要后把 receipt 交回插件。取消从 Scheduler 的 Lease 出发，进程退出之后才释放槽位。插件通过 HTTP 读回资格，自己不建第二本账。SQLite 的 `BEGIN IMMEDIATE` 把资格检查串行化，但不包含文件系统；文件发布在事务里核对 token 和摘要，跨数据库和磁盘的崩溃窗口靠受控发布和恢复对账补上同一次 claim，或者停在 `OUTCOME_UNKNOWN`。
+
+详细版（含租约与恢复路径）：[architecture.png](docs/assets/architecture.png)。
+
+## 一次提交的生命周期
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant P as 插件
+    participant C as 控制服务
+    participant L as RunLedger
+    participant X as 执行器
+    participant S as EffectSink
+
+    P->>C: reserve(run, resource)
+    C->>L: 检查资格 / 发 fencing token
+    L-->>C: token + version
+    C-->>P: token
+    P->>X: 运行工具
+    X->>C: publish(staging, token, digest)
+    C->>L: claim(token, digest)
+    L-->>C: claimed
+    C->>S: 提交字节
+    S-->>C: receipt
+    C->>L: complete(receipt)
+    C-->>P: receipt
+    Note over C,L: commit 后、receipt 前崩溃 → 重开账本对账
+```
+
+四步：**reserve → claim → commit → reconcile**。崩溃落在 commit 与 receipt 之间时，重开账本对账；确认不了就停在 `OUTCOME_UNKNOWN`，不猜。
+
+## 开销
+
+![在线短任务 batch 中位秒](docs/assets/online-batch.png)
+
+![单次提交中位秒](docs/assets/commit-overhead.png)
+
+三条线是 B0 无账本、B1 只做资格、B2 写出 receipt。同等一次模型调用、同等一次 `OK` 提交，每种 20 次，并发 1，全部完成。B2 的总时间中位比 B0 高约 21.5%，多出来的时间主要在提交段。这是单机短调用的一次测量，不外推到集群。
+
+## 仓库地图
+
+| 目录 | 内容 |
 | --- | --- |
-| Agent | DSH 0.2.2-rc.1。复用官方 Loop |
-| 权威 | Python 3.12 + SQLite RunLedger |
-| 插件 | TypeScript，只走本地 HTTP |
-| 隔离 | `python:3.10-slim`，`--network none`，`no-new-privileges`，256MB，不挂载 docker socket |
+| [`src/epochgate/`](src/epochgate/) | 研究运行时：B0/B1/B2 三臂、CLI、库存环境 |
+| [`packages/runtime/`](packages/runtime/) | 控制面 `epochgate-runtime`：账本、Publisher、恢复、调度 |
+| [`experiments/`](experiments/README.md) | 五个研究阶段 + 提交历史、配置选择、Git、包撤回、恢复义务 |
+| [`results/`](results/README.md) | 可复核的汇总结果；原始运行目录不入库 |
+| [`docs/`](docs/README.md) | 协议、架构、复现步骤、论文材料 |
+| [`examples/`](examples/) | 四个可直接读的例子 |
+| [`archive/`](archive/README.md) | 历史代码与调试轨迹 |
 
-单机账本。说明见 [运行时](docs/现行/架构/运行时.md)。
+## 复现
 
-## 工程难点
+```powershell
+.venv/Scripts/python.exe -m pytest -q
+.venv/Scripts/python.exe -m pytest experiments/historical_audit/reconstruction/tests -q
+```
 
-| 问题 | 做法 | 已经看到的结果 |
-| --- | --- | --- |
-| 过期工具提交 | fencing token，SQLite 事务，受控 Publisher | 离线 Demo：Attempt #1 `REVOKED`，Attempt #2 `COMMITTED`，重复接受 0。DSH 会话里，没有通知时写下 `order 3`；对齐通知后旧 token 被拒，新 token 写下 `order 0` |
-| 效果落地后崩溃 | 幂等键、receipt、EffectSink 对账 | 四个检查点各 3 次，退出码 86，接受次数 0、0、1、1。离线 Demo 的恢复是 `confirmed_from_sink`，再读一次是 `replay` |
-| 取消不等于完成 | 资格、进程退出、槽位释放分开 | 8 次短进程都退出并释放槽位，0.712–1.084 秒。孙进程还活着时槽位不释放 |
-
-入口：[副作用](docs/现行/协议/副作用.md)、[恢复](docs/现行/协议/恢复.md)、[取消](docs/现行/协议/取消.md)。离线命令就是上面的 `stale-write` 和 `crash-recovery`。
-
-## 测量
-
-两张图都来自 `deepseek-flash`。原始中位和文件路径在 [在线对照](docs/现行/基准/在线对照.md)。
-
-在线短任务的 batch 中位秒。三条线依次是 B0 无账本、B1 只做资格、B2 写出 receipt。每格 n=3，三种做法完成的控制路径不同，这张图是初步墙钟。
-
-![在线短任务 batch 中位秒，n=3](docs/assets/online-batch.png)
-
-同等一次模型调用、同等一次 `OK` 提交。每种各 20 次，并发 1，全部完成。上面一条是总时间中位，下面一条是提交段中位。两条分开计算，不能把两个中位数相减当成同一次运行的分段。
-
-![单次提交中位秒，每种各 20 次](docs/assets/commit-overhead.png)
-
-这一次短调用上，B2 的总时间中位比 B0 高约 21.5%。多出来的时间主要出现在提交段的中位上。
+实验协议、逐格证据和复现命令见 [实验与证据](docs/实验/README.md) 与 [分阶段实验复现](experiments/README.md)。
 
 ## 限制
 
-资格不会自己看见外部文件或库存。通知没有到达时，旧 token 可以发布。文件发布核对的是 fencing token 和摘要，SQLite 与文件系统之间留有崩溃窗口，由恢复对账处理。`astropy__astropy-12907` 的两个官方节点能分开基线和 gold patch，没有 Agent 补丁。
+资格不会自己看见外部文件或库存；通知没有到达时旧 token 可以发布。文件发布核对的是 fencing token 和摘要，SQLite 与文件系统之间留有崩溃窗口。单机账本，不声称跨库原子性，也不声称任意 HTTP 服务的 exactly-once。
 
-## 文档
+## 求职材料
 
-| 主题 | 入口 |
-| --- | --- |
-| 使用 | [快速开始](docs/现行/使用/快速开始.md)、[接入](docs/现行/使用/接入.md) |
-| 架构与协议 | [运行时](docs/现行/架构/运行时.md)、[副作用](docs/现行/协议/副作用.md)、[恢复](docs/现行/协议/恢复.md) |
-| 数字 | [在线对照](docs/现行/基准/在线对照.md)、[复现](docs/现行/复现/运行时.md) |
-| 实证测量 | [论文材料](docs/现行/论文/README.md) |
-| 其余文档 | [索引](docs/README.md) |
-
-CI 在 [ci.yml](.github/workflows/ci.yml)。`runtime` 在 Ubuntu 上跑控制面测试和离线 Demo。`containers` 在该 runner 的 Docker 上跑 Publisher 和容器测试。本机 2026-11-10 用 WSL `eg-alpine` 跑过同一组，9 passed，45.49 秒，记录在 [容器测试](docs/现行/复现/容器测试.md)。
+- [PORTFOLIO.md](PORTFOLIO.md)：30 秒介绍、3 分钟 demo、设计取舍与面试问答。
+- 研究线（终态评分盲区、配置选择、Git 效果归属、包撤回）见 [`experiments/`](experiments/README.md)；负结果和停止条件都保留在报告里。

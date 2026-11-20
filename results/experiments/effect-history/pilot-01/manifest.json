@@ -1,0 +1,283 @@
+{
+  "cases": [
+    {
+      "id": "sqlite-inventory-before_check",
+      "arm": "sqlite",
+      "fixture": "inventory",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "sqlite-inventory-check_commit_gap",
+      "arm": "sqlite",
+      "fixture": "inventory",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "sqlite-inventory-after_commit",
+      "arm": "sqlite",
+      "fixture": "inventory",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "sqlite-routing-before_check",
+      "arm": "sqlite",
+      "fixture": "routing",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "sqlite-routing-check_commit_gap",
+      "arm": "sqlite",
+      "fixture": "routing",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "sqlite-routing-after_commit",
+      "arm": "sqlite",
+      "fixture": "routing",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "sqlite-irrelevant_update-before_check",
+      "arm": "sqlite",
+      "fixture": "irrelevant_update",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "sqlite-irrelevant_update-check_commit_gap",
+      "arm": "sqlite",
+      "fixture": "irrelevant_update",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "sqlite-irrelevant_update-after_commit",
+      "arm": "sqlite",
+      "fixture": "irrelevant_update",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "sqlite_fenced-inventory-before_check",
+      "arm": "sqlite_fenced",
+      "fixture": "inventory",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "sqlite_fenced-inventory-check_commit_gap",
+      "arm": "sqlite_fenced",
+      "fixture": "inventory",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "sqlite_fenced-inventory-after_commit",
+      "arm": "sqlite_fenced",
+      "fixture": "inventory",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "sqlite_fenced-routing-before_check",
+      "arm": "sqlite_fenced",
+      "fixture": "routing",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "sqlite_fenced-routing-check_commit_gap",
+      "arm": "sqlite_fenced",
+      "fixture": "routing",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "sqlite_fenced-routing-after_commit",
+      "arm": "sqlite_fenced",
+      "fixture": "routing",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "sqlite_fenced-irrelevant_update-before_check",
+      "arm": "sqlite_fenced",
+      "fixture": "irrelevant_update",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "sqlite_fenced-irrelevant_update-check_commit_gap",
+      "arm": "sqlite_fenced",
+      "fixture": "irrelevant_update",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "sqlite_fenced-irrelevant_update-after_commit",
+      "arm": "sqlite_fenced",
+      "fixture": "irrelevant_update",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "file-inventory-before_check",
+      "arm": "file",
+      "fixture": "inventory",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "file-inventory-check_commit_gap",
+      "arm": "file",
+      "fixture": "inventory",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "file-inventory-after_commit",
+      "arm": "file",
+      "fixture": "inventory",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 0"
+      }
+    },
+    {
+      "id": "file-routing-before_check",
+      "arm": "file",
+      "fixture": "routing",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "file-routing-check_commit_gap",
+      "arm": "file",
+      "fixture": "routing",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "file-routing-after_commit",
+      "arm": "file",
+      "fixture": "routing",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "route east",
+        "2": "route west"
+      }
+    },
+    {
+      "id": "file-irrelevant_update-before_check",
+      "arm": "file",
+      "fixture": "irrelevant_update",
+      "schedule": "before_check",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "file-irrelevant_update-check_commit_gap",
+      "arm": "file",
+      "fixture": "irrelevant_update",
+      "schedule": "check_commit_gap",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    },
+    {
+      "id": "file-irrelevant_update-after_commit",
+      "arm": "file",
+      "fixture": "irrelevant_update",
+      "schedule": "after_commit",
+      "worlds": {
+        "1": "order 3",
+        "2": "order 3"
+      }
+    }
+  ],
+  "python": "3.12.2 | packaged by conda-forge | (main, Feb 16 2024, 20:42:31) [MSC v.1937 64 bit (AMD64)]",
+  "sqlite": "3.46.0",
+  "sources": {
+    "experiments/effect_history/PROTOCOL.md": "d9a0756fca988c4cb6221e5c66b8d1fef5ce0772dd2b685e4742cb971b38762b",
+    "experiments/effect_history/run.py": "4cb4cf20d79f621526998f26cce5e18c0b3b3f04bfe6ed76236ac7f443b990a1",
+    "packages/runtime/src/epochgate_runtime/files.py": "b4a8ee0093e65e7a92662f55c40972480fc0dcbe076a16a4c33c9971cf39392a",
+    "packages/runtime/src/epochgate_runtime/ledger.py": "d2004e7b36a475999a73ef167fc313415e4089c87c73b26bea881b347553e813",
+    "experiments/mechanism_validation/runtime/receiver_server.py": "3b73d05965a7ac4df68164d4dc3a08db6684a12e017da23d40f8f13ae04a3bf2"
+  }
+}

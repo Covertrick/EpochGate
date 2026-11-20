@@ -1,0 +1,44 @@
+{
+  "overall": "NOT_READY",
+  "ready_for_submission": false,
+  "reason": "Week 5 的新颖性审查、形式模型、分离实现、新实验、独立统计、论文和评审都没有完成。P0 项仍然开放。",
+  "gates": {
+    "G1": {
+      "status": "PENDING",
+      "name": "新颖性审查",
+      "reason": "Week 5 新颖性审查尚未完成。"
+    },
+    "G2": {
+      "status": "PENDING",
+      "name": "形式模型",
+      "reason": "形式模型尚未完成，不能把现有回放脚本当成模型。"
+    },
+    "G3": {
+      "status": "PENDING",
+      "name": "分离实现",
+      "reason": "与共享运行器分开的实现尚未完成；现有结论仍是 PARTIALLY_SHARED。"
+    },
+    "G4": {
+      "status": "PENDING",
+      "name": "新实验与独立统计",
+      "reason": "新实验和独立统计尚未完成；第二生成器正式回放没有做。"
+    },
+    "G5": {
+      "status": "PENDING",
+      "name": "论文与评审",
+      "reason": "论文和评审尚未完成，本基线不是验收，也不是 READY_FOR_SUBMISSION。"
+    }
+  },
+  "p0_open": [
+    "新颖性审查",
+    "形式模型",
+    "分离实现",
+    "新实验",
+    "独立统计",
+    "论文",
+    "评审",
+    "版本围栏",
+    "第二生成器正式回放",
+    "提交就绪"
+  ]
+}

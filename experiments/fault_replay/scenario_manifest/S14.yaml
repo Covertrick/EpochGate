@@ -1,0 +1,82 @@
+scenario_id: S14
+family: recovery
+mechanism_role: SEPARATION
+research_hypothesis: 密封后、替换前世界已变。Claim 与 Outbox 由新进程按密封字节发布，记为 RESTORED_BYTES，不是 CONFIRMED_EFFECT。语义仍为 INVALID。
+fixture_proposal_id: p20
+bound_proposals:
+  - p20
+initial_world:
+  order_id: ORD-2114
+  sku: B
+  qty: 1
+  dest: south
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 8
+  drift_qty: 4
+observed_world:
+  order_id: ORD-2114
+  sku: B
+  qty: 4
+  dest: south
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 8
+  drift_qty: 4
+mutation: drift
+fault:
+  checkpoint: after_sealed_before_replace
+  schedule_hash: 1b0da83d4cea50b3be6dc40f8553a4532394927b8b8672ee6f1a8d14c017b22e
+notice_schedule:
+  notice: ABSENT
+  arrives: ABSENT
+effect_key: "effect:{proposal_id}"
+semantic_oracle:
+  name: semantics_oracle
+  version: 1.0.0
+  scoring_world: observed_world
+  predicate_version: predicate.fulfillment.v1
+successor_requirement:
+  required: false
+  status_space: "COMPLETED_VALID,CORRECT_STOP,FAILED"
+expected_evidence_class: PUBLISH_SEALED
+oracle_versions:
+  terminal_oracle: 1.0.0
+  authority_oracle: 1.0.0
+  evidence_oracle: 1.0.0
+  semantics_oracle: 1.0.0
+  successor_oracle: 1.0.0
+predicate_version: predicate.fulfillment.v1
+world_state_id:
+  initial: 782444611c5b9519d5eaa1bbf5488fe2d6ed5e03debe64ac312a1c829d1e0686
+  observed: ea0c539a0d97fa0d594fb7364dfa86f4a871f164463e30f728bf4edc3dbce118
+expected_matrix:
+  Direct:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Admission:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Claim:
+    physical_effect_state: PRESENT_UNVERIFIED
+    recovery_state: RESTORED_BYTES
+    semantic_validity: INVALID
+    recovery_evidence_state: PUBLISH_SEALED
+    published_old_bytes: "true"
+  Outbox:
+    physical_effect_state: PRESENT_UNVERIFIED
+    recovery_state: RESTORED_BYTES
+    semantic_validity: INVALID
+    recovery_evidence_state: PUBLISH_SEALED
+    published_old_bytes: "true"
+applicable_paths:
+  - Direct
+  - Admission
+  - Claim
+  - Outbox

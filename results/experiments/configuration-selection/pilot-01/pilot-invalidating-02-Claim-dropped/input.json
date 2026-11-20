@@ -1,0 +1,19 @@
+{
+  "ack_required_if_withheld": false,
+  "arm": "Claim",
+  "condition": "dropped",
+  "id": "pilot-invalidating-02",
+  "initial_stock": 9,
+  "notice": {
+    "eligible": true,
+    "event_id": "pilot-invalidating-02:notice",
+    "generation": 2,
+    "stock": 3
+  },
+  "proposal_sha256": "7050f531da365258b6d19d9a4be9f7a16f7dd1b8e4b5cec8ba35556bd80a73f4",
+  "run_id": "pilot-invalidating-02:Claim:dropped",
+  "stratum": "invalidating",
+  "target_permits_reservation": true,
+  "target_stock": 3,
+  "units": 4
+}

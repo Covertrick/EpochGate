@@ -1,0 +1,20 @@
+{
+  "condition": "yanked",
+  "exit": 0,
+  "final_state": "yanked",
+  "requests": [
+    {
+      "http": 503,
+      "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+      "state_after": "yanked",
+      "state_before": "absent"
+    },
+    {
+      "http": 200,
+      "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+      "state_after": "yanked",
+      "state_before": "yanked"
+    }
+  ],
+  "writes": 1
+}

@@ -1,0 +1,352 @@
+{
+  "cells": 20,
+  "contrasts": [
+    {
+      "checked_paths_equal": true,
+      "condition": [
+        "archived",
+        "before_commit",
+        true
+      ]
+    },
+    {
+      "checked_paths_equal": true,
+      "condition": [
+        "controlled",
+        "after_commit",
+        false
+      ]
+    },
+    {
+      "checked_paths_equal": true,
+      "condition": [
+        "controlled",
+        "after_commit",
+        true
+      ]
+    },
+    {
+      "checked_paths_equal": true,
+      "condition": [
+        "controlled",
+        "before_commit",
+        false
+      ]
+    },
+    {
+      "checked_paths_equal": true,
+      "condition": [
+        "controlled",
+        "before_commit",
+        true
+      ]
+    }
+  ],
+  "invalid_new_commits": [
+    "controlled-before_commit-1-claim",
+    "archived-before_commit-1-claim"
+  ],
+  "rows": [
+    {
+      "arm": "claim",
+      "bound_to_intent": true,
+      "changed": false,
+      "current_goal": true,
+      "id": "controlled-before_commit-0-claim",
+      "new_commit": true,
+      "outcome": "ACCEPTED",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_query",
+      "bound_to_intent": false,
+      "changed": false,
+      "current_goal": false,
+      "id": "controlled-before_commit-0-admission_query",
+      "new_commit": false,
+      "outcome": "ABSENT_NO_DURABLE_INTENT",
+      "payload": "controlled",
+      "target_digest": null,
+      "target_present": false,
+      "valid_at_commit": null,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_intent",
+      "bound_to_intent": true,
+      "changed": false,
+      "current_goal": true,
+      "id": "controlled-before_commit-0-admission_intent",
+      "new_commit": true,
+      "outcome": "ACCEPTED",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim_checked",
+      "bound_to_intent": true,
+      "changed": false,
+      "current_goal": true,
+      "id": "controlled-before_commit-0-claim_checked",
+      "new_commit": true,
+      "outcome": "ACCEPTED",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim",
+      "bound_to_intent": true,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-before_commit-1-claim",
+      "new_commit": true,
+      "outcome": "ACCEPTED",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": false,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_query",
+      "bound_to_intent": false,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-before_commit-1-admission_query",
+      "new_commit": false,
+      "outcome": "ABSENT_NO_DURABLE_INTENT",
+      "payload": "controlled",
+      "target_digest": null,
+      "target_present": false,
+      "valid_at_commit": null,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_intent",
+      "bound_to_intent": false,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-before_commit-1-admission_intent",
+      "new_commit": false,
+      "outcome": "WITHHELD_INVALID",
+      "payload": "controlled",
+      "target_digest": null,
+      "target_present": false,
+      "valid_at_commit": null,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim_checked",
+      "bound_to_intent": false,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-before_commit-1-claim_checked",
+      "new_commit": false,
+      "outcome": "WITHHELD_INVALID",
+      "payload": "controlled",
+      "target_digest": null,
+      "target_present": false,
+      "valid_at_commit": null,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim",
+      "bound_to_intent": true,
+      "changed": false,
+      "current_goal": true,
+      "id": "controlled-after_commit-0-claim",
+      "new_commit": false,
+      "outcome": "CONFIRMED_EXISTING",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_query",
+      "bound_to_intent": false,
+      "changed": false,
+      "current_goal": true,
+      "id": "controlled-after_commit-0-admission_query",
+      "new_commit": false,
+      "outcome": "OBSERVED_TARGET",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_intent",
+      "bound_to_intent": true,
+      "changed": false,
+      "current_goal": true,
+      "id": "controlled-after_commit-0-admission_intent",
+      "new_commit": false,
+      "outcome": "CONFIRMED_EXISTING",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim_checked",
+      "bound_to_intent": true,
+      "changed": false,
+      "current_goal": true,
+      "id": "controlled-after_commit-0-claim_checked",
+      "new_commit": false,
+      "outcome": "CONFIRMED_EXISTING",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim",
+      "bound_to_intent": true,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-after_commit-1-claim",
+      "new_commit": false,
+      "outcome": "CONFIRMED_EXISTING",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_query",
+      "bound_to_intent": false,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-after_commit-1-admission_query",
+      "new_commit": false,
+      "outcome": "OBSERVED_TARGET",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_intent",
+      "bound_to_intent": true,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-after_commit-1-admission_intent",
+      "new_commit": false,
+      "outcome": "CONFIRMED_EXISTING",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim_checked",
+      "bound_to_intent": true,
+      "changed": true,
+      "current_goal": false,
+      "id": "controlled-after_commit-1-claim_checked",
+      "new_commit": false,
+      "outcome": "CONFIRMED_EXISTING",
+      "payload": "controlled",
+      "target_digest": "a23aa43d7261f3ca16f559c15d55e41516a1f519958a37415807cac82c3b7ff7",
+      "target_present": true,
+      "valid_at_commit": true,
+      "window": "after_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim",
+      "bound_to_intent": true,
+      "changed": true,
+      "current_goal": false,
+      "id": "archived-before_commit-1-claim",
+      "new_commit": true,
+      "outcome": "ACCEPTED",
+      "payload": "archived",
+      "target_digest": "dd647d1bc0fb076e95a2d244aac3cf6f3dbcbb194a0d49dfaff4727d08a95c51",
+      "target_present": true,
+      "valid_at_commit": false,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_query",
+      "bound_to_intent": false,
+      "changed": true,
+      "current_goal": false,
+      "id": "archived-before_commit-1-admission_query",
+      "new_commit": false,
+      "outcome": "ABSENT_NO_DURABLE_INTENT",
+      "payload": "archived",
+      "target_digest": null,
+      "target_present": false,
+      "valid_at_commit": null,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "admission_intent",
+      "bound_to_intent": false,
+      "changed": true,
+      "current_goal": false,
+      "id": "archived-before_commit-1-admission_intent",
+      "new_commit": false,
+      "outcome": "WITHHELD_INVALID",
+      "payload": "archived",
+      "target_digest": null,
+      "target_present": false,
+      "valid_at_commit": null,
+      "window": "before_commit",
+      "worker_exit": 86
+    },
+    {
+      "arm": "claim_checked",
+      "bound_to_intent": false,
+      "changed": true,
+      "current_goal": false,
+      "id": "archived-before_commit-1-claim_checked",
+      "new_commit": false,
+      "outcome": "WITHHELD_INVALID",
+      "payload": "archived",
+      "target_digest": null,
+      "target_present": false,
+      "valid_at_commit": null,
+      "window": "before_commit",
+      "worker_exit": 86
+    }
+  ],
+  "verdict": "NO_GO_CLAIM_SPECIFIC_ADVANTAGE"
+}

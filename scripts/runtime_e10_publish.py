@@ -274,7 +274,7 @@ def run(instance: str, out: Path) -> dict:
     summary = {
         "instance": instance,
         "role": "exploratory" if instance == "exploratory" else "confirmation",
-        "protocol": "docs/开发文档/补实验协议.md",
+        "protocol": "docs/实验/补实验协议.md",
         "rows": rows,
         "h3_h0_mismatches": sum(not row["physical_payload_matches_claim"] for row in h0_bad),
         "h3_h1_mismatches": sum(not row["physical_payload_matches_claim"] for row in h1_bad),

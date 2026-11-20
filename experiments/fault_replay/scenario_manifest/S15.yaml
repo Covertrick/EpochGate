@@ -1,0 +1,82 @@
+scenario_id: S15
+family: recovery
+mechanism_role: SEPARATION
+research_hypothesis: 替换已落盘、回执未落盘。新进程只确认目标摘要，物理状态是 CONFIRMED_EFFECT。语义对变化后的世界为 INVALID。
+fixture_proposal_id: p21
+bound_proposals:
+  - p21
+initial_world:
+  order_id: ORD-2115
+  sku: C
+  qty: 2
+  dest: east
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 9
+  drift_qty: 5
+observed_world:
+  order_id: ORD-2115
+  sku: C
+  qty: 5
+  dest: east
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 9
+  drift_qty: 5
+mutation: drift
+fault:
+  checkpoint: after_replace_before_receipt
+  schedule_hash: 4912aea18bf52835936bf85a477110cc53ab555f419941908a7e754802890935
+notice_schedule:
+  notice: ABSENT
+  arrives: ABSENT
+effect_key: "effect:{proposal_id}"
+semantic_oracle:
+  name: semantics_oracle
+  version: 1.0.0
+  scoring_world: observed_world
+  predicate_version: predicate.fulfillment.v1
+successor_requirement:
+  required: false
+  status_space: "COMPLETED_VALID,CORRECT_STOP,FAILED"
+expected_evidence_class: CONFIRM_TARGET
+oracle_versions:
+  terminal_oracle: 1.0.0
+  authority_oracle: 1.0.0
+  evidence_oracle: 1.0.0
+  semantics_oracle: 1.0.0
+  successor_oracle: 1.0.0
+predicate_version: predicate.fulfillment.v1
+world_state_id:
+  initial: 9825297b75e462499e0666b9b64c5c2b8b03b7eb3d71e07d0cf16aa394038568
+  observed: 2a12669083086b69a0a26e74a577f60da8d7c1f95146a1e2c6c45fb2a911696b
+expected_matrix:
+  Direct:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Admission:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Claim:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: CONFIRM_TARGET
+    published_old_bytes: "true"
+  Outbox:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: CONFIRM_TARGET
+    published_old_bytes: "true"
+applicable_paths:
+  - Direct
+  - Admission
+  - Claim
+  - Outbox

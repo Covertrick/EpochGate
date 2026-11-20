@@ -1,0 +1,19 @@
+{
+  "ack_required_if_withheld": false,
+  "arm": "Claim",
+  "condition": "delivered",
+  "id": "pilot-clean-02",
+  "initial_stock": 9,
+  "notice": {
+    "eligible": true,
+    "event_id": "pilot-clean-02:notice",
+    "generation": 1,
+    "stock": 9
+  },
+  "proposal_sha256": "7050f531da365258b6d19d9a4be9f7a16f7dd1b8e4b5cec8ba35556bd80a73f4",
+  "run_id": "pilot-clean-02:Claim:delivered",
+  "stratum": "clean",
+  "target_permits_reservation": true,
+  "target_stock": 9,
+  "units": 4
+}

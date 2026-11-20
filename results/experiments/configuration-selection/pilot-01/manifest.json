@@ -1,0 +1,182 @@
+{
+  "batch": "pilot",
+  "fixtures": [
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-invalidating-01",
+      "initial_stock": 8,
+      "stratum": "invalidating",
+      "target_permits_reservation": true,
+      "target_stock": 2,
+      "units": 3
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-invalidating-02",
+      "initial_stock": 9,
+      "stratum": "invalidating",
+      "target_permits_reservation": true,
+      "target_stock": 3,
+      "units": 4
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-invalidating-03",
+      "initial_stock": 10,
+      "stratum": "invalidating",
+      "target_permits_reservation": true,
+      "target_stock": 4,
+      "units": 5
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-invalidating-04",
+      "initial_stock": 11,
+      "stratum": "invalidating",
+      "target_permits_reservation": true,
+      "target_stock": 5,
+      "units": 6
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-invalidating-05",
+      "initial_stock": 12,
+      "stratum": "invalidating",
+      "target_permits_reservation": true,
+      "target_stock": 6,
+      "units": 7
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-benign-01",
+      "initial_stock": 8,
+      "stratum": "benign",
+      "target_permits_reservation": true,
+      "target_stock": 5,
+      "units": 3
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-benign-02",
+      "initial_stock": 9,
+      "stratum": "benign",
+      "target_permits_reservation": true,
+      "target_stock": 6,
+      "units": 4
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-benign-03",
+      "initial_stock": 10,
+      "stratum": "benign",
+      "target_permits_reservation": true,
+      "target_stock": 7,
+      "units": 5
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-benign-04",
+      "initial_stock": 11,
+      "stratum": "benign",
+      "target_permits_reservation": true,
+      "target_stock": 8,
+      "units": 6
+    },
+    {
+      "ack_required_if_withheld": true,
+      "id": "pilot-obligation-01",
+      "initial_stock": 8,
+      "stratum": "obligation",
+      "target_permits_reservation": true,
+      "target_stock": 4,
+      "units": 3
+    },
+    {
+      "ack_required_if_withheld": true,
+      "id": "pilot-obligation-02",
+      "initial_stock": 9,
+      "stratum": "obligation",
+      "target_permits_reservation": true,
+      "target_stock": 5,
+      "units": 4
+    },
+    {
+      "ack_required_if_withheld": true,
+      "id": "pilot-obligation-03",
+      "initial_stock": 10,
+      "stratum": "obligation",
+      "target_permits_reservation": true,
+      "target_stock": 6,
+      "units": 5
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-revocation-01",
+      "initial_stock": 8,
+      "stratum": "revocation",
+      "target_permits_reservation": false,
+      "target_stock": 8,
+      "units": 3
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-revocation-02",
+      "initial_stock": 9,
+      "stratum": "revocation",
+      "target_permits_reservation": false,
+      "target_stock": 9,
+      "units": 4
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-clean-01",
+      "initial_stock": 8,
+      "stratum": "clean",
+      "target_permits_reservation": true,
+      "target_stock": 8,
+      "units": 3
+    },
+    {
+      "ack_required_if_withheld": false,
+      "id": "pilot-clean-02",
+      "initial_stock": 9,
+      "stratum": "clean",
+      "target_permits_reservation": true,
+      "target_stock": 9,
+      "units": 4
+    }
+  ],
+  "policy": {
+    "pareto_cost": [
+      "submits",
+      "durable_claims"
+    ],
+    "shuffle_seed": 20261121,
+    "terminal_min": 1,
+    "unknown_max": 0,
+    "violation_max": 0
+  },
+  "source_sha256": {
+    "configuration_selection/PROTOCOL.md": "00e7001aa56b348f6b2068015e23142f2623aa3a8d8b092ab4b140f7b07f2ef3",
+    "configuration_selection/run.py": "abb685bb3960e4cae68ae87c2f36ff6f58cd88f67802d9e67f989dd1a314b2bf",
+    "mechanism_validation/architecture/target_ledger_schema.sql": "60247550716ff7434283834774dd90d3faea8feaa8e7a2a0146b0e0a4f6dbed4",
+    "mechanism_validation/runtime/__init__.py": "657fdeaae8397801890eb6b63c2d989071637ea333b7ba76a960a5255065b5ce",
+    "mechanism_validation/runtime/admission_path.py": "1986825529ea944d5df8ed2962f284c4912129a71a46e35e3ef6e002608f667d",
+    "mechanism_validation/runtime/auditor.py": "4ff3d3430bb76cca203007198bcf481739b2d441634a357996e1de5169ce018f",
+    "mechanism_validation/runtime/claim_mechanism.py": "1e825aba3035c1cf9c74be8f17488846c815944920c1f948afe35a2106c5e7b2",
+    "mechanism_validation/runtime/direct_path.py": "3834e23625de9e1cf6bb38828d28331c9bb4fc047c2d6d21d1e1537b7b6fbc29",
+    "mechanism_validation/runtime/faults.py": "eddc5f3ca34369e293f89458587f3bb36e03d27745a81c8c58563873352b55f4",
+    "mechanism_validation/runtime/harness.py": "c5fc0f5056e2b53602569a6f200f1f8405a331063150279120056301281587a7",
+    "mechanism_validation/runtime/hashing.py": "72c2499bb6385108f1d0325c2a08702484c3203fedce03335a5269d228a3860d",
+    "mechanism_validation/runtime/independence.py": "9d0bdbdc538eb28332990f04588d5f3017af7f3d41628b0cb8c6e668efe55181",
+    "mechanism_validation/runtime/not_shared.py": "1979e9754ad2b8ba970f884731c31eedc9f4c78177addf2af1574c961e0939ad",
+    "mechanism_validation/runtime/outbox_mechanism.py": "0b8b2840cb320eed35f3248c61ae6dffc42da2d4de9bdbf5e3295c1115273595",
+    "mechanism_validation/runtime/receiver_client.py": "9336f7810acfa37e25920a4afb27768ae8cdf0d2ddc11e1d985ac813cd52b81c",
+    "mechanism_validation/runtime/receiver_process.py": "db0303bad8196068dcb1190243cb12c350fc6e81f27b7339b6eb6135ba733571",
+    "mechanism_validation/runtime/receiver_server.py": "3b73d05965a7ac4df68164d4dc3a08db6684a12e017da23d40f8f13ae04a3bf2",
+    "mechanism_validation/runtime/rsr.py": "f99f6dd06445a2b77760ca9c56d7d5c0e4411f29f301b15445b0afd86420b6f2",
+    "mechanism_validation/runtime/scorer.py": "441d5a11d13e0027470a22c98c160b9d2ac0c1d6aa8db83dead6b0cc548dc0e1",
+    "mechanism_validation/runtime/sqlite_util.py": "f85d473a6cdd71d4c29a60e6ad81f7126c21cd57ec0493bc57de527a58980950",
+    "mechanism_validation/runtime/types.py": "1de694fa95eba1232f5ee76bfd87da2032b8557d1dc7b2aa2166a7090706abcf"
+  }
+}

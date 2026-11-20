@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week1/outcome.schema.json",
+  "title": "EpochGate week-1 archived outcome contract",
+  "description": "Frozen contract for one archived run or cell. Dimensions are independent. This schema does not define a Semantic Claim protocol or a Successor-Aware protocol. UNKNOWN is not a failure. RESTORED_BYTES is not CONFIRMED_EFFECT. A scenario label is not an authority decision. CORRECT_STOP is not a successor failure.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_summary_ref",
+    "source_evidence_ref",
+    "source_artifact_ref",
+    "cohort",
+    "proposal_id",
+    "proposal_id_origin",
+    "proposal_cluster_key",
+    "run_id",
+    "task_id",
+    "path",
+    "path_origin",
+    "session_id",
+    "session_id_origin",
+    "fault_label",
+    "terminal_outcome",
+    "authority_decision",
+    "physical_effect_state",
+    "evidence_state",
+    "semantic_validity",
+    "recovery_state",
+    "successor_obligation",
+    "successor_status",
+    "stop_correctness",
+    "outdated_scenario_label",
+    "adjudication",
+    "adjudication_basis",
+    "joint_observed",
+    "unobserved_reason",
+    "terminal_adjudicated",
+    "effect_history_adjudicated"
+  ],
+  "properties": {
+    "source_summary_ref": {"type": ["string", "null"]},
+    "source_evidence_ref": {"type": ["string", "null"]},
+    "source_artifact_ref": {"type": ["string", "null"]},
+    "cohort": {"enum": ["m4-confirm", "m4-dedicated"]},
+    "proposal_id": {"type": ["string", "null"]},
+    "proposal_id_origin": {
+      "enum": [
+        "ABSENT",
+        "DERIVED_COMPOSITE_TASK_FAULT",
+        "DERIVED_COMPOSITE_AUTHORITY_ARM"
+      ]
+    },
+    "proposal_cluster_key": {"type": ["string", "null"]},
+    "run_id": {"type": ["string", "null"]},
+    "task_id": {"type": ["string", "null"]},
+    "path": {"type": ["string", "null"]},
+    "path_origin": {"enum": ["ORIGINAL_FIELD_arm", "ABSENT"]},
+    "session_id": {"type": ["string", "null"]},
+    "session_id_origin": {"enum": ["ABSENT", "ORIGINAL_FIELD"]},
+    "fault_label": {"type": ["string", "null"]},
+    "terminal_outcome": {"enum": ["MATCH", "MISMATCH", "UNKNOWN"]},
+    "authority_decision": {
+      "enum": ["STALE_ACCEPTED", "NO_STALE_ACCEPTANCE_RECORDED", "UNKNOWN"]
+    },
+    "physical_effect_state": {
+      "enum": ["CONFIRMED_EFFECT", "NOT_LEGAL", "ABSENT", "PRESENT_UNVERIFIED", "UNKNOWN"]
+    },
+    "evidence_state": {"enum": ["SUFFICIENT", "INSUFFICIENT", "UNKNOWN"]},
+    "semantic_validity": {"enum": ["VALID", "INVALID", "UNKNOWN"]},
+    "recovery_state": {
+      "enum": ["RESTORED_BYTES", "NOT_RECOVERED", "NOT_APPLICABLE", "UNKNOWN"]
+    },
+    "successor_obligation": {"enum": ["OBLIGATED", "NOT_OBLIGATED", "UNKNOWN"]},
+    "successor_status": {
+      "enum": ["COMPLETED", "NOT_COMPLETED", "NOT_APPLICABLE", "UNKNOWN"]
+    },
+    "stop_correctness": {"enum": ["CORRECT_STOP", "NOT_CORRECT_STOP", "UNKNOWN"]},
+    "outdated_scenario_label": {
+      "enum": [
+        "TIMELY_NOTICE",
+        "NOTICE_MISSING_OR_DELAYED",
+        "INTERRUPT_BEFORE_ACCEPT",
+        "DEDICATED_NOT_A_MATRIX_FAULT",
+        "UNKNOWN"
+      ]
+    },
+    "adjudication": {
+      "enum": ["CONFIRMED_FAILURE", "NO_CONFIRMED_FAILURE", "UNRESOLVED"]
+    },
+    "adjudication_basis": {"type": "string"},
+    "joint_observed": {"type": "boolean"},
+    "unobserved_reason": {"type": ["string", "null"]},
+    "terminal_adjudicated": {"type": "boolean"},
+    "effect_history_adjudicated": {"type": "boolean"}
+  }
+}

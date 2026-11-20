@@ -30,6 +30,15 @@ datasets/cache/
 
 # Regenerated ledgers and third-party checkouts. Commit the JSON summaries.
 *.sqlite
+# Frozen target ledgers required to audit this experiment.
+!results/experiments/effect-history/pilot-01/*/target.sqlite
+!results/experiments/configuration-selection/acceptance-01/*/target.sqlite
+!results/experiments/configuration-selection/acceptance-01/*/claim.sqlite
+!results/experiments/configuration-selection/pilot-01/*/target.sqlite
+!results/experiments/configuration-selection/pilot-01/*/claim.sqlite
+!results/experiments/recovery-obligation/pilot-01/*/target.sqlite
+!results/experiments/recovery-obligation/pilot-01/*/claim.sqlite
+!results/experiments/recovery-obligation/pilot-01/*/intent.sqlite
 results/runtime/swebench_12907_work/
 
 # Local experiment artifacts (when code lands)
@@ -45,3 +54,17 @@ traces/
 docs/档案/图/_preview/
 docs/档案/图/_*.py
 docs/档案/图/build_svgs.py
+
+# Test artifacts
+pytest-of-*/
+.pytest_cache/
+.hypothesis/
+
+# Raw per-run experiment dumps. Keep README, protocol, summary CSV/JSON.
+experiments/**/formal_runs/
+experiments/**/replay_work/
+experiments/**/work/
+experiments/**/__pycache__/
+
+# Local debug traces
+archive/traces/

@@ -1,0 +1,31 @@
+{
+  "applicable_paths": [
+    "Direct",
+    "Admission",
+    "Claim",
+    "Outbox"
+  ],
+  "common_core": true,
+  "expected_authority_state": "unchanged_token",
+  "expected_evidence_state": "SUFFICIENT",
+  "expected_physical_effect_state": "CONFIRMED_EFFECT",
+  "expected_semantic_state": "VALID",
+  "expected_stop_condition": "NOT_A_STOP_SCENARIO",
+  "fault_injection_point": "after_send_before_receipt",
+  "fault_transition": "crash",
+  "initial_state": {
+    "authority": {
+      "eligible": true,
+      "epoch": 1,
+      "token": 1
+    },
+    "concrete_world": "proposal_registry.jsonl world_before",
+    "world_shape": "order_id, sku, qty, dest, generation=0, effect_forbidden=false"
+  },
+  "mechanism_role": "MAIN_COMPARISON",
+  "oracle_fixture": "effect_before_receipt",
+  "research_hypothesis": "发送已在接收端生效、本地尚未记下回执时中断。这是进程内故障注入，不是掉电，也不是 process.kill。",
+  "scenario_id": "S08",
+  "seed": 1110,
+  "successor_obligation": "NOT_REQUIRED"
+}

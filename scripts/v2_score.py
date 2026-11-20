@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HISTORICAL = ROOT / "results" / "runtime" / "correctness" / "m6" / "summary.json"
 CONFIRM = ROOT / "results" / "runtime" / "correctness" / "m4-confirm" / "summary.json"
 OUT = ROOT / "results" / "runtime" / "correctness" / "v2-m6" / "summary.json"
-DOC = ROOT / "docs" / "开发文档" / "M4-M6-v2结果与验收.md"
+DOC = ROOT / "docs" / "实验" / "M4-M6-v2结果与验收.md"
 
 
 def clopper(successes: int, n: int) -> dict:

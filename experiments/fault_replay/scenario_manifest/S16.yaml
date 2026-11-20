@@ -1,0 +1,82 @@
+scenario_id: S16
+family: recovery
+mechanism_role: SEPARATION
+research_hypothesis: 回执缺失，只剩密封字节。核对不能重放回执，只能重新发布密封字节，记为 RESTORED_BYTES。语义为 INVALID。
+fixture_proposal_id: p22
+bound_proposals:
+  - p22
+initial_world:
+  order_id: ORD-2116
+  sku: A
+  qty: 3
+  dest: north
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 10
+  drift_qty: 6
+observed_world:
+  order_id: ORD-2116
+  sku: A
+  qty: 6
+  dest: north
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 10
+  drift_qty: 6
+mutation: drift
+fault:
+  checkpoint: lost_receipt
+  schedule_hash: f7fe8dbdb52b25bccff7c738a96db4e074a4368050b9ba1732a4410376c67fad
+notice_schedule:
+  notice: ABSENT
+  arrives: ABSENT
+effect_key: "effect:{proposal_id}"
+semantic_oracle:
+  name: semantics_oracle
+  version: 1.0.0
+  scoring_world: observed_world
+  predicate_version: predicate.fulfillment.v1
+successor_requirement:
+  required: false
+  status_space: "COMPLETED_VALID,CORRECT_STOP,FAILED"
+expected_evidence_class: PUBLISH_SEALED
+oracle_versions:
+  terminal_oracle: 1.0.0
+  authority_oracle: 1.0.0
+  evidence_oracle: 1.0.0
+  semantics_oracle: 1.0.0
+  successor_oracle: 1.0.0
+predicate_version: predicate.fulfillment.v1
+world_state_id:
+  initial: 2de9f46954af36a2547f715c1e593de97a8b4d7c28a81f638e0f65b0e6c9c5ab
+  observed: 1f743805b51888a5309c490e437b2dd69bd53a4780de704db4cbb591f4343abb
+expected_matrix:
+  Direct:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Admission:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Claim:
+    physical_effect_state: PRESENT_UNVERIFIED
+    recovery_state: RESTORED_BYTES
+    semantic_validity: INVALID
+    recovery_evidence_state: PUBLISH_SEALED
+    published_old_bytes: "true"
+  Outbox:
+    physical_effect_state: PRESENT_UNVERIFIED
+    recovery_state: RESTORED_BYTES
+    semantic_validity: INVALID
+    recovery_evidence_state: PUBLISH_SEALED
+    published_old_bytes: "true"
+applicable_paths:
+  - Direct
+  - Admission
+  - Claim
+  - Outbox

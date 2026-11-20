@@ -1,0 +1,86 @@
+{
+  "cases": [
+    {
+      "condition": "precommit",
+      "exit": 0,
+      "final_state": "present",
+      "requests": [
+        {
+          "http": 503,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "absent",
+          "state_before": "absent"
+        },
+        {
+          "http": 200,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "present",
+          "state_before": "absent"
+        }
+      ],
+      "writes": 1
+    },
+    {
+      "condition": "postcommit",
+      "exit": 0,
+      "final_state": "present",
+      "requests": [
+        {
+          "http": 503,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "present",
+          "state_before": "absent"
+        },
+        {
+          "http": 200,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "present",
+          "state_before": "present"
+        }
+      ],
+      "writes": 1
+    },
+    {
+      "condition": "yanked",
+      "exit": 0,
+      "final_state": "yanked",
+      "requests": [
+        {
+          "http": 503,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "yanked",
+          "state_before": "absent"
+        },
+        {
+          "http": 200,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "yanked",
+          "state_before": "yanked"
+        }
+      ],
+      "writes": 1
+    },
+    {
+      "condition": "deleted",
+      "exit": 1,
+      "final_state": "deleted",
+      "requests": [
+        {
+          "http": 503,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "deleted",
+          "state_before": "absent"
+        },
+        {
+          "http": 400,
+          "sha256": "9d26a5c1ddaf2a58338f944fa355f22b96d9a4dfa0ff36abd9909a38c584e342",
+          "state_after": "deleted",
+          "state_before": "deleted"
+        }
+      ],
+      "writes": 1
+    }
+  ],
+  "client": "twine==7.0.0",
+  "verdict": "NO_WITHDRAWAL_OVERRIDE_IN_MODELED_CONTRACT"
+}

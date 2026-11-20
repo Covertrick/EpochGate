@@ -1,0 +1,31 @@
+{
+  "applicable_paths": [
+    "Direct",
+    "Admission",
+    "Claim",
+    "Outbox"
+  ],
+  "common_core": true,
+  "expected_authority_state": "revoked",
+  "expected_evidence_state": "SUFFICIENT",
+  "expected_physical_effect_state": "ABSENT",
+  "expected_semantic_state": "NO_OBSERVED_EFFECT",
+  "expected_stop_condition": "CORRECT_STOP",
+  "fault_injection_point": "before_effect",
+  "fault_transition": "revoke",
+  "initial_state": {
+    "authority": {
+      "eligible": true,
+      "epoch": 1,
+      "token": 1
+    },
+    "concrete_world": "proposal_registry.jsonl world_before",
+    "world_shape": "order_id, sku, qty, dest, generation=0, effect_forbidden=false"
+  },
+  "mechanism_role": "MAIN_COMPARISON",
+  "oracle_fixture": "correct_stop_after_revocation",
+  "research_hypothesis": "撤销之后不应继续产生效果，也不存在后继义务。正确停止不是后继失败。",
+  "scenario_id": "S11",
+  "seed": 1114,
+  "successor_obligation": "NOT_REQUIRED"
+}

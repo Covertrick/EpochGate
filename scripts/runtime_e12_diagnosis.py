@@ -323,7 +323,7 @@ def run(e9_path: Path, e10_path: Path, out: Path) -> dict:
     summary = score(records)
     summary["e9"] = str(e9_path)
     summary["e10"] = str(e10_path)
-    summary["protocol"] = "docs/开发文档/补实验协议.md"
+    summary["protocol"] = "docs/实验/补实验协议.md"
     out.mkdir(parents=True, exist_ok=True)
     (out / "confirm.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     return summary

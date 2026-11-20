@@ -1,0 +1,87 @@
+scenario_id: S17
+family: successor
+mechanism_role: NOTIFIED_FREEZE
+research_hypothesis: 声明之后、物理发布之前权威通知到达。Claim 与 Outbox 冻结旧声明且不发布旧字节，并接受合法后继。Direct 与 Admission 仍发布旧字节。这是场景行为，不是新协议。
+fixture_proposal_id: p24
+bound_proposals:
+  - p24
+  - p25
+initial_world:
+  order_id: ORD-2117
+  sku: C
+  qty: 1
+  dest: east
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 8
+  drift_qty: 4
+observed_world:
+  order_id: ORD-2117
+  sku: C
+  qty: 8
+  dest: east
+  generation: 1
+  effect_forbidden: false
+  successor_qty: 8
+  drift_qty: 4
+mutation: supersede
+fault:
+  checkpoint: after_claim_before_publish
+  schedule_hash: fa09a126f87a53ad462a38c8575d5fd17e0494527ce3099dc14295feb82cfdc9
+notice_schedule:
+  notice: supersede
+  arrives: after_claim_before_publish
+effect_key: "effect:{proposal_id}"
+semantic_oracle:
+  name: semantics_oracle
+  version: 1.0.0
+  scoring_world: observed_world
+  predicate_version: predicate.fulfillment.v1
+successor_requirement:
+  required: true
+  status_space: "COMPLETED_VALID,CORRECT_STOP,FAILED"
+expected_evidence_class: LEGAL_SUCCESSOR
+oracle_versions:
+  terminal_oracle: 1.0.0
+  authority_oracle: 1.0.0
+  evidence_oracle: 1.0.0
+  semantics_oracle: 1.0.0
+  successor_oracle: 1.0.0
+predicate_version: predicate.fulfillment.v1
+world_state_id:
+  initial: c4abbdd27a0d45390e2e23175e86344f823ac3a8e39b3076cad0740e911111f0
+  observed: dce7262738744e01979d88391f1e0c01f7b5873ee29ad10ba984554a7690dd88
+expected_matrix:
+  Direct:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    successor_status: FAILED
+    published_old_bytes: "true"
+    authority_decision: STALE_ACCEPTED
+  Admission:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    successor_status: FAILED
+    published_old_bytes: "true"
+    authority_decision: STALE_ACCEPTED
+  Claim:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: VALID
+    successor_status: COMPLETED_VALID
+    published_old_bytes: "false"
+    authority_decision: NO_STALE_ACCEPTANCE_RECORDED
+  Outbox:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: VALID
+    successor_status: COMPLETED_VALID
+    published_old_bytes: "false"
+    authority_decision: NO_STALE_ACCEPTANCE_RECORDED
+applicable_paths:
+  - Direct
+  - Admission
+  - Claim
+  - Outbox

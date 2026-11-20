@@ -1,0 +1,39 @@
+{
+  "trace": [
+    {
+      "event": "update",
+      "version": 2
+    },
+    {
+      "event": "precheck",
+      "version": 2,
+      "valid": false
+    },
+    {
+      "event": "submit",
+      "key": "successor",
+      "version": 2
+    }
+  ],
+  "responses": {
+    "successor": {
+      "submit": {
+        "status": "completed",
+        "published": true,
+        "receipt": "file:result.txt:75d86a7be9af34d21d51002c041b5249420d01903b003292cd55ca3b3056f149",
+        "sha256": "75d86a7be9af34d21d51002c041b5249420d01903b003292cd55ca3b3056f149"
+      },
+      "query": {
+        "phase": "completed",
+        "effect_state": "RESULT_PERSISTED",
+        "receipt": "file:result.txt:75d86a7be9af34d21d51002c041b5249420d01903b003292cd55ca3b3056f149",
+        "result": "75d86a7be9af34d21d51002c041b5249420d01903b003292cd55ca3b3056f149",
+        "run_id": "task"
+      }
+    }
+  },
+  "authority": {
+    "eligible": true,
+    "token": 1
+  }
+}

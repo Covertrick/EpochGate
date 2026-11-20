@@ -1,0 +1,82 @@
+scenario_id: S13
+family: recovery
+mechanism_role: SEPARATION
+research_hypothesis: 密封前世界已变。目标若带着旧声明字节，物理上对得上声明，语义 oracle 对观察世界返回 INVALID。Claim 与 Outbox 在密封前被杀死时不发布。
+fixture_proposal_id: p19
+bound_proposals:
+  - p19
+initial_world:
+  order_id: ORD-2113
+  sku: A
+  qty: 4
+  dest: north
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 11
+  drift_qty: 7
+observed_world:
+  order_id: ORD-2113
+  sku: A
+  qty: 7
+  dest: north
+  generation: 0
+  effect_forbidden: false
+  successor_qty: 11
+  drift_qty: 7
+mutation: drift
+fault:
+  checkpoint: after_claim_before_sealed
+  schedule_hash: 31c504f95be06c9cb210b5d6e01b73c9f7bde15bd24c9dfce324657f0404effb
+notice_schedule:
+  notice: ABSENT
+  arrives: ABSENT
+effect_key: "effect:{proposal_id}"
+semantic_oracle:
+  name: semantics_oracle
+  version: 1.0.0
+  scoring_world: observed_world
+  predicate_version: predicate.fulfillment.v1
+successor_requirement:
+  required: false
+  status_space: "COMPLETED_VALID,CORRECT_STOP,FAILED"
+expected_evidence_class: UNKNOWN
+oracle_versions:
+  terminal_oracle: 1.0.0
+  authority_oracle: 1.0.0
+  evidence_oracle: 1.0.0
+  semantics_oracle: 1.0.0
+  successor_oracle: 1.0.0
+predicate_version: predicate.fulfillment.v1
+world_state_id:
+  initial: 6feed24795ee50e3056cb620b7af1db371403e126b9ad6d75731653400ad8cb6
+  observed: 21ba6b15c13a1a8ff7b11e85df6d502c6d33618c97668c63e86c2688dabcd1ec
+expected_matrix:
+  Direct:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Admission:
+    physical_effect_state: CONFIRMED_EFFECT
+    recovery_state: NOT_APPLICABLE
+    semantic_validity: INVALID
+    recovery_evidence_state: NOT_APPLICABLE
+    published_old_bytes: "true"
+  Claim:
+    physical_effect_state: ABSENT
+    recovery_state: NOT_RECOVERED
+    semantic_validity: UNKNOWN
+    recovery_evidence_state: UNKNOWN
+    published_old_bytes: "false"
+  Outbox:
+    physical_effect_state: ABSENT
+    recovery_state: NOT_RECOVERED
+    semantic_validity: UNKNOWN
+    recovery_evidence_state: UNKNOWN
+    published_old_bytes: "false"
+applicable_paths:
+  - Direct
+  - Admission
+  - Claim
+  - Outbox

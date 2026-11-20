@@ -1,0 +1,81 @@
+{
+  "cases": [
+    {
+      "history": "not_dispatched",
+      "new_tip": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "pre_retry": {
+        "history": "not_dispatched",
+        "marker_enabled": true,
+        "marker_oid": null,
+        "operations_withheld_from_recovery": [],
+        "planned": {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+        },
+        "profile": "retained",
+        "reflog_available": [
+          "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+        ],
+        "reflog_before_expiry": [
+          "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+        ],
+        "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+        "transport_advertised": [
+          "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+        ],
+        "transport_marker_hidden": [
+          "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+        ]
+      },
+      "preceding_rollback_overridden": false,
+      "retry_wrote": true
+    },
+    {
+      "history": "reverted",
+      "new_tip": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "pre_retry": {
+        "history": "reverted",
+        "marker_enabled": true,
+        "marker_oid": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "operations_withheld_from_recovery": [
+          {
+            "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+            "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+            "operation": "original"
+          },
+          {
+            "new": "bd002836383265e4a4455e1fb0fc998ef941e420",
+            "old": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+            "operation": "rollback"
+          }
+        ],
+        "planned": {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+        },
+        "profile": "retained",
+        "reflog_available": [
+          "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+          "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+          "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+        ],
+        "reflog_before_expiry": [
+          "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+          "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+          "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+        ],
+        "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+        "transport_advertised": [
+          "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/epochgate/operations/original",
+          "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+        ],
+        "transport_marker_hidden": [
+          "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+        ]
+      },
+      "preceding_rollback_overridden": true,
+      "retry_wrote": true
+    }
+  ],
+  "rollback_overrides": 1
+}

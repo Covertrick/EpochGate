@@ -26,7 +26,7 @@ from reliability_contract import (
 from runtime_deepseek import api_key, load_env
 
 ROOT = Path(__file__).resolve().parents[1]
-PROTOCOL = ROOT / "docs" / "开发文档" / "M4-M6独立确认协议.md"
+PROTOCOL = ROOT / "docs" / "实验" / "M4-M6独立确认协议.md"
 
 
 def protocol_sha() -> str:

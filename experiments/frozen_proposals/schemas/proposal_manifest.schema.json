@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/proposal_manifest.schema.json",
+  "title": "ProposalManifest",
+  "type": "object",
+  "required": ["proposal_id", "scenario_id", "task_id", "payload_sha256", "task_semantic_version", "world_before_hash", "world_after_hash", "authority_token", "authority_epoch", "successor_obligation", "fault_schedule", "seed", "timeout_ms", "budget_units", "oracle_versions", "code_commit", "environment_hash"],
+  "properties": {
+    "proposal_id": {"type": "string"},
+    "scenario_id": {"type": "string"},
+    "task_id": {"type": "string"},
+    "payload_path": {"type": "string"},
+    "payload_sha256": {"type": "string"},
+    "task_semantic_version": {"type": "string"},
+    "world_before_hash": {"type": "string"},
+    "world_after_hash": {"type": "string"},
+    "authority_token": {"type": "integer"},
+    "authority_epoch": {"type": "integer"},
+    "successor_obligation": {"enum": ["REQUIRED", "NOT_REQUIRED", "UNKNOWN"]},
+    "fault_schedule": {"type": "object"},
+    "seed": {"type": "integer"},
+    "timeout_ms": {"type": "integer"},
+    "budget_units": {"type": "integer"},
+    "oracle_versions": {"type": "object"},
+    "code_commit": {"type": "string"},
+    "environment_hash": {"type": "string"}
+  }
+}

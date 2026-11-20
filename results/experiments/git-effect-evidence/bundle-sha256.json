@@ -1,0 +1,15 @@
+{
+  "experiments/git_effect_evidence/PROTOCOL.md": "cc52a9282b2205a8cb92f67d5cbb16c27998285dd295f05cfb445d86037606a0",
+  "experiments/git_effect_evidence/README.md": "9a0e7e0fde7cc67e52deb15b00cb46867cfe414554cb5882a483a7f26c8091bb",
+  "experiments/git_effect_evidence/WORKFLOW_AUDIT.md": "4dcf7e5368082f703e86d9b2b0b43ba562ec90509afa437cbdfd84c3e1f6c50b",
+  "experiments/git_effect_evidence/WORKFLOW_PROTOCOL.md": "6f264dd2169215efa59fdfd26779f0daef4269adebf22f4d92db1c0d6311cf69",
+  "experiments/git_effect_evidence/retry.py": "77151c79cee157ce30df91605e58da98853264de9ec14c67de00ecd763dad641",
+  "experiments/git_effect_evidence/run.py": "636824b6b35a0f429923ab922c1ce9261be33191a86822c564c1b062e036ab1b",
+  "experiments/git_effect_evidence/technical-report.md": "14cf2b0a4adb71b7ea6f8a7bed93ea6424c90c48624ce755070013632ec15a0b",
+  "experiments/git_effect_evidence/transport_control.py": "7cb12835e0ec822150fbf3c9e9691109b7cf082a09b6e47191783bb392263e57",
+  "results/experiments/git-effect-evidence/pilot-01/evidence.json": "9e622362fcac41fc3359bf1f50427131dd6814625c9b84027f9478fcd3cccdfa",
+  "results/experiments/git-effect-evidence/pilot-01/report.json": "9c6ac96416379d8e7ab41addc5121770807d403a790845508a3106127a426fb6",
+  "results/experiments/git-effect-evidence/pilot-01/retry-report.json": "45b955d01fc8d68a5745ce058d45a647880e4293783425096ec9ffce3c615431",
+  "results/experiments/git-effect-evidence/pilot-01/sha256.json": "4399c7224e9fc2f22a42099c21ed7a314a5bc672b2bf80f9287a13d93dd71b43",
+  "results/experiments/git-effect-evidence/workflow-screen-01/transport-control.json": "496f424bf2231fa45e85a98b08b919b801ee719f0f1f942d1739eb67b677e86e"
+}

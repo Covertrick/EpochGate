@@ -1,0 +1,457 @@
+{
+  "decision": "CONDITIONAL_GO",
+  "decision_reason": "冒烟公平性通过，主比较子集可以对照；S09 是机制专用诊断，主比较里仍有 CRASHED 或未覆盖单元格，不外推、不填补。",
+  "criteria": [
+    {
+      "id": 1,
+      "name": "proposal bytes/hash identical across the four paths",
+      "pass": true,
+      "detail": "payload_sha256 compared within each proposal; file hash rechecked after each run"
+    },
+    {
+      "id": 2,
+      "name": "task semantics identical",
+      "pass": true,
+      "detail": "task_semantic_version"
+    },
+    {
+      "id": 3,
+      "name": "initial world state identical",
+      "pass": true,
+      "detail": "world_before_hash"
+    },
+    {
+      "id": 4,
+      "name": "authority starting state identical",
+      "pass": true,
+      "detail": "authority_initial_hash"
+    },
+    {
+      "id": 5,
+      "name": "fault schedule identical",
+      "pass": true,
+      "detail": "fault_schedule_hash"
+    },
+    {
+      "id": 6,
+      "name": "receiver identical",
+      "pass": true,
+      "detail": "receiver_impl and receiver_version"
+    },
+    {
+      "id": 7,
+      "name": "oracle versions identical",
+      "pass": true,
+      "detail": "oracle_versions_canonical"
+    },
+    {
+      "id": 8,
+      "name": "timeout/budget identical",
+      "pass": true,
+      "detail": "timeout_ms and budget_units"
+    },
+    {
+      "id": 9,
+      "name": "every cell has a unique run_id",
+      "pass": true,
+      "detail": "manifest rows 72, unique 72"
+    },
+    {
+      "id": 10,
+      "name": "receiver/effect provenance exists",
+      "pass": true,
+      "detail": "provenance_ref on every non-abandoned manifest row"
+    },
+    {
+      "id": 11,
+      "name": "failures and UNKNOWN are retained",
+      "pass": true,
+      "detail": "RUN_STARTED 72, closed 72"
+    },
+    {
+      "id": 12,
+      "name": "outbox atomicity tests pass",
+      "pass": true,
+      "detail": "pytest week2/oracle_test_suite/test_outbox_atomicity.py and outbox_crash_matrix.csv"
+    },
+    {
+      "id": 13,
+      "name": "receiver idempotency tests pass",
+      "pass": true,
+      "detail": "pytest week2/oracle_test_suite/test_receiver_idempotency.py; duplicate relay logical_effect_count 1"
+    },
+    {
+      "id": 14,
+      "name": "oracle golden tests pass",
+      "pass": true,
+      "detail": "pytest week2/oracle_test_suite/test_golden.py"
+    },
+    {
+      "id": 15,
+      "name": "oracle mutation tests pass",
+      "pass": true,
+      "detail": "pytest week2/oracle_test_suite/test_mutation.py"
+    },
+    {
+      "id": 16,
+      "name": "fairness validator passes",
+      "pass": true,
+      "detail": "smoke and pilot input equality"
+    }
+  ],
+  "smoke": {
+    "pass": true,
+    "mismatches": [],
+    "runs": 12,
+    "label": "SMOKE"
+  },
+  "pilot": {
+    "ran": true,
+    "label": "PILOT_FIRST_BATCH",
+    "proposals": 15,
+    "proposal_ids": [
+      "p01",
+      "p02",
+      "p03",
+      "p04",
+      "p05",
+      "p06",
+      "p07",
+      "p08",
+      "p09",
+      "p10",
+      "p11",
+      "p12",
+      "p13",
+      "p14",
+      "p15"
+    ],
+    "cells": 60,
+    "run_ids": 60,
+    "main_proposals": 14,
+    "main_cells": 56
+  },
+  "counts": {
+    "smoke_runs": 12,
+    "pilot_proposals": 15,
+    "pilot_cells": 60,
+    "pilot_run_ids": 60,
+    "all_manifest_rows": 72,
+    "unique_run_ids": 72,
+    "abandoned": 0,
+    "unknown_pilot": 24,
+    "unknown_main": 22,
+    "conflict_pilot": 4,
+    "conflict_main": 4,
+    "mechanism_specific_cells": 4,
+    "mechanism_specific_scenarios": [
+      "S09"
+    ]
+  },
+  "efe": {
+    "numerator": 18,
+    "denominator": 56,
+    "rate": 0.321429,
+    "coverage_joint_over_main": 1.0,
+    "identifiable": true
+  },
+  "efe_at_success": {
+    "numerator": 1,
+    "denominator": 26,
+    "rate": 0.038462,
+    "terminal_match_main": 26,
+    "terminal_match_unadjudicable": 0,
+    "coverage_of_terminal_match": 1.0,
+    "identifiable": true,
+    "numerator_run_ids": [
+      "w2-PILOT_FIRST_BATCH-p06-Direct-1"
+    ],
+    "definition": "joint_observed AND terminal_outcome MATCH AND adjudication is not UNRESOLVED; UNKNOWN is outside the denominator"
+  },
+  "metrics": {
+    "terminal_match": 26,
+    "terminal_mismatch": 30,
+    "terminal_unknown": 0,
+    "stale_accepted": 10,
+    "no_stale_recorded": 46,
+    "authority_unknown": 0,
+    "not_legal": 17,
+    "confirmed_effect": 17,
+    "physical_absent": 22,
+    "semantic_invalid": 17,
+    "semantic_adjudicable_effects": 34,
+    "semantic_invalid_rate": 0.5,
+    "evidence_distribution": {
+      "SUFFICIENT": 52,
+      "CONFLICT": 4
+    },
+    "successor_required_cells": 4,
+    "successor_completed": 0,
+    "successor_completion_rate": 0.0,
+    "must_stop_cells": 20,
+    "correct_stop": 12,
+    "correct_stop_accuracy": 0.6,
+    "unknown_rate_main": 0.392857,
+    "conflict_rate_main": 0.071429,
+    "latency_ms_mean_by_path": {
+      "Direct": 35.414,
+      "Admission": 33.636,
+      "Claim": 81.224,
+      "Outbox": 83.179
+    },
+    "local_overhead_ms_mean_by_path": {
+      "Direct": 29.203,
+      "Admission": 30.285,
+      "Claim": 77.798,
+      "Outbox": 80.117
+    },
+    "scenario_breakdown": [
+      {
+        "scenario_id": "S01",
+        "cells": 8,
+        "proposals": 2,
+        "stale_accepted": 2,
+        "not_legal": 2,
+        "confirmed_effect": 0,
+        "absent": 6,
+        "terminal_match": 6,
+        "semantic_invalid": 2,
+        "evidence_conflict": 0,
+        "correct_stop": 6,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 8
+      },
+      {
+        "scenario_id": "S02",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 1,
+        "not_legal": 1,
+        "confirmed_effect": 0,
+        "absent": 3,
+        "terminal_match": 0,
+        "semantic_invalid": 1,
+        "evidence_conflict": 0,
+        "correct_stop": 3,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      },
+      {
+        "scenario_id": "S03",
+        "cells": 8,
+        "proposals": 2,
+        "stale_accepted": 0,
+        "not_legal": 8,
+        "confirmed_effect": 0,
+        "absent": 0,
+        "terminal_match": 0,
+        "semantic_invalid": 8,
+        "evidence_conflict": 0,
+        "correct_stop": 0,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 8
+      },
+      {
+        "scenario_id": "S04",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 1,
+        "not_legal": 0,
+        "confirmed_effect": 1,
+        "absent": 3,
+        "terminal_match": 1,
+        "semantic_invalid": 0,
+        "evidence_conflict": 0,
+        "correct_stop": 0,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      },
+      {
+        "scenario_id": "S05",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 0,
+        "not_legal": 0,
+        "confirmed_effect": 0,
+        "absent": 4,
+        "terminal_match": 0,
+        "semantic_invalid": 0,
+        "evidence_conflict": 0,
+        "correct_stop": 0,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      },
+      {
+        "scenario_id": "S06",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 4,
+        "not_legal": 4,
+        "confirmed_effect": 0,
+        "absent": 0,
+        "terminal_match": 0,
+        "semantic_invalid": 4,
+        "evidence_conflict": 0,
+        "correct_stop": 0,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      },
+      {
+        "scenario_id": "S07",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 0,
+        "not_legal": 0,
+        "confirmed_effect": 4,
+        "absent": 0,
+        "terminal_match": 4,
+        "semantic_invalid": 0,
+        "evidence_conflict": 0,
+        "correct_stop": 0,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      },
+      {
+        "scenario_id": "S08",
+        "cells": 8,
+        "proposals": 2,
+        "stale_accepted": 0,
+        "not_legal": 0,
+        "confirmed_effect": 8,
+        "absent": 0,
+        "terminal_match": 8,
+        "semantic_invalid": 0,
+        "evidence_conflict": 0,
+        "correct_stop": 0,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 4,
+        "unknown_authority": 0,
+        "joint_observed": 8
+      },
+      {
+        "scenario_id": "S10",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 0,
+        "not_legal": 0,
+        "confirmed_effect": 4,
+        "absent": 0,
+        "terminal_match": 4,
+        "semantic_invalid": 0,
+        "evidence_conflict": 4,
+        "correct_stop": 0,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      },
+      {
+        "scenario_id": "S11",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 1,
+        "not_legal": 1,
+        "confirmed_effect": 0,
+        "absent": 3,
+        "terminal_match": 3,
+        "semantic_invalid": 1,
+        "evidence_conflict": 0,
+        "correct_stop": 3,
+        "successor_failed": 0,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      },
+      {
+        "scenario_id": "S12",
+        "cells": 4,
+        "proposals": 1,
+        "stale_accepted": 1,
+        "not_legal": 1,
+        "confirmed_effect": 0,
+        "absent": 3,
+        "terminal_match": 0,
+        "semantic_invalid": 1,
+        "evidence_conflict": 0,
+        "correct_stop": 0,
+        "successor_failed": 4,
+        "successor_completed": 0,
+        "crashed": 0,
+        "unknown_authority": 0,
+        "joint_observed": 4
+      }
+    ]
+  },
+  "limitations": {
+    "mechanism_specific_scenarios": [
+      "S09"
+    ],
+    "crashed_cells": 4,
+    "not_applicable_cells": 2,
+    "unknown_cells_pilot": 24,
+    "unknown_cells_main": 22,
+    "invalid_common_cells": 0,
+    "main_cells": 56,
+    "joint_main_cells": 56
+  },
+  "tests": {
+    "command": ".\\.venv\\Scripts\\python.exe -m pytest week2/oracle_test_suite -q --tb=line",
+    "passed": true,
+    "output_tail": ".....................                                                    [100%]\n21 passed in 20.42s"
+  },
+  "week1_archived_joint_sha256": "d4721a05d96fe19aec26bc3431a1b6551e516cf52f89f5d0c822e55a5b092cda",
+  "week1_archived_joint_unmodified": true,
+  "week1_outcome_schema_version_field": null,
+  "week1_outcome_schema_id": "https://epochgate.local/week1/outcome.schema.json",
+  "durability_claim": "same-database transactional insert of business row + outbox row; relay after commit; at-least-once delivery with receiver idempotency; in-process fault injection only",
+  "process_kill_used": false,
+  "environment": {
+    "python": "3.12.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "sqlite": "3.46.0",
+    "packages": {
+      "pytest": "9.1.1",
+      "pydantic": "2.14.1",
+      "epochgate-runtime": "0.1.0",
+      "aiosqlite": "0.22.1",
+      "fastapi": "0.162.0",
+      "uvicorn": "0.54.0",
+      "httpx": "0.28.1",
+      "typer": "0.27.3",
+      "tiktoken": "0.14.0",
+      "scikit-learn": "1.9.1",
+      "pytest-asyncio": "1.4.0",
+      "hypothesis": "6.170.14"
+    }
+  },
+  "journal_modes": [
+    "delete"
+  ],
+  "synchronous_values": [
+    "2:FULL"
+  ]
+}

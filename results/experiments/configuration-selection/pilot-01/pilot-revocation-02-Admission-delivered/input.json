@@ -1,0 +1,19 @@
+{
+  "ack_required_if_withheld": false,
+  "arm": "Admission",
+  "condition": "delivered",
+  "id": "pilot-revocation-02",
+  "initial_stock": 9,
+  "notice": {
+    "eligible": false,
+    "event_id": "pilot-revocation-02:notice",
+    "generation": 2,
+    "stock": 9
+  },
+  "proposal_sha256": "7050f531da365258b6d19d9a4be9f7a16f7dd1b8e4b5cec8ba35556bd80a73f4",
+  "run_id": "pilot-revocation-02:Admission:delivered",
+  "stratum": "revocation",
+  "target_permits_reservation": false,
+  "target_stock": 9,
+  "units": 4
+}

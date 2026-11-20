@@ -1,0 +1,880 @@
+{
+  "cells": 18,
+  "decisions": {
+    "delivered": {
+      "S0": {
+        "costs": {
+          "Admission": [
+            4,
+            0
+          ],
+          "Claim": [
+            4,
+            4
+          ],
+          "Direct": [
+            6,
+            0
+          ]
+        },
+        "eligible": [
+          "Direct",
+          "Admission",
+          "Claim"
+        ],
+        "recommend": [
+          "Admission"
+        ],
+        "rejected": {
+          "Admission": [],
+          "Claim": [],
+          "Direct": []
+        }
+      },
+      "S1": {
+        "costs": {
+          "Admission": [
+            4,
+            0
+          ],
+          "Claim": [
+            4,
+            4
+          ]
+        },
+        "eligible": [
+          "Admission",
+          "Claim"
+        ],
+        "recommend": [
+          "Admission"
+        ],
+        "rejected": {
+          "Admission": [],
+          "Claim": [],
+          "Direct": [
+            "acceptance-revocation-01"
+          ]
+        }
+      },
+      "S2": {
+        "costs": {
+          "Admission": [
+            4,
+            0
+          ],
+          "Claim": [
+            4,
+            4
+          ]
+        },
+        "eligible": [
+          "Admission",
+          "Claim"
+        ],
+        "recommend": [
+          "Admission"
+        ],
+        "rejected": {
+          "Admission": [],
+          "Claim": [],
+          "Direct": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ]
+        }
+      },
+      "S2-Sem": {
+        "costs": {
+          "Admission": [
+            4,
+            0
+          ],
+          "Claim": [
+            4,
+            4
+          ]
+        },
+        "eligible": [
+          "Admission",
+          "Claim"
+        ],
+        "recommend": [
+          "Admission"
+        ],
+        "rejected": {
+          "Admission": [],
+          "Claim": [],
+          "Direct": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ]
+        }
+      },
+      "S2-Succ": {
+        "costs": {
+          "Admission": [
+            4,
+            0
+          ],
+          "Claim": [
+            4,
+            4
+          ]
+        },
+        "eligible": [
+          "Admission",
+          "Claim"
+        ],
+        "recommend": [
+          "Admission"
+        ],
+        "rejected": {
+          "Admission": [],
+          "Claim": [],
+          "Direct": [
+            "acceptance-revocation-01"
+          ]
+        }
+      }
+    },
+    "dropped": {
+      "S0": {
+        "costs": {
+          "Admission": [
+            6,
+            0
+          ],
+          "Claim": [
+            6,
+            6
+          ],
+          "Direct": [
+            6,
+            0
+          ]
+        },
+        "eligible": [
+          "Direct",
+          "Admission",
+          "Claim"
+        ],
+        "recommend": [
+          "Direct",
+          "Admission"
+        ],
+        "rejected": {
+          "Admission": [],
+          "Claim": [],
+          "Direct": []
+        }
+      },
+      "S1": {
+        "costs": {},
+        "eligible": [],
+        "recommend": [],
+        "rejected": {
+          "Admission": [
+            "acceptance-revocation-01"
+          ],
+          "Claim": [
+            "acceptance-revocation-01"
+          ],
+          "Direct": [
+            "acceptance-revocation-01"
+          ]
+        }
+      },
+      "S2": {
+        "costs": {},
+        "eligible": [],
+        "recommend": [],
+        "rejected": {
+          "Admission": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ],
+          "Claim": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ],
+          "Direct": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ]
+        }
+      },
+      "S2-Sem": {
+        "costs": {},
+        "eligible": [],
+        "recommend": [],
+        "rejected": {
+          "Admission": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ],
+          "Claim": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ],
+          "Direct": [
+            "acceptance-invalidating-01",
+            "acceptance-revocation-01"
+          ]
+        }
+      },
+      "S2-Succ": {
+        "costs": {},
+        "eligible": [],
+        "recommend": [],
+        "rejected": {
+          "Admission": [
+            "acceptance-revocation-01"
+          ],
+          "Claim": [
+            "acceptance-revocation-01"
+          ],
+          "Direct": [
+            "acceptance-revocation-01"
+          ]
+        }
+      }
+    }
+  },
+  "paired_primary": {
+    "conditions": {
+      "delivered": {
+        "admission_only": 0,
+        "claim_only": 0,
+        "difference": 0.0,
+        "mcnemar_p_descriptive": 1.0
+      },
+      "dropped": {
+        "admission_only": 0,
+        "claim_only": 0,
+        "difference": 0.0,
+        "mcnemar_p_descriptive": 1.0
+      }
+    },
+    "interaction": 0.0
+  },
+  "primary_decision_conditions": [],
+  "recommendation_changes": [],
+  "rows": [
+    {
+      "arm": "Direct",
+      "condition": "delivered",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 60765300,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-invalidating-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": false,
+        "T": true
+      },
+      "stratum": "invalidating",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Direct",
+      "condition": "dropped",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 47768800,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-invalidating-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": false,
+        "T": true
+      },
+      "stratum": "invalidating",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Admission",
+      "condition": "delivered",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "1a1064938a83180f39e799d83d8d5954c53369ed7402a37ed3b7e2e7f3fd826f",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 37278800,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-invalidating-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_NOT_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "invalidating",
+      "submits": 1,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Admission",
+      "condition": "dropped",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 50259500,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-invalidating-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": false,
+        "T": true
+      },
+      "stratum": "invalidating",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Claim",
+      "condition": "delivered",
+      "durable_claims": 1,
+      "effects": {
+        "disposition": {
+          "digest": "1a1064938a83180f39e799d83d8d5954c53369ed7402a37ed3b7e2e7f3fd826f",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 123493400,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-invalidating-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_NOT_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "invalidating",
+      "submits": 1,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Claim",
+      "condition": "dropped",
+      "durable_claims": 2,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 172700600,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-invalidating-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": false,
+        "T": true
+      },
+      "stratum": "invalidating",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Direct",
+      "condition": "delivered",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 44927700,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-revocation-01",
+      "levels": {
+        "S0": true,
+        "S1": false,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": false
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": false,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "revocation",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Direct",
+      "condition": "dropped",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 45946500,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-revocation-01",
+      "levels": {
+        "S0": true,
+        "S1": false,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": false
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": false,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "revocation",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Admission",
+      "condition": "delivered",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "1a1064938a83180f39e799d83d8d5954c53369ed7402a37ed3b7e2e7f3fd826f",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 35969400,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-revocation-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_NOT_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "revocation",
+      "submits": 1,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Admission",
+      "condition": "dropped",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 48669500,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-revocation-01",
+      "levels": {
+        "S0": true,
+        "S1": false,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": false
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": false,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "revocation",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Claim",
+      "condition": "delivered",
+      "durable_claims": 1,
+      "effects": {
+        "disposition": {
+          "digest": "1a1064938a83180f39e799d83d8d5954c53369ed7402a37ed3b7e2e7f3fd826f",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 127348700,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-revocation-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_NOT_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "revocation",
+      "submits": 1,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Claim",
+      "condition": "dropped",
+      "durable_claims": 2,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 2
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 2
+        }
+      },
+      "elapsed_ns": 177295300,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-revocation-01",
+      "levels": {
+        "S0": true,
+        "S1": false,
+        "S2": false,
+        "S2-Sem": false,
+        "S2-Succ": false
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": false,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "revocation",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Direct",
+      "condition": "delivered",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 1
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 1
+        }
+      },
+      "elapsed_ns": 27672500,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-clean-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "clean",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Direct",
+      "condition": "dropped",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 1
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 1
+        }
+      },
+      "elapsed_ns": 27010200,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-clean-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "clean",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Admission",
+      "condition": "delivered",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 1
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 1
+        }
+      },
+      "elapsed_ns": 28442600,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-clean-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "clean",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Admission",
+      "condition": "dropped",
+      "durable_claims": 0,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 1
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 1
+        }
+      },
+      "elapsed_ns": 27006100,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-clean-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "clean",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Claim",
+      "condition": "delivered",
+      "durable_claims": 2,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 1
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 1
+        }
+      },
+      "elapsed_ns": 149613800,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-clean-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "clean",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    },
+    {
+      "arm": "Claim",
+      "condition": "dropped",
+      "durable_claims": 2,
+      "effects": {
+        "disposition": {
+          "digest": "5e70a2b9ec1dae5ddda82d65c5c4d2787c3653e7c5c9820c77f6061299a7f8cd",
+          "version": 1
+        },
+        "reserve": {
+          "digest": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+          "version": 1
+        }
+      },
+      "elapsed_ns": 190737300,
+      "evidence": "CONFIRMED",
+      "id": "acceptance-clean-01",
+      "levels": {
+        "S0": true,
+        "S1": true,
+        "S2": true,
+        "S2-Sem": true,
+        "S2-Succ": true
+      },
+      "reservation": "CONFIRMED_APPLIED",
+      "scores": {
+        "A": true,
+        "N": true,
+        "S": true,
+        "T": true
+      },
+      "stratum": "clean",
+      "submits": 2,
+      "successor": "NOT_APPLICABLE"
+    }
+  ],
+  "verdict": "G1_PASS"
+}

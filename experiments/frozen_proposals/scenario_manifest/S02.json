@@ -1,0 +1,31 @@
+{
+  "applicable_paths": [
+    "Direct",
+    "Admission",
+    "Claim",
+    "Outbox"
+  ],
+  "common_core": true,
+  "expected_authority_state": "superseded",
+  "expected_evidence_state": "SUFFICIENT",
+  "expected_physical_effect_state": "ABSENT",
+  "expected_semantic_state": "NO_OBSERVED_EFFECT",
+  "expected_stop_condition": "CORRECT_STOP",
+  "fault_injection_point": "before_effect",
+  "fault_transition": "supersede",
+  "initial_state": {
+    "authority": {
+      "eligible": true,
+      "epoch": 1,
+      "token": 1
+    },
+    "concrete_world": "proposal_registry.jsonl world_before",
+    "world_shape": "order_id, sku, qty, dest, generation=0, effect_forbidden=false"
+  },
+  "mechanism_role": "MAIN_COMPARISON",
+  "oracle_fixture": "supersede_old_effect",
+  "research_hypothesis": "效果发生前权威被取代。旧提案字节不应落地。本场景不把后继完成当作义务。",
+  "scenario_id": "S02",
+  "seed": 1103,
+  "successor_obligation": "NOT_REQUIRED"
+}

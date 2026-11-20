@@ -1,0 +1,9 @@
+axis,generator_1,generator_2,difference,threshold,exceeded,detail,conclusion
+semantic_class_tv,0.25,0.25,0.25,0.2,1,total variation; generator_1 and generator_2 columns both show the distance,DIFFERS
+sku_dest_alias_rate,1.0,0.125,0.875,0.2,1,"alias means sku and dest share the Week 2 index lock A-north, B-south, C-east",DIFFERS
+payload_length,25.666667,23.208333,0.095779,0.25,0,mean bytes; ranges 25-26 vs 0-28; disjoint=False,DIFFERS
+idempotency_uniqueness,1.0,1.0,0.0,0.05,0,unique keys divided by batch size,DIFFERS
+oracle_adjudicable_rate,1.0,1.0,0.0,0.05,0,legal_payload can be evaluated and the predicate version is the shared scorer,DIFFERS
+world_state_tv,0.458333,0.458333,0.458333,0.2,1,signature effect_forbidden|generation>0|dest,DIFFERS
+authority_tv,0.125,0.125,0.125,0.2,0,signature eligible|epoch,DIFFERS
+successor_tv,0.055556,0.055556,0.055556,0.2,0,successor_obligation,DIFFERS

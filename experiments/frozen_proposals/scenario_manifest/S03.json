@@ -1,0 +1,31 @@
+{
+  "applicable_paths": [
+    "Direct",
+    "Admission",
+    "Claim",
+    "Outbox"
+  ],
+  "common_core": true,
+  "expected_authority_state": "unchanged_token",
+  "expected_evidence_state": "SUFFICIENT",
+  "expected_physical_effect_state": "NOT_LEGAL",
+  "expected_semantic_state": "INVALID",
+  "expected_stop_condition": "NOT_A_STOP_SCENARIO",
+  "fault_injection_point": "before_effect",
+  "fault_transition": "drift",
+  "initial_state": {
+    "authority": {
+      "eligible": true,
+      "epoch": 1,
+      "token": 1
+    },
+    "concrete_world": "proposal_registry.jsonl world_before",
+    "world_shape": "order_id, sku, qty, dest, generation=0, effect_forbidden=false"
+  },
+  "mechanism_role": "MAIN_COMPARISON",
+  "oracle_fixture": "missing_notice_drift",
+  "research_hypothesis": "世界已变但权威通知缺失。旧字节相对新世界失效，token 并未过期。过时不是过期权威。",
+  "scenario_id": "S03",
+  "seed": 1104,
+  "successor_obligation": "NOT_REQUIRED"
+}

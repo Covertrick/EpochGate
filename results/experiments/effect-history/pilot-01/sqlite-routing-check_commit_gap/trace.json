@@ -1,0 +1,69 @@
+{
+  "trace": [
+    {
+      "event": "precheck",
+      "version": 1,
+      "valid": true
+    },
+    {
+      "event": "update",
+      "version": 2
+    },
+    {
+      "event": "submit",
+      "key": "old",
+      "version": 2
+    },
+    {
+      "event": "submit",
+      "key": "successor",
+      "version": 2
+    }
+  ],
+  "responses": {
+    "old": {
+      "submit": {
+        "status": "PRESENT",
+        "outcome": "ACCEPTED",
+        "applied": true,
+        "effect_count": 1,
+        "payload_hash": "0ec371e37967dd71065a698de31d033b6b39dc94677117596e9c00bd79833406",
+        "receipt": "05d6e3b9290f62024a1c37af2f123994aaf822eeef3c5977199dd0fbf820ad67",
+        "world_version_observed": 2
+      },
+      "query": {
+        "status": "PRESENT",
+        "outcome": "PRESENT",
+        "effect_count": 1,
+        "payload_hash": "0ec371e37967dd71065a698de31d033b6b39dc94677117596e9c00bd79833406",
+        "receipt": "05d6e3b9290f62024a1c37af2f123994aaf822eeef3c5977199dd0fbf820ad67",
+        "applied": false
+      }
+    },
+    "successor": {
+      "submit": {
+        "status": "PRESENT",
+        "outcome": "ACCEPTED",
+        "applied": true,
+        "effect_count": 1,
+        "payload_hash": "75d86a7be9af34d21d51002c041b5249420d01903b003292cd55ca3b3056f149",
+        "receipt": "9ec746872135f7c1eb198b37ab2ea70a273d1c361f2ea1df0782d22c59f1c033",
+        "world_version_observed": 2
+      },
+      "query": {
+        "status": "PRESENT",
+        "outcome": "PRESENT",
+        "effect_count": 1,
+        "payload_hash": "75d86a7be9af34d21d51002c041b5249420d01903b003292cd55ca3b3056f149",
+        "receipt": "9ec746872135f7c1eb198b37ab2ea70a273d1c361f2ea1df0782d22c59f1c033",
+        "applied": false
+      }
+    }
+  },
+  "authority": {
+    "id": 1,
+    "token": 1,
+    "epoch": 1,
+    "eligible": 1
+  }
+}

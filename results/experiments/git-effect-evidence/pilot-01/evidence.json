@@ -1,0 +1,701 @@
+{
+  "git": "git version 2.41.0.windows.2",
+  "rows": [
+    {
+      "history": "original",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "original",
+      "marker_enabled": true,
+      "marker_oid": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/epochgate/operations/original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "original",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "original",
+      "marker_enabled": true,
+      "marker_oid": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/epochgate/operations/original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "original",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "original",
+      "marker_enabled": true,
+      "marker_oid": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/epochgate/operations/original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "other_writer",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "other"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:other"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:other"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "other_writer",
+      "marker_enabled": true,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "other"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:other"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:other"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "other_writer",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "other"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "other_writer",
+      "marker_enabled": true,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "other"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "other_writer",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "other"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:other"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "other_writer",
+      "marker_enabled": true,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "other"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:other"
+      ],
+      "target": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "reverted",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        },
+        {
+          "new": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "old": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "operation": "rollback"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "reverted",
+      "marker_enabled": true,
+      "marker_oid": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        },
+        {
+          "new": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "old": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "operation": "rollback"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/epochgate/operations/original",
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "reverted",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        },
+        {
+          "new": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "old": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "operation": "rollback"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "reverted",
+      "marker_enabled": true,
+      "marker_oid": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        },
+        {
+          "new": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "old": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "operation": "rollback"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/epochgate/operations/original",
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "reverted",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        },
+        {
+          "new": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "old": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "operation": "rollback"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "reverted",
+      "marker_enabled": true,
+      "marker_oid": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+      "operations_withheld_from_recovery": [
+        {
+          "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "old": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "operation": "original"
+        },
+        {
+          "new": "bd002836383265e4a4455e1fb0fc998ef941e420",
+          "old": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+          "operation": "rollback"
+        }
+      ],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize",
+        "bd002836383265e4a4455e1fb0fc998ef941e420 31234ac148570f92bfd0ec99cc647193c6eeb95e Experiment <test@example.invalid> 1795219200 +0000\toperation:original",
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\toperation:rollback"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "31234ac148570f92bfd0ec99cc647193c6eeb95e\trefs/epochgate/operations/original",
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "not_dispatched",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "not_dispatched",
+      "marker_enabled": true,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "retained",
+      "reflog_available": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+      ],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "not_dispatched",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "not_dispatched",
+      "marker_enabled": true,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "disabled",
+      "reflog_available": [],
+      "reflog_before_expiry": [],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "not_dispatched",
+      "marker_enabled": false,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    },
+    {
+      "history": "not_dispatched",
+      "marker_enabled": true,
+      "marker_oid": null,
+      "operations_withheld_from_recovery": [],
+      "planned": {
+        "new": "31234ac148570f92bfd0ec99cc647193c6eeb95e",
+        "old": "bd002836383265e4a4455e1fb0fc998ef941e420"
+      },
+      "profile": "expired",
+      "reflog_available": [],
+      "reflog_before_expiry": [
+        "0000000000000000000000000000000000000000 bd002836383265e4a4455e1fb0fc998ef941e420 Experiment <test@example.invalid> 1795219200 +0000\tinitialize"
+      ],
+      "target": "bd002836383265e4a4455e1fb0fc998ef941e420",
+      "transport_advertised": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ],
+      "transport_marker_hidden": [
+        "bd002836383265e4a4455e1fb0fc998ef941e420\trefs/heads/publish"
+      ]
+    }
+  ]
+}

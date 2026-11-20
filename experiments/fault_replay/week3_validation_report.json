@@ -1,0 +1,516 @@
+{
+  "decision": "WEEK3_COMPARISON",
+  "narrative": "full_week3_comparison",
+  "gates": {
+    "A": {
+      "pass": true,
+      "count": 22,
+      "by_scenario": {
+        "S13": 2,
+        "S14": 4,
+        "S15": 4,
+        "S16": 4,
+        "S17": 4,
+        "S18": 4
+      }
+    },
+    "B": {
+      "pass": true,
+      "rows": 80,
+      "stable_states": [
+        "CONFIRM_TARGET",
+        "PUBLISH_SEALED",
+        "REPLAY_RECEIPT",
+        "UNKNOWN"
+      ],
+      "unstable": [],
+      "contract_mismatches": 0
+    },
+    "C": {
+      "pass": true,
+      "cases": [
+        "S17:p24",
+        "S17:p25"
+      ]
+    },
+    "D": {
+      "pass": true,
+      "legal_clusters": 27,
+      "schema_error_count": 0,
+      "blind_rows": 16,
+      "blind_fraction": 0.1481,
+      "blind_mismatches": 0
+    }
+  },
+  "sample": {
+    "clusters": 27,
+    "cells": 108,
+    "main_clusters": 25,
+    "main_cells": 100,
+    "crash_rows": 80,
+    "pilot_cells_not_included": 60,
+    "pilot_label": "PILOT_FIRST_BATCH"
+  },
+  "pre_registered": [
+    {
+      "comparison": "Claim_vs_Direct",
+      "indicator": "authority",
+      "role": "pre_registered",
+      "estimate": -0.44,
+      "ci_low": -0.64,
+      "ci_high": -0.24,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 11,
+        "n_discordant": 11,
+        "p_value": 0.0009765625
+      }
+    },
+    {
+      "comparison": "Claim_vs_Direct",
+      "indicator": "semantic",
+      "role": "pre_registered",
+      "estimate": -0.44,
+      "ci_low": -0.64,
+      "ci_high": -0.24,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 11,
+        "n_discordant": 11,
+        "p_value": 0.0009765625
+      }
+    },
+    {
+      "comparison": "Claim_vs_Direct",
+      "indicator": "successor",
+      "role": "pre_registered",
+      "estimate": -0.16,
+      "ci_low": -0.32,
+      "ci_high": -0.04,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 4,
+        "n_discordant": 4,
+        "p_value": 0.125
+      }
+    },
+    {
+      "comparison": "Claim_vs_Direct",
+      "indicator": "outdated",
+      "role": "pre_registered",
+      "estimate": -0.04,
+      "ci_low": -0.12,
+      "ci_high": 0.0,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 1,
+        "n_discordant": 1,
+        "p_value": 1.0
+      }
+    },
+    {
+      "comparison": "Claim_vs_Admission",
+      "indicator": "authority",
+      "role": "pre_registered",
+      "estimate": -0.16,
+      "ci_low": -0.32,
+      "ci_high": -0.04,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 4,
+        "n_discordant": 4,
+        "p_value": 0.125
+      }
+    },
+    {
+      "comparison": "Claim_vs_Admission",
+      "indicator": "semantic",
+      "role": "pre_registered",
+      "estimate": -0.2,
+      "ci_low": -0.36,
+      "ci_high": -0.04,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 5,
+        "n_discordant": 5,
+        "p_value": 0.0625
+      }
+    },
+    {
+      "comparison": "Claim_vs_Admission",
+      "indicator": "successor",
+      "role": "pre_registered",
+      "estimate": -0.16,
+      "ci_low": -0.32,
+      "ci_high": -0.04,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 4,
+        "n_discordant": 4,
+        "p_value": 0.125
+      }
+    },
+    {
+      "comparison": "Claim_vs_Admission",
+      "indicator": "outdated",
+      "role": "pre_registered",
+      "estimate": -0.04,
+      "ci_low": -0.12,
+      "ci_high": 0.0,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 1,
+        "n_discordant": 1,
+        "p_value": 1.0
+      }
+    },
+    {
+      "comparison": "Claim_vs_Outbox",
+      "indicator": "authority",
+      "role": "pre_registered",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 0,
+        "n_discordant": 0,
+        "p_value": null
+      }
+    },
+    {
+      "comparison": "Claim_vs_Outbox",
+      "indicator": "semantic",
+      "role": "pre_registered",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 0,
+        "n_discordant": 0,
+        "p_value": null
+      }
+    },
+    {
+      "comparison": "Claim_vs_Outbox",
+      "indicator": "successor",
+      "role": "pre_registered",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 0,
+        "n_discordant": 0,
+        "p_value": null
+      }
+    },
+    {
+      "comparison": "Claim_vs_Outbox",
+      "indicator": "outdated",
+      "role": "pre_registered",
+      "estimate": 0.0,
+      "ci_low": 0.0,
+      "ci_high": 0.0,
+      "n_clusters": 25,
+      "draws": 4000,
+      "seed": 20261120,
+      "mcnemar": {
+        "b": 0,
+        "c": 0,
+        "n_discordant": 0,
+        "p_value": null
+      }
+    }
+  ],
+  "split_metrics": [
+    {
+      "indicator": "authority",
+      "numerator": 15,
+      "denominator": 100,
+      "rate": 0.15,
+      "unknown_cells": 0
+    },
+    {
+      "indicator": "semantic",
+      "numerator": 48,
+      "denominator": 100,
+      "rate": 0.48,
+      "unknown_cells": 31
+    },
+    {
+      "indicator": "successor",
+      "numerator": 16,
+      "denominator": 100,
+      "rate": 0.16,
+      "unknown_cells": 0
+    },
+    {
+      "indicator": "outdated",
+      "numerator": 34,
+      "denominator": 100,
+      "rate": 0.34,
+      "unknown_cells": 31
+    }
+  ],
+  "unknown_any_cells": 31,
+  "separation_crosstab": [
+    {
+      "scenario_id": "S13",
+      "path": "Admission",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S13",
+      "path": "Claim",
+      "physical_effect_state": "ABSENT",
+      "recovery_state": "NOT_RECOVERED",
+      "semantic_validity": "UNKNOWN",
+      "recovery_evidence_state": "UNKNOWN",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S13",
+      "path": "Direct",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S13",
+      "path": "Outbox",
+      "physical_effect_state": "ABSENT",
+      "recovery_state": "NOT_RECOVERED",
+      "semantic_validity": "UNKNOWN",
+      "recovery_evidence_state": "UNKNOWN",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S14",
+      "path": "Admission",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S14",
+      "path": "Claim",
+      "physical_effect_state": "PRESENT_UNVERIFIED",
+      "recovery_state": "RESTORED_BYTES",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "PUBLISH_SEALED",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S14",
+      "path": "Direct",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S14",
+      "path": "Outbox",
+      "physical_effect_state": "PRESENT_UNVERIFIED",
+      "recovery_state": "RESTORED_BYTES",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "PUBLISH_SEALED",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S15",
+      "path": "Admission",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S15",
+      "path": "Claim",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "CONFIRM_TARGET",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S15",
+      "path": "Direct",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S15",
+      "path": "Outbox",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "CONFIRM_TARGET",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S16",
+      "path": "Admission",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S16",
+      "path": "Claim",
+      "physical_effect_state": "PRESENT_UNVERIFIED",
+      "recovery_state": "RESTORED_BYTES",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "PUBLISH_SEALED",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S16",
+      "path": "Direct",
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "NOT_APPLICABLE",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "NOT_APPLICABLE",
+      "cells": 1
+    },
+    {
+      "scenario_id": "S16",
+      "path": "Outbox",
+      "physical_effect_state": "PRESENT_UNVERIFIED",
+      "recovery_state": "RESTORED_BYTES",
+      "semantic_validity": "INVALID",
+      "recovery_evidence_state": "PUBLISH_SEALED",
+      "cells": 1
+    }
+  ],
+  "freeze_crosstab": [
+    {
+      "scenario_id": "S17",
+      "path": "Admission",
+      "published_old_bytes": "true",
+      "successor_status": "FAILED",
+      "semantic_validity": "INVALID",
+      "authority_decision": "STALE_ACCEPTED",
+      "cells": 2
+    },
+    {
+      "scenario_id": "S17",
+      "path": "Claim",
+      "published_old_bytes": "false",
+      "successor_status": "COMPLETED_VALID",
+      "semantic_validity": "VALID",
+      "authority_decision": "NO_STALE_ACCEPTANCE_RECORDED",
+      "cells": 2
+    },
+    {
+      "scenario_id": "S17",
+      "path": "Direct",
+      "published_old_bytes": "true",
+      "successor_status": "FAILED",
+      "semantic_validity": "INVALID",
+      "authority_decision": "STALE_ACCEPTED",
+      "cells": 2
+    },
+    {
+      "scenario_id": "S17",
+      "path": "Outbox",
+      "published_old_bytes": "false",
+      "successor_status": "COMPLETED_VALID",
+      "semantic_validity": "VALID",
+      "authority_decision": "NO_STALE_ACCEPTANCE_RECORDED",
+      "cells": 2
+    },
+    {
+      "scenario_id": "S18",
+      "path": "Admission",
+      "published_old_bytes": "true",
+      "successor_status": "FAILED",
+      "semantic_validity": "INVALID",
+      "authority_decision": "STALE_ACCEPTED",
+      "cells": 2
+    },
+    {
+      "scenario_id": "S18",
+      "path": "Claim",
+      "published_old_bytes": "false",
+      "successor_status": "CORRECT_STOP",
+      "semantic_validity": "UNKNOWN",
+      "authority_decision": "NO_STALE_ACCEPTANCE_RECORDED",
+      "cells": 2
+    },
+    {
+      "scenario_id": "S18",
+      "path": "Direct",
+      "published_old_bytes": "true",
+      "successor_status": "FAILED",
+      "semantic_validity": "INVALID",
+      "authority_decision": "STALE_ACCEPTED",
+      "cells": 2
+    },
+    {
+      "scenario_id": "S18",
+      "path": "Outbox",
+      "published_old_bytes": "false",
+      "successor_status": "CORRECT_STOP",
+      "semantic_validity": "UNKNOWN",
+      "authority_decision": "NO_STALE_ACCEPTANCE_RECORDED",
+      "cells": 2
+    }
+  ],
+  "schema_errors": {},
+  "statistical_plan_sha256": "cdc83a6031bb5c5138d6f1815cf52e5f6496cbd4ddb6028ca9c69a25282544aa",
+  "archived_joint_sha256": "d4721a05d96fe19aec26bc3431a1b6551e516cf52f89f5d0c822e55a5b092cda",
+  "archived_joint_unchanged": true,
+  "week2_files_modified": false
+}

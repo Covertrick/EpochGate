@@ -1,0 +1,221 @@
+{
+  "cases": 24,
+  "method_counts": {
+    "disabled:marker:reflog_oid_pair": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "disabled:marker:reflog_operation_id": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "disabled:marker:tip_equality": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 1,
+      "true_confirmations": 1,
+      "unknown": 2
+    },
+    "disabled:marker:transaction_marker": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "disabled:marker:transport_marker_exposed": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "disabled:marker:transport_marker_hidden": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "disabled:no_marker:reflog_oid_pair": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "disabled:no_marker:reflog_operation_id": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "disabled:no_marker:tip_equality": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 1,
+      "true_confirmations": 1,
+      "unknown": 2
+    },
+    "disabled:no_marker:transaction_marker": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "disabled:no_marker:transport_marker_exposed": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "disabled:no_marker:transport_marker_hidden": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:marker:reflog_oid_pair": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:marker:reflog_operation_id": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:marker:tip_equality": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 1,
+      "true_confirmations": 1,
+      "unknown": 2
+    },
+    "expired:marker:transaction_marker": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "expired:marker:transport_marker_exposed": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "expired:marker:transport_marker_hidden": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:no_marker:reflog_oid_pair": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:no_marker:reflog_operation_id": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:no_marker:tip_equality": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 1,
+      "true_confirmations": 1,
+      "unknown": 2
+    },
+    "expired:no_marker:transaction_marker": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:no_marker:transport_marker_exposed": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "expired:no_marker:transport_marker_hidden": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "retained:marker:reflog_oid_pair": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 1
+    },
+    "retained:marker:reflog_operation_id": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "retained:marker:tip_equality": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 1,
+      "true_confirmations": 1,
+      "unknown": 2
+    },
+    "retained:marker:transaction_marker": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "retained:marker:transport_marker_exposed": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "retained:marker:transport_marker_hidden": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "retained:no_marker:reflog_oid_pair": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 1
+    },
+    "retained:no_marker:reflog_operation_id": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 0,
+      "true_confirmations": 2,
+      "unknown": 2
+    },
+    "retained:no_marker:tip_equality": {
+      "false_confirmations": 1,
+      "missed_historical_effects": 1,
+      "true_confirmations": 1,
+      "unknown": 2
+    },
+    "retained:no_marker:transaction_marker": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "retained:no_marker:transport_marker_exposed": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    },
+    "retained:no_marker:transport_marker_hidden": {
+      "false_confirmations": 0,
+      "missed_historical_effects": 2,
+      "true_confirmations": 0,
+      "unknown": 4
+    }
+  }
+}

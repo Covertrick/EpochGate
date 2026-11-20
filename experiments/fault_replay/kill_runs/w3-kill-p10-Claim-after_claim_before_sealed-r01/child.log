@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Project\EpochGate\research\week3\kill_child.py", line 389, in <module>
+    main()
+  File "C:\Project\EpochGate\research\week3\kill_child.py", line 383, in main
+    run_child(run_dir, Path(args.proposal_bin))
+  File "C:\Project\EpochGate\research\week3\kill_child.py", line 182, in run_child
+    _commit_claim(run_dir, contract, contract["payload_sha256"])
+  File "C:\Project\EpochGate\research\week3\kill_child.py", line 92, in _commit_claim
+    conn.execute(
+sqlite3.IntegrityError: UNIQUE constraint failed: kill_ledger.id

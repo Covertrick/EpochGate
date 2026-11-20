@@ -1,0 +1,14 @@
+{
+  "frozen_before_comparison": true,
+  "note": "These cutoffs were written before generator_comparison.csv. Do not edit them after seeing that file.",
+  "semantic_class_tv_gt": 0.20,
+  "sku_dest_alias_abs_diff_gt": 0.20,
+  "payload_length_rel_mean_diff_gt": 0.25,
+  "payload_length_ranges_disjoint_counts": true,
+  "idempotency_uniqueness_abs_diff_gt": 0.05,
+  "oracle_adjudicable_abs_diff_gt": 0.05,
+  "world_state_tv_gt": 0.20,
+  "authority_tv_gt": 0.20,
+  "successor_tv_gt": 0.20,
+  "conclusion_rule": "DIFFERS if any axis is exceeded; otherwise INCONCLUSIVE"
+}

@@ -1,0 +1,59 @@
+{
+  "trace": [
+    {
+      "event": "update",
+      "version": 2
+    },
+    {
+      "event": "precheck",
+      "version": 2,
+      "valid": true
+    },
+    {
+      "event": "submit",
+      "key": "old",
+      "version": 2
+    },
+    {
+      "event": "submit",
+      "key": "successor",
+      "version": 2
+    }
+  ],
+  "responses": {
+    "old": {
+      "submit": {
+        "status": "completed",
+        "published": true,
+        "receipt": "file:result.txt:32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+        "sha256": "32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e"
+      },
+      "query": {
+        "phase": "completed",
+        "effect_state": "RESULT_PERSISTED",
+        "receipt": "file:result.txt:32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+        "result": "32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+        "run_id": "task"
+      }
+    },
+    "successor": {
+      "submit": {
+        "status": "completed",
+        "published": true,
+        "receipt": "file:result.txt:32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+        "sha256": "32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e"
+      },
+      "query": {
+        "phase": "completed",
+        "effect_state": "RESULT_PERSISTED",
+        "receipt": "file:result.txt:32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+        "result": "32e97901b695e7848439dc762ad455ff6f8e1cdeaec589aa2afa1ed888be494e",
+        "run_id": "task"
+      }
+    }
+  },
+  "authority": {
+    "eligible": true,
+    "token": 1
+  }
+}

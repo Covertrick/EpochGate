@@ -335,7 +335,7 @@ def run(instance: str, out: Path) -> dict:
     summary = {
         "instance": instance,
         "role": "exploratory" if instance == "exploratory" else "confirmation",
-        "protocol": "docs/开发文档/补实验协议.md",
+        "protocol": "docs/实验/补实验协议.md",
         "same_frozen_snapshot": True,
         "shared_row": False,
         "note": "每个格子从同一份冻结快照复制账本。提交时不重新领取凭证。同一行不能被多个机制各接受一次。",

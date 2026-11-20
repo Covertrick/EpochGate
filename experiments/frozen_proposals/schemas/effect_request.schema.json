@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/effect_request.schema.json",
+  "title": "EffectRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["proposal_id", "task_id", "scenario_id", "payload_sha256", "idempotency_key", "outbox_event_id", "authority_token", "authority_epoch", "task_semantic_version", "timeout_ms", "budget_units"],
+  "properties": {
+    "proposal_id": {"type": "string"},
+    "task_id": {"type": "string"},
+    "scenario_id": {"type": "string"},
+    "payload_sha256": {"type": "string"},
+    "idempotency_key": {"type": "string"},
+    "outbox_event_id": {"type": "string"},
+    "authority_token": {"type": "integer"},
+    "authority_epoch": {"type": "integer"},
+    "task_semantic_version": {"type": "string"},
+    "timeout_ms": {"type": "integer"},
+    "budget_units": {"type": "integer"}
+  }
+}

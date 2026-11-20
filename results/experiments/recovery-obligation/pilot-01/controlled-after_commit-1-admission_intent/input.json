@@ -1,0 +1,7 @@
+{
+  "arm": "admission_intent",
+  "changed": true,
+  "id": "controlled-after_commit-1-admission_intent",
+  "payload": "controlled",
+  "window": "after_commit"
+}

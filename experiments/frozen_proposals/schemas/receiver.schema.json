@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/receiver.schema.json",
+  "title": "Receiver",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["impl", "version", "effect_key", "attempt_id", "payload_sha256"],
+  "properties": {
+    "impl": {"const": "reliability_contract.SharedReceiver"},
+    "version": {"const": "m4-shared-receiver-1"},
+    "effect_key": {"type": "string"},
+    "attempt_id": {"type": "string"},
+    "payload_sha256": {"type": "string"},
+    "status": {"enum": ["accepted", "replayed", "conflict", "receiver_fail"]}
+  }
+}

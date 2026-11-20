@@ -1,0 +1,19 @@
+{
+  "ack_required_if_withheld": false,
+  "arm": "Admission",
+  "condition": "dropped",
+  "id": "pilot-invalidating-05",
+  "initial_stock": 12,
+  "notice": {
+    "eligible": true,
+    "event_id": "pilot-invalidating-05:notice",
+    "generation": 2,
+    "stock": 6
+  },
+  "proposal_sha256": "02cbc7f0fc7a036a5fb5a47bc9f1ec33d0ed71515a5833d3394dc20346bb9ab6",
+  "run_id": "pilot-invalidating-05:Admission:dropped",
+  "stratum": "invalidating",
+  "target_permits_reservation": true,
+  "target_stock": 6,
+  "units": 7
+}

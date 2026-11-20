@@ -1,0 +1,19 @@
+{
+  "ack_required_if_withheld": false,
+  "arm": "Admission",
+  "condition": "delivered",
+  "id": "pilot-benign-01",
+  "initial_stock": 8,
+  "notice": {
+    "eligible": true,
+    "event_id": "pilot-benign-01:notice",
+    "generation": 2,
+    "stock": 5
+  },
+  "proposal_sha256": "ca4e5d14bbb90b63c7709bd2ac8c0ee9034f39f1c8abcb728540322a719432cb",
+  "run_id": "pilot-benign-01:Admission:delivered",
+  "stratum": "benign",
+  "target_permits_reservation": true,
+  "target_stock": 5,
+  "units": 3
+}

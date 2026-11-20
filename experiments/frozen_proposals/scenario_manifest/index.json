@@ -1,0 +1,76 @@
+{
+  "scenarios": [
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S01.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S01"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S02.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S02"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S03.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S03"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S04.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S04"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S05.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S05"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S06.json",
+      "mechanism_role": "NON_DISCRIMINATIVE",
+      "scenario_id": "S06"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S07.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S07"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S08.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S08"
+    },
+    {
+      "common_core": false,
+      "file": "scenario_manifest/S09.json",
+      "mechanism_role": "MECHANISM_SPECIFIC_DIAGNOSTIC",
+      "scenario_id": "S09"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S10.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S10"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S11.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S11"
+    },
+    {
+      "common_core": true,
+      "file": "scenario_manifest/S12.json",
+      "mechanism_role": "MAIN_COMPARISON",
+      "scenario_id": "S12"
+    }
+  ]
+}

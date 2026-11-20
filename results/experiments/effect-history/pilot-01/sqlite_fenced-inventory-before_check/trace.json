@@ -1,0 +1,45 @@
+{
+  "trace": [
+    {
+      "event": "update",
+      "version": 2
+    },
+    {
+      "event": "precheck",
+      "version": 2,
+      "valid": false
+    },
+    {
+      "event": "submit",
+      "key": "successor",
+      "version": 2
+    }
+  ],
+  "responses": {
+    "successor": {
+      "submit": {
+        "status": "PRESENT",
+        "outcome": "ACCEPTED",
+        "applied": true,
+        "effect_count": 1,
+        "payload_hash": "202f8b12ba2c0a98fd65c03dfa303715b72c28bbf98a0bd0c30bdcc6428b30c1",
+        "receipt": "7e051b4a605a7f5ce4f17a56db8e1247c4ac136055f1b0f2f5b57025c74eb781",
+        "world_version_observed": 2
+      },
+      "query": {
+        "status": "PRESENT",
+        "outcome": "PRESENT",
+        "effect_count": 1,
+        "payload_hash": "202f8b12ba2c0a98fd65c03dfa303715b72c28bbf98a0bd0c30bdcc6428b30c1",
+        "receipt": "7e051b4a605a7f5ce4f17a56db8e1247c4ac136055f1b0f2f5b57025c74eb781",
+        "applied": false
+      }
+    }
+  },
+  "authority": {
+    "id": 1,
+    "token": 1,
+    "epoch": 1,
+    "eligible": 1
+  }
+}

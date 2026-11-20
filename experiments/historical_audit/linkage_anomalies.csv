@@ -1,0 +1,119 @@
+anomaly_type,cohort,key,detail
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B0|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B1|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B2|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B3|S1,summary.json repeats evidence.json; one observation retained
+MISSING_RUN_ID,m4-confirm,ful-order-c1|B0|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c1|B0|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c1|B0|S2,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c1|B1|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c1|B1|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c1|B1|S2,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c1|B2|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c1|B2|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c1|B2|S2,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c1|B3|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c1|B3|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c1|B3|S2,blocked cell has no evidence.json directory
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B0|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B1|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B2|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c1|B3|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B0|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B1|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B2|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B3|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B0|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B1|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B2|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c2|B3|S2,summary.json repeats evidence.json; one observation retained
+MISSING_RUN_ID,m4-confirm,ful-order-c2|B0|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c2|B0|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c2|B0|S3,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c2|B1|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c2|B1|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c2|B1|S3,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c2|B2|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c2|B2|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c2|B2|S3,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c2|B3|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c2|B3|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c2|B3|S3,blocked cell has no evidence.json directory
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B0|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B1|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B2|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B3|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B0|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B1|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B2|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-order-c3|B3|S2,summary.json repeats evidence.json; one observation retained
+MISSING_RUN_ID,m4-confirm,ful-order-c3|B0|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c3|B0|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c3|B0|S3,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c3|B1|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c3|B1|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c3|B1|S3,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c3|B2|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c3|B2|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c3|B2|S3,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-order-c3|B3|S3,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-order-c3|B3|S3,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-order-c3|B3|S3,blocked cell has no evidence.json directory
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B0|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B1|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B2|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B3|S1,summary.json repeats evidence.json; one observation retained
+MISSING_RUN_ID,m4-confirm,ful-config-c4|B0|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c4|B0|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c4|B0|S2,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-config-c4|B1|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c4|B1|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c4|B1|S2,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-config-c4|B2|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c4|B2|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c4|B2|S2,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-config-c4|B3|S2,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c4|B3|S2,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c4|B3|S2,blocked cell has no evidence.json directory
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B0|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B1|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B2|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c4|B3|S3,summary.json repeats evidence.json; one observation retained
+MISSING_RUN_ID,m4-confirm,ful-config-c5|B0|S1,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c5|B0|S1,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c5|B0|S1,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-config-c5|B1|S1,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c5|B1|S1,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c5|B1|S1,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-config-c5|B2|S1,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c5|B2|S1,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c5|B2|S1,blocked cell has no evidence.json directory
+MISSING_RUN_ID,m4-confirm,ful-config-c5|B3|S1,summary row has no run_id
+TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE,m4-confirm,ful-config-c5|B3|S1,blocked row stores task_terminal_match false; not used as MISMATCH or FAILURE
+MISSING_EVIDENCE_DIRECTORY,m4-confirm,ful-config-c5|B3|S1,blocked cell has no evidence.json directory
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B0|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B1|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B2|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B3|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B0|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B1|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B2|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c5|B3|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B0|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B1|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B2|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B3|S1,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B0|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B1|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B2|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B3|S2,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B0|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B1|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B2|S3,summary.json repeats evidence.json; one observation retained
+DUPLICATE_ROLLUP,m4-confirm,ful-config-c6|B3|S3,summary.json repeats evidence.json; one observation retained
+ARTIFACT_WITHOUT_RUN_RECORD,m4-dedicated,supersede|B2,results/runtime/correctness/m4-dedicated/supersede-B2/shipment.json
+MISSING_RUN_ID,m4-dedicated,supersede|B2,dedicated summary row has no run_id and no terminal field
+ARTIFACT_WITHOUT_RUN_RECORD,m4-dedicated,supersede|B3,results/runtime/correctness/m4-dedicated/supersede-B3/shipment.json
+MISSING_RUN_ID,m4-dedicated,supersede|B3,dedicated summary row has no run_id and no terminal field
+MISSING_RUN_ID,m4-dedicated,revoke|B2,dedicated summary row has no run_id and no terminal field
+MISSING_RUN_ID,m4-dedicated,revoke|B3,dedicated summary row has no run_id and no terminal field

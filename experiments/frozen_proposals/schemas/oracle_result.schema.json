@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/oracle_result.schema.json",
+  "title": "OracleResult",
+  "type": "object",
+  "required": ["run_id", "proposal_id", "oracle", "oracle_version", "value"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "proposal_id": {"type": "string"},
+    "oracle": {"enum": ["terminal_oracle", "authority_oracle", "evidence_oracle", "semantics_oracle", "successor_oracle"]},
+    "oracle_version": {"type": "string"},
+    "value": {}
+  }
+}

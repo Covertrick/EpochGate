@@ -1,0 +1,50 @@
+{
+  "decision": "INDEPENDENT",
+  "decision_scope": "new week5 runtime commit, persistence, state transitions, recovery, and acknowledge",
+  "historical_week2_to_week4": "PARTIALLY_SHARED",
+  "history_not_rewritten": true,
+  "shared_receiver_does_not_establish_independence": true,
+  "shared_but_not_sufficient": [
+    "week5.runtime.harness",
+    "week5.runtime.receiver_client.PathReceiverClient",
+    "week5.runtime.scorer",
+    "week5.runtime.hashing",
+    "week5.runtime.sqlite_util",
+    "week5.runtime.faults.FaultState"
+  ],
+  "checks": {
+    "commit_functions_distinct": true,
+    "recover_functions_distinct": true,
+    "acknowledge_functions_distinct": true,
+    "transition_functions_distinct": true,
+    "run_functions_distinct": true,
+    "modules_do_not_import_each_other": true,
+    "no_shared_private_transition": true,
+    "tables_disjoint": true,
+    "no_function_mentions_both_tables": true
+  },
+  "functions_mentioning_both_tables": [],
+  "claim_only": [
+    "ClaimMechanism.commit_claim",
+    "ClaimMechanism.transition_to_sending",
+    "ClaimMechanism.acknowledge_claim",
+    "ClaimMechanism.recover",
+    "run_claim_path",
+    "table:claim_authority",
+    "table:claim_rows"
+  ],
+  "outbox_only": [
+    "OutboxMechanism.commit_business_and_relay",
+    "OutboxMechanism.transition_attempt",
+    "OutboxMechanism.relay_after_commit",
+    "OutboxMechanism.acknowledge_relay",
+    "OutboxMechanism.recover",
+    "run_outbox_path",
+    "table:outbox_authority",
+    "table:outbox_business",
+    "table:outbox_relay",
+    "constant:RETRY_LIMIT=3",
+    "status:DEAD"
+  ],
+  "note": "共享接收端、harness 和计分器不能单独构成机制独立。Week 2 到 Week 4 仍是 PARTIALLY_SHARED，这里不改写那段历史。"
+}

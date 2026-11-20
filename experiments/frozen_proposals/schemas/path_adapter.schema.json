@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/path_adapter.schema.json",
+  "title": "PathAdapter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "methods"],
+  "properties": {
+    "name": {"enum": ["Direct", "Admission", "Claim", "Outbox"]},
+    "methods": {
+      "type": "array",
+      "items": {"enum": ["authorize", "blob", "has_durable", "mark_sending", "acknowledge"]}
+    }
+  }
+}

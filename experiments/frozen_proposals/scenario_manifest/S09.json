@@ -1,0 +1,29 @@
+{
+  "applicable_paths": [
+    "Claim",
+    "Outbox"
+  ],
+  "common_core": false,
+  "expected_authority_state": "unchanged_token",
+  "expected_evidence_state": "SUFFICIENT",
+  "expected_physical_effect_state": "CONFIRMED_EFFECT",
+  "expected_semantic_state": "VALID",
+  "expected_stop_condition": "NOT_A_STOP_SCENARIO",
+  "fault_injection_point": "after_commit_before_send",
+  "fault_transition": "crash",
+  "initial_state": {
+    "authority": {
+      "eligible": true,
+      "epoch": 1,
+      "token": 1
+    },
+    "concrete_world": "proposal_registry.jsonl world_before",
+    "world_shape": "order_id, sku, qty, dest, generation=0, effect_forbidden=false"
+  },
+  "mechanism_role": "MECHANISM_SPECIFIC_DIAGNOSTIC",
+  "oracle_fixture": "durable_intent_before_send",
+  "research_hypothesis": "持久意图提交之后、发送之前中断。只有会把意图写入同一数据库的机制才能表达该诊断。Direct 与 Admission 排除出四路径主比较。",
+  "scenario_id": "S09",
+  "seed": 1112,
+  "successor_obligation": "NOT_REQUIRED"
+}

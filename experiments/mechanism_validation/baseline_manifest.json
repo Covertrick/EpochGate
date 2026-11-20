@@ -1,0 +1,179 @@
+{
+  "role": "week5_freeze_baseline",
+  "ready_for_submission": false,
+  "overall_gate": "NOT_READY",
+  "git": {
+    "commit": "b6dd92b491f5235b89a649132e63a889df598316",
+    "command": "git rev-parse HEAD",
+    "branch": "main...origin/main",
+    "week2_week3_week4_in_head": false,
+    "week5_in_head": false,
+    "week5_status": "untracked。写本基线之前 week5/ 不存在；这些文件不在上述提交里。"
+  },
+  "workspace_status": {
+    "summary": "HEAD 为 b6dd92b491f5235b89a649132e63a889df598316，分支 main 跟踪 origin/main。已跟踪的改动只有 results/runtime/correctness/after/e4/cordis.patch.yml，本基线没有改它。未跟踪的有 docs/开发文档/week1-historical-audit/、week2/、week3/、week4/、docs/EpochGate-conference.pdf，以及根目录一个文件名以 index.html 开头、后接 U+F00D 的文件。week5/ 由本次基线新建，同样未跟踪。",
+    "tracked_modification_not_touched": "results/runtime/correctness/after/e4/cordis.patch.yml",
+    "untracked_not_admitted": [
+      "docs/EpochGate-conference.pdf",
+      "index.html 后接 U+F00D 的根目录文件"
+    ]
+  },
+  "archived_joint": {
+    "path": "docs/开发文档/week1-historical-audit/archived_joint.csv",
+    "sha256": "d4721a05d96fe19aec26bc3431a1b6551e516cf52f89f5d0c822e55a5b092cda",
+    "sha256_checked_before_write": "d4721a05d96fe19aec26bc3431a1b6551e516cf52f89f5d0c822e55a5b092cda",
+    "sha256_checked_after_write": "d4721a05d96fe19aec26bc3431a1b6551e516cf52f89f5d0c822e55a5b092cda",
+    "matches_required": true,
+    "rows": 76,
+    "m4_confirm_rows": 72,
+    "joint_observed_confirm_rows": 52,
+    "m4_dedicated_rows": 4
+  },
+  "tree_hash": {
+    "method": "epochgate-tree-sha256-v1",
+    "description": "对给定目录按顺序执行 sorted(path.rglob('*'))，跳过非文件。相对路径是相对工作区根的 POSIX 形式。每个文件先对原始字节做 SHA256，得到小写十六进制。再把路径 UTF-8、一个 NUL、摘要 ASCII、一个 LF 依次写入同一个 SHA256。包含 __pycache__ 与 .pyc，因为 Week 4 记录的 1786 个文件包含它们。这不是 git 树对象。",
+    "week2": {
+      "sha256": "109cb0598ce1e6dcd7eb8e367e3c9b528906f20dc698fa37305e843acd97dc22",
+      "files": 383,
+      "bytes": 4013023
+    },
+    "week3": {
+      "sha256": "68a38ef694081256ecf1c688eb3e1ca17fd79f69c19bdba971b041ea65277cd8",
+      "files": 1403,
+      "bytes": 5753281
+    },
+    "week4": {
+      "sha256": "28df3e1329440c9dc063dd58ea8ed59a12d9e23bbabbe9cac291e62e0933636c",
+      "files": 805,
+      "bytes": 3024310
+    },
+    "week2_then_week3": {
+      "sha256": "9c0db4425bf0344ca61a16f5ec718e8862bdd103122463005e5eafd07662332f",
+      "files": 1786,
+      "bytes": 9766304,
+      "matches_week4_independence_audit": true
+    }
+  },
+  "data_file_counts": {
+    "note": "树哈希计入目录内全部文件。下面是从登记表、联合表和矩阵实际数出的数据文件，不含把 json 运行痕迹再当成新样本。",
+    "week1_archived_joint_csv": 1,
+    "week2_csv": 4,
+    "week2_jsonl": 3,
+    "week2_proposal_bins": 30,
+    "week2_scenario_json": 12,
+    "week2_sqlite": 78,
+    "week3_csv": 3,
+    "week3_jsonl": 1,
+    "week3_proposal_bins": 24,
+    "week3_scenario_yaml": 6,
+    "week3_sqlite": 186,
+    "week4_csv": 11,
+    "week4_jsonl": 1,
+    "week4_proposals_dir_files": 37,
+    "week4_sqlite": 100
+  },
+  "proposal_counts": {
+    "week1_confirm_cluster_keys": 18,
+    "week2_registry": 15,
+    "week2_ids": "p01-p15",
+    "week3_new_registry": 12,
+    "week3_new_ids": "p16-p27",
+    "week3_formal_joint_proposals": 27,
+    "week4_second_lattice": 18,
+    "week4_second_lattice_ids": "w4l01-w4l18",
+    "week4_external_llm_called_false": 18,
+    "week4_paths_rerun_false": 18
+  },
+  "scenario_counts": {
+    "week2_manifest": 12,
+    "week2_ids": "S01-S12",
+    "week3_added_yaml": 6,
+    "week3_added_ids": "S13-S18",
+    "week3_formal_joint_scenarios": 18
+  },
+  "formal_run_counts": {
+    "week1_confirm_cells": 72,
+    "week1_joint_runs_with_run_id": 52,
+    "week1_confirm_cells_without_run_id": 20,
+    "week2_smoke_runs": 12,
+    "week2_pilot_cells": 60,
+    "week2_pilot_proposals": 15,
+    "week2_pilot_main_cells_excluding_S09": 56,
+    "week2_manifest_rows": 72,
+    "week3_formal_cells": 108,
+    "week3_formal_run_directories": 108,
+    "week3_formal_clusters": 27,
+    "week3_main_comparison_clusters": 25,
+    "week3_main_comparison_cells": 100,
+    "week3_crash_matrix_rows": 80,
+    "week3_crash_process_kill_true": 80,
+    "week3_crash_power_loss_claim_false": 80,
+    "week4_extended_crash_rows": 60,
+    "week4_extended_killer_TerminateProcess": 60,
+    "week4_extended_power_loss_claim_false": 60,
+    "week4_rsr_ablation_rows": 40,
+    "week4_rsr_power_loss_claim_false": 40,
+    "week4_crash_run_directories": 100
+  },
+  "independence_decision": {
+    "decision": "PARTIALLY_SHARED",
+    "source": "week4/independence_decision.json",
+    "pair_counts": {
+      "IDENTICAL": 25,
+      "DIFFERS_INPUT": 0,
+      "DIFFERS_OUTCOME": 0
+    },
+    "s17_s18": "SHARED_ONE_PATH",
+    "zero_difference": "零配对差不是两种机制的独立等价，也不是 Claim 优于 Outbox。"
+  },
+  "verified_results": {
+    "week1_decision": "CONDITIONAL GO",
+    "week1_efe": "28/52",
+    "week1_efe_at_success": "6/16",
+    "week1_pdf_in_audit": "审计报告记录会议 PDF 不可读，Figure 2 没有页级核对。",
+    "week2_decision": "CONDITIONAL_GO",
+    "week2_efe_authority_at_success": "1/26",
+    "week2_composite_efe_not_primary": "18/56",
+    "week3_decision": "WEEK3_COMPARISON",
+    "claim_vs_direct_authority_unknown_as_zero": {
+      "estimate": -0.44,
+      "ci": [
+        -0.64,
+        -0.24
+      ],
+      "n_clusters": 25,
+      "seed": 20261120,
+      "draws": 4000
+    },
+    "claim_vs_direct_semantic_unknown_as_zero": {
+      "estimate": -0.44,
+      "ci": [
+        -0.64,
+        -0.24
+      ],
+      "n_clusters": 25
+    },
+    "claim_vs_direct_semantic_unknown_as_failure": {
+      "estimate": -0.04,
+      "ci": [
+        -0.16,
+        0.08
+      ],
+      "interval_crosses_zero": true
+    },
+    "second_generator": "INCONCLUSIVE",
+    "second_llm_called": false
+  },
+  "unresolved_limitations": [
+    "Week 1 确认批仍有 20/72 格没有联合观察，全批 EFE@success 不可识别。",
+    "Week 1 审计没有可读的会议 PDF。工作区里现在有未跟踪的 docs/EpochGate-conference.pdf（216057 字节），本基线不把它当作 Figure 2 已核对。",
+    "Week 2 的 1/26 只是 EFE_authority@success。COMPOSITE_EFE 18/56 不是 Week 2 或 Week 3 的主结果。",
+    "semantic 的区间整体低于 0 依赖 UNKNOWN_AS_ZERO。UNKNOWN 当作失败时，Claim vs Direct 的 semantic 区间跨过 0。",
+    "outdated 在 UNKNOWN_AS_FAILURE 下 Claim vs Direct 的符号变为正，主口径的负号不能外推。",
+    "独立性决定是 PARTIALLY_SHARED。零差不是独立等价，也不是 Claim 优于 Outbox。S17/S18 是同一条 durable claim 冻结路径。",
+    "Week 3 的 80 行与 Week 4 的 60 行加 40 行 RSR 都是 TerminateProcess。power_loss_claim 全部为 false。",
+    "不成立任意 HTTP 恰好一次，也不成立跨库原子性。",
+    "第二生成器健全性是 INCONCLUSIVE。18 条格子 external_llm_called 为 false，paths_rerun 为 false。没有调用第二个 LLM。结果不是 agent-general。",
+    "Week 5 的版本围栏、第二生成器正式回放、新颖性审查、形式模型、分离实现、新实验、独立统计、论文和评审都没有完成。"
+  ]
+}

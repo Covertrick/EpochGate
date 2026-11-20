@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/run_event.schema.json",
+  "title": "RunEvent",
+  "type": "object",
+  "required": ["event", "run_id"],
+  "properties": {
+    "event": {"enum": ["RUN_STARTED", "FAULT_APPLIED", "ORACLE_RESULT", "RUN_TERMINAL", "RUN_ABANDONED"]},
+    "run_id": {"type": "string"},
+    "cohort": {"type": "string"},
+    "proposal_id": {"type": "string"},
+    "path": {"type": "string"},
+    "scenario_id": {"type": "string"},
+    "runner_status": {"enum": ["COMPLETED", "BLOCKED", "CRASHED", "TIMEOUT", "INVALID", "NOT_APPLICABLE", "ABANDONED"]},
+    "oracle": {"type": "string"},
+    "value": {}
+  }
+}

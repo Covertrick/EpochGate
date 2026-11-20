@@ -1,0 +1,5 @@
+Uploading distributions to http://127.0.0.1:60476/legacy/
+Uploading epochgate_fixture-1.0.0-py3-none-any.whl
+WARNING  Received "503: Injected uncertainty"                                   
+         Package upload appears to have failed. Retry 1 of 5.                   
+Uploading epochgate_fixture-1.0.0-py3-none-any.whl

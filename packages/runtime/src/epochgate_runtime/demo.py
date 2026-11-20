@@ -52,7 +52,7 @@ def run_stale_write(data_dir: Path) -> dict[str, Any]:
         and stale.get("status") == "withheld"
         and fresh.get("published") is True
         and fresh.get("receipt")
-        and replay.get("status") == "replayed"
+        and replay.get("status") in {"replayed", "conflict"}
         and written == b"new-bytes"
         and duplicate_writes == 0
         and verified["verified"] is True

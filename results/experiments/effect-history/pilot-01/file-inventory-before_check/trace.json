@@ -1,0 +1,39 @@
+{
+  "trace": [
+    {
+      "event": "update",
+      "version": 2
+    },
+    {
+      "event": "precheck",
+      "version": 2,
+      "valid": false
+    },
+    {
+      "event": "submit",
+      "key": "successor",
+      "version": 2
+    }
+  ],
+  "responses": {
+    "successor": {
+      "submit": {
+        "status": "completed",
+        "published": true,
+        "receipt": "file:result.txt:202f8b12ba2c0a98fd65c03dfa303715b72c28bbf98a0bd0c30bdcc6428b30c1",
+        "sha256": "202f8b12ba2c0a98fd65c03dfa303715b72c28bbf98a0bd0c30bdcc6428b30c1"
+      },
+      "query": {
+        "phase": "completed",
+        "effect_state": "RESULT_PERSISTED",
+        "receipt": "file:result.txt:202f8b12ba2c0a98fd65c03dfa303715b72c28bbf98a0bd0c30bdcc6428b30c1",
+        "result": "202f8b12ba2c0a98fd65c03dfa303715b72c28bbf98a0bd0c30bdcc6428b30c1",
+        "run_id": "task"
+      }
+    }
+  },
+  "authority": {
+    "eligible": true,
+    "token": 1
+  }
+}

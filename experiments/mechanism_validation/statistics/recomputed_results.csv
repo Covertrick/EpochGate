@@ -1,0 +1,23 @@
+record_type,comparison,metric,unknown_policy,estimate,ci_low,ci_high,n_clusters,n_cells,numerator,denominator,n_discordant,mcnemar_b,mcnemar_c,mcnemar_p,seed,draws,diff_sum,published_week3_estimate,published_week3_ci_low,published_week3_ci_high,published_week4_estimate,published_week4_ci_low,published_week4_ci_high,audit_mismatch,detail
+paired,Claim_vs_Direct,authority,UNKNOWN_AS_ZERO,-0.440000,-0.640000,-0.240000,25,,,,11,0,11,0.0009765625,20261120,4000,-11,-0.440000,-0.640000,-0.240000,-0.440000,-0.640000,-0.240000,no,
+paired,Claim_vs_Direct,semantic,UNKNOWN_AS_ZERO,-0.440000,-0.640000,-0.240000,25,,,,11,0,11,0.0009765625,20261120,4000,-11,-0.440000,-0.640000,-0.240000,-0.440000,-0.640000,-0.240000,no,
+paired,Claim_vs_Direct,successor,UNKNOWN_AS_ZERO,-0.160000,-0.320000,-0.040000,25,,,,4,0,4,0.1250000000,20261120,4000,-4,-0.160000,-0.320000,-0.040000,-0.160000,-0.320000,-0.040000,no,
+paired,Claim_vs_Direct,outdated,UNKNOWN_AS_ZERO,-0.040000,-0.120000,0.000000,25,,,,1,0,1,1.0000000000,20261120,4000,-1,-0.040000,-0.120000,0.000000,-0.040000,-0.120000,0.000000,no,
+paired,Claim_vs_Admission,authority,UNKNOWN_AS_ZERO,-0.160000,-0.320000,-0.040000,25,,,,4,0,4,0.1250000000,20261120,4000,-4,-0.160000,-0.320000,-0.040000,-0.160000,-0.320000,-0.040000,no,
+paired,Claim_vs_Admission,semantic,UNKNOWN_AS_ZERO,-0.200000,-0.360000,-0.040000,25,,,,5,0,5,0.0625000000,20261120,4000,-5,-0.200000,-0.360000,-0.040000,-0.200000,-0.360000,-0.040000,no,
+paired,Claim_vs_Admission,successor,UNKNOWN_AS_ZERO,-0.160000,-0.320000,-0.040000,25,,,,4,0,4,0.1250000000,20261120,4000,-4,-0.160000,-0.320000,-0.040000,-0.160000,-0.320000,-0.040000,no,
+paired,Claim_vs_Admission,outdated,UNKNOWN_AS_ZERO,-0.040000,-0.120000,0.000000,25,,,,1,0,1,1.0000000000,20261120,4000,-1,-0.040000,-0.120000,0.000000,-0.040000,-0.120000,0.000000,no,
+paired,Claim_vs_Outbox,authority,UNKNOWN_AS_ZERO,0.000000,0.000000,0.000000,25,,,,0,0,0,,20261120,4000,0,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,no,
+paired,Claim_vs_Outbox,semantic,UNKNOWN_AS_ZERO,0.000000,0.000000,0.000000,25,,,,0,0,0,,20261120,4000,0,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,no,
+paired,Claim_vs_Outbox,successor,UNKNOWN_AS_ZERO,0.000000,0.000000,0.000000,25,,,,0,0,0,,20261120,4000,0,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,no,
+paired,Claim_vs_Outbox,outdated,UNKNOWN_AS_ZERO,0.000000,0.000000,0.000000,25,,,,0,0,0,,20261120,4000,0,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,no,
+historical_marginal,main_comparison_cells,authority,UNKNOWN_AS_ZERO,0.150000,,,25,100,15,100,,,,,,,,,,,,,,,Week 3 历史重算。该指标分子按 UNKNOWN_AS_ZERO 计。UNKNOWN 格子数为 0，留在分母里，指标记为 0。
+historical_marginal,main_comparison_cells,semantic,UNKNOWN_AS_ZERO,0.480000,,,25,100,48,100,,,,,,,,,,,,,,,Week 3 历史重算。该指标分子按 UNKNOWN_AS_ZERO 计。UNKNOWN 格子数为 31，留在分母里，指标记为 0。
+historical_marginal,main_comparison_cells,successor,UNKNOWN_AS_ZERO,0.160000,,,25,100,16,100,,,,,,,,,,,,,,,Week 3 历史重算。该指标分子按 UNKNOWN_AS_ZERO 计。UNKNOWN 格子数为 0，留在分母里，指标记为 0。
+historical_marginal,main_comparison_cells,outdated,UNKNOWN_AS_ZERO,0.340000,,,25,100,34,100,,,,,,,,,,,,,,,Week 3 历史重算。该指标分子按 UNKNOWN_AS_ZERO 计。UNKNOWN 格子数为 31，留在分母里，指标记为 0。
+historical_marginal,main_comparison_cells,invalid_semantic_publication,UNKNOWN_AS_ZERO,0.480000,,,25,100,48,100,,,,,,,,,,,,,,,次要终点在 Week 3 主比较格子上的历史重算：semantic_validity 为 INVALID。本次不计算 Week 5 估计。
+historical_marginal,main_comparison_cells,duplicate_logical_effects,UNKNOWN_AS_ZERO,0.000000,,,25,100,0,100,,,,,,,,,,,,,,,次要终点在 Week 3 主比较格子上的历史重算：duplicate_effect 为真。本次不计算 Week 5 估计。
+historical_marginal,main_comparison_cells,superseded_decisions,UNKNOWN_AS_ZERO,0.000000,,,25,100,0,100,,,,,,,,,,,,,,,次要终点在 Week 3 主比较格子上的历史重算：计分状态文本含 SUPERSED。本次不计算 Week 5 估计。
+historical_marginal,main_comparison_cells,completion,UNKNOWN_AS_ZERO,0.960000,,,25,100,96,100,,,,,,,,,,,,,,,次要终点在 Week 3 主比较格子上的历史重算：runner_status 为 COMPLETED。本次不计算 Week 5 估计。
+historical_marginal,main_comparison_cells,unresolved_outcomes,UNKNOWN_AS_ZERO,0.000000,,,25,100,0,100,,,,,,,,,,,,,,,"次要终点在 Week 3 主比较格子上的历史重算：adjudication 为 UNRESOLVED，或 terminal_outcome 为 UNKNOWN，或 joint_observed 为假。本次不计算 Week 5 估计。"
+historical_marginal,main_comparison_cells,unknown_any_main_oracle,UNKNOWN_AS_ZERO,0.310000,,,25,100,31,100,,,,,,,,,,,,,,,"主比较格子中，terminal_outcome、authority_decision、physical_effect_state、semantic_validity 至少一项为 UNKNOWN。这是描述性计数。"

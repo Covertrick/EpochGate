@@ -1,0 +1,52 @@
+{
+  "elapsed_ns": 118804200,
+  "events": [
+    {
+      "event": "BUSINESS_STATE_COMMITTED",
+      "sequence": 1,
+      "version": 2
+    },
+    {
+      "eligible": true,
+      "event": "NOTIFICATION_EMITTED",
+      "event_id": "pilot-invalidating-05:notice",
+      "generation": 2,
+      "sequence": 2,
+      "stock": 6
+    },
+    {
+      "event": "TRANSPORT_DELIVERED",
+      "event_id": "pilot-invalidating-05:notice",
+      "sequence": 3
+    },
+    {
+      "event": "CONTROL_PLANE_RECEIVED",
+      "event_id": "pilot-invalidating-05:notice",
+      "sequence": 4
+    },
+    {
+      "event": "CONTROL_PLANE_APPLIED",
+      "event_id": "pilot-invalidating-05:notice",
+      "observed": {
+        "eligible": true,
+        "epoch": 2,
+        "token": 2
+      },
+      "sequence": 5
+    },
+    {
+      "ack": false,
+      "action": "reserve",
+      "event": "PATH_RETURNED",
+      "outcome": "WITHHELD",
+      "sequence": 6
+    },
+    {
+      "ack": true,
+      "action": "disposition",
+      "event": "PATH_RETURNED",
+      "outcome": "ACCEPTED",
+      "sequence": 7
+    }
+  ]
+}

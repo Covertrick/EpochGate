@@ -1,0 +1,8 @@
+Uploading distributions to http://127.0.0.1:60480/legacy/
+Uploading epochgate_fixture-1.0.0-py3-none-any.whl
+WARNING  Received "503: Injected uncertainty"                                   
+         Package upload appears to have failed. Retry 1 of 5.                   
+Uploading epochgate_fixture-1.0.0-py3-none-any.whl
+WARNING  Error during upload. Retry with the --verbose option for more details. 
+ERROR    HTTPError: 400 Bad Request from http://127.0.0.1:60480/legacy/         
+         This filename was previously used by a file that has since been deleted

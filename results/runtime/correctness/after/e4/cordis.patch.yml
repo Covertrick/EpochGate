@@ -31,8 +31,8 @@
   disabled: true
 - insert:
     - id: eg-workspace
-      name: "file:///D:/Checkout/EpochGate/packages/eg-workspace/lib/index.js"
+      name: "file:///C:/Project/EpochGate/packages/eg-workspace/lib/index.js"
     - id: eg-policy
-      name: "file:///D:/Checkout/EpochGate/packages/eg-policy/lib/index.js"
+      name: "file:///C:/Project/EpochGate/packages/eg-policy/lib/index.js"
     - id: eg-observability
-      name: "file:///D:/Checkout/EpochGate/packages/eg-observability/lib/index.js"
+      name: "file:///C:/Project/EpochGate/packages/eg-observability/lib/index.js"

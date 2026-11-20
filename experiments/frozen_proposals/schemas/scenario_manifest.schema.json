@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/scenario_manifest.schema.json",
+  "title": "ScenarioManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["scenario_id", "research_hypothesis", "initial_state", "fault_injection_point", "fault_transition", "expected_authority_state", "expected_physical_effect_state", "expected_evidence_state", "expected_semantic_state", "successor_obligation", "expected_stop_condition", "oracle_fixture", "applicable_paths", "common_core", "seed"],
+  "properties": {
+    "scenario_id": {"type": "string"},
+    "research_hypothesis": {"type": "string"},
+    "initial_state": {"type": "object"},
+    "fault_injection_point": {"type": "string"},
+    "fault_transition": {"type": "string"},
+    "expected_authority_state": {"type": "string"},
+    "expected_physical_effect_state": {"type": "string"},
+    "expected_evidence_state": {"type": "string"},
+    "expected_semantic_state": {"type": "string"},
+    "successor_obligation": {"enum": ["REQUIRED", "NOT_REQUIRED", "UNKNOWN"]},
+    "expected_stop_condition": {"type": "string"},
+    "oracle_fixture": {"type": "string"},
+    "applicable_paths": {"type": "array", "items": {"enum": ["Direct", "Admission", "Claim", "Outbox"]}},
+    "common_core": {"type": "boolean"},
+    "mechanism_role": {"type": "string"},
+    "seed": {"type": "integer"}
+  }
+}

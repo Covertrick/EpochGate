@@ -1,0 +1,26 @@
+[
+  [
+    "Direct",
+    "dropped"
+  ],
+  [
+    "Direct",
+    "delivered"
+  ],
+  [
+    "Claim",
+    "dropped"
+  ],
+  [
+    "Claim",
+    "delivered"
+  ],
+  [
+    "Admission",
+    "delivered"
+  ],
+  [
+    "Admission",
+    "dropped"
+  ]
+]

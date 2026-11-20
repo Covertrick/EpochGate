@@ -1,0 +1,37 @@
+{
+  "elapsed_ns": 43587200,
+  "events": [
+    {
+      "event": "BUSINESS_STATE_COMMITTED",
+      "sequence": 1,
+      "version": 2
+    },
+    {
+      "eligible": true,
+      "event": "NOTIFICATION_EMITTED",
+      "event_id": "pilot-invalidating-01:notice",
+      "generation": 2,
+      "sequence": 2,
+      "stock": 2
+    },
+    {
+      "event": "TRANSPORT_DROPPED",
+      "event_id": "pilot-invalidating-01:notice",
+      "sequence": 3
+    },
+    {
+      "ack": true,
+      "action": "reserve",
+      "event": "PATH_RETURNED",
+      "outcome": "ACCEPTED",
+      "sequence": 4
+    },
+    {
+      "ack": true,
+      "action": "disposition",
+      "event": "PATH_RETURNED",
+      "outcome": "ACCEPTED",
+      "sequence": 5
+    }
+  ]
+}

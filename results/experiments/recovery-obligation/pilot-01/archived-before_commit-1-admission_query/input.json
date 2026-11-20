@@ -1,0 +1,7 @@
+{
+  "arm": "admission_query",
+  "changed": true,
+  "id": "archived-before_commit-1-admission_query",
+  "payload": "archived",
+  "window": "before_commit"
+}

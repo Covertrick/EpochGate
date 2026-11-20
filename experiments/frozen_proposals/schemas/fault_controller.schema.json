@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://epochgate.local/week2/fault_controller.schema.json",
+  "title": "FaultController",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["points"],
+  "properties": {
+    "points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["point", "actions"],
+        "properties": {
+          "point": {"type": "string"},
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["op"],
+              "properties": {
+                "op": {"enum": ["revoke", "supersede", "drift", "stale_epoch", "concurrent_edit", "duplicate_delivery", "conflict_delivery", "receiver_fail", "crash"]},
+                "payload_hex": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

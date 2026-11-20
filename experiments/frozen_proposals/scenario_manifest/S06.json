@@ -1,0 +1,31 @@
+{
+  "applicable_paths": [
+    "Direct",
+    "Admission",
+    "Claim",
+    "Outbox"
+  ],
+  "common_core": true,
+  "expected_authority_state": "edited_epoch",
+  "expected_evidence_state": "SUFFICIENT",
+  "expected_physical_effect_state": "ABSENT",
+  "expected_semantic_state": "NO_OBSERVED_EFFECT",
+  "expected_stop_condition": "CORRECT_STOP",
+  "fault_injection_point": "after_admit_before_send",
+  "fault_transition": "concurrent_edit",
+  "initial_state": {
+    "authority": {
+      "eligible": true,
+      "epoch": 1,
+      "token": 1
+    },
+    "concrete_world": "proposal_registry.jsonl world_before",
+    "world_shape": "order_id, sku, qty, dest, generation=0, effect_forbidden=false"
+  },
+  "mechanism_role": "NON_DISCRIMINATIVE",
+  "oracle_fixture": "concurrent_edit_window",
+  "research_hypothesis": "准入决定之后、发送之前发生并发编辑。四条路径都不会在发送点重新核对权威。",
+  "scenario_id": "S06",
+  "seed": 1108,
+  "successor_obligation": "NOT_REQUIRED"
+}

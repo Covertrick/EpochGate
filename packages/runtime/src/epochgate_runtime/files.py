@@ -7,6 +7,7 @@ import os
 import time
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 from epochgate_runtime.ledger import RunLedger
 
@@ -66,6 +67,11 @@ def _pause(point: str) -> None:
         time.sleep(30)
 
 
+def _private_name(idempotency_key: str) -> str:
+    """Windows 文件名不能带冒号；用百分号编码保持可逆且不碰撞。"""
+    return quote(idempotency_key, safe="")
+
+
 def _seal_private(directory: Path, name: str, payload: bytes) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
     _pause("after_private_create")
@@ -110,7 +116,7 @@ def publish_frozen_file(
         return {"published": False, "status": "conflict", "receipt": claim.get("receipt"), "sha256": digest, "durability": durability}
     if claim["status"] != "claimed":
         return {"published": False, "status": "withheld", "sha256": digest, "durability": durability}
-    private = _seal_private(workspace / ".eg-private", idempotency_key, payload)
+    private = _seal_private(workspace / ".eg-private", _private_name(idempotency_key), payload)
     _pause("after_private_write")
     if hashlib.sha256(private.read_bytes()).hexdigest() != digest:
         ledger.mark_effect_state(idempotency_key, "OUTCOME_UNKNOWN")
@@ -176,7 +182,7 @@ def recover_frozen_publish(
     relative_path: str,
 ) -> dict[str, Any]:
     """从私有封存文件恢复。不回到不可信暂存路径取字节。"""
-    private = workspace / ".eg-private" / idempotency_key
+    private = workspace / ".eg-private" / _private_name(idempotency_key)
     target = workspace / relative_path
 
     def work() -> dict[str, Any]:

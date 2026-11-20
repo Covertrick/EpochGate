@@ -1,0 +1,11 @@
+comparison,indicator,seed,draws,n_clusters,estimate,ci_low,ci_high,ci_low_range,ci_high_range,bound_shift_exceeds_0_05,matches_week3_published
+Claim_vs_Direct,authority,20261120,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,true
+Claim_vs_Direct,authority,20261121,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,
+Claim_vs_Direct,authority,20261122,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,
+Claim_vs_Direct,authority,20261123,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,
+Claim_vs_Direct,authority,20261124,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,
+Claim_vs_Direct,semantic,20261120,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,true
+Claim_vs_Direct,semantic,20261121,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,
+Claim_vs_Direct,semantic,20261122,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,
+Claim_vs_Direct,semantic,20261123,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,
+Claim_vs_Direct,semantic,20261124,4000,25,-0.4400,-0.6400,-0.2400,0.0000,0.0000,false,

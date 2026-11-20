@@ -1,0 +1,31 @@
+{
+  "applicable_paths": [
+    "Direct",
+    "Admission",
+    "Claim",
+    "Outbox"
+  ],
+  "common_core": true,
+  "expected_authority_state": "unchanged_token",
+  "expected_evidence_state": "CONFLICT",
+  "expected_physical_effect_state": "CONFIRMED_EFFECT",
+  "expected_semantic_state": "VALID",
+  "expected_stop_condition": "NOT_A_STOP_SCENARIO",
+  "fault_injection_point": "before_send",
+  "fault_transition": "conflict_delivery",
+  "initial_state": {
+    "authority": {
+      "eligible": true,
+      "epoch": 1,
+      "token": 1
+    },
+    "concrete_world": "proposal_registry.jsonl world_before",
+    "world_shape": "order_id, sku, qty, dest, generation=0, effect_forbidden=false"
+  },
+  "mechanism_role": "MAIN_COMPARISON",
+  "oracle_fixture": "payload_key_conflict",
+  "research_hypothesis": "同一幂等键出现另一份载荷。证据状态保持 CONFLICT，不能把它排成 UNKNOWN 与 VALID 之间的等级。",
+  "scenario_id": "S10",
+  "seed": 1113,
+  "successor_obligation": "NOT_REQUIRED"
+}

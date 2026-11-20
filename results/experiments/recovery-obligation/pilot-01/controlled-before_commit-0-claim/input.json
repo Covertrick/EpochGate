@@ -1,0 +1,7 @@
+{
+  "arm": "claim",
+  "changed": false,
+  "id": "controlled-before_commit-0-claim",
+  "payload": "controlled",
+  "window": "before_commit"
+}

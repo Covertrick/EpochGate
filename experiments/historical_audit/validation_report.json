@@ -1,0 +1,278 @@
+{
+  "anomalies_by_type": {
+    "ARTIFACT_WITHOUT_RUN_RECORD": 2,
+    "DUPLICATE_ROLLUP": 52,
+    "MISSING_EVIDENCE_DIRECTORY": 20,
+    "MISSING_RUN_ID": 24,
+    "TERMINAL_LABEL_ON_INSUFFICIENT_EVIDENCE": 20
+  },
+  "blocked_proposal_keys": [
+    "ful-config-c4|S2",
+    "ful-config-c5|S1",
+    "ful-order-c1|S2",
+    "ful-order-c2|S3",
+    "ful-order-c3|S3"
+  ],
+  "cell_status_counts": {
+    "BLOCKED": 20,
+    "COMPLETED": 52
+  },
+  "counts": {
+    "blocked_cells": 20,
+    "blocked_proposals": 5,
+    "cells": 72,
+    "completed_cells": 52,
+    "confirm_header_blocked": 20,
+    "confirm_header_n": 72,
+    "confirm_rows": 72,
+    "dedicated_rows": 4,
+    "files_inventoried": 972,
+    "joint_observed": 52,
+    "linkage_anomaly_rows": 118,
+    "missing_log_cells": 0,
+    "not_run_cells": 0,
+    "partial_cells": 0,
+    "schema_errors": 0,
+    "shared_proposals": 18,
+    "unresolved_confirm": 20
+  },
+  "decision": "CONDITIONAL GO",
+  "decision_reason": "a subset of confirm cells has a run-level joint; blocked cells do not, and those intersections were not imputed",
+  "efe": {
+    "basis_counts": {
+      "STALE_CREDENTIAL_ACCEPTED": 6,
+      "STALE_CREDENTIAL_ACCEPTED+WRONG_PHYSICAL": 4,
+      "WRONG_PHYSICAL": 18
+    },
+    "definition": "EFE counts jointly observed confirm runs whose adjudication is CONFIRMED_FAILURE. EFE@success restricts that count to terminal_outcome MATCH. Blocked rows are outside both denominators.",
+    "efe": 0.5384615384615384,
+    "efe_at_success": 0.375,
+    "efe_at_success_denominator": 16,
+    "efe_at_success_numerator": 6,
+    "efe_denominator": 52,
+    "efe_numerator": 28,
+    "identifiable_on_joint_subset": true,
+    "joint_n": 52,
+    "success_basis_counts": {
+      "STALE_CREDENTIAL_ACCEPTED": 6
+    }
+  },
+  "example_schema_errors": [],
+  "field_absence": {
+    "proposal_id": "ABSENT on original records; proposal_id column is a derived cluster key",
+    "session_id": "ABSENT",
+    "timestamp": "ABSENT as a wall-clock field; native.timeline[].t is a monotonic counter and was not used for linkage",
+    "token_was_stale": "ABSENT; stale_credential_accepted false is not rewritten as a stale rejection"
+  },
+  "figure2": {
+    "comparison_target": "results/runtime/correctness/m6/summary.json marginal pair statistics, not a figure cell table",
+    "imputation": "none",
+    "pdf": "NOT_FOUND",
+    "published_joint_table": "ABSENT"
+  },
+  "header_matches_rows": true,
+  "historical_pairs": {
+    "h4_denominator_tasks": 5,
+    "h4_numerator": 2,
+    "h4_rate": 0.4,
+    "h4_task_pairs": [
+      {
+        "different_safety": true,
+        "same_terminal": false,
+        "task_id": "ful-config-c4"
+      },
+      {
+        "different_safety": true,
+        "same_terminal": true,
+        "task_id": "ful-config-c6"
+      },
+      {
+        "different_safety": true,
+        "same_terminal": false,
+        "task_id": "ful-order-c1"
+      },
+      {
+        "different_safety": true,
+        "same_terminal": false,
+        "task_id": "ful-order-c2"
+      },
+      {
+        "different_safety": true,
+        "same_terminal": true,
+        "task_id": "ful-order-c3"
+      }
+    ],
+    "h5_pair_diffs": [
+      {
+        "b1_minus_b2": 1,
+        "task_id": "ful-config-c4"
+      },
+      {
+        "b1_minus_b2": 1,
+        "task_id": "ful-config-c6"
+      },
+      {
+        "b1_minus_b2": 1,
+        "task_id": "ful-order-c1"
+      },
+      {
+        "b1_minus_b2": 1,
+        "task_id": "ful-order-c2"
+      },
+      {
+        "b1_minus_b2": 1,
+        "task_id": "ful-order-c3"
+      }
+    ],
+    "h6_pair_diffs": [
+      {
+        "b3_minus_b2": 1,
+        "task_id": "ful-config-c4"
+      },
+      {
+        "b3_minus_b2": 1,
+        "task_id": "ful-config-c5"
+      },
+      {
+        "b3_minus_b2": 1,
+        "task_id": "ful-config-c6"
+      },
+      {
+        "b3_minus_b2": 1,
+        "task_id": "ful-order-c1"
+      }
+    ],
+    "note": "H6 uses the archived interrupted_recovered flag. That flag is recovery state, not CONFIRMED_EFFECT."
+  },
+  "inaccessible_sources": [
+    {
+      "format": "pdf",
+      "mtime_iso": "",
+      "notes": "NOT_FOUND. Recursive search of the workspace found no .pdf file. No page text was extracted.",
+      "readable": "false",
+      "relative_path": "EpochGate-conference.pdf",
+      "sha256": "",
+      "size_bytes": ""
+    }
+  ],
+  "joint_recoverable": true,
+  "joint_tables": {
+    "fault_by_authority": {
+      "S1|NO_STALE_ACCEPTANCE_RECORDED": 10,
+      "S1|STALE_ACCEPTED": 10,
+      "S2|NO_STALE_ACCEPTANCE_RECORDED": 16,
+      "S3|NO_STALE_ACCEPTANCE_RECORDED": 16
+    },
+    "note": "Counts use jointly observed confirm rows only. Blocked cells are not filled in as MISMATCH or as NO_STALE_ACCEPTANCE_RECORDED.",
+    "terminal_by_authority": {
+      "MATCH|NO_STALE_ACCEPTANCE_RECORDED": 10,
+      "MATCH|STALE_ACCEPTED": 6,
+      "MISMATCH|NO_STALE_ACCEPTANCE_RECORDED": 32,
+      "MISMATCH|STALE_ACCEPTED": 4
+    },
+    "terminal_by_physical": {
+      "MATCH|CONFIRMED_EFFECT": 16,
+      "MISMATCH|ABSENT": 14,
+      "MISMATCH|NOT_LEGAL": 22
+    },
+    "terminal_by_recovery": {
+      "MATCH|NOT_APPLICABLE": 14,
+      "MATCH|NOT_RECOVERED": 1,
+      "MATCH|RESTORED_BYTES": 1,
+      "MISMATCH|NOT_APPLICABLE": 22,
+      "MISMATCH|NOT_RECOVERED": 11,
+      "MISMATCH|RESTORED_BYTES": 3
+    }
+  },
+  "m6_comparison": {
+    "h4_matches_m6": true,
+    "h5_n_matches_m6": true,
+    "h6_n_matches_m6": true,
+    "m6_confirm_n": 52,
+    "m6_h4": 0.4,
+    "m6_h5_n": 5,
+    "m6_h6_n": 4,
+    "m6_path": "results/runtime/correctness/m6/summary.json",
+    "recomputed_h4_rate": 0.4,
+    "recomputed_h5_n": 5,
+    "recomputed_h6_n": 4
+  },
+  "partial_coverage": true,
+  "process_kill_is_not_power_loss": true,
+  "s3_b3": [
+    {
+      "adjudication": "CONFIRMED_FAILURE",
+      "adjudication_basis": "WRONG_PHYSICAL",
+      "joint_observed": true,
+      "physical_effect_state": "NOT_LEGAL",
+      "recovery_state": "RESTORED_BYTES",
+      "run_id": "ful-order-c1-B3-S3-epochgate",
+      "semantic_validity": "INVALID",
+      "source_evidence_ref": "results/runtime/correctness/m4-confirm/ful-order-c1__B3__S3/evidence.json",
+      "task_id": "ful-order-c1",
+      "terminal_outcome": "MISMATCH"
+    },
+    {
+      "adjudication": "UNRESOLVED",
+      "adjudication_basis": "INSUFFICIENT_EVIDENCE",
+      "joint_observed": false,
+      "physical_effect_state": "UNKNOWN",
+      "recovery_state": "UNKNOWN",
+      "run_id": null,
+      "semantic_validity": "UNKNOWN",
+      "source_evidence_ref": null,
+      "task_id": "ful-order-c2",
+      "terminal_outcome": "UNKNOWN"
+    },
+    {
+      "adjudication": "UNRESOLVED",
+      "adjudication_basis": "INSUFFICIENT_EVIDENCE",
+      "joint_observed": false,
+      "physical_effect_state": "UNKNOWN",
+      "recovery_state": "UNKNOWN",
+      "run_id": null,
+      "semantic_validity": "UNKNOWN",
+      "source_evidence_ref": null,
+      "task_id": "ful-order-c3",
+      "terminal_outcome": "UNKNOWN"
+    },
+    {
+      "adjudication": "CONFIRMED_FAILURE",
+      "adjudication_basis": "WRONG_PHYSICAL",
+      "joint_observed": true,
+      "physical_effect_state": "NOT_LEGAL",
+      "recovery_state": "RESTORED_BYTES",
+      "run_id": "ful-config-c4-B3-S3-epochgate",
+      "semantic_validity": "INVALID",
+      "source_evidence_ref": "results/runtime/correctness/m4-confirm/ful-config-c4__B3__S3/evidence.json",
+      "task_id": "ful-config-c4",
+      "terminal_outcome": "MISMATCH"
+    },
+    {
+      "adjudication": "CONFIRMED_FAILURE",
+      "adjudication_basis": "WRONG_PHYSICAL",
+      "joint_observed": true,
+      "physical_effect_state": "NOT_LEGAL",
+      "recovery_state": "RESTORED_BYTES",
+      "run_id": "ful-config-c5-B3-S3-epochgate",
+      "semantic_validity": "INVALID",
+      "source_evidence_ref": "results/runtime/correctness/m4-confirm/ful-config-c5__B3__S3/evidence.json",
+      "task_id": "ful-config-c5",
+      "terminal_outcome": "MISMATCH"
+    },
+    {
+      "adjudication": "NO_CONFIRMED_FAILURE",
+      "adjudication_basis": "NO_EFFECT_HISTORY_FAILURE_FLAG",
+      "joint_observed": true,
+      "physical_effect_state": "CONFIRMED_EFFECT",
+      "recovery_state": "RESTORED_BYTES",
+      "run_id": "ful-config-c6-B3-S3-epochgate",
+      "semantic_validity": "VALID",
+      "source_evidence_ref": "results/runtime/correctness/m4-confirm/ful-config-c6__B3__S3/evidence.json",
+      "task_id": "ful-config-c6",
+      "terminal_outcome": "MATCH"
+    }
+  ],
+  "schema_errors": [],
+  "schema_valid": true
+}
