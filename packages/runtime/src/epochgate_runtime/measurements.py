@@ -413,11 +413,14 @@ def _publish_case(root: Path, run_id: str, *, supersede: bool) -> dict[str, Any]
             }
         second = runtime.reserve(run_id, "workspace/order.txt")
         stale = runtime.publish(first, b"reserve:1\n")
-        fresh = runtime.publish(second, b"inventory:0\n")
+        fresh_payload = b"inventory:0\n"
+        fresh = runtime.publish(second, fresh_payload)
         target = runtime.workspace / run_id / "order.txt"
         body = target.read_bytes() if target.is_file() else b""
-        replay = runtime.publish(second, b"should-not-replace")
+        replay = runtime.publish(second, fresh_payload)
         replay_body = target.read_bytes() if target.is_file() else b""
+        conflicting = runtime.publish(second, b"should-not-replace")
+        conflict_body = target.read_bytes() if target.is_file() else b""
         return {
             "run_id": run_id,
             "supersede": True,
@@ -433,6 +436,8 @@ def _publish_case(root: Path, run_id: str, *, supersede: bool) -> dict[str, Any]
             "bytes": body.decode("ascii", "replace"),
             "replay_status": replay.get("status"),
             "bytes_unchanged_after_replay": replay_body == body,
+            "conflict_status": conflicting.get("status"),
+            "bytes_unchanged_after_conflict": conflict_body == body,
         }
     finally:
         runtime.close()

@@ -56,6 +56,8 @@ def test_stale_inventory_expires_only_after_the_epoch_advances(tmp_path: Path):
     assert advanced["bytes"] == "inventory:0\n"
     assert advanced["replay_status"] == "replayed"
     assert advanced["bytes_unchanged_after_replay"] is True
+    assert advanced["conflict_status"] == "conflict"
+    assert advanced["bytes_unchanged_after_conflict"] is True
     inventory = report["inventory_commit"]
     assert inventory["stale_status"] == "rejected"
     assert inventory["stale_sink_accepts"] == 0

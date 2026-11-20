@@ -1,80 +1,26 @@
-# 求职材料
+# EpochGate 面试演示
 
-这份文件是给面试官看的：30 秒讲什么、3 分钟演示什么、被追问时怎么答。技术细节在 [README](README.md)，实验证据在 [`experiments/`](experiments/README.md)。
+快速启动命令见 [README](README.md)。演示前各跑一次，留好两个 HTML 报告。
 
-## 30 秒版本
+## 30 秒介绍
 
-> 我做一个 LLM Agent 的工具执行控制面：用 fencing token 管执行资格，用幂等键和 receipt 管副作用，崩溃后用目标端账本对账恢复。离线能跑，50 个控制面测试通过。后来我把它当实验平台，验证“终态成功是否等于执行历史正确”，跑了 360 + 120 次会话和几百个配对格；结论是终态和授权评分都不够，但我也证明了自己最初的两个假设不成立，并按预注册条件停手。
+> 我实现了一个 Python／SQLite 工具执行控制面。工具调用拿到资格以后，业务状态仍可能变化，写入以后进程也可能来不及记录回执。我用 fencing token 在提交时核对资格，并用幂等键和目标侧回执处理重复调用和中断恢复。我可以现场演示两种故障及其逐事件记录。
 
-## 3 分钟演示
+## 三分钟演示
 
-**第 0–40 秒：跑起来**
+1. **前 40 秒** — 跑 `stale-write`，指出资格变更、旧尝试被撤销、新尝试成功提交。
+2. **接下来 80 秒** — 跑 `crash-recovery`，打开生成的 HTML。按时间线说明实际效果、进程退出和回执持久化的顺序，再解释为什么重复恢复只重放结果。
+3. **最后一分钟** — 展示一条终态正确、早期效果实际无效的轨迹。说明发布资格、效果证据与业务有效性各自回答的问题。 [效果历史实验](experiments/effect_history/README.md)
 
-```powershell
-uv run egctl demo --scenario stale-write --offline
-```
+## 常见追问
 
-指着输出讲：`Attempt #1 REVOKED` 是旧 token 被拒绝，`Attempt #2 COMMITTED` 是新 token 提交，`Duplicate accepts 0` 是幂等键生效。再跑 `crash-recovery`，讲 `Worker exit 86`、`confirmed_from_sink`、第二次 `replay`。README 里有 Mermaid 架构图和一次提交的生命周期，面试前先过一遍。
+| 追问 | 回答时打开 |
+| --- | --- |
+| 状态变化未进入控制面时，旧 token 能做什么？ | [资格与提交](packages/runtime/src/epochgate_runtime/ledger.py) |
+| 同一个幂等键，提交不同字节时如何处理？ | [发布流程](packages/runtime/src/epochgate_runtime/files.py)及[重放与冲突测试](packages/runtime/tests/test_measurements.py) |
+| 文件和 SQLite 之间的崩溃窗口如何处理？ | [文件恢复流程](packages/runtime/src/epochgate_runtime/files.py) |
+| 为什么增加 Claim 没有改善受测业务结果？ | [恢复义务的强对照](experiments/recovery_obligation/README.md) |
 
-**第 40–100 秒：看证据，不看结论**
+## 简历表述
 
-打开 `.epochgate/runs/<run-id>/report.html`，指出时间线里三件事是分开记录的：资格、提交、receipt。讲一句：**“我没有把‘进程退出了’当成‘效果完成了’，这两件事在这套系统里是分开判的。”**
-
-**第 100–180 秒：讲研究线**
-
-打开 [`experiments/effect_history/README.md`](experiments/effect_history/README.md)：
-
-> 27 格里最终产物全部正确，但检查提交时业务状态后，有 4 格曾写入错误结果；授权、去重、回执都抓不到，因为旧动作持有有效授权，之后由合法后继把终态修对。后来我又做了 96 格通知×配置的配对实验，发现配置之间在目标上完全一致，缺口是共享的。所以我停了这条长文线，把负结果和停止条件都留在报告里。
-
-这句是重点：**能讲清“我为什么停”，比多讲一个成功指标更加分。**
-
-## 一分钟指标
-
-| 指标 | 数字 | 出处 |
-| --- | --- | --- |
-| 控制面测试 | 203 passed；1 项受本机 Windows 沙箱命名管道限制 | [README](README.md) |
-| 崩溃检查点 | 4 个 × 3 次，接受次数 0/0/1/1 | `results/runtime/correctness/` |
-| 取消释放槽位 | 8 次，0.712–1.084 秒 | `results/runtime/` |
-| 在线三臂开销 | B2 总时间中位比 B0 高约 21.5% | `results/runtime/benchmarks/` |
-| 历史会话 | 360 + 120 | `docs/实验/` |
-| 配对实验 | 96 格（配置选择）、27 格（效果历史） | `results/experiments/` |
-| 真实工具 | Git 24 格 + 2 次重试；Twine 4 条件 | `experiments/git_effect_evidence/`、`package_withdrawal/` |
-
-## 三个工程判断
-
-1. **不假装跨库原子。** SQLite 事务只覆盖账本，文件系统留了窗口；我不写“exactly-once”，写“对账后确认，或者停在 `OUTCOME_UNKNOWN`”。
-2. **证据与权限分开。** 有 token 不等于有效果，有回执不等于字节正确，进程退出不等于副作用完成。这三件事分别记录、分别判定。
-3. **先冻结协议，再跑数据。** 每个实验先写协议和停止条件，负结果照原样保留；不为了凑显著改口径。
-
-## 研究线：三次负结果与一次停手
-
-| 线 | 做到哪 | 为什么停 |
-| --- | --- | --- |
-| 终态评分盲区 | 27 格里 4 格漏检；历史 6/16 过期接纳 | 没有真实工作流证明这个缺口会改变决策 |
-| 配置选择 | 96 格配对；Claim 与 Admission 在目标上无差异 | 缺口是共享的应用层义务，不是配置差异 |
-| Git 效果归属 | 24 格 + 2 次真实重试；重置 vs 补偿提交 | 两个外部工作流都不满足“独立撤回必须保留”的约定 |
-| 包撤回 | Twine 503 重试；客户端确认成功、发布仍 yanked | 受测重试保住了撤回，没有形成错误重放 |
-
-这四条线的共同点：**现象是真的，但“应该怎样”的业务约定不在工具里。** 这也是我最后没有硬写论文的原因。
-
-## 面试问答
-
-**“最难的一个 bug？”**
-跨进程 `supersede` 丢更新：两个进程各自读旧版本再写，后写的覆盖先写的。修法是版本镜像 + 事务内比较；后来还处理了重启后的版本镜像和同键不同载荷的冲突。
-
-**“如果重来一次？”**
-先验证外部工作流，再搭实验平台。前面几个月有一半时间花在“把现象做出来”，但真正决定成败的是“有没有人真的按这个方式用”。
-
-**“为什么没有论文？”**
-有三条线都做到了可复核的负结果，但都缺一个外部约定或外部工作流；按预注册条件停手，比硬写一篇站不住的稿子更诚实。技术报告和工件都在仓库里。
-
-**“这套东西能用在生产吗？”**
-单机账本、本地文件发布、受控故障注入，不是生产级。要上生产，得先解决多副本账本、跨库原子和通知可靠性；这些在我的限制一节里写明了。
-
-## 链接
-
-- [README](README.md)：系统、演示、架构、限制
-- [实验与证据](docs/实验/README.md)：每个阶段的协议、结果和边界
-- [Git 负结果技术报告](experiments/git_effect_evidence/technical-report.md)
-- [配置选择先导](experiments/configuration_selection/README.md)
-- [结果索引](results/README.md)
+设计并实现面向 Agent 工具调用的 Python／SQLite 执行控制面，支持提交资格校验、幂等发布和崩溃对账。通过真实进程中断验证从目标端恢复回执及重复恢复行为。
