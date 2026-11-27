@@ -8,10 +8,14 @@ from epochgate_runtime.agent_decision import order_plan
 from epochgate_runtime.agent_loop import api_key
 
 
+class ModelCredentialMissing(RuntimeError):
+    """Raised before sending a provider request."""
+
+
 def propose(task, resources, *, timeout=45):
     credential = api_key()
     if not credential:
-        raise RuntimeError("DeepSeek credential is not configured")
+        raise ModelCredentialMissing("DeepSeek credential is not configured")
     prompt = (
         "Return JSON only with an object containing plan, a DAG of controlled resource writes. "
         "Nodes have step_id, dependencies, read_set, preconditions, and effect (resource to JSON value). "

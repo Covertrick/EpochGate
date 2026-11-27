@@ -1,10 +1,10 @@
 # EpochGate
 
-**面向工具调用型 Agent 的单机执行控制面。** 用 fencing token 管理提交资格，用幂等键和回执记录副作用，在进程中断后根据目标端证据恢复。
+**面向工具调用型 Agent 的单机可靠执行控制面与证据感知决策系统。** Agent 用状态、依赖和预算选择下一步，Runtime 用 Worker 租约、fencing token、目标端前置条件与回执控制效果提交。
 
 *A single-node execution control plane for tool-using agents, with fenced commits, idempotent effects, and crash reconciliation.*
 
-[快速演示](#快速演示) · [技术架构](#技术架构) · [实测对比](#实测对比) · [复现与源码](#复现与源码)
+[快速演示](#快速演示) · [Agent 算法](#agent-算法) · [技术架构](#技术架构) · [实测对比](#实测对比) · [复现与源码](#复现与源码)
 
 ## 快速演示
 
@@ -44,13 +44,32 @@ uv run --locked --package epochgate-runtime egctl serve
 
 **首页能打开但接口返回 HTTP 404**时，用当前地址的 `/health` 检查服务。新版返回 `authority: run_ledger` 和 `mode` 字段。如果首页加载的是新版界面，而健康响应缺少 `mode`，请停止旧服务，沿用原来的 `--config` 和 `--data-dir` 启动，再刷新浏览器。端口冲突时可用 `--port` 指定未占用的端口。
 
-[7 分钟演示](docs/product/DEMO.md) · [架构](docs/product/Architecture.md) · [API](docs/product/API.md) · [部署](docs/product/DEPLOYMENT.md) · [发布验收](docs/product/RELEASE.md)
+[7 分钟演示](docs/product/DEMO.md) · [架构](docs/product/Architecture.md) · [API](docs/product/API.md) · [部署](docs/product/DEPLOYMENT.md) · [发布验收](docs/product/RELEASE.md) · [Agent 可靠性核查](docs/agent/HARDENING.md)
 
-### Evidence-aware Agent 先导
+### 启动 Evidence-Aware Agent
 
-新执行路径支持持久任务、独立 Worker、依赖驱动的局部计划修复，以及安全过滤后的恢复和预算决策。Run Details 可查看计划、接收端证据和结构化决策。 [运行方法、原始结果与验收边界](docs/agent/VERIFICATION.md)
+在两个终端分别启动 API 和 Worker，使用相同的数据目录。
 
-Agent 评测页面汇总真实 Coding Agent 的工具轨迹和 40 个离线任务的五策略对照。离线比较记录完成率、有效效果、重规划、工具请求、耗时和计划保留，模型 Token 来自独立的在线验收。 [评测协议、复现与原始证据](docs/agent/EVALUATION.md)
+```sh
+uv run --locked --package epochgate-runtime egctl serve --port 8767 --data-dir .epochgate/decision-demo
+uv run --locked --package epochgate-runtime python -m epochgate_runtime.durable_worker --data-dir .epochgate/decision-demo --receiver-url http://127.0.0.1:8767
+```
+
+打开工作台，在「提交 Agent 计划」粘贴下面的离线任务。配置 DeepSeek 后也可用 `prompt` 和 `resources` 生成计划。Run Details 可追踪决策、回执和预算，系统页显示排队、有效租约和待接管任务。
+
+```json
+{"plan":[{"step_id":"publish","effect":{"release-note":"candidate"}}],"budget":{"tools":5,"replans":2}}
+```
+
+## Agent 算法
+
+| 模块 | 关键实现 | 可核查输出 |
+| --- | --- | --- |
+| 状态感知的局部修复 | 将计划表示成带读写集、业务前置条件和依赖的 DAG。检查发生变化的资源，沿依赖传播失效，修复未提交的后继并保留已提交历史。 | 变化资源、失效与保留节点、修复前后计划 |
+| 证据感知恢复 | 根据资格、业务有效性、已知效果和接收端能力过滤动作。可查询的 `UNKNOWN` 优先取回执，核对任务、步骤、载荷和摘要。回执不匹配或目标不可用时保留未知。 | 候选动作、原因、目标回执与恢复结果 |
+| 预算与成本 | 记录模型实际 Token 用量和工具、重规划预算。在合法候选内使用可解释的启发式成本排序。 | 动作成本估计、预算消耗与停止原因 |
+
+决策模块提出动作。独立 Worker 领取 SQLite 持久任务，并由受控接收端在写入事务中校验活跃 epoch、已登记提案、资源版本和业务前置条件。重复提交按任务与步骤去重。模型任务可用 `Idempotency-Key` 安全查询已登记结果，避免因响应丢失重复调用模型。 [实现](packages/runtime/src/epochgate_runtime/agent_decision.py) · [持久队列](packages/runtime/src/epochgate_runtime/durable.py) · [故障验证](docs/agent/VERIFICATION.md)
 
 ## 技术架构
 
@@ -84,6 +103,12 @@ sequenceDiagram
 提交资格依赖控制面收到状态变化。SQLite 事务覆盖账本操作，文件效果通过受控发布和恢复对账衔接。演示中的恢复行为依赖目标端实现可查询的幂等记录。
 
 ## 实测对比
+
+### Agent 决策与真实编码
+
+在 **40 个冻结离线任务、5 个策略**上，对比全量重规划、版本修复、强语义修复、局部修复和局部修复加证据恢复。局部修复与强语义基线均完成 **16/40**，重规划 **8 次**、工具请求 **96 次**，局部修复保留了 **8/28** 个未提交节点。加入证据恢复后完成 **32/40**，工具请求增至 **136 次**，`UNKNOWN` 从 **20** 降到 **4**。本轮没有观测到违规或重复效果。离线回放未调用模型，结论范围为这批夹具。
+
+单次真实 Coding Agent 使用 DeepSeek Flash 读取 Issue 与代码、写入补丁、运行 Docker 测试，并在配置变化后修复局部计划。最终 **4 项测试通过**，记录 **21,257 Token、14 次工具请求、约 50 秒**。Docker 测试由 PowerShell 桥接；工作台通用 DSH 路径仍需 Python 进程可访问 Docker。 [评测、原始记录与复现](docs/agent/EVALUATION.md)
 
 ### 终态通过时，哪些检查发现了问题
 

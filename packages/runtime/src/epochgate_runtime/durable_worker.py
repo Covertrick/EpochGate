@@ -1,6 +1,7 @@
 ﻿"""Independent durable Worker. It can use the local or authenticated HTTP receiver."""
 
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -10,7 +11,7 @@ from urllib.request import Request, urlopen
 import uuid
 
 from epochgate_runtime.agent_decision import Action, EvidencePolicy, Observation, order_plan, predicates_hold, repair_plan
-from epochgate_runtime.durable import Queue
+from epochgate_runtime.durable import Queue, canonical
 
 
 class HttpReceiver:
@@ -46,14 +47,14 @@ def execute(queue, receiver, claim, *, fault_after_commit=False):
     fixed = task.get("recovery") == "fixed"
     policy = EvidencePolicy(optimize=task.get("optimize", False), full_plan=strategy == "full")
     verified = set()
-    inflight = set()
+    inflight = {}
     for event in snapshot["decisions"]:
         for key, amount in event.get("budget_charge", {}).items():
             budget[key] -= amount
         if event.get("kind") == "dispatch":
-            inflight.add(event["step"])
+            inflight[event["step"]] = event.get("proposal")
         elif event.get("kind") == "evidence" and event["result"] in {"CONFIRMED", "ABSENT"}:
-            inflight.discard(event["step"])
+            inflight.pop(event["step"], None)
             if event["result"] == "CONFIRMED":
                 verified.add(event["step"])
         elif event.get("kind") == "repair":
@@ -92,6 +93,15 @@ def execute(queue, receiver, claim, *, fault_after_commit=False):
         except (OSError, ValueError, KeyError):
             record("terminal", step, result="TARGET_UNAVAILABLE", finish="unknown")
             return
+        if receipt is not None:
+            proposal = inflight[step]
+            effect = proposal.get("effect") if proposal else None
+            expected = hashlib.sha256(canonical([job, step, effect]).encode()).hexdigest()
+            if (effect is None or not isinstance(receipt, dict) or receipt.get("job") != job
+                    or receipt.get("step") != step or receipt.get("receipt") != expected
+                    or receipt.get("payload") != canonical(effect)):
+                record("terminal", step, result="RECEIPT_MISMATCH", finish="unknown")
+                return
         if not record("evidence", step, result="CONFIRMED" if receipt else "ABSENT", target=receipt,
                       query_seconds=time.perf_counter() - query_started):
             return

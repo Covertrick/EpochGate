@@ -19,6 +19,48 @@ def expire(queue, job):
         db.execute("UPDATE jobs SET deadline=0 WHERE id=?", (job,))
 
 
+def test_model_launch_replay_calls_provider_once(tmp_path, monkeypatch):
+    calls = []
+
+    def fake_propose(prompt, resources):
+        calls.append(prompt)
+        return {"plan": [{"step_id": "publish", "effect": {resources[0]: "value"}}], "planner": {"tokens": 5}}
+
+    monkeypatch.setattr("epochgate_runtime.httpapp.propose", fake_propose)
+    runtime = Runtime.open(tmp_path / "epochgate.db")
+    try:
+        headers = {"Authorization": "Bearer test", "Idempotency-Key": "model-1"}
+        body = {"prompt": "publish", "resources": ["artifact"]}
+        with TestClient(create_app(runtime, tmp_path, "test"), headers=headers) as client:
+            first = client.post("/agent/model-tasks", json=body)
+            assert first.status_code == 202
+            assert client.post("/agent/model-tasks", json=body).json() == first.json()
+            assert client.post("/agent/model-tasks", json={**body, "prompt": "different"}).status_code == 409
+            assert calls == ["publish"]
+    finally:
+        runtime.close()
+
+
+def test_takeover_refuses_a_receipt_for_different_effect(tmp_path):
+    queue = Queue(tmp_path / "db")
+    job = queue.submit({"plan": [{"step_id": "publish", "effect": {"artifact": "expected"}}]})
+    claim = queue.claim("old", 30)
+    assert queue.record(job, claim["epoch"], "old", {"kind":"dispatch","step":"publish",
+                                                    "proposal":{"effect":{"artifact":"expected"}}})
+    expire(queue, job)
+    assert queue.summary() == {"queued": 0, "leased": 0, "awaiting_takeover": 1}
+
+    class WrongTarget:
+        def receipt(self, job, step):
+            return {"job": job, "step": step, "receipt": "wrong", "payload": '{"artifact":"other"}'}
+
+    assert run_one(queue, WrongTarget(), "new", 30)
+    view = queue.get(job)
+    assert view["status"] == "unknown"
+    assert view["decisions"][-1]["result"] == "RECEIPT_MISMATCH"
+    assert view["receipts"] == []
+
+
 def test_worker_process_death_and_api_reopen(tmp_path):
     runtime = Runtime.open(tmp_path / "epochgate.db")
     headers = {"Authorization": "Bearer test"}

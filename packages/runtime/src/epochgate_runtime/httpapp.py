@@ -22,7 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from epochgate_runtime.actions import run_walkthrough
 from epochgate_runtime.agent_decision import order_plan
 from epochgate_runtime.durable import Queue
-from epochgate_runtime.model_planner import propose
+from epochgate_runtime.model_planner import ModelCredentialMissing, propose
 from epochgate_runtime.agent_loop import api_key, redact
 from epochgate_runtime.api import EVENT_LABELS, Runtime
 from epochgate_runtime.demo import (
@@ -221,18 +221,43 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
             raise ApiError(400, "invalid_budget", "Invalid budget dimension or amount")
 
     @app.post("/agent/model-tasks", status_code=202)
-    def submit_model_task(body: AgentModelBody) -> dict[str, Any]:
+    def submit_model_task(body: AgentModelBody, request: Request) -> dict[str, Any]:
         if demo_mode:
             raise ApiError(409, "demo_mode", "隔离演示实例只接收离线计划。")
         validate_agent_budget(body.budget)
+        if any(not resource.strip() for resource in body.resources):
+            raise ApiError(400, "invalid_resource", "受控资源名不能为空。")
+        key = request.headers.get("Idempotency-Key")
+        if key and len(key) > 128:
+            raise ApiError(400, "invalid_launch_key", "启动请求标识过长。")
+        claim_key = "agent-model:" + key if key else None
+        run_id = "agent-" + uuid.uuid5(uuid.NAMESPACE_URL, claim_key).hex if claim_key else None
+        if claim_key:
+            state, previous = launches.claim(claim_key, body.model_dump())
+            if state == "replay":
+                return previous
+            if state == "conflict":
+                raise ApiError(409, "launch_conflict", "同一请求标识已用于其他规划参数。")
+            if state == "pending":
+                registered = agent_queue.get(run_id)
+                if registered:
+                    return {"run_id": run_id, "usage": registered["task"]["planner"]}
+                raise ApiError(409, "launch_pending", "上次模型请求尚未确认。请先检查运行记录，系统不会自动重新调用模型。")
         before = agent_queue.world()
         try:
             task = propose(body.prompt, body.resources)
+        except ModelCredentialMissing as exc:
+            if claim_key:
+                launches.reject(claim_key)
+            raise ApiError(409, "model_not_configured", "请先配置 DeepSeek 凭据。") from exc
         except (OSError, RuntimeError, ValueError, KeyError) as exc:
             raise ApiError(502, "planner_unavailable", f"模型规划未完成 ({type(exc).__name__})") from exc
         observed = {resource: before[resource] for resource in body.resources if resource in before}
         task.update(budget=body.budget, observed_world=observed, optimize=True)
-        return {"run_id": agent_queue.submit(task), "usage": task["planner"]}
+        result = {"run_id": agent_queue.submit(task, run_id), "usage": task["planner"]}
+        if claim_key:
+            launches.complete(claim_key, result)
+        return result
 
     @app.get("/agent/tasks")
     def list_agent_tasks() -> dict[str, Any]:
@@ -469,6 +494,10 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
             sqlite_status = {"status": "NOT_AVAILABLE"}
             storage_checks["last_error"] = checked
         sqlite_status.update(storage_checks, check_ms=round((time.perf_counter() - sqlite_start) * 1000, 2))
+        try:
+            durable_agent = {"status": "AVAILABLE", **agent_queue.summary()}
+        except sqlite3.Error:
+            durable_agent = {"status": "NOT_AVAILABLE"}
         def storage_info(path):
             if path is None:
                 return {"name": None, "bytes": None}
@@ -483,6 +512,7 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
                 "docker": {"status": "AVAILABLE" if engine else docker_reason(), "check_ms": docker_ms},
                 "worker": {"status": "IN_PROCESS", "jobs": counts, "attached_runs": processes, "recent": recent,
                            "held_leases": held_leases, "active_attempts": None},
+                "durable_agent": durable_agent,
                 "model": {"status": "CONFIGURED" if api_key() else "NOT_CONFIGURED", "connectivity": "NOT_OBSERVED"}}
 
     @app.get("/observatory/system/log")

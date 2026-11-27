@@ -116,6 +116,15 @@ class Queue:
         with self.transaction(write=False) as db:
             return [dict(row) for row in db.execute("SELECT id,status,owner,epoch FROM jobs ORDER BY rowid DESC")]
 
+    def summary(self):
+        now = time.time()
+        with self.transaction(write=False) as db:
+            row = db.execute("""SELECT COUNT(CASE WHEN status='queued' THEN 1 END) AS queued,
+                COUNT(CASE WHEN status='running' AND deadline>? THEN 1 END) AS leased,
+                COUNT(CASE WHEN status='running' AND deadline<=? THEN 1 END) AS awaiting_takeover
+                FROM jobs""", (now, now)).fetchone()
+            return dict(row)
+
     def receipt(self, job, step):
         with self.transaction(write=False) as db:
             row = db.execute("""SELECT receiver.*, evidence FROM receiver LEFT JOIN commit_evidence USING(job,step)

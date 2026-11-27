@@ -419,7 +419,13 @@ async function workspacePage(version) {
     submit.disabled = true;
     try {
       const task = JSON.parse(plannerForm.elements.plan.value);
-      const result = await api(task?.prompt ? "/agent/model-tasks" : "/agent/tasks", task);
+      const encoded = new TextEncoder().encode(JSON.stringify(task));
+      const signature = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256",encoded))).join(",");
+      const storageKey = "epochgate:agent-launch:" + signature;
+      const launchKey = sessionStorage.getItem(storageKey) ?? crypto.randomUUID();
+      sessionStorage.setItem(storageKey,launchKey);
+      const result = await api(task?.prompt ? "/agent/model-tasks" : "/agent/tasks", task, {launchKey});
+      sessionStorage.removeItem(storageKey);
       if (version === routeVersion) location.hash = runLink(result.run_id);
     } catch (error) { get(planner,"div").innerHTML = errorBox(error); }
     finally { submit.disabled = false; }
@@ -616,17 +622,26 @@ function duration(start, end) {
 
 async function runDetail(version, id, initialTab, focusKind, focusId) {
   if (id.startsWith("agent-")) {
+    let refreshing = false;
     const paint = async () => {
+      if (refreshing || version !== routeVersion) return;
+      refreshing = true;
       try {
         const view = await api(`/agent/tasks/${enc(id)}`);
         if (version !== routeVersion) return;
+        const active = ["queued","running"].includes(view.status);
         const repairs = view.decisions.filter(item=>item.kind === "repair");
         const latestRepair = repairs.at(-1);
         const decisions = view.decisions.filter(item=>item.kind === "decision");
         const latestDecision = decisions.at(-1);
-        const latestBudget = view.decisions.at(-1)?.budget ?? latestDecision?.budget;
+        const lastEvent = view.decisions.at(-1);
+        const latestBudget = lastEvent?.kind === "terminal" && lastEvent.budget ? lastEvent.budget :
+          latestDecision?.budget ? Object.fromEntries(Object.entries(latestDecision.budget).map(([key,value]) =>
+            [key,value-(latestDecision.budget_charge?.[key] ?? 0)])) : lastEvent?.remaining_budget;
         const changed = view.decisions.flatMap(item=>item.changed_resources ?? []);
-        main.innerHTML = `<div class="stack">${heading("Agent Intelligence",esc(id),link("运行记录","#/runs","outline"))}
+        main.innerHTML = `<div class="stack">${heading("Agent Intelligence",esc(id),
+          `${link("运行记录","#/runs","outline")}${active ? button("取消任务",'id="agent-cancel"',"danger") : ""}`)}
+          <div id="agent-view-status" role="status"></div>
           <div class="grid">${metric("Worker epoch",view.epoch)}${metric("任务状态",view.status)}${metric("目标回执",view.receipts.length)}</div>
           <section class="card stack-small"><h2>Plan Graph</h2>${table(["步骤","依赖","读取","写入"],(latestRepair?.after ?? view.task.plan).map(node=>[
             esc(node.step_id),esc((node.dependencies ?? []).join(", ")),esc((node.read_set ?? []).join(", ")),esc(Object.keys(node.effect ?? {}).join(", "))
@@ -640,10 +655,33 @@ async function runDetail(version, id, initialTab, focusKind, focusId) {
           <section class="card stack-small"><h2>Agent Decision Trace</h2>${table(["序号","步骤","决策或结果","依据"],view.decisions.map(item=>[
             esc(item.sequence),esc(item.step),esc(item.action ?? item.result ?? item.kind),details(item.reason_code ?? "证据",item)
           ]))}${details("Effect Evidence",view.receipts)}</section></div>`;
-      } catch (error) { if (version === routeVersion) main.innerHTML = errorBox(error); }
+        if (!active) clearInterval(refreshTimer);
+        if (active) get(main,"#agent-cancel").onclick = async event => {
+          const control = event.currentTarget;
+          if (!await confirmAction("取消任务","已确认的效果和回执会保留。")) return;
+          control.disabled = true;
+          try {
+            await api(`/agent/tasks/${enc(id)}/cancel`,{});
+            toast("已取消任务。");
+            await paint();
+          } catch (error) { toast(error.message,true); control.disabled=false; }
+        };
+        return active;
+      } catch (error) {
+        if (version === routeVersion) {
+          const box = get(main,"#agent-view-status");
+          if (box) box.innerHTML = errorBox(error);
+          else main.innerHTML = `${errorBox(error)}${button("重试",'id="agent-retry"',"soft")}`;
+          const retry = get(main,"#agent-retry");
+          if (retry) retry.onclick = () => renderRoute();
+        }
+        return true;
+      } finally { refreshing = false; }
     };
-    await paint();
-    if (version === routeVersion) refreshTimer = setInterval(() => { if (!main.querySelector("details[open]")) paint(); },3000);
+    const active = await paint();
+    if (active && version === routeVersion) refreshTimer = setInterval(() => {
+      if (!dialog.open && !main.querySelector("details[open]")) paint();
+    },3000);
     return;
   }
   const path = `/runs/${enc(id)}`;
@@ -707,7 +745,11 @@ async function runDetail(version, id, initialTab, focusKind, focusId) {
         ${fields([["UNKNOWN 效果",esc(view.summary.unknown_effects)],["故障检查点",esc(recovery.find(event => event.payload.checkpoint)?.payload.checkpoint)]])}
         ${eventLinks(recovery)}</section>
       <section class="card c6 stack-small"><h2>执行槽位与取消</h2>
-        ${fields([["槽位已释放",esc(view.slot_released)],["进程退出后释放",esc(view.observations.slot.released_after_exit)],["GPU / KV",pill("NOT_IMPLEMENTED")]])}
+        ${fields([
+          ["槽位已释放",esc(view.slot_released)],
+          ["进程退出后释放",esc(view.observations.slot.released_after_exit)],
+          ["GPU / KV 缓存回收","未采集推理引擎指标，回收结果未知。"],
+        ])}
         ${cancel.length ? table(["观测","时间"],cancel.map(event => [eventButton(event),esc(time(event.recorded_at))])) : pill("NOT_OBSERVED")}
       </section></div>
       <section class="card stack-small"><h2>目标状态前后对比</h2>${changed.length ? changed.map(event => `<div class="grid"><div class="c6"><h3>Before</h3>${raw(event.payload.before)}</div><div class="c6"><h3>After</h3>${raw(event.payload.after)}</div></div>`).join("") : empty("NOT_OBSERVED · 本次运行没有带提交时前后状态的目标端记录。")}</section>
@@ -1147,6 +1189,7 @@ async function systemPage(version) {
     ["Control Plane",data.control_plane,{authority:"run_ledger",最近检查:time(data.checked_at)}],
     ["SQLite",data.sqlite.status,{引擎:data.sqlite.version,模式:data.sqlite.schema,事务日志:data.sqlite.journal,当前事务:data.sqlite.transaction == null ? unavailable : String(data.sqlite.transaction),耗时:`${data.sqlite.check_ms} ms`,最近成功:time(data.sqlite.last_success),最近故障:time(data.sqlite.last_error)}],
     ["Worker",data.worker.status,{等待中:data.worker.jobs.queued,活跃任务:data.worker.jobs.running,跟踪中的进程:data.worker.attached_runs,活跃Attempt:data.worker.active_attempts,当前租约:data.worker.held_leases,近期任务:data.worker.recent}],
+    ["Agent 持久队列",data.durable_agent?.status,{排队:data.durable_agent?.queued,有效租约:data.durable_agent?.leased,待接管:data.durable_agent?.awaiting_takeover}],
     ["Docker",data.docker.status,{引擎探测:data.docker.status,耗时:`${data.docker.check_ms} ms`}],
     ["DeepSeek",data.model.status,{连接测试:data.model.connectivity}],
     ["Storage","AVAILABLE",{RunLedger:[data.storage.ledger],效果接收器:[data.storage.sink]}],
@@ -1155,9 +1198,11 @@ async function systemPage(version) {
     <section class="card stack-small"><h2>组件状态</h2>${table(["组件","状态","观测点"],components.map(([name,status,items],index) => [
       button(esc(name),`data-component="${index}"`,"soft"),pill(status),esc(Object.keys(items).join(" · ")),
     ]))}</section>
-    <div class="grid"><section class="card c6 stack-small"><h2>能力边界</h2>${fields([
-      ["外部 HTTP exactly-once",pill("NOT_IMPLEMENTED")],["跨数据库原子性",pill("NOT_IMPLEMENTED")],["GPU / KV 回收观测",pill("NOT_IMPLEMENTED")],
-      ["效果核验","读取接收端证据，按具体发布边界判断"],
+    <div class="grid"><section class="card c6 stack-small"><h2>执行保证与观测范围</h2>${fields([
+      ["受控 HTTP 接收端","支持在共享 SQLite 事务中校验 Worker 资格、按幂等键提交、保存并查询回执。"],
+      ["第三方 HTTP 效果","取决于对方的幂等与查询能力。超时后查不到可靠证据时，保留 UNKNOWN。"],
+      ["独立数据库之间","各库分别提交。目标端有可核验证据时，可补记本地回执；两库没有共同事务。"],
+      ["GPU / KV 缓存回收","当前未接入推理引擎指标。取消记录可显示 Worker 退出与本地槽位释放。"],
     ])}</section>
     <section class="card c6 stack-small"><h2>控制面访问日志</h2><div id="system-log">${empty("正在读取近期日志…")}</div></section></div></div>`;
   get(main,"#refresh-system").onclick = renderRoute;
