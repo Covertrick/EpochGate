@@ -130,6 +130,7 @@ def serve(
     config: str = typer.Option("epochgate.yaml", "--config"),
     data_dir: str | None = typer.Option(None, "--data-dir"),
     demo_mode: bool = typer.Option(False, "--demo-mode", help="Use an isolated demo ledger."),
+    port: int | None = typer.Option(None, "--port", min=1, max=65535, help="Override the configured HTTP port."),
 ) -> None:
     """Start the control service and keep its ledger across restarts."""
     path = Path(config)
@@ -147,7 +148,7 @@ def serve(
             raise typer.Exit(code=1)
     runtime = Runtime.open(root / "epochgate.db", data_dir=root)
     host = settings["host"]
-    port = int(settings["port"])
+    port = port if port is not None else int(settings["port"])
     token = secrets.token_urlsafe(24)
     base_url = f"http://{host}:{port}"
     app = create_app(runtime, root, token, repo=find_repo(), control_url=base_url, demo_mode=demo_mode)
@@ -163,7 +164,6 @@ def serve(
     try:
         uvicorn.run(app, host=host, port=port, log_level="info")
     except OSError as exc:
-        runtime.close()
         typer.echo(f"cannot bind {host}:{port}: {exc}")
         raise typer.Exit(code=1) from exc
     except KeyboardInterrupt:

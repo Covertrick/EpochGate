@@ -24,13 +24,25 @@ uv run --locked --package epochgate-runtime egctl demo --scenario crash-recovery
 
 ### 浏览器工作台
 
+首次体验可启动隔离演示。离线演示和实验归档复核无需模型密钥或 Docker。
+
+```sh
+uv run --locked --package epochgate-runtime egctl serve --demo-mode --port 8766
+```
+
+打开 [http://127.0.0.1:8766/](http://127.0.0.1:8766/)。演示数据保存在默认数据目录下的 `demo-mode` 子目录。
+
+日常运行使用独立的本地控制面。
+
 ```sh
 uv run --locked --package epochgate-runtime egctl serve
 ```
 
-打开终端打印的本地地址，可以执行离线场景、追踪资格与回执，或单独复核 27 格实验。真实 Agent 任务的 Docker 和模型配置可在运行工作台中预检。 [工作台说明与截图](docs/observatory.md)
+打开终端打印的地址，默认是 [http://127.0.0.1:8765/](http://127.0.0.1:8765/)。真实 Agent 任务需要可访问的 Docker Linux 引擎、DSH 和模型配置。运行工作台提供预检。
 
-隔离演示可用 `egctl serve --demo-mode` 启动。历史比较、归档导出和发布验收见产品文档。
+工作台支持 Run 对比、资格与回执追踪、27 格冻结实验的独立重算和证据导出。 [工作台说明与截图](docs/observatory.md)
+
+**首页能打开但接口返回 HTTP 404**时，用当前地址的 `/health` 检查服务。新版返回 `authority: run_ledger` 和 `mode` 字段。如果首页加载的是新版界面，而健康响应缺少 `mode`，请停止旧服务，沿用原来的 `--config` 和 `--data-dir` 启动，再刷新浏览器。端口冲突时可用 `--port` 指定未占用的端口。
 
 [7 分钟演示](docs/product/DEMO.md) · [架构](docs/product/Architecture.md) · [API](docs/product/API.md) · [部署](docs/product/DEPLOYMENT.md) · [发布验收](docs/product/RELEASE.md)
 

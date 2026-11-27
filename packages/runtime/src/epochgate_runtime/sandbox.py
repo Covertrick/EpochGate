@@ -52,6 +52,9 @@ def _windows_docker_exe() -> str | None:
 
 
 def _docker_prefixes() -> list[list[str]]:
+    override = os.environ.get("EPOCHGATE_DOCKER_BIN", "").strip()
+    if override:
+        return [[override]]
     if os.name != "nt":
         return [["docker"]]
     prefixes: list[list[str]] = []
@@ -109,14 +112,15 @@ def _desktop_running() -> bool:
 def _docker_prefix() -> list[str]:
     """先用已经连上的 Linux 引擎。Windows 上 Docker Desktop 的 docker.exe 不在 PATH 里时，仍去安装目录找。"""
     global _DOCKER_PREFIX
-    if _DOCKER_PREFIX is not None and _linux_engine(_DOCKER_PREFIX):
+    prefixes = _docker_prefixes()
+    if _DOCKER_PREFIX in prefixes and _linux_engine(_DOCKER_PREFIX):
         return _DOCKER_PREFIX
-    for prefix in _docker_prefixes():
+    for prefix in prefixes:
         if _linux_engine(prefix):
             _DOCKER_PREFIX = prefix
             return prefix
     _DOCKER_PREFIX = None
-    return _docker_prefixes()[0]
+    return prefixes[0]
 
 
 def docker_command(args: list[str]) -> list[str]:

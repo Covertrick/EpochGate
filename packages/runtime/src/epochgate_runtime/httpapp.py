@@ -151,15 +151,15 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.get("/")
     def index() -> FileResponse:
-        return FileResponse(_CONSOLE / "index.html")
+        return FileResponse(_CONSOLE / "index.html", headers={"Cache-Control": "no-cache"})
 
     @app.get("/app.css")
     def css() -> FileResponse:
-        return FileResponse(_CONSOLE / "app.css")
+        return FileResponse(_CONSOLE / "app.css", headers={"Cache-Control": "no-cache"})
 
     @app.get("/app.js")
     def javascript() -> FileResponse:
-        return FileResponse(_CONSOLE / "app.js")
+        return FileResponse(_CONSOLE / "app.js", headers={"Cache-Control": "no-cache"})
 
     @app.get("/runs")
     def list_runs() -> dict[str, Any]:

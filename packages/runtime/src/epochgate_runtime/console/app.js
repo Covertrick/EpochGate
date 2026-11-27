@@ -126,6 +126,12 @@ async function api(path, body, {blob = false, launchKey} = {}) {
     if (response.status === 401) tokenPromise = undefined;
     const data = await response.json().catch(() => ({}));
     const requestId = response.headers.get("X-Request-Id");
+    if (response.status === 404 && path.startsWith("/observatory/") && !data.code) {
+      const health = await fetch("/health",{cache:"no-store"}).then(reply => reply.ok ? reply.json() : null).catch(() => null);
+      if (health?.authority === "run_ledger" && !health.mode) {
+        throw new Error("当前端口仍在运行旧版 EpochGate 后端。请停止旧服务，使用原数据目录重启并刷新页面。");
+      }
+    }
     throw new Error(`${data.message || (Array.isArray(data.detail) ? data.detail.map(item => item.msg).join("，") : `HTTP ${response.status}`)}${requestId ? ` · ${requestId}` : ""}`);
   }
   return blob ? response.blob() : response.json();

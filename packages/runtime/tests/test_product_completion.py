@@ -9,6 +9,22 @@ from fastapi.testclient import TestClient
 
 from epochgate_runtime.api import Runtime
 from epochgate_runtime.httpapp import create_app
+from epochgate_runtime import sandbox
+
+
+def test_docker_override_is_used_for_health_and_execution(monkeypatch):
+    probes = []
+    monkeypatch.setattr(sandbox, "_DOCKER_PREFIX", ["previous-docker"])
+    monkeypatch.setenv("EPOCHGATE_DOCKER_BIN", "configured-docker")
+
+    def linux_engine(prefix):
+        probes.append(prefix)
+        return True
+
+    monkeypatch.setattr(sandbox, "_linux_engine", linux_engine)
+    assert sandbox.docker_available()
+    assert probes == [["configured-docker"]]
+    assert sandbox.docker_command(["ps"]) == ["configured-docker", "ps"]
 
 
 def test_product_archive_and_launch_contract(tmp_path, monkeypatch):
@@ -17,6 +33,9 @@ def test_product_archive_and_launch_contract(tmp_path, monkeypatch):
     try:
         app = create_app(runtime, tmp_path, "token", repo=repo)
         client = TestClient(app, headers={"Authorization": "Bearer token"})
+        assert client.get("/health").json()["mode"] == "local"
+        for path in ("/", "/app.js", "/app.css"):
+            assert client.get(path).headers["Cache-Control"] == "no-cache"
         calls = []
 
         def create(*args, **kwargs):
