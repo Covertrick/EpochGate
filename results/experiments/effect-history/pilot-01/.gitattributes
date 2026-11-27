@@ -1,0 +1,4 @@
+# The frozen SHA-256 manifest covers the original JSON bytes, including CRLF.
+trace.json -text
+/manifest.json -text
+/report.json -text
