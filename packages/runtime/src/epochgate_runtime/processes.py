@@ -59,10 +59,11 @@ def cancel_process(ledger: RunLedger, run_id: str, process: subprocess.Popen[byt
         process.wait(timeout=3)
         ledger.append_event(run_id, "stop_signal_sent", {"pid": process.pid, "signal": "kill_process"})
     exited = process.poll() is not None
-    ledger.append_event(run_id, "process_exited" if exited else "process_still_running", {"pid": process.pid, "returncode": process.poll(), "killed": killed})
+    exit_observation = ledger.append_event(run_id, "process_exited" if exited else "process_still_running", {"pid": process.pid, "returncode": process.poll(), "killed": killed})
     if exited:
         ledger.signal_executor(run_id, acked=True)
         ledger.observe_slot(run_id, free=True)
+        ledger.append_event(run_id, "slot_release_observed", {"pid": process.pid}, causation_id=exit_observation)
     else:
         ledger.signal_executor(run_id, acked=False)
         ledger.observe_slot(run_id, free=False)

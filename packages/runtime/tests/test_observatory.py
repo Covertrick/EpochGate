@@ -48,6 +48,7 @@ def test_cancellation_demo_observes_exit_before_slot_release(tmp_path):
         detail = client.get(f"/runs/{job['run_id']}?figures=false").json()
         events = {event["event_type"]: event for event in detail["events"]}
         assert events["cancel_requested"]["seq"] < events["process_exited"]["seq"] < events["slot_release_observed"]["seq"]
+        assert events["slot_release_observed"]["causation_id"] == events["process_exited"]["seq"]
         assert detail["slot_released"] is True
     finally:
         runtime.close()

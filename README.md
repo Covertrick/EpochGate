@@ -22,6 +22,14 @@ uv run --locked --package epochgate-runtime egctl demo --scenario crash-recovery
 
 两个演示均验证回执，重复接受数为 **0**。终端输出 `report.json` 的位置，同目录的 `report.html` 可直接打开查看时间线。
 
+### 浏览器工作台
+
+```sh
+uv run --locked --package epochgate-runtime egctl serve
+```
+
+打开终端打印的本地地址，可以执行离线场景、追踪资格与回执，或单独复核 27 格实验。真实 Agent 任务的 Docker 和模型配置可在运行工作台中预检。 [工作台说明与截图](docs/observatory.md)
+
 ## 技术架构
 
 ![EpochGate 的代理层、控制面和执行边界](docs/assets/architecture.png)

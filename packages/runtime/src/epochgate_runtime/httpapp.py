@@ -193,8 +193,6 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
                     finally:
                         if process.poll() is None:
                             process.kill()
-                if result["slot_released"]:
-                    runtime.ledger.append_event(run_id, "slot_release_observed", {"pid": process.pid})
                 runtime.ledger.append_event(run_id, "demo_finished", {"scenario": name, "status": "succeeded", "duration_seconds": time.perf_counter() - started})
                 return {"run_id": run_id, **result}
 
