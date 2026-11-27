@@ -1189,9 +1189,14 @@ async function systemPage(version) {
     ["Control Plane",data.control_plane,{authority:"run_ledger",最近检查:time(data.checked_at)}],
     ["SQLite",data.sqlite.status,{引擎:data.sqlite.version,模式:data.sqlite.schema,事务日志:data.sqlite.journal,当前事务:data.sqlite.transaction == null ? unavailable : String(data.sqlite.transaction),耗时:`${data.sqlite.check_ms} ms`,最近成功:time(data.sqlite.last_success),最近故障:time(data.sqlite.last_error)}],
     ["Worker",data.worker.status,{等待中:data.worker.jobs.queued,活跃任务:data.worker.jobs.running,跟踪中的进程:data.worker.attached_runs,活跃Attempt:data.worker.active_attempts,当前租约:data.worker.held_leases,近期任务:data.worker.recent}],
-    ["Agent 持久队列",data.durable_agent?.status,{排队:data.durable_agent?.queued,有效租约:data.durable_agent?.leased,待接管:data.durable_agent?.awaiting_takeover}],
-    ["Docker",data.docker.status,{引擎探测:data.docker.status,耗时:`${data.docker.check_ms} ms`}],
-    ["DeepSeek",data.model.status,{连接测试:data.model.connectivity}],
+    ["Agent 持久队列",data.durable_agent ? data.durable_agent.status : "RESTART_REQUIRED",
+      data.durable_agent ? {排队:data.durable_agent.queued,有效租约:data.durable_agent.leased,待接管:data.durable_agent.awaiting_takeover} :
+        {说明:"当前后端未返回持久队列状态。请沿用原数据目录重启服务，再重新检查。"}],
+    ["Docker",data.docker.status,{引擎探测:data.docker.status,耗时:`${data.docker.check_ms} ms`,
+      ...(data.docker.reason ? {原因:data.docker.reason} : {})}],
+    ["DeepSeek",data.model.connectivity === "NOT_OBSERVED" ? data.model.status : data.model.connectivity,{
+      凭据:data.model.status,连接测试:data.model.connectivity,检查时间:time(data.model.checked_at)
+    }],
     ["Storage","AVAILABLE",{RunLedger:[data.storage.ledger],效果接收器:[data.storage.sink]}],
   ];
   main.innerHTML = `<div class="stack">${heading("系统状态", `最近健康检查 ${esc(time(data.checked_at))}`, button("重新检查",'id="refresh-system"',"soft"))}
@@ -1208,7 +1213,19 @@ async function systemPage(version) {
   get(main,"#refresh-system").onclick = renderRoute;
   main.querySelectorAll("[data-component]").forEach(control => control.onclick = () => {
     const [name,status,values] = components[Number(control.dataset.component)];
-    modal(name,`${pill(status)}${fields(Object.entries(values).map(([key,value]) => [key,Array.isArray(value) ? raw(value) : esc(value || (value === 0 ? 0 : null))]))}`);
+    const box = modal(name,`${pill(status)}${fields(Object.entries(values).map(([key,value]) => [key,Array.isArray(value) ? raw(value) : esc(value || (value === 0 ? 0 : null))]))}
+      ${name === "DeepSeek" ? `<div class="actions">${button("测试 API 连接",'id="check-model"',"soft")}</div><div id="model-check-result" role="status"></div>` : ""}`);
+    const check = get(box,"#check-model");
+    if (check) check.onclick = async () => {
+      const result = get(box,"#model-check-result");
+      check.disabled = true;
+      try {
+        const value = await api("/observatory/model/check",{});
+        result.innerHTML = `${pill(value.connectivity)} <span>${esc(time(value.checked_at))}</span>`;
+        dialog.addEventListener("close", () => { if (version === routeVersion) renderRoute(); }, {once:true});
+      } catch (error) { result.innerHTML = errorBox(error); }
+      finally { check.disabled = false; }
+    };
   });
   const box = get(main,"#system-log");
   try {

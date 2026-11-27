@@ -85,6 +85,9 @@ def _linux_engine(prefix: list[str]) -> bool:
             timeout=20,
             check=False,
         )
+    except PermissionError:
+        _LAST_DETAIL = f"{_LAST_DETAIL}\npermission denied"
+        return False
     except (OSError, subprocess.TimeoutExpired):
         _LAST_DETAIL = f"{_LAST_DETAIL}\nunavailable"
         return False
@@ -139,12 +142,12 @@ def docker_available() -> bool:
 
 
 def docker_reason() -> str:
-    """空字符串表示能用。denied 表示引擎已在，但这个进程不能再启动一次。down 表示引擎没起来。"""
+    """Distinguish explicit access denials from an unresponsive Docker Desktop."""
     if docker_available():
         return ""
-    if _denied(_LAST_DETAIL) or _desktop_running():
+    if _denied(_LAST_DETAIL):
         return "denied"
-    return "down"
+    return "unavailable" if _desktop_running() else "down"
 
 
 def _desktop_exe() -> Path | None:

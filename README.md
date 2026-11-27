@@ -44,6 +44,8 @@ uv run --locked --package epochgate-runtime egctl serve
 
 **首页能打开但接口返回 HTTP 404**时，用当前地址的 `/health` 检查服务。新版返回 `authority: run_ledger` 和 `mode` 字段。如果首页加载的是新版界面，而健康响应缺少 `mode`，请停止旧服务，沿用原来的 `--config` 和 `--data-dir` 启动，再刷新浏览器。端口冲突时可用 `--port` 指定未占用的端口。
 
+系统页的 **RESTART_REQUIRED** 表示当前后端还没返回新版持久队列字段。Docker 的 **DENIED** 表示服务进程探测到权限拒绝，可在相同的服务账户下检查引擎访问。DeepSeek 的 **CONFIGURED** 表示已有凭据，可点开详情运行「测试 API 连接」。该检查只请求模型列表。使用默认绑定时，请访问 `127.0.0.1`，以免 `localhost` 解析到另一个 IPv6 监听进程。
+
 [7 分钟演示](docs/product/DEMO.md) · [架构](docs/product/Architecture.md) · [API](docs/product/API.md) · [部署](docs/product/DEPLOYMENT.md) · [发布验收](docs/product/RELEASE.md) · [Agent 可靠性核查](docs/agent/HARDENING.md)
 
 ### 启动 Evidence-Aware Agent

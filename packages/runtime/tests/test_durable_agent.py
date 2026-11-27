@@ -19,6 +19,24 @@ def expire(queue, job):
         db.execute("UPDATE jobs SET deadline=0 WHERE id=?", (job,))
 
 
+def test_explicit_model_check_updates_system_status(tmp_path, monkeypatch):
+    monkeypatch.setattr("epochgate_runtime.httpapp.check_connection", lambda: {"connectivity": "AVAILABLE"})
+    monkeypatch.setattr("epochgate_runtime.httpapp.docker_available", lambda: False)
+    monkeypatch.setattr("epochgate_runtime.httpapp.docker_reason", lambda: "denied")
+    runtime = Runtime.open(tmp_path / "epochgate.db")
+    try:
+        with TestClient(create_app(runtime, tmp_path, "test"), headers={"Authorization": "Bearer test"}) as client:
+            assert client.get("/observatory/system").json()["model"]["connectivity"] == "NOT_OBSERVED"
+            probe = client.post("/observatory/model/check").json()
+            assert probe["connectivity"] == "AVAILABLE" and probe["checked_at"]
+            status = client.get("/observatory/system").json()
+            assert status["model"]["checked_at"] == probe["checked_at"]
+            assert status["durable_agent"]["status"] == "AVAILABLE"
+            assert status["docker"]["status"] == "denied" and status["docker"]["reason"]
+    finally:
+        runtime.close()
+
+
 def test_model_launch_replay_calls_provider_once(tmp_path, monkeypatch):
     calls = []
 

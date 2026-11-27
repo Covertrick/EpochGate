@@ -2,6 +2,7 @@
 
 import json
 import time
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 from epochgate_runtime.agent_decision import order_plan
@@ -10,6 +11,27 @@ from epochgate_runtime.agent_loop import api_key
 
 class ModelCredentialMissing(RuntimeError):
     """Raised before sending a provider request."""
+
+
+def check_connection():
+    """Verify the API credential without generating a model response."""
+    credential = api_key()
+    if not credential:
+        return {"connectivity": "NOT_CONFIGURED"}
+    request = Request("https://api.deepseek.com/models",
+                      headers={"Authorization": "Bearer " + credential})
+    try:
+        with urlopen(request, timeout=8) as response:
+            payload = json.load(response)
+        status = "AVAILABLE" if isinstance(payload, dict) and isinstance(payload.get("data"), list) else "INVALID_RESPONSE"
+        return {"connectivity": status}
+    except HTTPError as exc:
+        status = "DENIED" if exc.code in {401, 403} else "RATE_LIMITED" if exc.code == 429 else "PROVIDER_ERROR"
+        return {"connectivity": status, "http_status": exc.code}
+    except OSError:
+        return {"connectivity": "UNREACHABLE"}
+    except ValueError:
+        return {"connectivity": "INVALID_RESPONSE"}
 
 
 def propose(task, resources, *, timeout=45):

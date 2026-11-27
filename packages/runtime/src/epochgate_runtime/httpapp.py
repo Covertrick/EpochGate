@@ -22,7 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from epochgate_runtime.actions import run_walkthrough
 from epochgate_runtime.agent_decision import order_plan
 from epochgate_runtime.durable import Queue
-from epochgate_runtime.model_planner import ModelCredentialMissing, propose
+from epochgate_runtime.model_planner import ModelCredentialMissing, check_connection, propose
 from epochgate_runtime.agent_loop import api_key, redact
 from epochgate_runtime.api import EVENT_LABELS, Runtime
 from epochgate_runtime.demo import (
@@ -464,10 +464,21 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
                 "policy": {"执行资格": "REQUIRED", "Fencing Token": "REQUIRED", "幂等提交": "受控发布",
                            "回执核验": "容器文件发布读回", "崩溃恢复": "按副作用类型对账"}}
 
+    model_check = {"connectivity": "NOT_OBSERVED"}
+
+    @app.post("/observatory/model/check")
+    def model_connectivity() -> dict[str, Any]:
+        nonlocal model_check
+        start = time.perf_counter()
+        model_check = {**check_connection(), "checked_at": datetime.now(timezone.utc).isoformat(),
+                       "check_ms": round((time.perf_counter() - start) * 1000, 2)}
+        return model_check
+
     @app.get("/observatory/system")
     def system() -> dict[str, Any]:
         start = time.perf_counter()
         engine = docker_available()
+        docker_status = "AVAILABLE" if engine else docker_reason()
         docker_ms = round((time.perf_counter() - start) * 1000, 2)
         with jobs._lock:
             counts = {state: sum(job["status"] == state for job in jobs._jobs.values())
@@ -509,11 +520,12 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
                 "runtime": runtime_version, "python": sys.version.split()[0], "control_plane": "AVAILABLE",
                 "sqlite": sqlite_status,
                 "storage": {"ledger": storage_info(storage_path), "sink": storage_info(sink_path)},
-                "docker": {"status": "AVAILABLE" if engine else docker_reason(), "check_ms": docker_ms},
+                "docker": {"status": docker_status, "check_ms": docker_ms,
+                           "reason": "当前服务进程无法访问 Docker Linux 引擎。" if docker_status == "denied" else None},
                 "worker": {"status": "IN_PROCESS", "jobs": counts, "attached_runs": processes, "recent": recent,
                            "held_leases": held_leases, "active_attempts": None},
                 "durable_agent": durable_agent,
-                "model": {"status": "CONFIGURED" if api_key() else "NOT_CONFIGURED", "connectivity": "NOT_OBSERVED"}}
+                "model": {"status": "CONFIGURED" if api_key() else "NOT_CONFIGURED", **model_check}}
 
     @app.get("/observatory/system/log")
     def system_log() -> dict[str, str]:
