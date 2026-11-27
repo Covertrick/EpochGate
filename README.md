@@ -46,6 +46,8 @@ uv run --locked --package epochgate-runtime egctl serve
 
 系统页的 **RESTART_REQUIRED** 表示当前后端还没返回新版持久队列字段。Docker 的 **DENIED** 表示服务进程探测到权限拒绝，可在相同的服务账户下检查引擎访问。DeepSeek 的 **CONFIGURED** 表示已有凭据，可点开详情运行「测试 API 连接」。该检查只请求模型列表。使用默认绑定时，请访问 `127.0.0.1`，以免 `localhost` 解析到另一个 IPv6 监听进程。
 
+在 Windows 上，如果 PowerShell 能访问 Docker 而项目 Python 仍然显示 `DENIED`，可用 [Windows Docker 启动脚本](deploy/start-windows-docker.ps1) 在用户本地目录安装并验证独立运行环境。 [使用方法与更新步骤](docs/product/DEPLOYMENT.md#windows-docker-permissions)
+
 [7 分钟演示](docs/product/DEMO.md) · [架构](docs/product/Architecture.md) · [API](docs/product/API.md) · [部署](docs/product/DEPLOYMENT.md) · [发布验收](docs/product/RELEASE.md) · [Agent 可靠性核查](docs/agent/HARDENING.md)
 
 ### 启动 Evidence-Aware Agent
