@@ -1,0 +1,7 @@
+diff --git a/rules.py b/rules.py
+index 18d46fc..037a954 100644
+--- a/rules.py
++++ b/rules.py
+@@ -1 +1 @@
+-FREE_FROM = 5000
++FREE_FROM = 6500

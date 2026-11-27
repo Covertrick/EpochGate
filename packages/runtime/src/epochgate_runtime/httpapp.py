@@ -203,7 +203,7 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
             task["plan"] = order_plan(task["plan"])
         except ValueError as exc:
             raise ApiError(400, "invalid_plan", str(exc)) from exc
-        if body.strategy not in {"continue", "full", "version", "predicate", "partial"} or body.recovery not in {"fixed", "evidence"}:
+        if body.strategy not in {"continue", "full", "version", "predicate", "predicate_graph", "partial"} or body.recovery not in {"fixed", "evidence"}:
             raise ApiError(400, "invalid_policy", "Unknown policy")
         validate_agent_budget(body.budget)
         task["observed_world"] = agent_queue.world()
@@ -238,12 +238,31 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
     def list_agent_tasks() -> dict[str, Any]:
         return {"runs": agent_queue.list()}
 
+    @app.get("/observatory/agent-evaluation")
+    def agent_evaluation() -> dict[str, Any]:
+        repo = app.state.sessions.repo
+        if repo is None:
+            raise ApiError(404, "not_available", "当前安装没有 Agent 评测归档。")
+        reports = repo / "docs" / "agent"
+        def read(relative):
+            path = reports / relative
+            return json.loads(path.read_bytes()) if path.is_file() else None
+        trace = read("coding/trace.json")
+        return {"expanded": read("expanded/report.json"), "coding": read("coding/report.json"),
+                "coding_events": trace.get("events", []) if trace else []}
+
     @app.get("/agent/tasks/{run_id}")
     def agent_task(run_id: str) -> dict[str, Any]:
         view = agent_queue.get(run_id)
         if view is None:
             raise ApiError(404, "unknown_task", "没有找到该计划。")
         return view
+
+    @app.post("/agent/tasks/{run_id}/cancel")
+    def cancel_agent_task(run_id: str) -> dict[str, Any]:
+        if not agent_queue.cancel(run_id):
+            raise ApiError(409, "cancel_not_available", "任务不存在或已经结束。")
+        return {"run_id": run_id, "status": "cancelled"}
 
     @app.post("/agent/receiver")
     def agent_receiver(body: ReceiverBody) -> dict[str, Any]:

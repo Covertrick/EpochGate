@@ -1,0 +1,36 @@
+{
+  "status": "verified",
+  "model": "deepseek-flash",
+  "model_calls": 18,
+  "total_tokens": 21257,
+  "tool_calls": 14,
+  "tests": [
+    {
+      "phase": "before",
+      "exit_code": 1,
+      "seconds": 1.5195556
+    },
+    {
+      "phase": "before",
+      "exit_code": 0,
+      "seconds": 1.7025611999999999
+    },
+    {
+      "phase": "after",
+      "exit_code": 0,
+      "seconds": 1.2678747
+    }
+  ],
+  "duration_seconds": 50.00822710990906,
+  "confirmed_writes": 2,
+  "tests_passed": 4,
+  "source_sha256": "79776dce83a10a4ca0c6c990a4aa37d07a53e5f52f3925ca171d079c916176c9",
+  "patch_sha256": "f1f0f46b7e1ba35bfe4a4e7cc9a08086e0151f3d590dabfa07cc3aaaca6d8831",
+  "preserved_steps": [
+    "inspect"
+  ],
+  "invalidated_steps": [
+    "implement",
+    "test"
+  ]
+}

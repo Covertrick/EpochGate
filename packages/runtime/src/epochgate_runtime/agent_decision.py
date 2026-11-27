@@ -156,6 +156,11 @@ def repair_plan(plan, before, after, committed=(), *, strategy="partial"):
     changed = {key for key in before.keys() | after.keys() if before.get(key) != after.get(key)}
     affected, invalid, unresolved, stale_dependencies = set(), set(), set(), set()
     committed = set(committed)
+    global_revalidation = strategy == "predicate_graph" and any(
+        not predicates_hold(node, after) and (node["step_id"] not in committed or
+                                             changed.intersection(node.get("preconditions", {})))
+        for node in ordered
+    )
     revised = []
     for node in ordered:
         key = node["step_id"]
@@ -173,13 +178,14 @@ def repair_plan(plan, before, after, committed=(), *, strategy="partial"):
         if failed or inherited:
             stale_dependencies.add(key)
         needs_repair = {"continue": False, "full": bool(changed), "version": affected_here or inherited,
-                        "predicate": failed, "partial": failed or inherited}[strategy]
+                        "predicate": failed, "predicate_graph": global_revalidation or inherited,
+                        "partial": failed or inherited}[strategy]
         if needs_repair:
             invalid.add(key)
             replacement = node.get("repair", {}) if failed or inherited else {}
             candidate = {**node, **{field: replacement[field] for field in ("effect", "preconditions")
                                    if field in replacement}}
-            if not predicates_hold(candidate, after) or (inherited and strategy == "partial" and not node.get("repair")):
+            if not predicates_hold(candidate, after) or (inherited and strategy in {"partial", "predicate_graph"} and not node.get("repair")):
                 unresolved.add(key)
             revised.append({**candidate, "write_set": list(candidate.get("effect", {}))})
         else:

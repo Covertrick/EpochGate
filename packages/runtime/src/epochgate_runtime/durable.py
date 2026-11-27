@@ -91,6 +91,16 @@ class Queue:
                 db.execute("UPDATE jobs SET status=? WHERE id=?", (finish, job))
             return True
 
+    def cancel(self, job):
+        with self.transaction() as db:
+            cancelled = db.execute("""UPDATE jobs SET status='cancelled',epoch=epoch+1,deadline=0
+                WHERE id=? AND status IN ('queued','running') RETURNING epoch""", (job,)).fetchone()
+            if cancelled is None:
+                return False
+            db.execute("INSERT INTO decisions(job,epoch,data) VALUES (?,?,?)",
+                       (job, cancelled["epoch"], canonical({"kind":"terminal","result":"CANCELLED"})))
+            return True
+
     def get(self, job):
         with self.transaction(write=False) as db:
             row = db.execute("SELECT * FROM jobs WHERE id=?", (job,)).fetchone()

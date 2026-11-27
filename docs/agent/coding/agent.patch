@@ -1,0 +1,16 @@
+diff --git a/shipping.py b/shipping.py
+index 800864c..9c44e56 100644
+--- a/shipping.py
++++ b/shipping.py
+@@ -1,5 +1,10 @@
++import rules
++
++
+ def shipping_cost(items, subtotal):
+     """Calculate shipping in integer cents."""
+     if items < 0 or subtotal < 0:
+         raise ValueError("negative inputs")
+-    return 450
++    if items == 0 or subtotal >= rules.FREE_FROM:
++        return 0
++    return 450

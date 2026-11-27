@@ -50,6 +50,8 @@ uv run --locked --package epochgate-runtime egctl serve
 
 新执行路径支持持久任务、独立 Worker、依赖驱动的局部计划修复，以及安全过滤后的恢复和预算决策。Run Details 可查看计划、接收端证据和结构化决策。 [运行方法、原始结果与验收边界](docs/agent/VERIFICATION.md)
 
+Agent 评测页面汇总真实 Coding Agent 的工具轨迹和 40 个离线任务的五策略对照。离线比较记录完成率、有效效果、重规划、工具请求、耗时和计划保留，模型 Token 来自独立的在线验收。 [评测协议、复现与原始证据](docs/agent/EVALUATION.md)
+
 ## 技术架构
 
 ![EpochGate 的代理层、控制面和执行边界](docs/assets/architecture.png)

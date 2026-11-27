@@ -1,0 +1,4 @@
+*.json text eol=lf
+*.py text eol=lf
+*.patch text eol=lf
+SHA256SUMS text eol=lf

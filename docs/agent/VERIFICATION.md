@@ -1,4 +1,6 @@
-﻿# Evidence-aware Agent verification
+# Evidence-aware Agent verification
+
+This page documents the original pilot. See the [expanded evaluation](EVALUATION.md) for the follow-up coding and forty-instance results.
 
 ## Reproduce the runtime
 

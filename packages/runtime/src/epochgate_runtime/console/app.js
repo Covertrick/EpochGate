@@ -13,7 +13,7 @@ const sessionJobs = new Map();
 const demoJobs = new Map();
 const demoResults = new Map();
 const draft = { workspace: "", title: "", task: "", test_command: "", timeout: 180 };
-const labels = {overview:"总览", workspace:"运行工作台", runs:"运行记录", research:"实验分析", system:"系统状态"};
+const labels = {overview:"总览", workspace:"运行工作台", runs:"运行记录", research:"实验分析", system:"系统状态", "agent-evaluation":"Agent 评测"};
 const scenarios = [
   ["stale-write", "过期 Token 拒绝", "⟡", "旧 Attempt 在资格更新后尝试发布。", "旧 Token 被拒绝，新 Token 发布。"],
   ["idempotency-conflict", "幂等重放与冲突", "↻", "用同一个幂等键提交不同内容。", "首次内容保留，冲突被记录。"],
@@ -982,7 +982,7 @@ async function researchPage(version, cellId) {
   const digest = Object.entries(sha256).filter(([name]) => name === "report.json")[0]?.[1];
   const artifact = (name,label) => button(esc(label),`data-research-file="${esc(name)}"`,"soft");
   main.innerHTML = `<div class="stack">
-    ${heading("Research Lab", "Effect History Evaluation · 协议、对照与原始证据。", `${link("Evidence Audit","#/research/audit","outline")}${artifact("protocol","下载冻结协议")}`)}
+    ${heading("Research Lab", "Effect History Evaluation · 协议、对照与原始证据。", `${link("Agent 评测","#/agent-evaluation","outline")}${link("Evidence Audit","#/research/audit","outline")}${artifact("protocol","下载冻结协议")}`)}
     <section class="card stack-small"><h2>研究问题与适用范围</h2>
       ${fields([["批次","pilot-01"],["Research Question","终态通过时，提交时业务违规能否被掩盖？"],
       ["Hypothesis","提交时业务核对能揭示漏检。调度增量需在等预算下超过已有强对照。"],
@@ -1104,6 +1104,41 @@ async function researchPage(version, cellId) {
   }).catch(error => { protocolBox.innerHTML = errorBox(error); });
 }
 
+async function agentEvaluationPage(version) {
+  const evidence = await api("/observatory/agent-evaluation");
+  if (version !== routeVersion) return;
+  const policies = {
+    full:"Full Replan",version:"Version-Based",predicate_strong:"Predicate-Based（强基线）",
+    partial:"Partial Repair",partial_evidence:"Partial Repair + Evidence Recovery",
+  };
+  const ratio = (x,y) => y ? `${x}/${y}` : "NOT_OBSERVED";
+  const milliseconds = seconds => seconds == null ? "NOT_OBSERVED" : `${Math.round(seconds*1000)} ms`;
+  const rows = Object.entries(evidence.expanded ?? {}).map(([key,item])=>[
+    esc(policies[key] ?? key),ratio(item.success,item.tasks),ratio(item.valid_effects,item.effect_count),
+    esc(item.replans),esc(item.model_tokens),esc(item.tool_calls),milliseconds(item.mean_seconds),
+    milliseconds(item.mean_recovery_seconds),ratio(item.preserved,item.eligible_to_preserve),ratio(item.unknown,item.tasks),
+  ]);
+  const coding = evidence.coding;
+  const graph = evidence.coding_events.find(event=>event.action==="plan" && event.steps);
+  const codingBlock = coding ? `<div class="grid">${[
+    ["验证结果",coding.status],["模型 Token",coding.total_tokens],["工具请求",coding.tool_calls],
+    ["任务耗时",`${Math.round(coding.duration_seconds)} s`]
+  ].map(item=>metric(...item)).join("")}</div>${fields([
+    ["模型",esc(coding.model)],["已确认写入",esc(coding.confirmed_writes)],
+    ["失效节点",esc(coding.invalidated_steps.join(" · "))],["保留节点",esc(coding.preserved_steps.join(" · "))]
+  ])}` : empty("尚无可核验的 Coding Agent 归档。");
+  main.innerHTML = `<div class="stack">${heading("Agent 评测","真实 Coding Agent 与冻结策略对照。",link("返回实验分析","#/research","outline"))}
+    <section class="card stack-small"><h2>真实 Coding Agent</h2>${codingBlock}
+    ${graph ? details("模型原始计划",graph.steps) : ""}
+    ${table(["事件","观测","原始证据"],evidence.coding_events.map(event=>[
+      esc(event.action),esc(event.action==="test_result" ? `${event.phase} · exit ${event.exit_code}` : event.result ?? event.path ?? ""),
+      details("展开",event)
+    ]))}</section>
+    <section class="card stack-small"><h2>40 个冻结任务 · 五策略对照</h2><p>离线回放没有模型调用，Token 栏显示不可用。保留比例以发生修复时尚未提交的节点为分母。</p>
+    ${table(["策略","任务成功","有效效果","重规划","模型 Token","工具请求","平均耗时","平均恢复","计划保留","UNKNOWN"],rows)}
+    ${evidence.expanded ? details("按任务重算数据",evidence.expanded) : ""}</section></div>`;
+}
+
 async function systemPage(version) {
   const data = await api("/observatory/system");
   if (version !== routeVersion) return;
@@ -1173,6 +1208,7 @@ async function renderRoute() {
   try {
     if (page === "runs" && id) await runDetail(version,decodeURIComponent(id),tab,kind,focusId ? decodeURIComponent(focusId) : undefined);
     else if (page === "research") await researchPage(version,id ? decodeURIComponent(id) : undefined);
+    else if (page === "agent-evaluation") await agentEvaluationPage(version);
     else await ({overview,workspace:workspacePage,runs:runsPage,system:systemPage})[page](version);
     if (version === routeVersion) connection.removeAttribute("data-offline");
   } catch (error) {

@@ -9,6 +9,7 @@ services:
       - epochgate-data:/data
       - ../.git:/repo/.git:ro
       - ../experiments:/repo/experiments:ro
+      - ../docs/agent:/repo/docs/agent:ro
       - ../results/experiments/effect-history:/repo/results/experiments/effect-history:ro
       - ../packages/eg-workspace:/repo/packages/eg-workspace:ro
       - ../examples/sample-task:/repo/examples/sample-task:ro

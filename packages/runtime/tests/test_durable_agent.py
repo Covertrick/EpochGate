@@ -120,3 +120,20 @@ def test_unresolved_dependency_refreshes_before_stopping(tmp_path):
     assert view["decisions"][0]["action"] == "REFRESH_STATE"
     assert view["decisions"][1]["result"] == "STATE_REFRESHED"
     assert view["receipts"] == []
+
+
+def test_cancellation_fences_late_effects_and_preserves_receipts(tmp_path):
+    queue = Queue(tmp_path / "db")
+    job = queue.submit({"plan": [{"step_id": "first"}, {"step_id": "next"}]})
+    claim = queue.claim("worker", 30)
+    authority = (job, claim["epoch"], "worker")
+    proposal = {"effect": {"first": 1}, "versions": {}, "predicates": {}}
+    assert queue.record(*authority, {"kind": "dispatch", "step": "first", "proposal": proposal})
+    committed = queue.commit(*authority, "first", **proposal)
+    assert committed["status"] == "COMMITTED"
+    assert queue.cancel(job)
+    assert queue.commit(*authority, "next", **proposal)["status"] == "FENCED"
+    assert queue.claim("another", 30) is None
+    view = queue.get(job)
+    assert view["status"] == "cancelled"
+    assert [receipt["receipt"] for receipt in view["receipts"]] == [committed["receipt"]]
