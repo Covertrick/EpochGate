@@ -30,6 +30,10 @@ uv run --locked --package epochgate-runtime egctl serve
 
 打开终端打印的本地地址，可以执行离线场景、追踪资格与回执，或单独复核 27 格实验。真实 Agent 任务的 Docker 和模型配置可在运行工作台中预检。 [工作台说明与截图](docs/observatory.md)
 
+隔离演示可用 `egctl serve --demo-mode` 启动。历史比较、归档导出和发布验收见产品文档。
+
+[7 分钟演示](docs/product/DEMO.md) · [架构](docs/product/Architecture.md) · [API](docs/product/API.md) · [部署](docs/product/DEPLOYMENT.md) · [发布验收](docs/product/RELEASE.md)
+
 ## 技术架构
 
 ![EpochGate 的代理层、控制面和执行边界](docs/assets/architecture.png)

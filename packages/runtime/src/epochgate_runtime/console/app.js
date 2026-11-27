@@ -37,7 +37,21 @@ const runLink = (id) => `#/runs/${enc(id)}`;
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const localTime = new Intl.DateTimeFormat("zh-CN", {dateStyle:"short", timeStyle:"medium"});
 const time = (value) => value && Number.isFinite(Date.parse(value)) ? localTime.format(new Date(value)) : unavailable;
-const raw = (value) => `<pre>${esc(typeof value === "string" ? value : JSON.stringify(value, null, 2))}</pre>`;
+function raw(value) {
+  if (typeof value === "string") return `<pre>${esc(value)}</pre>`;
+  const text = JSON.stringify(value,null,2) ?? "";
+  const tokens = /"(?:[^"\\]|\\.)*"(?=\s*:)|"(?:[^"\\]|\\.)*"|\b(?:true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g;
+  let output = "";
+  let cursor = 0;
+  for (const token of text.matchAll(tokens)) {
+    const value = token[0];
+    const end = token.index + value.length;
+    const kind = value.startsWith('"') ? text.slice(end).trimStart().startsWith(":") ? "key" : "string" : "literal";
+    output += esc(text.slice(cursor,token.index)) + `<span class="code-${kind}">${esc(value)}</span>`;
+    cursor = end;
+  }
+  return `<pre>${output}${esc(text.slice(cursor))}</pre>`;
+}
 const details = (title, value) => `<details><summary>${esc(title)}</summary>${raw(value)}</details>`;
 const pill = (value) => {
   const label = String(value ?? unavailable).toUpperCase();
@@ -60,6 +74,38 @@ const fields = (items) => `<dl>${items.map(([name, value]) => `<dt>${esc(name)}<
 const get = (parent, selector) => parent.querySelector(selector);
 const scenarioName = (key) => scenarios.find(item => item[0] === key)?.[1] ?? ({workspace:"真实任务", runtime:"Runtime"})[key] ?? key;
 const titleFor = (row) => row.task_title || row.title || row.task || scenarioName(row.scenario) || row.run_id;
+const columnPreferences = new Map();
+
+function tableColumns(container, key) {
+  const grid = get(container,"table");
+  if (!grid) return;
+  const excluded = columnPreferences.get(key) ?? new Set();
+  columnPreferences.set(key,excluded);
+  const headings = [...grid.querySelectorAll("thead th")];
+  const control = document.createElement("details");
+  control.innerHTML = `<summary>列显示</summary><div class="filters">${headings.map((heading,index) =>
+    `<label class="inline"><input type="checkbox" value="${index}" ${excluded.has(index)?"":"checked"} ${index===0?"disabled":""}>${esc(heading.textContent)}</label>`
+  ).join("")}</div>`;
+  container.prepend(control);
+  const paint = () => {
+    for (const row of grid.rows) {
+      [...row.cells].forEach((cell,index) => { cell.hidden=excluded.has(index); });
+    }
+  };
+  control.onchange = event => {
+    const index = Number(event.target.value);
+    if (event.target.checked) excluded.delete(index);
+    else excluded.add(index);
+    paint();
+  };
+  headings.forEach(heading => {
+    const title = document.createElement("div");
+    title.className = "column-title";
+    title.textContent = heading.textContent;
+    heading.replaceChildren(title);
+  });
+  paint();
+}
 
 async function api(path, body, {blob = false, launchKey} = {}) {
   tokenPromise ??= fetch("/session-token", {cache:"no-store"}).then(async response => {
@@ -249,7 +295,9 @@ async function runsPage(version) {
     row.recovered ? "recovered" : row.execution_status;
   get(main,"#filters").closest("section").insertAdjacentHTML("beforebegin",`<div class="grid">${[
     ["总运行",runs.length,"账本"],["运行中",runs.filter(row=>row.phase==="running" && !row.execution_status && !row.unknown_effects).length,"尚无终态执行结果"],
-    ["执行失败",runs.filter(row=>outcome(row)==="failed").length,"实际执行结果"],["效果未知",runs.filter(row=>outcome(row)==="unknown").length,"保留 UNKNOWN"]
+    ["执行完成",runs.filter(row=>row.execution_status==="succeeded" || row.phase==="completed").length,"任务结果"],
+    ["执行失败",runs.filter(row=>outcome(row)==="failed").length,"实际执行结果"],["效果未知",runs.filter(row=>outcome(row)==="unknown").length,"保留 UNKNOWN"],
+    ["待恢复","NOT_AVAILABLE","需要显式的恢复待处理状态"]
   ].map(item=>metric(...item)).join("")}</div>`);
   const paint = () => {
     const {search,phase,scenario,from,to,result,repository,commit,order} = Object.fromEntries(new FormData(filter));
@@ -273,6 +321,7 @@ async function runsPage(version) {
       pill(outcome(row) ?? row.phase),esc(time(row.created_at)),
       button("复制 ID",`data-copy-run="${esc(row.run_id)}"`,"soft")+button("JSON",`data-product-export="/runs/${enc(row.run_id)}?figures=false" data-filename="${esc(row.run_id)}.json"`,"soft")
     ]))}`;
+    tableColumns(get(main,"#run-table"),"runs");
     get(main,"#run-pagination").innerHTML = `${button("上一页",`id="previous-page" ${page===0?"disabled":""}`,"soft")} ${page+1} / ${pages} ${button("下一页",`id="next-page" ${page+1===pages?"disabled":""}`,"soft")}`;
     get(main,"#previous-page").onclick = () => {page--; paint();};
     get(main,"#next-page").onclick = () => {page++; paint();};
@@ -296,7 +345,8 @@ async function runsPage(version) {
   get(main,"#compare-runs").onclick = async () => {
     const box = modal("Compare Runs",empty("正在读取两个 Run 的证据…"));
     try {
-      const pair = await Promise.all([...selected].map(id => api(`/runs/${enc(id)}?figures=false`)));
+      const pair = [];
+      for (const id of selected) pair.push(await api(`/runs/${enc(id)}?figures=false`));
       const counts = run => run.events.reduce((map,event) => ((map[event.event_type] ??= 0),map[event.event_type]++,map),Object.create(null));
       const [left,right] = pair.map(counts);
       const changed = [...new Set([...Object.keys(left),...Object.keys(right)])].filter(key => left[key] !== right[key]);
@@ -530,7 +580,7 @@ function duration(start, end) {
   return Number.isFinite(elapsed) && elapsed >= 0 ? `${elapsed.toFixed(2)} 秒` : unavailable;
 }
 
-async function runDetail(version, id, initialTab) {
+async function runDetail(version, id, initialTab, focusKind, focusId) {
   const path = `/runs/${enc(id)}`;
   let view = await api(`${path}?figures=false`);
   if (version !== routeVersion) return;
@@ -837,6 +887,15 @@ async function runDetail(version, id, initialTab) {
   });
   header();
   paint();
+  if (focusKind === "attempt" && focusId) selection("attempt",focusId);
+  if (focusKind === "effect" && focusId) {
+    const item = view.effects.find(effect=>effect.effect_id === focusId || effect.idempotency_key === focusId);
+    if (item) selection("effect",item.idempotency_key);
+  }
+  if (focusKind === "receipt" && focusId) {
+    const item = view.receipts.find(receipt=>receipt.receipt_id === focusId);
+    if (item) selection("receipt",item.idempotency_key);
+  }
   signature = snap();
   refreshTimer = setInterval(refresh,2500);
   routeCleanup = () => dialog.removeEventListener("click",wire);
@@ -858,7 +917,7 @@ async function researchPage(version, cellId) {
   const digest = Object.entries(sha256).filter(([name]) => name === "report.json")[0]?.[1];
   const artifact = (name,label) => button(esc(label),`data-research-file="${esc(name)}"`,"soft");
   main.innerHTML = `<div class="stack">
-    ${heading("Research Lab", "Effect History Evaluation · 协议、对照与原始证据。", artifact("protocol","下载冻结协议"))}
+    ${heading("Research Lab", "Effect History Evaluation · 协议、对照与原始证据。", `${link("Evidence Audit","#/research/audit","outline")}${artifact("protocol","下载冻结协议")}`)}
     <section class="card stack-small"><h2>研究问题与适用范围</h2>
       ${fields([["批次","pilot-01"],["Research Question","终态通过时，提交时业务违规能否被掩盖？"],
       ["Hypothesis","提交时业务核对能揭示漏检。调度增量需在等预算下超过已有强对照。"],
@@ -878,7 +937,7 @@ async function researchPage(version, cellId) {
         <p>数值表示每个边界内检出的业务输入数。强对照在预检后、提交前更新业务状态。本批次配对调度与强对照打平。</p>
         <p>实验范围为归档中的确定性夹具与调度顺序。</p>
       </section>
-      <section class="card c6 stack-small"><h2>Evidence Integrity</h2>
+      <section class="card c6 stack-small" id="research-integrity"><h2>Evidence Integrity</h2>
         ${fields([["原始记录",esc(`${integrity.files-integrity.missing.length}/${integrity.files}`)],["归档 SHA-256",pill(archiveMatch ? "MATCH" : "MISMATCH")],
           ["协议摘要",pill(data.protocol_matches ? "MATCH" : "MISMATCH")],["逐格证据错误",esc(report.errors.length)],["归档 Git Commit",`<span class="mono">${esc(data.archive_commit)}</span>`],
           ["报告 SHA-256",`<span class="mono">${esc(digest)}</span>`]])}
@@ -896,6 +955,7 @@ async function researchPage(version, cellId) {
   const portfolios = {ordinary:["before_check","after_commit"],paired:["check_commit_gap","after_commit"],strong_existing:["before_check","check_commit_gap"]};
   const failed = new Set(report.errors.map(item => item.case));
   const invalidFiles = new Set([...integrity.missing,...integrity.mismatched]);
+  let latestAudit;
   const cells = data.manifest.cases.map(item => report.rows.find(row => row.id === item.id) ?? {...item, historical_flags:null});
   function paintCells() {
     const arm = get(main,"#arm-filter").value;
@@ -903,13 +963,16 @@ async function researchPage(version, cellId) {
     const result = get(main,"#cell-result").value;
     const query = get(main,"#cell-search").value.trim().toLowerCase();
     const status = row => failed.has(row.id) || row.historical_flags === null ? "unknown" : row.historical_flags ? "violation" : "match";
-    get(main,"#cell-table").innerHTML = table(["实验格","执行边界","夹具","时序","最终产物","提交时核验","证据校验"],cells.filter(row =>
+    const integrityFor = (row,name) => !sha256[row.id+"/"+name] ? "NOT_AVAILABLE" : invalidFiles.has(row.id+"/"+name) ? "MISMATCH" : "MATCH";
+    get(main,"#cell-table").innerHTML = table(["实验格","执行边界","夹具","时序","最终产物","提交时核验","目标账本","时序哈希","回执与重算"],cells.filter(row =>
       (!arm || arm === row.arm) && (!strategy || portfolios[strategy].includes(row.schedule)) &&
       (!result || status(row) === result) && row.id.toLowerCase().includes(query)).map(row => [
       button(esc(row.id),`data-cell="${esc(row.id)}"`,"soft"),esc(armLabels[row.arm]),esc(row.fixture),esc(schedulerLabels[row.schedule]),
       pill(row.final_match == null ? "NOT_AVAILABLE" : row.final_match ? "MATCH" : "MISMATCH"),pill(status(row)),
-      pill([...invalidFiles].some(name => name.startsWith(row.id+"/")) ? "MISMATCH" : status(row) === "unknown" ? "NOT_AVAILABLE" : "MATCH"),
+      pill(integrityFor(row,"target.sqlite")),pill(integrityFor(row,"trace.json")),
+      pill(latestAudit?.status === "VERIFIED" && archiveMatch && status(row) !== "unknown" && row.baseline_flags === false ? "VERIFIED" : "NOT_OBSERVED"),
     ]));
+    tableColumns(get(main,"#cell-table"),"research");
   }
   for (const selector of ["#arm-filter","#strategy-filter","#cell-result","#cell-search"]) get(main,selector).oninput = paintCells;
   paintCells();
@@ -917,7 +980,10 @@ async function researchPage(version, cellId) {
   async function refreshAudits() {
     try {
       const {audits} = await api("/observatory/research/audits");
+      if (version !== routeVersion) return;
+      latestAudit = audits[0];
       historyBox.innerHTML = audits.length ? details("复核记录",audits) : empty("尚无本机复核记录。");
+      if (get(main,"#cell-table")) paintCells();
     } catch (error) { historyBox.innerHTML = errorBox(error); }
   }
   refreshAudits();
@@ -947,7 +1013,8 @@ async function researchPage(version, cellId) {
       box.innerHTML = `<div class="stack-small">${fields([["执行边界",esc(armLabels[cell.row.arm])],["协议 SHA-256",esc(data.protocol_sha256)],
         ["最终产物",pill(cell.row.final_match ? "MATCH" : "MISMATCH")],["提交时违规",esc(cell.row.invalid_effects.join(" · ") || "无")],
         ["旧动作拒绝原因",esc(cell.row.old_rejection)]])}
-        ${fields([["初始业务值",esc(cell.row.worlds["1"])],["最终应写值",esc(cell.row.worlds["2"])]])}
+        ${fields([["初始业务值",esc(cell.row.worlds["1"])],["最终应写值",esc(cell.row.worlds["2"])],
+          ["实际最终产物",esc(cell.final_artifact?.bytes?.text)],["产物来源",esc(cell.final_artifact?.source)]])}
         <h3>目标事件与回执</h3>${table(["顺序","事件","提交时应写值","目标端证据"],cell.timeline.map(item => [
           esc(item.sequence),esc(`${item.event} ${item.key ?? ""}`),esc(item.expected),item.target_record ?
           `<details ${item.violation ? "open" : ""}><summary>${item.violation ? "违规原始记录" : "目标记录"}</summary>${raw({table:item.target_table,row:item.target_record,receipt:item.receipt})}</details>` : pill("NOT_OBSERVED")
@@ -959,8 +1026,13 @@ async function researchPage(version, cellId) {
   }
   const protocolBox = get(main,"#protocol-content");
   if (cellId === "audit") {
-    get(main,"#audit-research").focus();
-    get(main,"#audit-research").scrollIntoView({block:"center"});
+    const auditPanel = get(main,"#research-integrity");
+    const auditPage = document.createElement("div");
+    auditPage.className = "stack";
+    auditPage.innerHTML = heading("Evidence Audit","冻结协议、归档完整性与本地独立复核。",link("返回实验分析","#/research","outline"));
+    auditPage.append(auditPanel);
+    main.replaceChildren(auditPage);
+    get(auditPanel,"#audit-research").focus();
   } else if (cellId) openCell(cellId);
   api("/observatory/research/artifacts/protocol",undefined,{blob:true}).then(value => value.text()).then(value => {
     protocolBox.innerHTML = details("展开协议原文",value);
@@ -973,8 +1045,8 @@ async function systemPage(version) {
   const components = [
     ["Runtime","AVAILABLE",{版本:data.runtime,Python:data.python,启动时间:time(data.started_at),运行时长:`${Math.floor(data.uptime_seconds)} s`}],
     ["Control Plane",data.control_plane,{authority:"run_ledger",最近检查:time(data.checked_at)}],
-    ["SQLite",data.sqlite.status,{引擎:data.sqlite.version,模式:data.sqlite.schema,事务日志:data.sqlite.journal,当前事务:String(data.sqlite.transaction),耗时:`${data.sqlite.check_ms} ms`}],
-    ["Worker",data.worker.status,{等待中:data.worker.jobs.queued,活跃任务:data.worker.jobs.running,跟踪中的进程:data.worker.attached_runs,当前租约:data.worker.held_leases,近期任务:data.worker.recent}],
+    ["SQLite",data.sqlite.status,{引擎:data.sqlite.version,模式:data.sqlite.schema,事务日志:data.sqlite.journal,当前事务:data.sqlite.transaction == null ? unavailable : String(data.sqlite.transaction),耗时:`${data.sqlite.check_ms} ms`,最近成功:time(data.sqlite.last_success),最近故障:time(data.sqlite.last_error)}],
+    ["Worker",data.worker.status,{等待中:data.worker.jobs.queued,活跃任务:data.worker.jobs.running,跟踪中的进程:data.worker.attached_runs,活跃Attempt:data.worker.active_attempts,当前租约:data.worker.held_leases,近期任务:data.worker.recent}],
     ["Docker",data.docker.status,{引擎探测:data.docker.status,耗时:`${data.docker.check_ms} ms`}],
     ["DeepSeek",data.model.status,{连接测试:data.model.connectivity}],
     ["Storage","AVAILABLE",{RunLedger:[data.storage.ledger],效果接收器:[data.storage.sink]}],
@@ -1022,7 +1094,7 @@ async function renderRoute() {
   routeCleanup = undefined;
   main.onclick = null;
   if (dialog.open) dialog.close();
-  const [,routeName,id,tab] = location.hash.split("/");
+  const [,routeName,id,tab,kind,focusId] = location.hash.split("/");
   const page = Object.hasOwn(labels,routeName) ? routeName : "overview";
   document.querySelectorAll("[data-nav]").forEach(item => {
     if (item.dataset.nav === page) item.setAttribute("aria-current","page");
@@ -1034,7 +1106,7 @@ async function renderRoute() {
   window.scrollTo(0,0);
   const connection = document.querySelector("#connection");
   try {
-    if (page === "runs" && id) await runDetail(version,decodeURIComponent(id),tab);
+    if (page === "runs" && id) await runDetail(version,decodeURIComponent(id),tab,kind,focusId ? decodeURIComponent(focusId) : undefined);
     else if (page === "research") await researchPage(version,id ? decodeURIComponent(id) : undefined);
     else await ({overview,workspace:workspacePage,runs:runsPage,system:systemPage})[page](version);
     if (version === routeVersion) connection.removeAttribute("data-offline");
@@ -1071,7 +1143,7 @@ function openSearch() {
       const args = new URLSearchParams({q:values.get("query"),start:values.get("start"),end:values.get("end")});
       const {matches} = await api(`/observatory/search?${args}`);
       result.innerHTML = table(["类型","标识"], matches.map(item=>[
-        esc(item.type),`<a class="link mono" href="${item.type==="experiment" ? `#/research/${enc(item.id)}` : `${runLink(item.run_id)}/evidence`}">${esc(item.id)}</a>`
+        esc(item.type),`<a class="link mono" href="${item.type==="experiment" ? `#/research/${enc(item.id)}` : `${runLink(item.run_id)}/evidence/${enc(item.type)}/${enc(item.id)}`}">${esc(item.id)}</a>`
       ]));
     } catch (error) { result.innerHTML=errorBox(error); }
   };

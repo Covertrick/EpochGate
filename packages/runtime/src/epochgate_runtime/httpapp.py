@@ -99,6 +99,8 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
     started_at = datetime.now(timezone.utc).isoformat()
     archive = ResearchArchive(app.state.sessions.repo)
     launches = LaunchRequests(data_dir / "launch-requests.sqlite")
+    snapshot_lock = threading.RLock()
+    storage_checks: dict[str, str] = {}
     try:
         runtime_version = version("epochgate-runtime")
     except PackageNotFoundError:
@@ -110,6 +112,7 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.exception_handler(sqlite3.Error)
     async def storage_error(_request: Request, _exc: sqlite3.Error) -> JSONResponse:
+        storage_checks["last_error"] = datetime.now(timezone.utc).isoformat()
         return JSONResponse({"code": "storage_unavailable", "message": "账本暂时不可用。请稍后重新读取。"}, status_code=503)
 
     @app.exception_handler(SessionError)
@@ -160,6 +163,10 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.get("/runs")
     def list_runs() -> dict[str, Any]:
+        with snapshot_lock:
+            return runs_snapshot()
+
+    def runs_snapshot() -> dict[str, Any]:
         rows = []
         for row in runtime.ledger.list_runs():
             events = runtime.ledger.events(row["run_id"])
@@ -193,7 +200,7 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
             if (start and stamp[:10] < start) or (end and (not stamp or stamp[:10] > end)):
                 continue
             run_id = row["run_id"]
-            snapshot = _present_run(runtime, run_id, figures=False)
+            snapshot = get_run(run_id, False)
             candidates = [("run", run_id), ("commit", row["git_commit"])]
             candidates.extend(("attempt", item["attempt_id"]) for item in snapshot["attempts"])
             candidates.extend(("effect", item.get("effect_id") or item["idempotency_key"]) for item in snapshot["effects"])
@@ -210,7 +217,8 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.get("/runs/{run_id}")
     def get_run(run_id: str, figures: bool = True) -> dict[str, Any]:
-        return _present_run(runtime, run_id, figures=figures)
+        with snapshot_lock:
+            return _present_run(runtime, run_id, figures=figures)
 
     @app.get("/runs/{run_id}/events")
     def run_events(run_id: str, after: int = 0) -> StreamingResponse:
@@ -334,29 +342,41 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
             counts = {state: sum(job["status"] == state for job in jobs._jobs.values())
                       for state in ("queued", "running", "failed", "succeeded")}
             processes = list(jobs._processes)
-            recent = [{key: task[key] for key in ("job_id", "run_id", "status")} for task in list(jobs._jobs.values())[-10:]]
+            recent = [{key: task[key] for key in ("job_id", "run_id", "status", "queued_at", "updated_at")}
+                      for task in list(jobs._jobs.values())[-10:]]
         sqlite_start = time.perf_counter()
-        with runtime.ledger._lock:
-            db = runtime.ledger._conn
-            storage_path = db.execute("PRAGMA database_list").fetchone()[2]
-            journal_mode = db.execute("PRAGMA journal_mode").fetchone()[0]
-            schema = runtime.ledger.schema_version()
-            transaction = db.in_transaction
-        with runtime.sink._lock:
-            sink_path = runtime.sink._conn.execute("PRAGMA database_list").fetchone()[2]
+        checked = datetime.now(timezone.utc).isoformat()
+        storage_path = sink_path = None
+        held_leases = None
+        try:
+            with runtime.ledger._lock:
+                db = runtime.ledger._conn
+                storage_path = db.execute("PRAGMA database_list").fetchone()[2]
+                sqlite_status = {"status": "CONNECTED", "version": sqlite3.sqlite_version,
+                                 "schema": runtime.ledger.schema_version(), "journal": db.execute("PRAGMA journal_mode").fetchone()[0],
+                                 "transaction": db.in_transaction}
+                held_leases = len(runtime.ledger.held_leases())
+            with runtime.sink._lock:
+                sink_path = runtime.sink._conn.execute("PRAGMA database_list").fetchone()[2]
+            storage_checks["last_success"] = checked
+        except sqlite3.Error:
+            sqlite_status = {"status": "NOT_AVAILABLE"}
+            storage_checks["last_error"] = checked
+        sqlite_status.update(storage_checks, check_ms=round((time.perf_counter() - sqlite_start) * 1000, 2))
         def storage_info(path):
+            if path is None:
+                return {"name": None, "bytes": None}
             file = Path(path)
             return {"name": file.name if path else ":memory:",
                     "bytes": file.stat().st_size if path and file.is_file() else None}
         return {"checked_at": datetime.now(timezone.utc).isoformat(), "started_at": started_at,
                 "uptime_seconds": (datetime.now(timezone.utc) - datetime.fromisoformat(started_at)).total_seconds(),
                 "runtime": runtime_version, "python": sys.version.split()[0], "control_plane": "AVAILABLE",
-                "sqlite": {"status": "CONNECTED", "version": sqlite3.sqlite_version, "schema": schema, "journal": journal_mode,
-                           "check_ms": round((time.perf_counter() - sqlite_start) * 1000, 2), "transaction": transaction},
+                "sqlite": sqlite_status,
                 "storage": {"ledger": storage_info(storage_path), "sink": storage_info(sink_path)},
                 "docker": {"status": "AVAILABLE" if engine else docker_reason(), "check_ms": docker_ms},
                 "worker": {"status": "IN_PROCESS", "jobs": counts, "attached_runs": processes, "recent": recent,
-                           "held_leases": len(runtime.ledger.held_leases())},
+                           "held_leases": held_leases, "active_attempts": None},
                 "model": {"status": "CONFIGURED" if api_key() else "NOT_CONFIGURED", "connectivity": "NOT_OBSERVED"}}
 
     @app.get("/observatory/system/log")

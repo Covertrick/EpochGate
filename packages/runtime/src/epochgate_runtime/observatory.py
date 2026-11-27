@@ -122,7 +122,7 @@ def summarize(row: dict, events: list[dict], effects: list[dict], receipts: list
             "recovered": any(event["event_type"] == "reconciled_from_sink" for event in events),
             "confirmed": statuses["VERIFIED"], "receipt_mismatches": statuses["MISMATCH"],
             "rejected_submissions": rejected, "unknown_effects": unknown,
-            "receipt_status": "MISMATCH" if statuses["MISMATCH"] else "VERIFIED" if receipts and not unknown and statuses["VERIFIED"] == len(receipts) else "PARTIAL" if statuses["VERIFIED"] else "NOT_OBSERVED",
+            "receipt_status": "MISMATCH" if statuses["MISMATCH"] else "VERIFIED" if receipts and not unknown and statuses["VERIFIED"] == len(receipts) else "PARTIAL" if statuses["VERIFIED"] else "NOT_AVAILABLE" if statuses["NOT_AVAILABLE"] else "NOT_OBSERVED",
             "effect_count": len(effects), "duplicate_publications": duplicate_publications}
 
 
@@ -203,7 +203,17 @@ class ResearchArchive:
             conn.row_factory = sqlite3.Row
             ledger = {table: [{key: _json_value(item[key]) for key in item.keys()} for item in conn.execute(f"SELECT * FROM {table}")] for table in tables}
         trace = json.loads(trace_path.read_bytes())
+        if row["arm"] == "file":
+            final_path = self.artifact(f"{cell_id}/result.txt")
+            final_bytes = final_path.read_bytes()
+            if hashlib.sha256(final_bytes).hexdigest() != data["sha256"][f"{cell_id}/result.txt"]:
+                raise ValueError(f"Evidence hash mismatch: {cell_id}/result.txt")
+            final_artifact = {"source": "result.txt", "bytes": _json_value(final_bytes)}
+        else:
+            successor = next((item for item in ledger["target_effects"] if item["effect_key"] == "successor"), None)
+            final_artifact = {"source": "target_effects:successor", "bytes": successor["payload"]} if successor else None
         return {"row": row, "trace": trace, "ledger": ledger,
+                "final_artifact": final_artifact,
                 "artifacts": {name: digest for name, digest in data["sha256"].items() if name.startswith(f"{cell_id}/")}}
 
 

@@ -1,5 +1,7 @@
 ﻿import io
 import json
+import sqlite3
+import time
 import zipfile
 from pathlib import Path
 
@@ -47,5 +49,43 @@ def test_product_archive_and_launch_contract(tmp_path, monkeypatch):
         assert client.get(f"{base}/export/csv").content.count(b"sqlite-inventory-check_commit_gap") == 1
         assert client.post(f"{base}/audit").json()["status"] == "VERIFIED"
         assert client.get(f"{base}/audits").json()["audits"][0]["report_sha256"]
+
+        job_id = client.post("/actions/unknown-outcome").json()["job_id"]
+        for _ in range(50):
+            job = client.get(f"/jobs/{job_id}").json()
+            if job["status"] not in {"queued", "running"}:
+                break
+            time.sleep(.02)
+        assert job["status"] == "succeeded"
+        run_id = job["run_id"]
+        for _ in range(2):
+            detail = client.get(f"/runs/{run_id}?figures=false").json()
+            assert detail["summary"]["unknown_effects"] == 1
+            assert detail["receipts"] == []
+        assert any(match["id"] == run_id for match in client.get(f"/observatory/search?q={run_id}").json()["matches"])
+    finally:
+        runtime.close()
+
+
+def test_unavailable_sink_does_not_verify_a_mismatched_receipt(tmp_path, monkeypatch):
+    runtime = Runtime.open(tmp_path / "epochgate.db")
+    try:
+        ledger = runtime.ledger
+        ledger.create_run("receipt-run")
+        state = ledger.advance("receipt-run", "running")
+        runtime.sink.accept("key", expected_version=1, payload="target")
+        ledger.store_receipt("receipt-run", "key", state.fencing_token, "incorrect-receipt")
+        client = TestClient(create_app(runtime, tmp_path, "token"), headers={"Authorization": "Bearer token"})
+
+        path = "/runs/receipt-run?figures=false"
+        assert client.get(path).json()["receipts"][0]["status"] == "MISMATCH"
+
+        def unavailable(_key):
+            raise sqlite3.OperationalError("closed")
+
+        monkeypatch.setattr(runtime.sink, "get", unavailable)
+        result = client.get(path).json()
+        assert result["receipts"][0]["status"] == "NOT_AVAILABLE"
+        assert result["summary"]["confirmed"] == 0
     finally:
         runtime.close()

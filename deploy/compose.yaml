@@ -1,0 +1,23 @@
+services:
+  control:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    network_mode: host
+    working_dir: /repo
+    volumes:
+      - epochgate-data:/data
+      - ../.git:/repo/.git:ro
+      - ../experiments:/repo/experiments:ro
+      - ../results/experiments/effect-history:/repo/results/experiments/effect-history:ro
+      - ../packages/eg-workspace:/repo/packages/eg-workspace:ro
+      - ../examples/sample-task:/repo/examples/sample-task:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8765/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+volumes:
+  epochgate-data:

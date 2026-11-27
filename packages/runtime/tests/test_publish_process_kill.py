@@ -8,11 +8,20 @@ import sys
 import time
 from pathlib import Path
 
+from epochgate_runtime import files
 from epochgate_runtime.files import publish_frozen_file, recover_frozen_publish
 from epochgate_runtime.ledger import RunLedger
 
 
 def _child(root: Path) -> None:
+    original_pause = files._pause
+
+    def report_pause(point: str) -> None:
+        if point == os.environ.get("EPOCHGATE_PAUSE_AT"):
+            (root / "checkpoint").touch()
+        original_pause(point)
+
+    files._pause = report_pause
     workspace = root / "ws"
     workspace.mkdir()
     staging = workspace / "stage.bin"
@@ -46,9 +55,15 @@ def test_process_kill_at_four_publish_points(tmp_path: Path) -> None:
         env = os.environ.copy()
         env["EPOCHGATE_PAUSE_AT"] = point
         process = subprocess.Popen([sys.executable, __file__, str(root)], env=env)
-        time.sleep(0.6)
-        process.kill()
-        process.wait(timeout=10)
+        try:
+            deadline = time.monotonic() + 15
+            while not (root / "checkpoint").exists():
+                assert process.poll() is None, point
+                assert time.monotonic() < deadline, point
+                time.sleep(.02)
+        finally:
+            process.kill()
+            process.wait(timeout=10)
         ledger = RunLedger(root / "ledger.sqlite")
         recovered = recover_frozen_publish(
             ledger,

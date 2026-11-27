@@ -156,3 +156,7 @@ dialog::backdrop { background: #202e26a8; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+.column-title { min-width: 4ch; resize: horizontal; overflow: hidden; white-space: nowrap; padding-right: 9px; }
+.code-key { color: #bbd6e5; }
+.code-string { color: #d3e6a4; }
+.code-literal { color: #f2cf96; }

@@ -5,6 +5,7 @@ from __future__ import annotations
 import threading
 import uuid
 from collections.abc import Callable
+from datetime import datetime, timezone
 from typing import Any
 
 
@@ -16,7 +17,9 @@ class JobRunner:
 
     def submit(self, work: Callable[[], dict[str, Any]], *, run_id: str | None = None) -> dict[str, Any]:
         job_id = "job-" + uuid.uuid4().hex[:12]
-        record = {"job_id": job_id, "status": "queued", "run_id": run_id, "error": None, "result": None}
+        stamp = datetime.now(timezone.utc).isoformat()
+        record = {"job_id": job_id, "status": "queued", "run_id": run_id, "error": None, "result": None,
+                  "queued_at": stamp, "updated_at": stamp}
         with self._lock:
             self._jobs[job_id] = record
 
@@ -58,3 +61,4 @@ class JobRunner:
         with self._lock:
             current = self._jobs[job_id]
             current.update(fields)
+            current["updated_at"] = datetime.now(timezone.utc).isoformat()
