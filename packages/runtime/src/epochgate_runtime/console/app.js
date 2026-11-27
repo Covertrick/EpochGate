@@ -778,7 +778,14 @@ async function researchPage(version) {
   const digest = Object.entries(sha256).filter(([name]) => name === "report.json")[0]?.[1];
   const artifact = (name,label) => button(esc(label),`data-research-file="${esc(name)}"`,"soft");
   main.innerHTML = `<div class="stack">
-    ${heading("Effect History Evaluation", "终态正确性与执行历史正确性的确定性回放评估。", artifact("protocol","下载冻结协议"))}
+    ${heading("Research Lab", "Effect History Evaluation · 协议、对照与原始证据。", artifact("protocol","下载冻结协议"))}
+    <section class="card stack-small"><h2>研究问题与适用范围</h2>
+      ${fields([["批次","pilot-01"],["Research Question","终态通过时，提交时业务违规能否被掩盖？"],
+      ["Hypothesis","提交时业务核对能揭示漏检。调度增量需在等预算下超过已有强对照。"],
+      ["Dataset",`${report.cells} 格 · SQLite、文件发布 · 三个执行臂`],
+      ["Metrics","终态匹配、授权/去重/回执检出、提交时业务违规、各臂等预算检出"],
+      ["Limitations","固定夹具和确定性顺序。总体失败率、掉电耐久、网络故障和模型泛化尚未观测。"]])}
+    </section>
     <div class="grid">${[
       ["实验格",report.cells,"归档报告"],["最终产物正确",`${report.cells-report.final_flags}/${report.cells}`,"最终产物匹配"],
       ["提交时业务违规",report.hidden_counterexamples,Object.keys(armLabels).map(arm => [arm,detected.filter(row=>row.arm===arm).length]).filter(([,count])=>count).map(([arm,count])=>`${armLabels[arm]} ${count}`).join(" · ")],
@@ -794,22 +801,46 @@ async function researchPage(version) {
       <section class="card c6 stack-small"><h2>Evidence Integrity</h2>
         ${fields([["原始记录",esc(`${integrity.files-integrity.missing.length}/${integrity.files}`)],["归档 SHA-256",pill(archiveMatch ? "MATCH" : "MISMATCH")],
           ["协议摘要",pill(data.protocol_matches ? "MATCH" : "MISMATCH")],["逐格证据错误",esc(report.errors.length)],["归档 Git Commit",`<span class="mono">${esc(data.archive_commit)}</span>`],
-          ["报告 SHA-256",`<span class="mono">${esc(digest)}</span>`],["独立复核记录",pill("NOT_AVAILABLE")]])}
+          ["报告 SHA-256",`<span class="mono">${esc(digest)}</span>`]])}
         ${integrity.missing.length || integrity.mismatched.length ? details("缺失或不匹配的文件",integrity) : ""}
         <div class="actions">${button("从目标账本独立重算",'id="audit-research"')}${artifact("sha256.json","校验清单")}${artifact("report.json","原始报告")}${artifact("manifest.json","实验清单")}</div>
-        <div id="audit-result"></div>
+        <div id="audit-result"></div><div id="audit-history"></div>
+        <div class="actions">${["json","csv","md","zip"].map(kind => button(`导出 ${kind.toUpperCase()}`,`data-product-export="/observatory/research/export/${kind}" data-filename="effect-history.${kind}"`,"soft")).join("")}</div>
       </section></div>
     <section class="card stack-small"><div class="heading"><h2>实验格与目标证据</h2><label>执行边界 <select id="arm-filter"><option value="">全部</option>${Object.entries(armLabels).map(([key,label]) => `<option value="${key}">${label}</option>`).join("")}</select></label></div>
+    <div class="filters"><label>实验格 ID <input type="search" id="cell-search"></label>
+    <label>调度策略 <select id="strategy-filter"><option value="">全部</option>${strategies.map((key,i)=>`<option value="${key}">${["普通","配对","强对照"][i]}</option>`).join("")}</select></label>
+    <label>结果 <select id="cell-result"><option value="">全部</option><option value="violation">发现</option><option value="match">未发现</option><option value="unknown">不可判定</option></select></label></div>
     <div id="cell-table"></div></section>
     <section class="card"><h2>冻结协议</h2><p class="mono">${esc(data.protocol_sha256)}</p><div id="protocol-content">${empty("正在读取冻结协议…")}</div></section></div>`;
-  function paintCells(arm = "") {
-    get(main,"#cell-table").innerHTML = table(["实验格","执行边界","夹具","时序","最终产物","提交时核验"],report.rows.filter(row => !arm || arm === row.arm).map(row => [
+  const portfolios = {ordinary:["before_check","after_commit"],paired:["check_commit_gap","after_commit"],strong_existing:["before_check","check_commit_gap"]};
+  const failed = new Set(report.errors.map(item => item.case));
+  const invalidFiles = new Set([...integrity.missing,...integrity.mismatched]);
+  const cells = data.manifest.cases.map(item => report.rows.find(row => row.id === item.id) ?? {...item, historical_flags:null});
+  function paintCells() {
+    const arm = get(main,"#arm-filter").value;
+    const strategy = get(main,"#strategy-filter").value;
+    const result = get(main,"#cell-result").value;
+    const query = get(main,"#cell-search").value.trim().toLowerCase();
+    const status = row => failed.has(row.id) || row.historical_flags === null ? "unknown" : row.historical_flags ? "violation" : "match";
+    get(main,"#cell-table").innerHTML = table(["实验格","执行边界","夹具","时序","最终产物","提交时核验","证据校验"],cells.filter(row =>
+      (!arm || arm === row.arm) && (!strategy || portfolios[strategy].includes(row.schedule)) &&
+      (!result || status(row) === result) && row.id.toLowerCase().includes(query)).map(row => [
       button(esc(row.id),`data-cell="${esc(row.id)}"`,"soft"),esc(armLabels[row.arm]),esc(row.fixture),esc(schedulerLabels[row.schedule]),
-      pill(row.final_match ? "MATCH" : "MISMATCH"),pill(row.historical_flags ? "VIOLATION" : "MATCH"),
+      pill(row.final_match == null ? "NOT_AVAILABLE" : row.final_match ? "MATCH" : "MISMATCH"),pill(status(row)),
+      pill([...invalidFiles].some(name => name.startsWith(row.id+"/")) ? "MISMATCH" : status(row) === "unknown" ? "NOT_AVAILABLE" : "MATCH"),
     ]));
   }
-  get(main,"#arm-filter").onchange = event => paintCells(event.target.value);
+  for (const selector of ["#arm-filter","#strategy-filter","#cell-result","#cell-search"]) get(main,selector).oninput = paintCells;
   paintCells();
+  const historyBox = get(main,"#audit-history");
+  async function refreshAudits() {
+    try {
+      const {audits} = await api("/observatory/research/audits");
+      historyBox.innerHTML = audits.length ? details("复核记录",audits) : empty("尚无本机复核记录。");
+    } catch (error) { historyBox.innerHTML = errorBox(error); }
+  }
+  refreshAudits();
   main.onclick = event => {
     const control = event.target.closest("[data-cell]");
     if (control) openCell(control.dataset.cell);
@@ -822,6 +853,7 @@ async function researchPage(version) {
     try {
       const result = await api("/observatory/research/audit", {});
       box.innerHTML = `${pill(result.status)} ${result.result ? details("重算报告摘要",result.result) : errorBox(result.error || "重算失败")}`;
+      await refreshAudits();
     } catch (error) { box.innerHTML = errorBox(error); }
     finally { control.disabled = false; }
   };
@@ -835,6 +867,12 @@ async function researchPage(version) {
       box.innerHTML = `<div class="stack-small">${fields([["执行边界",esc(armLabels[cell.row.arm])],["协议 SHA-256",esc(data.protocol_sha256)],
         ["最终产物",pill(cell.row.final_match ? "MATCH" : "MISMATCH")],["提交时违规",esc(cell.row.invalid_effects.join(" · ") || "无")],
         ["旧动作拒绝原因",esc(cell.row.old_rejection)]])}
+        ${fields([["初始业务值",esc(cell.row.worlds["1"])],["最终应写值",esc(cell.row.worlds["2"])]])}
+        <h3>目标事件与回执</h3>${table(["顺序","事件","提交时应写值","目标端证据"],cell.timeline.map(item => [
+          esc(item.sequence),esc(`${item.event} ${item.key ?? ""}`),esc(item.expected),item.target_record ?
+          `<details ${item.violation ? "open" : ""}><summary>${item.violation ? "违规原始记录" : "目标记录"}</summary>${raw({table:item.target_table,row:item.target_record,receipt:item.receipt})}</details>` : pill("NOT_OBSERVED")
+        ]))}
+        ${button("下载逐格证据 ZIP",`data-product-export="/observatory/research/export/zip?cell_id=${enc(id)}" data-filename="${esc(id)}.zip"`,"soft")}
         ${details("冻结逐格结果",cell.row)}${details("目标端账本",cell.ledger)}${details("时序与接收器响应",cell.trace)}
         ${table(["归档文件","SHA-256"],Object.entries(cell.artifacts).map(([name,hash]) => [artifact(name,name.split("/").at(-1)),`<span class="mono">${esc(hash)}</span>`]))}</div>`;
     } catch (error) { if (box.researchTicket === ticket) box.innerHTML = errorBox(error); }
@@ -924,4 +962,15 @@ async function renderRoute() {
 }
 
 window.addEventListener("hashchange",renderRoute);
+document.addEventListener("click", async event => {
+  const control = event.target.closest("[data-product-export]");
+  if (!control) return;
+  control.disabled = true;
+  try {
+    const body = await api(control.dataset.productExport,undefined,{blob:true});
+    download(control.dataset.filename,body);
+    toast("已生成下载文件。");
+  } catch (error) { toast(error.message,true); }
+  finally { control.disabled = false; }
+});
 renderRoute();

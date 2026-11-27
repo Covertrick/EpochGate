@@ -33,6 +33,7 @@ from epochgate_runtime.figures import phase_label, write_run_figures
 from epochgate_runtime.jobs import JobRunner
 from epochgate_runtime.observations import observe_run
 from epochgate_runtime.observatory import ResearchArchive, evidence, summarize, workspace_preview
+from epochgate_runtime.product import audit_record, cell_timeline, research_export
 from epochgate_runtime.plugin_patch import find_repo
 from epochgate_runtime.processes import cancel_process, start_sleeper
 from epochgate_runtime.sandbox import docker_available, docker_reason, ensure_docker, stop_container
@@ -312,11 +313,22 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.post("/observatory/research/audit")
     def audit_research() -> dict[str, Any]:
-        return research_read(archive.audit)
+        return research_read(lambda: audit_record(archive, data_dir / "research-audits"))
+
+    @app.get("/observatory/research/audits")
+    def audit_history() -> dict[str, Any]:
+        paths = sorted((data_dir / "research-audits").glob("*.json"), reverse=True)[:30]
+        return {"audits": [json.loads(path.read_bytes()) for path in paths]}
+
+    @app.get("/observatory/research/export/{kind}")
+    def export_research(kind: str, cell_id: str | None = None) -> Response:
+        content, media_type = research_read(lambda: research_export(archive, kind, cell_id))
+        return Response(content, media_type=media_type)
 
     @app.get("/observatory/research/cells/{cell_id}")
     def research_cell(cell_id: str) -> dict[str, Any]:
-        return research_read(lambda: archive.cell(cell_id))
+        cell = research_read(lambda: archive.cell(cell_id))
+        return {**cell, "timeline": cell_timeline(cell)}
 
     @app.get("/observatory/research/artifacts/{name:path}")
     def research_artifact(name: str) -> Response:
