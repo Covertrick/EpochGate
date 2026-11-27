@@ -20,6 +20,9 @@ from fastapi.responses import FileResponse, JSONResponse, Response, StreamingRes
 from pydantic import BaseModel, ConfigDict, Field
 
 from epochgate_runtime.actions import run_walkthrough
+from epochgate_runtime.agent_decision import order_plan
+from epochgate_runtime.durable import Queue
+from epochgate_runtime.model_planner import propose
 from epochgate_runtime.agent_loop import api_key, redact
 from epochgate_runtime.api import EVENT_LABELS, Runtime
 from epochgate_runtime.demo import (
@@ -71,6 +74,32 @@ class WorkspaceBody(BaseModel):
     workspace: str
 
 
+class AgentTaskBody(BaseModel):
+    plan: list[dict[str, Any]]
+    budget: dict[str, int] = Field(default_factory=dict)
+    strategy: str = "partial"
+    recovery: str = "evidence"
+    queryable: bool = True
+    optimize: bool = False
+
+
+class AgentModelBody(BaseModel):
+    prompt: str = Field(min_length=1, max_length=8000)
+    resources: list[str] = Field(min_length=1, max_length=20)
+    budget: dict[str, int] = Field(default_factory=dict)
+
+
+class ReceiverBody(BaseModel):
+    operation: str
+    job: str
+    step: str
+    epoch: int = 0
+    worker: str = ""
+    effect: dict[str, Any] = Field(default_factory=dict)
+    versions: dict[str, int] = Field(default_factory=dict)
+    predicates: dict[str, Any] = Field(default_factory=dict)
+
+
 class PatchBody(BaseModel):
     path: str
     content: str
@@ -90,6 +119,7 @@ class ApiError(Exception):
 def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | None = None, control_url: str = "http://127.0.0.1:8765", demo_mode: bool = False) -> FastAPI:
     app = FastAPI(title="EpochGate", version="0.1.0", description="执行控制面。页面和 DSH 插件调用同一组路径。")
     jobs = JobRunner()
+    agent_queue = Queue(data_dir / "agent-queue.sqlite")
     action_locks = {name: threading.Lock() for name in _ACTIONS}
     app.state.runtime = runtime
     app.state.data_dir = data_dir
@@ -165,6 +195,63 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
     def list_runs() -> dict[str, Any]:
         with snapshot_lock:
             return runs_snapshot()
+
+    @app.post("/agent/tasks", status_code=202)
+    def submit_agent_task(body: AgentTaskBody, request: Request) -> dict[str, Any]:
+        task = body.model_dump()
+        try:
+            task["plan"] = order_plan(task["plan"])
+        except ValueError as exc:
+            raise ApiError(400, "invalid_plan", str(exc)) from exc
+        if body.strategy not in {"continue", "full", "version", "predicate", "partial"} or body.recovery not in {"fixed", "evidence"}:
+            raise ApiError(400, "invalid_policy", "Unknown policy")
+        validate_agent_budget(body.budget)
+        task["observed_world"] = agent_queue.world()
+        key = request.headers.get("Idempotency-Key")
+        if key and len(key) > 128:
+            raise ApiError(400, "invalid_launch_key", "启动请求标识过长。")
+        run_id = "agent-" + uuid.uuid5(uuid.NAMESPACE_URL, "epochgate/durable/" + key).hex if key else None
+        try:
+            return {"run_id": agent_queue.submit(task, run_id)}
+        except ValueError as exc:
+            raise ApiError(409, "launch_conflict", str(exc)) from exc
+
+    def validate_agent_budget(budget):
+        if not set(budget) <= {"tokens", "tools", "replans"} or any(value < 0 for value in budget.values()):
+            raise ApiError(400, "invalid_budget", "Invalid budget dimension or amount")
+
+    @app.post("/agent/model-tasks", status_code=202)
+    def submit_model_task(body: AgentModelBody) -> dict[str, Any]:
+        if demo_mode:
+            raise ApiError(409, "demo_mode", "隔离演示实例只接收离线计划。")
+        validate_agent_budget(body.budget)
+        before = agent_queue.world()
+        try:
+            task = propose(body.prompt, body.resources)
+        except (OSError, RuntimeError, ValueError, KeyError) as exc:
+            raise ApiError(502, "planner_unavailable", f"模型规划未完成 ({type(exc).__name__})") from exc
+        observed = {resource: before[resource] for resource in body.resources if resource in before}
+        task.update(budget=body.budget, observed_world=observed, optimize=True)
+        return {"run_id": agent_queue.submit(task), "usage": task["planner"]}
+
+    @app.get("/agent/tasks")
+    def list_agent_tasks() -> dict[str, Any]:
+        return {"runs": agent_queue.list()}
+
+    @app.get("/agent/tasks/{run_id}")
+    def agent_task(run_id: str) -> dict[str, Any]:
+        view = agent_queue.get(run_id)
+        if view is None:
+            raise ApiError(404, "unknown_task", "没有找到该计划。")
+        return view
+
+    @app.post("/agent/receiver")
+    def agent_receiver(body: ReceiverBody) -> dict[str, Any]:
+        if body.operation == "query":
+            return {"record": agent_queue.receipt(body.job, body.step)}
+        if body.operation == "commit":
+            return agent_queue.commit(body.job, body.epoch, body.worker, body.step, body.effect, body.versions, body.predicates)
+        raise ApiError(400, "unknown_operation", "未知接收端操作。")
 
     def runs_snapshot() -> dict[str, Any]:
         rows = []

@@ -46,6 +46,10 @@ uv run --locked --package epochgate-runtime egctl serve
 
 [7 分钟演示](docs/product/DEMO.md) · [架构](docs/product/Architecture.md) · [API](docs/product/API.md) · [部署](docs/product/DEPLOYMENT.md) · [发布验收](docs/product/RELEASE.md)
 
+### Evidence-aware Agent 先导
+
+新执行路径支持持久任务、独立 Worker、依赖驱动的局部计划修复，以及安全过滤后的恢复和预算决策。Run Details 可查看计划、接收端证据和结构化决策。 [运行方法、原始结果与验收边界](docs/agent/VERIFICATION.md)
+
 ## 技术架构
 
 ![EpochGate 的代理层、控制面和执行边界](docs/assets/architecture.png)

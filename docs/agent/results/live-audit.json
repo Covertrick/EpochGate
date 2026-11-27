@@ -1,0 +1,56 @@
+﻿{
+  "a4": {
+    "tasks": 3,
+    "success": 3,
+    "unknown": 0,
+    "invalid_effects": 0,
+    "duplicates": 0,
+    "details": [
+      {
+        "case": "code-updated",
+        "holdout": false,
+        "success": true,
+        "invalid_effects": 0,
+        "duplicates": 0,
+        "unknown": false,
+        "replans": 0,
+        "preserved_steps": 0,
+        "queries": 0,
+        "recovery_query_seconds": 0,
+        "tool_calls": 1,
+        "tokens": 196,
+        "seconds": 0.47048409993294626
+      },
+      {
+        "case": "publication-updated",
+        "holdout": false,
+        "success": true,
+        "invalid_effects": 0,
+        "duplicates": 0,
+        "unknown": false,
+        "replans": 0,
+        "preserved_steps": 0,
+        "queries": 0,
+        "recovery_query_seconds": 0,
+        "tool_calls": 1,
+        "tokens": 186,
+        "seconds": 0.3470920999534428
+      },
+      {
+        "case": "fulfillment-updated",
+        "holdout": true,
+        "success": true,
+        "invalid_effects": 0,
+        "duplicates": 0,
+        "unknown": false,
+        "replans": 0,
+        "preserved_steps": 0,
+        "queries": 0,
+        "recovery_query_seconds": 0,
+        "tool_calls": 1,
+        "tokens": 180,
+        "seconds": 0.3641832999419421
+      }
+    ]
+  }
+}

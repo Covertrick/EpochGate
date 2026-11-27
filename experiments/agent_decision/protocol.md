@@ -1,0 +1,7 @@
+﻿# Evidence-aware decision pilot protocol
+
+Unit of analysis is the task instance. Ten deterministic fixtures cover managed code content, managed file publication, and a held-out fulfillment family. Each policy receives the same plan, world update and fault schedule within an instance. Plans use a single managed key/value receiver. The receiver stores code and file content as managed values.
+
+Compare Always Continue, Full Replan, Version-Based, Predicate-Based, and dependency-aware repair. Ablate fixed recovery versus evidence recovery, then enable cost ranking. All arms share the receiver fence, idempotency and conditional write checks. Fixed recovery stops on ambiguous dispatch. Cost ranking uses hand-set costs. Proposal and replacement routes are declared in advance. A scoped live DeepSeek pilot generates one separate proposal per family and records real API usage. Its output is exploratory and excluded from the fixed synthetic-arm comparison.
+
+For each arm retain the plan, decisions, elapsed time, receiver records and target state. A separate scorer checks receiver record uniqueness, receipt digest, final values and decision costs. Failure, stopped and unknown cases remain in the denominator. Acknowledgment-loss cases exercise the same persisted dispatch and takeover path. One process-death regression separately kills a real process immediately after receiver commit. The study does not estimate broad Agent performance.

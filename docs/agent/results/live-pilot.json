@@ -1,0 +1,626 @@
+[
+  {
+    "case": {
+      "id": "code-updated",
+      "family": "code",
+      "holdout": false,
+      "scenario": "updated",
+      "expected": {
+        "artifact": "def answer():\n    return 2\n"
+      },
+      "plan": [
+        {
+          "step_id": "verify",
+          "read_set": [
+            "spec"
+          ],
+          "preconditions": {
+            "spec": "v1"
+          },
+          "repair": {
+            "preconditions": {
+              "spec": "v2"
+            }
+          }
+        },
+        {
+          "step_id": "publish",
+          "dependencies": [
+            "verify"
+          ],
+          "effect": {
+            "artifact": "def answer():\n    return 1\n"
+          },
+          "repair": {
+            "effect": {
+              "artifact": "def answer():\n    return 2\n"
+            }
+          }
+        }
+      ]
+    },
+    "arm": "a4",
+    "job": {
+      "id": "agent-ac9697d87e8c4a0282670534dc208b17",
+      "task": {
+        "observed_world": {
+          "spec": {
+            "value": "v2",
+            "version": 2
+          }
+        },
+        "optimize": true,
+        "plan": [
+          {
+            "dependencies": [],
+            "effect": {
+              "artifact": "def answer():\n    return 2\n"
+            },
+            "preconditions": {},
+            "read_set": [],
+            "step_id": "publish"
+          }
+        ],
+        "planner": {
+          "elapsed_seconds": 1.2812096000416204,
+          "input_tokens": 154,
+          "model": "deepseek-flash",
+          "output_tokens": 42,
+          "tokens": 196
+        },
+        "queryable": true,
+        "recovery": "evidence",
+        "strategy": "partial"
+      },
+      "status": "completed",
+      "owner": "pilot-worker",
+      "epoch": 1,
+      "deadline": 1795754164.912054,
+      "decisions": [
+        {
+          "sequence": 9,
+          "epoch": 1,
+          "kind": "planner",
+          "remaining_budget": {
+            "replans": 3,
+            "tokens": 19804,
+            "tools": 30
+          },
+          "step": null,
+          "usage": {
+            "elapsed_seconds": 1.2812096000416204,
+            "input_tokens": 154,
+            "model": "deepseek-flash",
+            "output_tokens": 42,
+            "tokens": 196
+          }
+        },
+        {
+          "sequence": 10,
+          "epoch": 1,
+          "action": "CONTINUE",
+          "affected_steps": [],
+          "budget": {
+            "replans": 3,
+            "tokens": 19804,
+            "tools": 30
+          },
+          "budget_charge": {
+            "replans": 0,
+            "tokens": 0,
+            "tools": 1
+          },
+          "candidate_costs": {
+            "CONTINUE": {
+              "latency_ms": 100,
+              "replans": 0,
+              "tokens": 0,
+              "tools": 1
+            }
+          },
+          "kind": "decision",
+          "observation": {
+            "authority": "VALID",
+            "dependency_known": true,
+            "evidence": "NEW",
+            "queryable": true,
+            "retry_guaranteed": true,
+            "semantic": "VALID"
+          },
+          "policy_version": "evidence-cost-v1",
+          "reason_code": "NEW_AUTHORIZED_STEP",
+          "required_evidence": [],
+          "safe_candidates": [
+            "CONTINUE"
+          ],
+          "step": "publish"
+        },
+        {
+          "sequence": 11,
+          "epoch": 1,
+          "changed_resources": [],
+          "kind": "dispatch",
+          "proposal": {
+            "effect": {
+              "artifact": "def answer():\n    return 2\n"
+            },
+            "predicates": {},
+            "versions": {
+              "artifact": 0
+            }
+          },
+          "step": "publish"
+        },
+        {
+          "sequence": 12,
+          "epoch": 1,
+          "dispatch_seconds": 0.01228069991338998,
+          "kind": "evidence",
+          "result": "CONFIRMED",
+          "step": "publish",
+          "target": {
+            "receipt": "21677168109764cac9a8129b58dd50385d80d6e4305b522476252e5ec01ded69",
+            "status": "COMMITTED"
+          }
+        },
+        {
+          "sequence": 13,
+          "epoch": 1,
+          "budget": {
+            "replans": 3,
+            "tokens": 19804,
+            "tools": 29
+          },
+          "kind": "terminal",
+          "result": "DONE",
+          "step": null
+        }
+      ],
+      "receipts": [
+        {
+          "job": "agent-ac9697d87e8c4a0282670534dc208b17",
+          "step": "publish",
+          "payload": "{\"artifact\":\"def answer():\\n    return 2\\n\"}",
+          "receipt": "21677168109764cac9a8129b58dd50385d80d6e4305b522476252e5ec01ded69",
+          "epoch": 1,
+          "commit_evidence": {
+            "observed": {
+              "artifact": null
+            },
+            "predicates": {},
+            "versions": {
+              "artifact": 0
+            }
+          }
+        }
+      ]
+    },
+    "world": {
+      "spec": {
+        "version": 2,
+        "value": "v2"
+      },
+      "artifact": {
+        "version": 1,
+        "value": "def answer():\n    return 2\n"
+      }
+    },
+    "elapsed_seconds": 0.47048409993294626
+  },
+  {
+    "case": {
+      "id": "publication-updated",
+      "family": "publication",
+      "holdout": false,
+      "scenario": "updated",
+      "expected": {
+        "artifact": "release-notes-v2"
+      },
+      "plan": [
+        {
+          "step_id": "verify",
+          "read_set": [
+            "spec"
+          ],
+          "preconditions": {
+            "spec": "v1"
+          },
+          "repair": {
+            "preconditions": {
+              "spec": "v2"
+            }
+          }
+        },
+        {
+          "step_id": "publish",
+          "dependencies": [
+            "verify"
+          ],
+          "effect": {
+            "artifact": "release-notes-v1"
+          },
+          "repair": {
+            "effect": {
+              "artifact": "release-notes-v2"
+            }
+          }
+        }
+      ]
+    },
+    "arm": "a4",
+    "job": {
+      "id": "agent-e9574b8178f74d00a0ea9f58ca0876a0",
+      "task": {
+        "observed_world": {
+          "spec": {
+            "value": "v2",
+            "version": 2
+          }
+        },
+        "optimize": true,
+        "plan": [
+          {
+            "dependencies": [],
+            "effect": {
+              "artifact": "release-notes-v2"
+            },
+            "preconditions": {},
+            "read_set": [],
+            "step_id": "write_artifact"
+          }
+        ],
+        "planner": {
+          "elapsed_seconds": 0.4567083000438288,
+          "input_tokens": 148,
+          "model": "deepseek-flash",
+          "output_tokens": 38,
+          "tokens": 186
+        },
+        "queryable": true,
+        "recovery": "evidence",
+        "strategy": "partial"
+      },
+      "status": "completed",
+      "owner": "pilot-worker",
+      "epoch": 1,
+      "deadline": 1795754165.26045,
+      "decisions": [
+        {
+          "sequence": 9,
+          "epoch": 1,
+          "kind": "planner",
+          "remaining_budget": {
+            "replans": 3,
+            "tokens": 19814,
+            "tools": 30
+          },
+          "step": null,
+          "usage": {
+            "elapsed_seconds": 0.4567083000438288,
+            "input_tokens": 148,
+            "model": "deepseek-flash",
+            "output_tokens": 38,
+            "tokens": 186
+          }
+        },
+        {
+          "sequence": 10,
+          "epoch": 1,
+          "action": "CONTINUE",
+          "affected_steps": [],
+          "budget": {
+            "replans": 3,
+            "tokens": 19814,
+            "tools": 30
+          },
+          "budget_charge": {
+            "replans": 0,
+            "tokens": 0,
+            "tools": 1
+          },
+          "candidate_costs": {
+            "CONTINUE": {
+              "latency_ms": 100,
+              "replans": 0,
+              "tokens": 0,
+              "tools": 1
+            }
+          },
+          "kind": "decision",
+          "observation": {
+            "authority": "VALID",
+            "dependency_known": true,
+            "evidence": "NEW",
+            "queryable": true,
+            "retry_guaranteed": true,
+            "semantic": "VALID"
+          },
+          "policy_version": "evidence-cost-v1",
+          "reason_code": "NEW_AUTHORIZED_STEP",
+          "required_evidence": [],
+          "safe_candidates": [
+            "CONTINUE"
+          ],
+          "step": "write_artifact"
+        },
+        {
+          "sequence": 11,
+          "epoch": 1,
+          "changed_resources": [],
+          "kind": "dispatch",
+          "proposal": {
+            "effect": {
+              "artifact": "release-notes-v2"
+            },
+            "predicates": {},
+            "versions": {
+              "artifact": 0
+            }
+          },
+          "step": "write_artifact"
+        },
+        {
+          "sequence": 12,
+          "epoch": 1,
+          "dispatch_seconds": 0.012597599998116493,
+          "kind": "evidence",
+          "result": "CONFIRMED",
+          "step": "write_artifact",
+          "target": {
+            "receipt": "7806b4c355a40c715e460093a6408dcca3639dd2cd2be5a1e27cea5f409cc513",
+            "status": "COMMITTED"
+          }
+        },
+        {
+          "sequence": 13,
+          "epoch": 1,
+          "budget": {
+            "replans": 3,
+            "tokens": 19814,
+            "tools": 29
+          },
+          "kind": "terminal",
+          "result": "DONE",
+          "step": null
+        }
+      ],
+      "receipts": [
+        {
+          "job": "agent-e9574b8178f74d00a0ea9f58ca0876a0",
+          "step": "write_artifact",
+          "payload": "{\"artifact\":\"release-notes-v2\"}",
+          "receipt": "7806b4c355a40c715e460093a6408dcca3639dd2cd2be5a1e27cea5f409cc513",
+          "epoch": 1,
+          "commit_evidence": {
+            "observed": {
+              "artifact": null
+            },
+            "predicates": {},
+            "versions": {
+              "artifact": 0
+            }
+          }
+        }
+      ]
+    },
+    "world": {
+      "spec": {
+        "version": 2,
+        "value": "v2"
+      },
+      "artifact": {
+        "version": 1,
+        "value": "release-notes-v2"
+      }
+    },
+    "elapsed_seconds": 0.3470920999534428
+  },
+  {
+    "case": {
+      "id": "fulfillment-updated",
+      "family": "fulfillment",
+      "holdout": true,
+      "scenario": "updated",
+      "expected": {
+        "artifact": "route-west"
+      },
+      "plan": [
+        {
+          "step_id": "verify",
+          "read_set": [
+            "spec"
+          ],
+          "preconditions": {
+            "spec": "v1"
+          },
+          "repair": {
+            "preconditions": {
+              "spec": "v2"
+            }
+          }
+        },
+        {
+          "step_id": "publish",
+          "dependencies": [
+            "verify"
+          ],
+          "effect": {
+            "artifact": "route-east"
+          },
+          "repair": {
+            "effect": {
+              "artifact": "route-west"
+            }
+          }
+        }
+      ]
+    },
+    "arm": "a4",
+    "job": {
+      "id": "agent-56d0520ce239407f8eb4929f952fb8fd",
+      "task": {
+        "observed_world": {
+          "spec": {
+            "value": "v2",
+            "version": 2
+          }
+        },
+        "optimize": true,
+        "plan": [
+          {
+            "dependencies": [],
+            "effect": {
+              "artifact": "route-west"
+            },
+            "preconditions": {},
+            "read_set": [],
+            "step_id": "write-artifact"
+          }
+        ],
+        "planner": {
+          "elapsed_seconds": 0.6255474999779835,
+          "input_tokens": 145,
+          "model": "deepseek-flash",
+          "output_tokens": 35,
+          "tokens": 180
+        },
+        "queryable": true,
+        "recovery": "evidence",
+        "strategy": "partial"
+      },
+      "status": "completed",
+      "owner": "pilot-worker",
+      "epoch": 1,
+      "deadline": 1795754165.6199265,
+      "decisions": [
+        {
+          "sequence": 9,
+          "epoch": 1,
+          "kind": "planner",
+          "remaining_budget": {
+            "replans": 3,
+            "tokens": 19820,
+            "tools": 30
+          },
+          "step": null,
+          "usage": {
+            "elapsed_seconds": 0.6255474999779835,
+            "input_tokens": 145,
+            "model": "deepseek-flash",
+            "output_tokens": 35,
+            "tokens": 180
+          }
+        },
+        {
+          "sequence": 10,
+          "epoch": 1,
+          "action": "CONTINUE",
+          "affected_steps": [],
+          "budget": {
+            "replans": 3,
+            "tokens": 19820,
+            "tools": 30
+          },
+          "budget_charge": {
+            "replans": 0,
+            "tokens": 0,
+            "tools": 1
+          },
+          "candidate_costs": {
+            "CONTINUE": {
+              "latency_ms": 100,
+              "replans": 0,
+              "tokens": 0,
+              "tools": 1
+            }
+          },
+          "kind": "decision",
+          "observation": {
+            "authority": "VALID",
+            "dependency_known": true,
+            "evidence": "NEW",
+            "queryable": true,
+            "retry_guaranteed": true,
+            "semantic": "VALID"
+          },
+          "policy_version": "evidence-cost-v1",
+          "reason_code": "NEW_AUTHORIZED_STEP",
+          "required_evidence": [],
+          "safe_candidates": [
+            "CONTINUE"
+          ],
+          "step": "write-artifact"
+        },
+        {
+          "sequence": 11,
+          "epoch": 1,
+          "changed_resources": [],
+          "kind": "dispatch",
+          "proposal": {
+            "effect": {
+              "artifact": "route-west"
+            },
+            "predicates": {},
+            "versions": {
+              "artifact": 0
+            }
+          },
+          "step": "write-artifact"
+        },
+        {
+          "sequence": 12,
+          "epoch": 1,
+          "dispatch_seconds": 0.01232120010536164,
+          "kind": "evidence",
+          "result": "CONFIRMED",
+          "step": "write-artifact",
+          "target": {
+            "receipt": "d85d34f1907d1eea0f936f565b5d23dc867433d23f19466109bd723c80918b0d",
+            "status": "COMMITTED"
+          }
+        },
+        {
+          "sequence": 13,
+          "epoch": 1,
+          "budget": {
+            "replans": 3,
+            "tokens": 19820,
+            "tools": 29
+          },
+          "kind": "terminal",
+          "result": "DONE",
+          "step": null
+        }
+      ],
+      "receipts": [
+        {
+          "job": "agent-56d0520ce239407f8eb4929f952fb8fd",
+          "step": "write-artifact",
+          "payload": "{\"artifact\":\"route-west\"}",
+          "receipt": "d85d34f1907d1eea0f936f565b5d23dc867433d23f19466109bd723c80918b0d",
+          "epoch": 1,
+          "commit_evidence": {
+            "observed": {
+              "artifact": null
+            },
+            "predicates": {},
+            "versions": {
+              "artifact": 0
+            }
+          }
+        }
+      ]
+    },
+    "world": {
+      "spec": {
+        "version": 2,
+        "value": "v2"
+      },
+      "artifact": {
+        "version": 1,
+        "value": "route-west"
+      }
+    },
+    "elapsed_seconds": 0.3641832999419421
+  }
+]

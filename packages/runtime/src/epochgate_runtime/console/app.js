@@ -380,6 +380,16 @@ async function runsPage(version) {
     } catch (error) { toast(error.message, true); }
   };
   paint();
+  const listing = document.createElement("section");
+  listing.className = "card stack-small";
+  listing.innerHTML = `<h2>Agent Intelligence</h2>${empty("正在读取持久任务…")}`;
+  get(main,".stack")?.append(listing);
+  try {
+    const {runs: agentRuns} = await api("/agent/tasks");
+    if (listing.isConnected) listing.innerHTML = `<h2>Agent Intelligence</h2>${table(["Run","状态","Epoch"],agentRuns.map(run=>[
+      `<a class="link mono" href="${runLink(run.id)}">${esc(run.id)}</a>`,pill(run.status),esc(run.epoch)
+    ]))}`;
+  } catch (error) { if (listing.isConnected) listing.innerHTML = errorBox(error); }
 }
 
 
@@ -396,6 +406,24 @@ async function workspacePage(version) {
   let preview;
   let preflight;
   const target = get(main,"#workspace-step");
+  const planner = document.createElement("section");
+  planner.className = "card stack-small";
+  planner.innerHTML = `<h2>提交 Agent 计划</h2><p>任务由独立 Worker 领取，目标端为受控资源存储。可提交 plan，或以 prompt 和 resources 请求 DeepSeek 生成计划。</p>
+    <form class="stack-small"><label>计划 JSON <textarea name="plan" required placeholder='{"plan":[{"step_id":"publish","effect":{"demo-artifact":"content"}}]}'></textarea></label>
+    <button class="button">登记持久任务</button></form><div></div>`;
+  get(main,".stack")?.append(planner);
+  const plannerForm = get(planner,"form");
+  plannerForm.onsubmit = async event => {
+    event.preventDefault();
+    const submit = get(plannerForm,"button");
+    submit.disabled = true;
+    try {
+      const task = JSON.parse(plannerForm.elements.plan.value);
+      const result = await api(task?.prompt ? "/agent/model-tasks" : "/agent/tasks", task);
+      if (version === routeVersion) location.hash = runLink(result.run_id);
+    } catch (error) { get(planner,"div").innerHTML = errorBox(error); }
+    finally { submit.disabled = false; }
+  };
   const previousKey = sessionStorage.getItem("epochgate:last-launch");
   if (previousKey) {
     const box = get(main,"#last-launch");
@@ -587,6 +615,37 @@ function duration(start, end) {
 }
 
 async function runDetail(version, id, initialTab, focusKind, focusId) {
+  if (id.startsWith("agent-")) {
+    const paint = async () => {
+      try {
+        const view = await api(`/agent/tasks/${enc(id)}`);
+        if (version !== routeVersion) return;
+        const repairs = view.decisions.filter(item=>item.kind === "repair");
+        const latestRepair = repairs.at(-1);
+        const decisions = view.decisions.filter(item=>item.kind === "decision");
+        const latestDecision = decisions.at(-1);
+        const latestBudget = view.decisions.at(-1)?.budget ?? latestDecision?.budget;
+        const changed = view.decisions.flatMap(item=>item.changed_resources ?? []);
+        main.innerHTML = `<div class="stack">${heading("Agent Intelligence",esc(id),link("运行记录","#/runs","outline"))}
+          <div class="grid">${metric("Worker epoch",view.epoch)}${metric("任务状态",view.status)}${metric("目标回执",view.receipts.length)}</div>
+          <section class="card stack-small"><h2>Plan Graph</h2>${table(["步骤","依赖","读取","写入"],(latestRepair?.after ?? view.task.plan).map(node=>[
+            esc(node.step_id),esc((node.dependencies ?? []).join(", ")),esc((node.read_set ?? []).join(", ")),esc(Object.keys(node.effect ?? {}).join(", "))
+          ]))}${fields([
+            ["状态变化",esc([...new Set(changed)].join(", ") || "NOT_OBSERVED")],
+            ["失效节点",esc(latestRepair?.invalidated_steps?.join(", ") || "NOT_OBSERVED")],
+            ["保留节点",esc(latestRepair?.preserved_steps?.join(", ") || "NOT_OBSERVED")],
+            ["最近决策",esc(latestDecision?.action)],["决策依据",esc(latestDecision?.reason_code)]
+          ])}${latestRepair ? details("修复前后计划",{before:latestRepair.before,after:latestRepair.after}) : ""}
+          ${latestBudget ? details("最近记录的预算",latestBudget) : ""}</section>
+          <section class="card stack-small"><h2>Agent Decision Trace</h2>${table(["序号","步骤","决策或结果","依据"],view.decisions.map(item=>[
+            esc(item.sequence),esc(item.step),esc(item.action ?? item.result ?? item.kind),details(item.reason_code ?? "证据",item)
+          ]))}${details("Effect Evidence",view.receipts)}</section></div>`;
+      } catch (error) { if (version === routeVersion) main.innerHTML = errorBox(error); }
+    };
+    await paint();
+    if (version === routeVersion) refreshTimer = setInterval(() => { if (!main.querySelector("details[open]")) paint(); },3000);
+    return;
+  }
   const path = `/runs/${enc(id)}`;
   let view = await api(`${path}?figures=false`);
   if (version !== routeVersion) return;
