@@ -6,8 +6,11 @@ import base64
 import hashlib
 import json
 import os
+import shutil
 import subprocess
+import threading
 import time
+from pathlib import Path
 from typing import Any, Callable
 
 from epochgate_runtime.ledger import RunLedger
@@ -27,19 +30,165 @@ _WRITE_TARGET = (
 )
 
 
+_DOCKER_PREFIX: list[str] | None = None
+_ENSURE_LOCK = threading.Lock()
+_ENSURE_UNTIL = 0.0
+
+
+def _windows_docker_exe() -> str | None:
+    found = shutil.which("docker")
+    if found:
+        return found
+    local = os.environ.get("LOCALAPPDATA", "")
+    program = os.environ.get("ProgramFiles", r"C:\Program Files")
+    candidates = [
+        Path(local) / "Programs" / "DockerDesktop" / "resources" / "bin" / "docker.exe",
+        Path(program) / "Docker" / "Docker" / "resources" / "bin" / "docker.exe",
+    ]
+    for path in candidates:
+        if path.is_file():
+            return str(path)
+    return None
+
+
+def _docker_prefixes() -> list[list[str]]:
+    override = os.environ.get("EPOCHGATE_DOCKER_BIN", "").strip()
+    if override:
+        return [[override]]
+    if os.name != "nt":
+        return [["docker"]]
+    prefixes: list[list[str]] = []
+    exe = _windows_docker_exe()
+    if exe:
+        prefixes.append([exe])
+    prefixes.append(["wsl.exe", "-d", "eg-alpine", "-u", "root", "--", "docker"])
+    return prefixes
+
+
+_LAST_DETAIL = ""
+
+
+def _denied(text: str) -> bool:
+    lowered = text.lower()
+    return any(
+        token in lowered
+        for token in ("permission denied", "access is denied", "access denied", "e_accessdenied", "拒绝访问")
+    )
+
+
+def _linux_engine(prefix: list[str]) -> bool:
+    global _LAST_DETAIL
+    try:
+        probe = subprocess.run(
+            [*prefix, "info", "--format", "{{.OSType}}"],
+            capture_output=True,
+            timeout=20,
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        _LAST_DETAIL = f"{_LAST_DETAIL}\nunavailable"
+        return False
+    out = probe.stdout.decode("utf-8", "replace")
+    err = probe.stderr.decode("utf-8", "replace")
+    _LAST_DETAIL = f"{_LAST_DETAIL}\n{err or out}"
+    return probe.returncode == 0 and "linux" in out.lower()
+
+
+def _desktop_running() -> bool:
+    if os.name != "nt":
+        return False
+    try:
+        probe = subprocess.run(
+            ["tasklist", "/FI", "IMAGENAME eq Docker Desktop.exe", "/NH"],
+            capture_output=True,
+            timeout=8,
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False
+    return b"Docker Desktop.exe" in probe.stdout
+
+
+def _docker_prefix() -> list[str]:
+    """先用已经连上的 Linux 引擎。Windows 上 Docker Desktop 的 docker.exe 不在 PATH 里时，仍去安装目录找。"""
+    global _DOCKER_PREFIX
+    prefixes = _docker_prefixes()
+    if _DOCKER_PREFIX in prefixes and _linux_engine(_DOCKER_PREFIX):
+        return _DOCKER_PREFIX
+    for prefix in prefixes:
+        if _linux_engine(prefix):
+            _DOCKER_PREFIX = prefix
+            return prefix
+    _DOCKER_PREFIX = None
+    return prefixes[0]
+
+
 def docker_command(args: list[str]) -> list[str]:
-    """Windows 开发机走 WSL 里的 Docker。Linux 上直接调用 docker，供 CI 使用。"""
-    if os.name == "nt":
-        return ["wsl.exe", "-d", "eg-alpine", "-u", "root", "--", "docker", *args]
-    return ["docker", *args]
+    """Windows 开发机优先用本机 Docker Desktop 的 Linux 引擎，WSL 里的 docker 仍可作为同一引擎的入口。"""
+    override = os.environ.get("EPOCHGATE_DOCKER_BIN", "").strip()
+    if override:
+        return [override, *args]
+    return [*_docker_prefix(), *args]
 
 
 def docker_available() -> bool:
-    try:
-        probe = subprocess.run(docker_command(["info"]), capture_output=True, timeout=30, check=False)
-    except (OSError, subprocess.TimeoutExpired):
+    global _LAST_DETAIL
+    _LAST_DETAIL = ""
+    _docker_prefix()
+    return _DOCKER_PREFIX is not None
+
+
+def docker_reason() -> str:
+    """空字符串表示能用。denied 表示引擎已在，但这个进程不能再启动一次。down 表示引擎没起来。"""
+    if docker_available():
+        return ""
+    if _denied(_LAST_DETAIL) or _desktop_running():
+        return "denied"
+    return "down"
+
+
+def _desktop_exe() -> Path | None:
+    exe = _windows_docker_exe()
+    if not exe:
+        return None
+    desktop = Path(exe).resolve().parents[2] / "Docker Desktop.exe"
+    return desktop if desktop.is_file() else None
+
+
+def ensure_docker(wait_seconds: float = 45) -> bool:
+    """引擎没响应时拉起 Docker Desktop，再等到 Linux 引擎可连接。"""
+    global _DOCKER_PREFIX, _ENSURE_UNTIL
+    if docker_available():
+        return True
+    if time.monotonic() < _ENSURE_UNTIL:
         return False
-    return probe.returncode == 0
+    with _ENSURE_LOCK:
+        if docker_available():
+            return True
+        if time.monotonic() < _ENSURE_UNTIL:
+            return False
+        if docker_reason() == "denied":
+            _ENSURE_UNTIL = time.monotonic() + 20
+            return False
+        desktop = _desktop_exe()
+        if desktop is not None and not _desktop_running():
+            subprocess.Popen(
+                [str(desktop)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                close_fds=True,
+            )
+        deadline = time.monotonic() + wait_seconds
+        while time.monotonic() < deadline:
+            _DOCKER_PREFIX = None
+            if docker_available():
+                return True
+            time.sleep(2)
+        _DOCKER_PREFIX = None
+        ready = docker_available()
+        if not ready:
+            _ENSURE_UNTIL = time.monotonic() + 20
+        return ready
 
 
 def docker(args: list[str], data: bytes | None = None, timeout: float = 60) -> subprocess.CompletedProcess[bytes]:
@@ -217,11 +366,11 @@ def publish_container(
     staging_ok = staging_path.startswith(".eg-staging/") or staging_path.startswith("/scratch/.eg-staging/")
     if relative_path.startswith("/") or ".." in relative_path.split("/") or ".." in staging_path.split("/") or not staging_ok:
         return {"published": False, "status": "rejected", "reason": "path"}
-    existing = ledger.effect_row(idempotency_key)
-    if existing is not None and existing["phase"] == "completed":
-        return {"published": False, "status": "replayed", "receipt": existing["receipt"]}
     payload = read_staging_bytes(container, staging_path)
     if payload is None:
+        existing = ledger.effect_row(idempotency_key)
+        if existing is not None and existing["phase"] == "completed":
+            return {"published": False, "status": "replayed", "receipt": existing["receipt"]}
         return {"published": False, "status": "rejected", "reason": "staging"}
     if after_read is not None:
         after_read()
@@ -229,6 +378,8 @@ def publish_container(
     claim = ledger.claim_publish(run_id, idempotency_key, fencing_token, digest)
     if claim["status"] == "replayed":
         return {"published": False, "status": "replayed", "receipt": claim.get("receipt"), "sha256": digest}
+    if claim["status"] == "conflict":
+        return {"published": False, "status": "conflict", "receipt": claim.get("receipt"), "sha256": digest}
     if claim["status"] != "claimed":
         return {"published": False, "status": "withheld", "sha256": digest}
     if not write_published_bytes(container, relative_path, payload):

@@ -27,6 +27,7 @@ datasets/cache/
 
 # Local control-plane data created by egctl
 .epochgate/
+/.console-preview/
 
 # Regenerated ledgers and third-party checkouts. Commit the JSON summaries.
 *.sqlite
