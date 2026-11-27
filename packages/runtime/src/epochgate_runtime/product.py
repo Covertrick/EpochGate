@@ -4,8 +4,10 @@ import hashlib
 import io
 import json
 import subprocess
+import sqlite3
 import zipfile
 from datetime import datetime, timezone
+from contextlib import closing
 
 
 def csv_bytes(rows):
@@ -24,6 +26,43 @@ def csv_bytes(rows):
             cells[name] = value
         writer.writerow(cells)
     return stream.getvalue().encode("utf-8-sig")
+
+
+class LaunchRequests:
+    """Persist launch claims before starting the runner."""
+
+    def __init__(self, path):
+        self.path = path
+
+    def claim(self, key, payload):
+        digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+        with closing(sqlite3.connect(self.path)) as db, db:
+            db.execute("CREATE TABLE IF NOT EXISTS requests (key TEXT PRIMARY KEY, digest TEXT NOT NULL, response TEXT)")
+            inserted = db.execute("INSERT OR IGNORE INTO requests VALUES (?, ?, NULL)", (key, digest))
+            if inserted.rowcount:
+                return "new", None
+            original, result = db.execute("SELECT digest, response FROM requests WHERE key=?", (key,)).fetchone()
+            if original != digest:
+                return "conflict", None
+            return ("replay", json.loads(result)) if result else ("pending", None)
+
+    def complete(self, key, response):
+        with closing(sqlite3.connect(self.path)) as db, db:
+            db.execute("UPDATE requests SET response=? WHERE key=?", (json.dumps(response), key))
+
+    def reject(self, key):
+        with closing(sqlite3.connect(self.path)) as db, db:
+            db.execute("DELETE FROM requests WHERE key=?", (key,))
+
+    def lookup(self, key):
+        if not self.path.is_file():
+            return {"status": "NOT_OBSERVED"}
+        with closing(sqlite3.connect(self.path)) as db:
+            table = db.execute("SELECT 1 FROM sqlite_master WHERE name='requests'").fetchone()
+            row = db.execute("SELECT response FROM requests WHERE key=?", (key,)).fetchone() if table else None
+        if not row:
+            return {"status": "NOT_OBSERVED"}
+        return {"status": "REGISTERED", **json.loads(row[0])} if row[0] else {"status": "PENDING"}
 
 
 def research_metadata(view):
@@ -62,6 +101,8 @@ def audit_record(archive, directory):
     record["script_sha256"] = hashlib.sha256(script.read_bytes()).hexdigest() if script.is_file() else None
     record["report_sha256"] = view["sha256"].get("report.json")
     try:
+        if not view["protocol_matches"]:
+            raise ValueError("冻结协议的 SHA-256 不一致。")
         record.update(archive.audit())
     except (OSError, RuntimeError, ValueError, subprocess.TimeoutExpired) as exc:
         record.update(status="AUDIT_FAILED", result=None, error=str(exc))

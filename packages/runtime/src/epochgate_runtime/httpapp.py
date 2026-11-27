@@ -33,7 +33,7 @@ from epochgate_runtime.figures import phase_label, write_run_figures
 from epochgate_runtime.jobs import JobRunner
 from epochgate_runtime.observations import observe_run
 from epochgate_runtime.observatory import ResearchArchive, evidence, summarize, workspace_preview
-from epochgate_runtime.product import audit_record, cell_timeline, research_export
+from epochgate_runtime.product import LaunchRequests, audit_record, cell_timeline, csv_bytes, research_export
 from epochgate_runtime.plugin_patch import find_repo
 from epochgate_runtime.processes import cancel_process, start_sleeper
 from epochgate_runtime.sandbox import docker_available, docker_reason, ensure_docker, stop_container
@@ -87,7 +87,7 @@ class ApiError(Exception):
         self.message = message
 
 
-def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | None = None, control_url: str = "http://127.0.0.1:8765") -> FastAPI:
+def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | None = None, control_url: str = "http://127.0.0.1:8765", demo_mode: bool = False) -> FastAPI:
     app = FastAPI(title="EpochGate", version="0.1.0", description="执行控制面。页面和 DSH 插件调用同一组路径。")
     jobs = JobRunner()
     action_locks = {name: threading.Lock() for name in _ACTIONS}
@@ -98,6 +98,7 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
     app.state.sessions = SessionStore(runtime, data_dir, jobs, repo=repo if repo is not None else find_repo(), control_url=control_url, token=token)
     started_at = datetime.now(timezone.utc).isoformat()
     archive = ResearchArchive(app.state.sessions.repo)
+    launches = LaunchRequests(data_dir / "launch-requests.sqlite")
     try:
         runtime_version = version("epochgate-runtime")
     except PackageNotFoundError:
@@ -106,6 +107,10 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
     @app.exception_handler(ApiError)
     async def api_error(_request: Request, exc: ApiError) -> JSONResponse:
         return JSONResponse({"code": exc.code, "message": exc.message}, status_code=exc.status)
+
+    @app.exception_handler(sqlite3.Error)
+    async def storage_error(_request: Request, _exc: sqlite3.Error) -> JSONResponse:
+        return JSONResponse({"code": "storage_unavailable", "message": "账本暂时不可用。请稍后重新读取。"}, status_code=503)
 
     @app.exception_handler(SessionError)
     async def session_error(_request: Request, exc: SessionError) -> JSONResponse:
@@ -132,7 +137,7 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.get("/health")
     def health() -> dict[str, Any]:
-        return {"ok": True, "authority": "run_ledger"}
+        return {"ok": True, "authority": "run_ledger", "mode": "demo" if demo_mode else "local"}
 
     @app.get("/session-token")
     def session_token(request: Request) -> dict[str, str]:
@@ -165,10 +170,43 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
             row["phase_label"] = phase_label(str(row["phase"]))
             effects = runtime.ledger.effects_for_run(row["run_id"])
             audit = evidence(runtime, row["run_id"], events, effects)
+            row["attempt_count"] = len(audit["attempts"])
             row.update(summarize(row, events, effects, audit["receipts"]))
             rows.append(row)
         rows.sort(key=lambda item: item["last_seq"], reverse=True)
         return {"runs": rows}
+
+    @app.get("/observatory/runs/export")
+    def export_runs(ids: str = "") -> Response:
+        selection = set(ids.split(",")) - {""}
+        rows = [row for row in list_runs()["runs"] if not selection or row["run_id"] in selection]
+        return Response(csv_bytes(rows), media_type="text/csv")
+
+    @app.get("/observatory/search")
+    def search(q: str, start: str = "", end: str = "") -> dict[str, Any]:
+        query = q.strip().casefold()
+        if not query:
+            return {"matches": []}
+        matches = []
+        for row in list_runs()["runs"]:
+            stamp = row["created_at"] or ""
+            if (start and stamp[:10] < start) or (end and (not stamp or stamp[:10] > end)):
+                continue
+            run_id = row["run_id"]
+            snapshot = _present_run(runtime, run_id, figures=False)
+            candidates = [("run", run_id), ("commit", row["git_commit"])]
+            candidates.extend(("attempt", item["attempt_id"]) for item in snapshot["attempts"])
+            candidates.extend(("effect", item.get("effect_id") or item["idempotency_key"]) for item in snapshot["effects"])
+            candidates.extend(("receipt", item["receipt_id"]) for item in snapshot["receipts"])
+            matches.extend({"type": kind, "id": value, "run_id": run_id}
+                           for kind, value in candidates if value and query in value.casefold())
+        if not (start or end):
+            try:
+                matches.extend({"type": "experiment", "id": row["id"]}
+                               for row in archive.data()["manifest"]["cases"] if query in row["id"].casefold())
+            except FileNotFoundError:
+                pass
+        return {"matches": matches[:60]}
 
     @app.get("/runs/{run_id}")
     def get_run(run_id: str, figures: bool = True) -> dict[str, Any]:
@@ -181,6 +219,17 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.post("/actions/{name}")
     def start_action(name: str) -> dict[str, Any]:
+        if name == "unknown-outcome":
+            def unknown_demo() -> dict[str, Any]:
+                ledger = runtime.ledger
+                run_id = "unknown-" + uuid.uuid4().hex[:12]
+                ledger.create_run(run_id)
+                ledger.append_event(run_id, "run_created", {"scenario": name})
+                state = ledger.advance(run_id, "running")
+                key = run_id + ":effect"
+                result = ledger.seal_unconfirmed_external(run_id, key, state.fencing_token, state.state_version)
+                return {"run_id": run_id, **result}
+            return jobs.submit(unknown_demo)
         if name == "cancellation":
             def cancel_demo() -> dict[str, Any]:
                 started = time.perf_counter()
@@ -278,24 +327,36 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
 
     @app.get("/observatory/system")
     def system() -> dict[str, Any]:
+        start = time.perf_counter()
         engine = docker_available()
+        docker_ms = round((time.perf_counter() - start) * 1000, 2)
         with jobs._lock:
             counts = {state: sum(job["status"] == state for job in jobs._jobs.values())
                       for state in ("queued", "running", "failed", "succeeded")}
             processes = list(jobs._processes)
+            recent = [{key: task[key] for key in ("job_id", "run_id", "status")} for task in list(jobs._jobs.values())[-10:]]
+        sqlite_start = time.perf_counter()
         with runtime.ledger._lock:
             db = runtime.ledger._conn
             storage_path = db.execute("PRAGMA database_list").fetchone()[2]
             journal_mode = db.execute("PRAGMA journal_mode").fetchone()[0]
             schema = runtime.ledger.schema_version()
+            transaction = db.in_transaction
         with runtime.sink._lock:
             sink_path = runtime.sink._conn.execute("PRAGMA database_list").fetchone()[2]
+        def storage_info(path):
+            file = Path(path)
+            return {"name": file.name if path else ":memory:",
+                    "bytes": file.stat().st_size if path and file.is_file() else None}
         return {"checked_at": datetime.now(timezone.utc).isoformat(), "started_at": started_at,
+                "uptime_seconds": (datetime.now(timezone.utc) - datetime.fromisoformat(started_at)).total_seconds(),
                 "runtime": runtime_version, "python": sys.version.split()[0], "control_plane": "AVAILABLE",
-                "sqlite": {"status": "CONNECTED", "version": sqlite3.sqlite_version, "schema": schema, "journal": journal_mode},
-                "storage": {"ledger": storage_path, "sink": sink_path, "data_dir": str(data_dir.resolve())},
-                "docker": {"status": "AVAILABLE" if engine else docker_reason()},
-                "worker": {"status": "IN_PROCESS", "jobs": counts, "attached_runs": processes},
+                "sqlite": {"status": "CONNECTED", "version": sqlite3.sqlite_version, "schema": schema, "journal": journal_mode,
+                           "check_ms": round((time.perf_counter() - sqlite_start) * 1000, 2), "transaction": transaction},
+                "storage": {"ledger": storage_info(storage_path), "sink": storage_info(sink_path)},
+                "docker": {"status": "AVAILABLE" if engine else docker_reason(), "check_ms": docker_ms},
+                "worker": {"status": "IN_PROCESS", "jobs": counts, "attached_runs": processes, "recent": recent,
+                           "held_leases": len(runtime.ledger.held_leases())},
                 "model": {"status": "CONFIGURED" if api_key() else "NOT_CONFIGURED", "connectivity": "NOT_OBSERVED"}}
 
     @app.get("/observatory/system/log")
@@ -379,10 +440,32 @@ def create_app(runtime: Runtime, data_dir: Path, token: str, *, repo: Path | Non
         return {"sessions": app.state.sessions.list_sessions()}
 
     @app.post("/sessions")
-    def create_session(body: SessionBody) -> dict[str, Any]:
-        view = app.state.sessions.create(body.workspace, body.task, body.test_command, title=body.title, timeout=body.timeout)
+    def create_session(body: SessionBody, request: Request) -> dict[str, Any]:
+        if demo_mode:
+            raise ApiError(409, "demo_mode", "演示实例只支持演示场景。")
+        key = request.headers.get("Idempotency-Key")
+        if key:
+            if len(key) > 128:
+                raise ApiError(400, "invalid_launch_key", "启动请求标识过长。")
+            state, previous = launches.claim(key, body.model_dump())
+            if state == "replay":
+                return previous
+            if state != "new":
+                raise ApiError(409, "launch_" + state, "启动请求已登记或参数不一致。请在运行历史中确认结果。")
+        try:
+            view = app.state.sessions.create(body.workspace, body.task, body.test_command, title=body.title, timeout=body.timeout)
+        except SessionError:
+            if key:
+                launches.reject(key)
+            raise
+        if key:
+            launches.complete(key, {name: view[name] for name in ("run_id", "session_id", "job_id") if name in view})
         view["events"] = [_present_event(item) for item in view["events"]]
         return _with_figures(data_dir, view)
+
+    @app.get("/observatory/launch/{key}")
+    def lookup_launch(key: str) -> dict[str, Any]:
+        return launches.lookup(key)
 
     @app.get("/sessions/{session_id}")
     def get_session(session_id: str) -> dict[str, Any]:

@@ -153,3 +153,6 @@ dialog::backdrop { background: #202e26a8; }
   .card { padding: 12px; }
   .steps li { font-size: .79rem; }
 }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

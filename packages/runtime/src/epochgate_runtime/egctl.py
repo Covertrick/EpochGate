@@ -129,11 +129,14 @@ def doctor(
 def serve(
     config: str = typer.Option("epochgate.yaml", "--config"),
     data_dir: str | None = typer.Option(None, "--data-dir"),
+    demo_mode: bool = typer.Option(False, "--demo-mode", help="Use an isolated demo ledger."),
 ) -> None:
     """Start the control service and keep its ledger across restarts."""
     path = Path(config)
     settings = load_config(path)
     root = data_dir_from(path, data_dir)
+    if demo_mode:
+        root = root / "demo-mode"
     prepare_dirs(root)
     marker = root / "server.json"
     if marker.is_file():
@@ -147,7 +150,7 @@ def serve(
     port = int(settings["port"])
     token = secrets.token_urlsafe(24)
     base_url = f"http://{host}:{port}"
-    app = create_app(runtime, root, token, repo=find_repo(), control_url=base_url)
+    app = create_app(runtime, root, token, repo=find_repo(), control_url=base_url, demo_mode=demo_mode)
     record = {"pid": os.getpid(), "base_url": base_url, "status": "running", "data_dir": str(root), "token": token}
     marker.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     log = root / "logs" / "serve.log"

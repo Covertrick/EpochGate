@@ -8,6 +8,7 @@ let tokenPromise;
 let routeVersion = 0;
 let refreshTimer;
 let noticeTimer;
+let draftLaunch;
 const sessionJobs = new Map();
 const demoJobs = new Map();
 const demoResults = new Map();
@@ -20,6 +21,7 @@ const scenarios = [
   ["cancellation", "任务取消", "⊘", "启动本地子进程后撤销执行资格并发出停止信号。", "观测进程退出后释放执行槽位。"],
   ["corrected-effect", "后续效果修正", "✎", "第二个效果修正首次已发布内容。", "保留两次发布回执。"],
   ["walkthrough", "容器综合演示", "▣", "在容器中连续执行发布、资格切换、对账与取消。", "需要可用的 Docker 引擎。"],
+  ["unknown-outcome", "UNKNOWN 证据边界", "?", "登记一个无法确认的外部效果。", "保留 UNKNOWN，回执为空。"],
 ];
 const mechanisms = [
   ["Proposal", "执行提案", "查看账本记录的副作用意图、工具和入参摘要。"],
@@ -42,7 +44,9 @@ const pill = (value) => {
   const tone = /^(VERIFIED|COMPLETED|COMMITTED|CONNECTED|AVAILABLE|ACCEPTED|SUCCEEDED|MATCH)$/.test(label) ? "good"
     : /UNKNOWN|PENDING|PARTIAL|NOT_OBSERVED|CONFIGURED|QUEUED|RUNNING/.test(label) ? "warn"
     : /FAILED|REJECTED|MISMATCH|ERROR|WITHHELD|VIOLATION/.test(label) ? "bad" : "";
-  return `<span class="badge ${tone}">${esc(label)}</span>`;
+  const meaning = {COMMITTED:"已提交",VERIFIED:"已核实",REJECTED:"已拒绝",UNKNOWN:"未知",OUTCOME_UNKNOWN:"效果未知",
+    RECOVERED:"已恢复",FAILED:"失败",NOT_OBSERVED:"未观测",NOT_AVAILABLE:"不可用"};
+  return `<span class="badge ${tone}" title="${meaning[label] ?? ""}">${esc(label)}</span>`;
 };
 const empty = (message = "暂无记录。") => `<div class="empty" role="status">${esc(message)}</div>`;
 const errorBox = (error) => `<div class="empty error" role="alert">${esc(error.message ?? error)}</div>`;
@@ -57,7 +61,7 @@ const get = (parent, selector) => parent.querySelector(selector);
 const scenarioName = (key) => scenarios.find(item => item[0] === key)?.[1] ?? ({workspace:"真实任务", runtime:"Runtime"})[key] ?? key;
 const titleFor = (row) => row.task_title || row.title || row.task || scenarioName(row.scenario) || row.run_id;
 
-async function api(path, body, {blob = false} = {}) {
+async function api(path, body, {blob = false, launchKey} = {}) {
   tokenPromise ??= fetch("/session-token", {cache:"no-store"}).then(async response => {
     if (!response.ok) throw new Error("无法取得本地控制面凭证。");
     return (await response.json()).token;
@@ -68,7 +72,8 @@ async function api(path, body, {blob = false} = {}) {
   const token = await tokenPromise;
   const response = await fetch(path, {
     cache: "no-store",
-    headers: { Authorization: `Bearer ${token}`, ...(body === undefined ? {} : {"Content-Type":"application/json"}) },
+    headers: { Authorization: `Bearer ${token}`, ...(body === undefined ? {} : {"Content-Type":"application/json"}),
+      ...(launchKey ? {"Idempotency-Key":launchKey} : {}) },
     ...(body === undefined ? {} : {method:"POST", body: JSON.stringify(body)}),
   });
   if (!response.ok) {
@@ -228,26 +233,87 @@ async function runsPage(version) {
     <label>搜索 <input type="search" name="search" placeholder="Run ID 或任务名称"></label>
     <label>状态 <select name="phase"><option value="">全部</option>${options([...new Set(runs.map(row => row.phase))], value => value.toUpperCase())}</select></label>
     <label>场景 <select name="scenario"><option value="">全部</option>${options([...new Set(runs.map(row => row.scenario))], scenarioName)}</select></label>
+    <label>执行结果 <select name="result"><option value="">全部</option>${options(["succeeded","failed","rejected","unknown","recovered"])}</select></label>
+    <label>仓库 <input name="repository"></label><label>Git SHA <input name="commit"></label>
+    <label>排序 <select name="order"><option value="desc">最新</option><option value="asc">最早</option></select></label>
     <label>起始日期 <input type="date" name="from"></label><label>结束日期 <input type="date" name="to"></label>
-    </form><div id="run-table"></div></section>
-    <div class="actions">${button("导出筛选结果", 'id="export-runs"', "soft")}${button("清空本地运行", 'id="clear-runs"', "danger")}</div>
+    </form><div id="run-table"></div><div id="run-pagination" class="actions"></div></section>
+    <div class="actions">${button("对比所选运行", 'id="compare-runs" disabled')}${button("导出筛选 JSON", 'id="export-runs"', "soft")}${button("导出筛选 CSV", 'id="export-runs-csv"', "soft")}${button("清空本地运行", 'id="clear-runs"', "danger")}</div>
   </div>`;
   const filter = get(main,"#filters");
   let shown = runs;
+  let page = 0;
+  const selected = new Set();
+  const outcome = row => row.unknown_effects || row.phase === "unknown" ? "unknown" :
+    row.execution_status === "failed" ? "failed" : row.rejected_submissions && !row.confirmed ? "rejected" :
+    row.recovered ? "recovered" : row.execution_status;
+  get(main,"#filters").closest("section").insertAdjacentHTML("beforebegin",`<div class="grid">${[
+    ["总运行",runs.length,"账本"],["运行中",runs.filter(row=>row.phase==="running" && !row.execution_status && !row.unknown_effects).length,"尚无终态执行结果"],
+    ["执行失败",runs.filter(row=>outcome(row)==="failed").length,"实际执行结果"],["效果未知",runs.filter(row=>outcome(row)==="unknown").length,"保留 UNKNOWN"]
+  ].map(item=>metric(...item)).join("")}</div>`);
   const paint = () => {
-    const {search,phase,scenario,from,to} = Object.fromEntries(new FormData(filter));
+    const {search,phase,scenario,from,to,result,repository,commit,order} = Object.fromEntries(new FormData(filter));
     const after = from ? new Date(`${from}T00:00:00`).getTime() : null;
     const before = to ? new Date(`${to}T23:59:59.999`).getTime() : null;
     shown = runs.filter(row => {
       const date = row.created_at ? Date.parse(row.created_at) : null;
       return `${row.run_id} ${titleFor(row)} ${row.task || ""}`.toLowerCase().includes(search.trim().toLowerCase())
         && (!phase || phase === row.phase) && (!scenario || scenario === row.scenario)
+        && (!result || result === outcome(row)) && (!repository || row.repository?.toLowerCase().includes(repository.toLowerCase()))
+        && (!commit || row.git_commit?.startsWith(commit.toLowerCase()))
         && (after === null || (date !== null && date >= after)) && (before === null || (date !== null && date <= before));
     });
-    get(main, "#run-table").innerHTML = `<p>${shown.length} / ${runs.length} 次运行</p>${runTable(shown)}`;
+    shown.sort((a,b) => (order === "asc" ? 1 : -1) * ((Date.parse(a.created_at)||0) - (Date.parse(b.created_at)||0) || a.last_seq - b.last_seq));
+    const size = 15;
+    const pages = Math.max(1,Math.ceil(shown.length/size));
+    page = Math.min(page,pages-1);
+    get(main, "#run-table").innerHTML = `<p>${shown.length} / ${runs.length} 次运行</p>${table(["选择","Run ID","任务","Attempt","Effect","结果","时间","操作"],shown.slice(page*size,(page+1)*size).map(row=>[
+      `<input type="checkbox" aria-label="选择 ${esc(row.run_id)}" data-select-run="${esc(row.run_id)}" ${selected.has(row.run_id)?"checked":""}>`,
+      `<a class="link mono" href="${runLink(row.run_id)}">${esc(row.run_id)}</a>`,esc(titleFor(row)),esc(row.attempt_count),esc(row.effect_count),
+      pill(outcome(row) ?? row.phase),esc(time(row.created_at)),
+      button("复制 ID",`data-copy-run="${esc(row.run_id)}"`,"soft")+button("JSON",`data-product-export="/runs/${enc(row.run_id)}?figures=false" data-filename="${esc(row.run_id)}.json"`,"soft")
+    ]))}`;
+    get(main,"#run-pagination").innerHTML = `${button("上一页",`id="previous-page" ${page===0?"disabled":""}`,"soft")} ${page+1} / ${pages} ${button("下一页",`id="next-page" ${page+1===pages?"disabled":""}`,"soft")}`;
+    get(main,"#previous-page").onclick = () => {page--; paint();};
+    get(main,"#next-page").onclick = () => {page++; paint();};
+    get(main,"#compare-runs").disabled = selected.size !== 2;
   };
   filter.onsubmit = event => event.preventDefault();
-  filter.oninput = paint;
+  filter.oninput = () => {page=0; paint();};
+  get(main,"#run-table").onchange = event => {
+    const id = event.target.dataset.selectRun;
+    if (!id) return;
+    if (event.target.checked && selected.size === 2) { event.target.checked=false; toast("一次选择两次运行。"); return; }
+    if (event.target.checked) selected.add(id);
+    else selected.delete(id);
+    get(main,"#compare-runs").disabled = selected.size !== 2;
+  };
+  get(main,"#run-table").onclick = async event => {
+    const id = event.target.closest("[data-copy-run]")?.dataset.copyRun;
+    if (!id) return;
+    try { await navigator.clipboard.writeText(id); toast("已复制 Run ID。"); } catch (error) { toast(error.message,true); }
+  };
+  get(main,"#compare-runs").onclick = async () => {
+    const box = modal("Compare Runs",empty("正在读取两个 Run 的证据…"));
+    try {
+      const pair = await Promise.all([...selected].map(id => api(`/runs/${enc(id)}?figures=false`)));
+      const counts = run => run.events.reduce((map,event) => ((map[event.event_type] ??= 0),map[event.event_type]++,map),Object.create(null));
+      const [left,right] = pair.map(counts);
+      const changed = [...new Set([...Object.keys(left),...Object.keys(right)])].filter(key => left[key] !== right[key]);
+      if (!box.isConnected || version !== routeVersion || !dialog.open) return;
+      box.innerHTML = `<div class="grid">${pair.map(run => `<div class="c6 stack-small"><h3>${esc(run.run_id)}</h3>${fields([
+        ["最终阶段",pill(run.phase)],["执行结果",pill(run.summary.execution_status)],["耗时",esc(run.summary.execution_seconds)],
+        ["Fencing Token",esc(run.fencing_token)],["回执核验",pill(run.summary.receipt_status)]
+      ])}${details("Attempts",run.attempts)}${details("Effects",run.effects)}${details("Receipts",run.receipts)}
+      ${details("Proposal / Admission / Recovery",run.events.filter(event=>/intent|attempt|reject|reconcile|eligib/i.test(event.event_type)))}
+      ${details("原始事件顺序",run.events)}</div>`).join("")}</div><h3>不同事件计数</h3>${table(["事件",esc(pair[0].run_id),esc(pair[1].run_id)],changed.map(key=>[esc(key),left[key]??0,right[key]??0]))}`;
+    } catch (error) { box.innerHTML=errorBox(error); }
+  };
+  get(main,"#export-runs-csv").onclick = async () => {
+    if (!shown.length) { toast("没有可导出的运行。"); return; }
+    try { download("epochgate-runs.csv",await api(`/observatory/runs/export?ids=${enc(shown.map(row=>row.run_id).join(","))}`,undefined,{blob:true})); toast("CSV 已生成。"); }
+    catch (error) { toast(error.message,true); }
+  };
   get(main, "#export-runs").onclick = () => download("epochgate-runs.json", JSON.stringify(shown,null,2));
   get(main, "#clear-runs").onclick = async () => {
     if (!await confirmAction("清空本地运行", "此操作会删除运行账本、会话和本地运行产物，无法撤销。")) return;
@@ -263,7 +329,7 @@ async function runsPage(version) {
 
 async function workspacePage(version) {
   main.innerHTML = `<div class="stack">${heading("运行工作台", "选择代码来源、定义任务，并在启动前核对执行策略。")}
-    <ol class="steps" aria-label="创建任务进度"><li>1 · 代码来源</li><li>2 · 任务定义</li><li>3 · 执行策略</li></ol>
+    <div id="last-launch" hidden></div><ol class="steps" aria-label="创建任务进度"><li>1 · 代码来源</li><li>2 · 任务定义</li><li>3 · 执行策略</li></ol>
     <div class="grid"><section class="card c8" id="workspace-step"></section><aside class="card c4 stack-small">
       <h2>本地执行环境</h2><div id="requirements">${empty("正在检查依赖…")}</div>
       <div class="actions">${button("启动 Docker / 复查", 'id="start-ready"', "soft")}</div>
@@ -274,6 +340,16 @@ async function workspacePage(version) {
   let preview;
   let preflight;
   const target = get(main,"#workspace-step");
+  const previousKey = sessionStorage.getItem("epochgate:last-launch");
+  if (previousKey) {
+    const box = get(main,"#last-launch");
+    api(`/observatory/launch/${enc(previousKey)}`).then(previous => {
+      if (!box.isConnected || previous.status === "NOT_OBSERVED") return;
+      box.hidden = false;
+      box.innerHTML = previous.run_id ? link("打开上次提交的运行",runLink(previous.run_id),"soft") :
+        empty("上次提交仍待确认，请在运行记录中检查是否已创建。");
+    }).catch(error => { if (box.isConnected) { box.hidden=false; box.innerHTML=errorBox(error); } });
+  }
   const capture = form => Object.assign(draft, Object.fromEntries(new FormData(form)));
   const next = (label) => `<button class="button" type="submit">${label}</button>`;
   const back = button("上一步", 'data-back', "soft");
@@ -355,7 +431,11 @@ async function workspacePage(version) {
         control.disabled = true;
         toast("正在准备容器和 Agent 会话…");
         try {
-          const result = await api("/sessions", draft);
+          const fingerprint = JSON.stringify(draft);
+          if (draftLaunch?.fingerprint !== fingerprint) draftLaunch = {fingerprint,key:crypto.randomUUID()};
+          sessionStorage.setItem("epochgate:last-launch",draftLaunch.key);
+          const result = await api("/sessions", draft, {launchKey:draftLaunch.key});
+          draftLaunch = undefined;
           if (result.job_id) trackSession(result.run_id, result.job_id);
           if (version === routeVersion) location.hash = runLink(result.run_id);
         } catch (error) { toast(error.message,true); control.disabled = false; }
@@ -766,7 +846,7 @@ async function runDetail(version, id, initialTab) {
 const armLabels = {sqlite:"SQLite",sqlite_fenced:"SQLite 版本围栏",file:"文件发布"};
 const schedulerLabels = {before_check:"检查前更新",check_commit_gap:"检查与提交间更新",after_commit:"提交后更新"};
 
-async function researchPage(version) {
+async function researchPage(version, cellId) {
   const data = await api("/observatory/research");
   if (version !== routeVersion) return;
   const {report, integrity, sha256} = data;
@@ -878,6 +958,10 @@ async function researchPage(version) {
     } catch (error) { if (box.researchTicket === ticket) box.innerHTML = errorBox(error); }
   }
   const protocolBox = get(main,"#protocol-content");
+  if (cellId === "audit") {
+    get(main,"#audit-research").focus();
+    get(main,"#audit-research").scrollIntoView({block:"center"});
+  } else if (cellId) openCell(cellId);
   api("/observatory/research/artifacts/protocol",undefined,{blob:true}).then(value => value.text()).then(value => {
     protocolBox.innerHTML = details("展开协议原文",value);
   }).catch(error => { protocolBox.innerHTML = errorBox(error); });
@@ -887,13 +971,13 @@ async function systemPage(version) {
   const data = await api("/observatory/system");
   if (version !== routeVersion) return;
   const components = [
-    ["Runtime","AVAILABLE",{版本:data.runtime,Python:data.python,启动时间:time(data.started_at)}],
+    ["Runtime","AVAILABLE",{版本:data.runtime,Python:data.python,启动时间:time(data.started_at),运行时长:`${Math.floor(data.uptime_seconds)} s`}],
     ["Control Plane",data.control_plane,{authority:"run_ledger",最近检查:time(data.checked_at)}],
-    ["SQLite",data.sqlite.status,{引擎:data.sqlite.version,模式:data.sqlite.schema,事务日志:data.sqlite.journal}],
-    ["Worker",data.worker.status,{等待中:data.worker.jobs.queued,活跃任务:data.worker.jobs.running,跟踪中的进程:data.worker.attached_runs}],
-    ["Docker",data.docker.status,{引擎探测:data.docker.status}],
+    ["SQLite",data.sqlite.status,{引擎:data.sqlite.version,模式:data.sqlite.schema,事务日志:data.sqlite.journal,当前事务:String(data.sqlite.transaction),耗时:`${data.sqlite.check_ms} ms`}],
+    ["Worker",data.worker.status,{等待中:data.worker.jobs.queued,活跃任务:data.worker.jobs.running,跟踪中的进程:data.worker.attached_runs,当前租约:data.worker.held_leases,近期任务:data.worker.recent}],
+    ["Docker",data.docker.status,{引擎探测:data.docker.status,耗时:`${data.docker.check_ms} ms`}],
     ["DeepSeek",data.model.status,{连接测试:data.model.connectivity}],
-    ["Storage","AVAILABLE",{RunLedger:data.storage.ledger,效果接收器:data.storage.sink,数据目录:data.storage.data_dir}],
+    ["Storage","AVAILABLE",{RunLedger:[data.storage.ledger],效果接收器:[data.storage.sink]}],
   ];
   main.innerHTML = `<div class="stack">${heading("系统状态", `最近健康检查 ${esc(time(data.checked_at))}`, button("重新检查",'id="refresh-system"',"soft"))}
     <section class="card stack-small"><h2>组件状态</h2>${table(["组件","状态","观测点"],components.map(([name,status,items],index) => [
@@ -951,7 +1035,8 @@ async function renderRoute() {
   const connection = document.querySelector("#connection");
   try {
     if (page === "runs" && id) await runDetail(version,decodeURIComponent(id),tab);
-    else await ({overview,workspace:workspacePage,runs:runsPage,research:researchPage,system:systemPage})[page](version);
+    else if (page === "research") await researchPage(version,id ? decodeURIComponent(id) : undefined);
+    else await ({overview,workspace:workspacePage,runs:runsPage,system:systemPage})[page](version);
     if (version === routeVersion) connection.removeAttribute("data-offline");
   } catch (error) {
     if (version !== routeVersion) return;
@@ -962,6 +1047,42 @@ async function renderRoute() {
 }
 
 window.addEventListener("hashchange",renderRoute);
+window.addEventListener("offline",() => {
+  document.querySelector("#connection").setAttribute("data-offline","");
+  toast("连接中断。恢复后将读取服务端状态。",true);
+});
+window.addEventListener("online",() => {
+  tokenPromise = undefined;
+  if (!location.hash.startsWith("#/workspace")) renderRoute();
+  else toast("已重新连接。可重试预检或查询上次提交。");
+});
+function openSearch() {
+  const box = modal("全局搜索",`<form class="filters"><label>运行或证据 ID <input type="search" name="query" required></label>
+    <label>开始日期 <input type="date" name="start"></label><label>结束日期 <input type="date" name="end"></label>
+    <button class="button">搜索</button></form><div id="search-results"></div>`);
+  const form = get(box,"form");
+  form.elements.query.focus();
+  form.onsubmit = async event => {
+    event.preventDefault();
+    const values = new FormData(form);
+    const result = get(box,"#search-results");
+    result.innerHTML = empty("正在搜索…");
+    try {
+      const args = new URLSearchParams({q:values.get("query"),start:values.get("start"),end:values.get("end")});
+      const {matches} = await api(`/observatory/search?${args}`);
+      result.innerHTML = table(["类型","标识"], matches.map(item=>[
+        esc(item.type),`<a class="link mono" href="${item.type==="experiment" ? `#/research/${enc(item.id)}` : `${runLink(item.run_id)}/evidence`}">${esc(item.id)}</a>`
+      ]));
+    } catch (error) { result.innerHTML=errorBox(error); }
+  };
+}
+document.querySelector("#global-search").onclick = openSearch;
+document.addEventListener("keydown",event=>{
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase()==="k") {event.preventDefault(); openSearch();}
+});
+fetch("/health",{cache:"no-store"}).then(response=>response.json()).then(health=>{
+  if (health.mode==="demo") document.querySelector(".sidebar-foot").textContent="隔离演示环境";
+}).catch(()=>{});
 document.addEventListener("click", async event => {
   const control = event.target.closest("[data-product-export]");
   if (!control) return;

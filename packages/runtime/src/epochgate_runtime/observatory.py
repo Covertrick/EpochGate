@@ -67,7 +67,12 @@ def evidence(runtime, run_id: str, events: list[dict], effects: list[dict]) -> d
         receipt = effect.get("receipt")
         if not receipt:
             continue
-        remote = runtime.sink.get(key)
+        sink_unavailable = False
+        try:
+            remote = runtime.sink.get(key)
+        except sqlite3.Error:
+            remote = None
+            sink_unavailable = True
         matches = [event for event in indexed.get(key, []) if event["payload"].get("receipt") == receipt]
         confirmed = next((event for event in reversed(matches) if event["payload"].get("receipt_verified") is True), None)
         status = "NOT_OBSERVED"
@@ -75,6 +80,8 @@ def evidence(runtime, run_id: str, events: list[dict], effects: list[dict]) -> d
         if confirmed:
             status, source = "VERIFIED", "publish_readback"
             effect["payload_hash"] = confirmed["payload"].get("sha256")
+        elif sink_unavailable:
+            status, source = "NOT_AVAILABLE", "sqlite_sink"
         elif remote:
             status, source = ("VERIFIED" if remote["receipt"] == receipt else "MISMATCH"), "sqlite_sink"
             if status == "VERIFIED" and isinstance(remote.get("payload"), str):
@@ -109,7 +116,10 @@ def summarize(row: dict, events: list[dict], effects: list[dict], receipts: list
             "last_event_at": events[-1]["recorded_at"] if events else None,
             "scenario": scenario, "task": (created or {}).get("payload", {}).get("task"),
             "task_title": (created or {}).get("payload", {}).get("title"),
+            "repository": (created or {}).get("payload", {}).get("repository"),
+            "git_commit": (created or {}).get("payload", {}).get("git_commit"),
             "execution_status": outcome.get("status"), "execution_seconds": outcome.get("duration_seconds"),
+            "recovered": any(event["event_type"] == "reconciled_from_sink" for event in events),
             "confirmed": statuses["VERIFIED"], "receipt_mismatches": statuses["MISMATCH"],
             "rejected_submissions": rejected, "unknown_effects": unknown,
             "receipt_status": "MISMATCH" if statuses["MISMATCH"] else "VERIFIED" if receipts and not unknown and statuses["VERIFIED"] == len(receipts) else "PARTIAL" if statuses["VERIFIED"] else "NOT_OBSERVED",
@@ -183,11 +193,16 @@ class ResearchArchive:
         if row is None:
             raise FileNotFoundError("归档中没有该实验格。")
         database = self.artifact(f"{cell_id}/target.sqlite")
+        trace_path = self.artifact(f"{cell_id}/trace.json")
+        for path in (database, trace_path):
+            name = f"{cell_id}/{path.name}"
+            if hashlib.sha256(path.read_bytes()).hexdigest() != data["sha256"][name]:
+                raise ValueError(f"Evidence hash mismatch: {name}")
         tables = ("effects", "runtime_events") if row["arm"] == "file" else ("target_effects", "target_attempts", "receiver_authority")
         with closing(sqlite3.connect(database.as_uri() + "?mode=ro&immutable=1", uri=True)) as conn:
             conn.row_factory = sqlite3.Row
             ledger = {table: [{key: _json_value(item[key]) for key in item.keys()} for item in conn.execute(f"SELECT * FROM {table}")] for table in tables}
-        trace = json.loads(self.artifact(f"{cell_id}/trace.json").read_bytes())
+        trace = json.loads(trace_path.read_bytes())
         return {"row": row, "trace": trace, "ledger": ledger,
                 "artifacts": {name: digest for name, digest in data["sha256"].items() if name.startswith(f"{cell_id}/")}}
 

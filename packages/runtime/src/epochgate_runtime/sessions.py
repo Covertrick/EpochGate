@@ -96,6 +96,11 @@ class SessionStore:
         root = Path(workspace)
         if not root.is_dir():
             raise SessionError("workspace", "仓库目录不存在。")
+        try:
+            git = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, timeout=5)
+            commit = git.stdout.strip() if git.returncode == 0 else None
+        except (OSError, subprocess.TimeoutExpired):
+            commit = None
         missing = missing_requirements(self.repo)
         if missing:
             raise SessionError("requirements", requirement_message(missing))
@@ -113,7 +118,8 @@ class SessionStore:
             lock_workspace(container)
             ledger = self.runtime.ledger
             ledger.create_run(session_id)
-            ledger.append_event(session_id, "run_created", {"container": container, "task": task, "title": title})
+            ledger.append_event(session_id, "run_created", {"container": container, "task": task, "title": title,
+                                                            "repository": root.resolve().name, "git_commit": commit})
             ledger.advance(session_id, "running")
             record = {
                 "session_id": session_id,
