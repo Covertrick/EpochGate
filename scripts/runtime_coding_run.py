@@ -44,7 +44,11 @@ def redact(text: str, key: str) -> str:
 
 
 def post(url: str, body: dict) -> dict:
-    request = Request(url, data=json.dumps(body).encode("utf-8"), headers={"Content-Type": "application/json"})
+    headers = {"Content-Type": "application/json"}
+    token = os.environ.get("EG_CONTROL_TOKEN") or ""
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    request = Request(url, data=json.dumps(body).encode("utf-8"), headers=headers)
     with urlopen(request) as response:
         return json.loads(response.read().decode("utf-8"))
 

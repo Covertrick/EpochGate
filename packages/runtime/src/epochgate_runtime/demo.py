@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import subprocess
 import sys
-import uuid
 from pathlib import Path
 from typing import Any
 
@@ -12,8 +11,40 @@ from epochgate_runtime.api import Runtime, timeline_lines, write_report
 from epochgate_runtime.recovery import reconcile
 
 
-def _run_id(prefix: str) -> str:
-    return prefix + "-" + uuid.uuid4().hex[:12]
+_KIND_LABELS = {
+    "token": "旧令牌",
+    "demo": "旧令牌",
+    "key": "同一把钥匙",
+    "idem": "同一把钥匙",
+    "crash": "崩溃窗口",
+    "fix": "先无效，后修正",
+    "walk": "一次看完",
+    "sess": "真实任务",
+}
+
+
+def next_demo_id(ledger: Any, kind: str) -> str:
+    """同一种样板按 01、02 往后排，不再用一串随机号。"""
+    prefix = f"{kind}-"
+    numbers = []
+    for row in ledger.list_runs():
+        run_id = str(row["run_id"])
+        if not run_id.startswith(prefix):
+            continue
+        tail = run_id[len(prefix):]
+        if tail.isdigit():
+            numbers.append(int(tail))
+    return f"{kind}-{max(numbers, default=0) + 1:02d}"
+
+
+def run_title(run_id: str) -> str:
+    kind, _, rest = str(run_id).partition("-")
+    label = _KIND_LABELS.get(kind)
+    if label is None:
+        return str(run_id)
+    if rest.isdigit():
+        return f"{label} {int(rest)}"
+    return f"{label} {rest[:4]}" if rest else label
 
 
 def prepare_dirs(data_dir: Path) -> None:
@@ -26,9 +57,9 @@ def prepare_dirs(data_dir: Path) -> None:
 def run_stale_write(data_dir: Path) -> dict[str, Any]:
     """旧 token 发布被拒绝，新 token 发布一次，同一键再次发布不再写文件。"""
     prepare_dirs(data_dir)
-    run_id = _run_id("demo")
     runtime = Runtime.open(data_dir / "epochgate.db", data_dir=data_dir)
     try:
+        run_id = next_demo_id(runtime.ledger, "token")
         first = runtime.reserve(run_id, "workspace/main.py")
         second = runtime.reserve(run_id, "workspace/main.py")
         stale = runtime.publish(first, b"old-bytes")
@@ -37,6 +68,11 @@ def run_stale_write(data_dir: Path) -> dict[str, Any]:
         written = target.read_bytes() if target.is_file() else b""
         replay = runtime.publish(second, b"should-not-replace")
         rewritten = target.read_bytes() if target.is_file() else b""
+        runtime.ledger.append_event(
+            run_id,
+            "publish_outcome",
+            {"status": replay.get("status"), "unchanged": rewritten == b"new-bytes", "idempotency_key": second.idempotency_key},
+        )
         snapshot = runtime.inspect(run_id)
     finally:
         runtime.close()
@@ -85,11 +121,11 @@ def run_stale_write(data_dir: Path) -> dict[str, Any]:
 def run_crash_recovery(data_dir: Path) -> dict[str, Any]:
     """Worker 在写入接收器后、receipt 前退出。重新打开账本后补记同一次效果。"""
     prepare_dirs(data_dir)
-    run_id = _run_id("crash")
     database = data_dir / "epochgate.db"
     sink_path = data_dir / "sink.sqlite"
     runtime = Runtime.open(database, data_dir=data_dir)
     try:
+        run_id = next_demo_id(runtime.ledger, "crash")
         runtime.ledger.create_run(run_id)
         runtime.ledger.append_event(run_id, "run_created", {"scenario": "crash-recovery"})
         runtime.ledger.advance(run_id, "running")
@@ -115,8 +151,15 @@ def run_crash_recovery(data_dir: Path) -> dict[str, Any]:
     )
     recovered = Runtime.open(database, data_dir=data_dir)
     try:
+        recovered.ledger.append_event(run_id, "worker_crashed", {
+            "checkpoint": "after_sink" if completed.returncode == 86 else None,
+            "exit_code": completed.returncode,
+            "idempotency_key": key,
+        })
         first = reconcile(recovered.ledger, recovered.sink, run_id=run_id, idempotency_key=key, fencing_token=token)
         second = reconcile(recovered.ledger, recovered.sink, run_id=run_id, idempotency_key=key, fencing_token=token)
+        recovered.ledger.append_event(run_id, "reconcile_decision", {"decision": first["decision"], "idempotency_key": key, "order": 1})
+        recovered.ledger.append_event(run_id, "reconcile_decision", {"decision": second["decision"], "idempotency_key": key, "order": 2})
         accepts = recovered.sink.accepted_count(key)
         snapshot = recovered.inspect(run_id)
     finally:
@@ -146,6 +189,82 @@ def run_crash_recovery(data_dir: Path) -> dict[str, Any]:
     report["report_json"] = paths["json"]
     report["report_html"] = paths["html"]
     report["timeline"] = timeline_lines(snapshot)
+    return report
+
+
+def run_idempotency_conflict(data_dir: Path) -> dict[str, Any]:
+    """同一资格、同一幂等键，第二份不同字节不能替换已经发布的文件。"""
+    prepare_dirs(data_dir)
+    runtime = Runtime.open(data_dir / "epochgate.db", data_dir=data_dir)
+    try:
+        run_id = next_demo_id(runtime.ledger, "key")
+        attempt = runtime.reserve(run_id, "workspace/main.py")
+        first = runtime.publish(attempt, b"kept-bytes")
+        second = runtime.publish(attempt, b"other-bytes")
+        target = runtime.workspace / run_id / "main.py"
+        written = target.read_bytes() if target.is_file() else b""
+        runtime.ledger.append_event(
+            run_id,
+            "publish_outcome",
+            {
+                "status": second.get("status"),
+                "unchanged": written == b"kept-bytes",
+                "idempotency_key": attempt.idempotency_key,
+            },
+        )
+        snapshot = runtime.inspect(run_id)
+    finally:
+        runtime.close()
+    ok = first.get("published") is True and second.get("status") in {"replayed", "conflict"} and written == b"kept-bytes"
+    report = {
+        "scenario": "idempotency-conflict",
+        "offline": True,
+        "run_id": run_id,
+        "phase": snapshot["phase"],
+        "fencing_token": snapshot["fencing_token"],
+        "replay_status": second.get("status"),
+        "verified": ok,
+        "events": snapshot["events"],
+        "effects": snapshot["effects"],
+    }
+    paths = write_report(data_dir / "runs" / run_id, report)
+    report["report_json"] = paths["json"]
+    report["report_html"] = paths["html"]
+    return report
+
+
+def run_corrected_effect(data_dir: Path) -> dict[str, Any]:
+    """第一份已经落地的字节业务上无效，后继 token 发布修正后的字节。第一份回执仍在。"""
+    prepare_dirs(data_dir)
+    runtime = Runtime.open(data_dir / "epochgate.db", data_dir=data_dir)
+    try:
+        run_id = next_demo_id(runtime.ledger, "fix")
+        first = runtime.reserve(run_id, "workspace/main.py")
+        early = runtime.publish(first, b"return 0\n")
+        second = runtime.reserve(run_id, "workspace/main.py")
+        later = runtime.publish(second, b"return 1\n")
+        target = runtime.workspace / run_id / "main.py"
+        written = target.read_bytes() if target.is_file() else b""
+        effects = runtime.ledger.effects_for_run(run_id)
+        snapshot = runtime.inspect(run_id)
+    finally:
+        runtime.close()
+    early_receipt = early.get("receipt")
+    kept = any(item.get("receipt") == early_receipt and early_receipt for item in effects)
+    ok = early.get("published") is True and later.get("published") is True and written == b"return 1\n" and kept
+    report = {
+        "scenario": "corrected-effect",
+        "offline": True,
+        "run_id": run_id,
+        "phase": snapshot["phase"],
+        "fencing_token": snapshot["fencing_token"],
+        "verified": ok,
+        "events": snapshot["events"],
+        "effects": snapshot["effects"],
+    }
+    paths = write_report(data_dir / "runs" / run_id, report)
+    report["report_json"] = paths["json"]
+    report["report_html"] = paths["html"]
     return report
 
 

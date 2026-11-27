@@ -6,12 +6,16 @@ function postJson(url, body) {
   const data = Buffer.from(JSON.stringify(body));
   const request = target.protocol === "https:" ? httpsRequest : httpRequest;
   return new Promise((resolve, reject) => {
+    const headers = {
+      "content-type": "application/json",
+      "content-length": data.length,
+    };
+    if (process.env.EG_CONTROL_TOKEN) {
+      headers.authorization = `Bearer ${process.env.EG_CONTROL_TOKEN}`;
+    }
     const req = request(target, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "content-length": data.length,
-      },
+      headers,
     }, (res) => {
       const chunks = [];
       res.on("data", (chunk) => chunks.push(chunk));

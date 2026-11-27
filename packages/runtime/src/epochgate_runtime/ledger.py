@@ -84,6 +84,8 @@ class RunLedger:
         self._lock = threading.Lock()
         self._conn = sqlite3.connect(str(path or ":memory:"), check_same_thread=False)
         self._conn.execute("PRAGMA busy_timeout = 5000")
+        if path not in (None, ":memory:"):
+            self._conn.execute("PRAGMA journal_mode=WAL")
         self._conn.execute(
             """
             CREATE TABLE IF NOT EXISTS runs (
@@ -365,6 +367,15 @@ class RunLedger:
     def schema_version(self) -> str:
         row = self._conn.execute("SELECT value FROM schema_meta WHERE key = 'schema_version'").fetchone()
         return "0" if row is None else str(row[0])
+
+    def clear_runs(self) -> int:
+        with self._lock:
+            count = self._conn.execute("SELECT COUNT(*) FROM runs").fetchone()[0]
+            for table in ("runtime_events", "effects", "attempts", "leases", "cancels", "runs"):
+                self._conn.execute(f"DELETE FROM {table}")
+            self._conn.execute("DELETE FROM sqlite_sequence WHERE name = 'runtime_events'")
+            self._conn.commit()
+            return int(count)
 
     def list_runs(self) -> list[dict[str, Any]]:
         rows = self._conn.execute(

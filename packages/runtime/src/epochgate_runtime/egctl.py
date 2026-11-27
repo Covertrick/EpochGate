@@ -4,18 +4,23 @@ from __future__ import annotations
 
 import json
 import os
+import secrets
 import subprocess
 import sys
+import threading
 from pathlib import Path
 
 import typer
+import uvicorn
 
 from epochgate_runtime.api import Runtime, timeline_lines
 from epochgate_runtime.cli import load_project_env
 from epochgate_runtime.demo import format_crash, format_stale_write, prepare_dirs, run_crash_recovery, run_stale_write
+from epochgate_runtime.httpapp import create_app
+from epochgate_runtime.plugin_patch import find_repo
 from epochgate_runtime.processes import pid_alive
 from epochgate_runtime.report import doctor as run_doctor
-from epochgate_runtime.service import ControlServer
+from epochgate_runtime.sandbox import ensure_docker
 
 app = typer.Typer(add_completion=False, no_args_is_help=True, help="Run the EpochGate control plane.")
 runs_app = typer.Typer(add_completion=False, no_args_is_help=True, help="List and inspect local runs.")
@@ -140,26 +145,27 @@ def serve(
     runtime = Runtime.open(root / "epochgate.db", data_dir=root)
     host = settings["host"]
     port = int(settings["port"])
+    token = secrets.token_urlsafe(24)
+    base_url = f"http://{host}:{port}"
+    app = create_app(runtime, root, token, repo=find_repo(), control_url=base_url)
+    record = {"pid": os.getpid(), "base_url": base_url, "status": "running", "data_dir": str(root), "token": token}
+    marker.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    log = root / "logs" / "serve.log"
+    with log.open("a", encoding="utf-8") as handle:
+        handle.write(f"start {base_url} pid={os.getpid()}\n")
+    typer.echo(f"serving {base_url}")
+    typer.echo(f"data_dir={root}")
+    typer.echo(f"log={log}")
+    threading.Thread(target=ensure_docker, name="epochgate-docker", daemon=True).start()
     try:
-        server = ControlServer(runtime.ledger, runtime.sink, runtime.workspace, host=host, port=port)
+        uvicorn.run(app, host=host, port=port, log_level="info")
     except OSError as exc:
         runtime.close()
         typer.echo(f"cannot bind {host}:{port}: {exc}")
         raise typer.Exit(code=1) from exc
-    record = {"pid": os.getpid(), "base_url": server.base_url, "status": "running", "data_dir": str(root)}
-    marker.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
-    log = root / "logs" / "serve.log"
-    with log.open("a", encoding="utf-8") as handle:
-        handle.write(f"start {server.base_url} pid={os.getpid()}\n")
-    typer.echo(f"serving {server.base_url}")
-    typer.echo(f"data_dir={root}")
-    typer.echo(f"log={log}")
-    try:
-        server.httpd.serve_forever()
     except KeyboardInterrupt:
         typer.echo("stopping")
     finally:
-        server.httpd.server_close()
         record["status"] = "stopped"
         marker.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
         runtime.close()
@@ -227,6 +233,8 @@ def _run_coding(root: Path, model: str) -> None:
     env = os.environ.copy()
     env["EG_USE_EXISTING_CONTROL"] = "1"
     env["EG_CONTROL_URL"] = str(record["base_url"])
+    if record.get("token"):
+        env["EG_CONTROL_TOKEN"] = str(record["token"])
     env["EG_CODING_OUT"] = str(out)
     env["EG_CODING_MODEL"] = model
     env.pop("EPOCHGATE_API_KEY", None)

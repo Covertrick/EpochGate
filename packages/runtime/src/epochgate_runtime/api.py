@@ -146,7 +146,16 @@ _LABELS = {
     "eligibility_revoked": "资格撤销",
     "not_applied": "可控接收器没有这一行，效果未生效",
     "outcome_unknown": "无法证明效果是否生效",
+    "publish_claimed": "当前 token 取得了这次发布的声明",
+    "publish_outcome": "同一次幂等键再次发布的结果",
+    "reconcile_decision": "按接收器对账的决定",
+    "command_started": "命令已经开始",
+    "cancel_requested": "已请求取消，槽位尚未释放",
+    "process_exited": "进程已经退出",
+    "stop_signal_sent": "已向进程发出停止",
 }
+
+EVENT_LABELS = _LABELS
 
 
 def timeline_lines(snapshot: dict[str, Any]) -> list[str]:
@@ -155,40 +164,31 @@ def timeline_lines(snapshot: dict[str, Any]) -> list[str]:
         f"phase {snapshot['phase']}  token {snapshot['fencing_token']}  eligible {str(snapshot['eligible']).lower()}",
         "",
     ]
-    for index, event in enumerate(snapshot["events"], start=1):
+    for event in snapshot["events"]:
         label = _LABELS.get(event["event_type"], event["event_type"])
-        lines.append(f"{index}. {event['event_type']}")
+        lines.append(f"{event.get('seq', '')} {event['event_type']}")
         lines.append(f"   {label}")
     return lines
 
 
 def write_report(directory: Path, payload: dict[str, Any]) -> dict[str, str]:
+    from epochgate_runtime.figures import write_run_figures
+
     directory.mkdir(parents=True, exist_ok=True)
     json_path = directory / "report.json"
     html_path = directory / "report.html"
     json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    events = payload.get("events") or []
-    rows = []
-    for index, event in enumerate(events, start=1):
-        label = _LABELS.get(event["event_type"], event["event_type"])
-        rows.append(
-            "<li><strong>"
-            + html.escape(f"{index}. {event['event_type']}")
-            + "</strong><br>"
-            + html.escape(label)
-            + "</li>"
-        )
+    figures = write_run_figures(directory, payload)
     document = (
         "<!DOCTYPE html><html lang=\"zh-CN\"><head><meta charset=\"utf-8\">"
         f"<title>Run {html.escape(str(payload.get('run_id', '')))}</title>"
-        "<style>body{font-family:Segoe UI,sans-serif;max-width:42rem;margin:2rem auto;line-height:1.5}"
-        "code{background:#f4f4f4;padding:0 .2rem}</style></head><body>"
+        "<style>body{font-family:Inter,PingFang SC,sans-serif;font-weight:300;color:#4a4a46;background:#fafaf8;max-width:52rem;margin:2rem auto;line-height:1.9}"
+        "table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid rgba(212,212,207,.3);text-align:left;padding:.6rem;vertical-align:top;font-weight:300}"
+        "small{color:#b8d4e3} svg{width:100%;height:auto}</style></head><body>"
         f"<h1>Run {html.escape(str(payload.get('run_id', '')))}</h1>"
-        f"<p>phase <code>{html.escape(str(payload.get('phase', '')))}</code> "
-        f"token <code>{html.escape(str(payload.get('fencing_token', '')))}</code></p>"
-        "<ol>"
-        + "".join(rows)
-        + "</ol></body></html>\n"
+        + figures["svg"]
+        + figures["html"]
+        + "</body></html>\n"
     )
     html_path.write_text(document, encoding="utf-8")
     return {"json": str(json_path), "html": str(html_path)}
